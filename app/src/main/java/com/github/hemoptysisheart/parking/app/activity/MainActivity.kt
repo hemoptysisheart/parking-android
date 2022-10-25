@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.parking
+package com.github.hemoptysisheart.parking.app.activity
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

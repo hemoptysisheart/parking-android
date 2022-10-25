@@ -4,6 +4,7 @@
 
 1. [ADR : Information Architecture 우선주의](ia%201st.md)
 2. [ADR : git 규칙](git%20rule.md)
+3. [ADR : `README.md` 링크하기](link%20to%20readme.md)
 
 ## 참고
 

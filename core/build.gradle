@@ -1,5 +1,7 @@
 plugins {
     id 'com.android.library'
+    id 'com.google.dagger.hilt.android'
+    id 'kotlin-kapt'
     id 'org.jetbrains.kotlin.android'
 }
 
@@ -32,10 +34,18 @@ android {
 
 dependencies {
     implementation project(':domain')
+
     implementation 'androidx.core:core-ktx:1.8.0'
+    implementation 'androidx.security:security-crypto-ktx:1.1.0-alpha03'
+    implementation 'com.google.dagger:hilt-android:2.43.2'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+
+    kapt 'com.google.dagger:hilt-android-compiler:2.43.2'
 
     testImplementation 'io.github.microutils:kotlin-logging-jvm:3.0.0'
     testImplementation 'io.kotest:kotest-runner-junit5:5.5.0'
     testImplementation 'io.mockk:mockk-android:1.13.2'
     testImplementation 'io.mockk:mockk-agent:1.13.2'
+
+    kaptTest 'com.google.dagger:hilt-android-compiler:2.43.2'
 }

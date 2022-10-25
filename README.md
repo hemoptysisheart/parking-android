@@ -96,5 +96,5 @@ TODO
 
 ## 문서
 
-- [Architectural Decision Record](doc/adr/README.md)
+- [Architectural Decision Record](doc/adr)
 - [용어집](doc/glossary)

@@ -84,7 +84,9 @@ M2 이후로 나가기 위해 최소한의 유저 확보가 목표. 이 단계�
 
 [Figma - Parking](https://www.figma.com/file/I3LN6lcAVaAXlNba0kBKPN/Parking)
 
-### Domain Object
+### Information Architecture
+
+[ADR : Information Architecture 우선](doc/adr/ia%201st.md)
 
 TODO
 

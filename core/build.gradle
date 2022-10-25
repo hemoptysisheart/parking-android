@@ -6,15 +6,15 @@ plugins {
 }
 
 android {
-    namespace 'com.github.hemoptysisheart.core'
+    namespace 'com.github.hemoptysisheart.parking.core'
     compileSdk 32
 
     defaultConfig {
         minSdk 31
         targetSdk 32
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        consumerProguardFiles 'consumer-rules.pro'
     }
 
     buildTypes {

@@ -93,3 +93,8 @@ TODO
 ### 모듈과 레이어
 
 TODO
+
+## 문서
+
+- [Architectural Decision Record](doc/adr/README.md)
+- [용어집](doc/glossary)

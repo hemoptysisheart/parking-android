@@ -20,7 +20,7 @@
 2. 장시간 사용 횟수.
 3. 고속 이동시간과 앱 사용시간 일치율.
 
-## 시나리오
+## 사용 시나리오
 
 ### 저녁 약속
 
@@ -41,8 +41,14 @@
 4. 주차장 빈자리 실시간 검색 및 알림.
 5. 요금 결제.
 
-## UI
+## UX
 
 [Figma - Parking](https://www.figma.com/file/I3LN6lcAVaAXlNba0kBKPN/Parking)
 
-![UI](doc/asset/design/ui.png)
+## Domain Object
+
+TODO
+
+## 모듈과 레이어
+
+TODO

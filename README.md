@@ -22,3 +22,9 @@
 3. 주차장 평가 및 공유.
 4. 주차장 빈자리 실시간 검색 및 알림.
 5. 요금 결제.
+
+## UI
+
+[Figma - Parking](https://www.figma.com/file/I3LN6lcAVaAXlNba0kBKPN/Parking)
+
+![UI](doc/asset/design/ui.png)

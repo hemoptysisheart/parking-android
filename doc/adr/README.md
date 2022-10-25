@@ -2,7 +2,8 @@
 
 ## 목록
 
-- [ADR : Information Architecture 우선주의](ia%201st.md)
+1. [ADR : Information Architecture 우선주의](ia%201st.md)
+2. [ADR : git 규칙](git%20rule.md)
 
 ## 참고
 

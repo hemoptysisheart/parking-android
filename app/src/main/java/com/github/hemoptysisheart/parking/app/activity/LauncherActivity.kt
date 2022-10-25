@@ -7,6 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -17,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.github.hemoptysisheart.parking.R
@@ -35,7 +37,7 @@ class LauncherActivity : ComponentActivity() {
             ParkingTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
-                    LauncherLayout()
+                    LauncherLayout(stringResource(R.string.label_welcome_message, stringResource(R.string.app_name)))
                 }
             }
         }
@@ -43,7 +45,7 @@ class LauncherActivity : ComponentActivity() {
 }
 
 @Composable
-fun LauncherLayout() {
+fun LauncherLayout(welcomeMessage: String) {
     val context = LocalContext.current
 
     Column(
@@ -51,10 +53,16 @@ fun LauncherLayout() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = stringResource(R.string.label_please_wait), fontSize = 44.sp, fontWeight = FontWeight.ExtraBold)
+        Text(
+            text = welcomeMessage,
+            modifier = Modifier.fillMaxWidth(),
+            fontSize = 44.sp,
+            fontWeight = FontWeight.ExtraBold,
+            textAlign = TextAlign.Center
+        )
     }
     LaunchedEffect(true) {
-        delay(1_500L)
+        delay(3000L)
         context.startActivity(Intent(context, MainActivity::class.java))
     }
 }
@@ -63,6 +71,6 @@ fun LauncherLayout() {
 @Composable
 fun LauncherLayoutPreview() {
     ParkingTheme {
-        LauncherLayout()
+        LauncherLayout("운전 하면\nParking")
     }
 }

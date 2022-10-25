@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">Parking</string>
-    <string name="label_please_wait">Please wait.</string>
+    <string name="label_welcome_message">운전 하면\n%s</string>
 </resources>

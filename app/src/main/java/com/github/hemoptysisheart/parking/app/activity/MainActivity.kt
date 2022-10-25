@@ -13,6 +13,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * 기본 액티비티.
+ *
+ * 지도 화면 등.
+ */
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +26,7 @@ class MainActivity : ComponentActivity() {
             ParkingTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
-                    Greeting("Android")
+                    MainLayout()
                 }
             }
         }
@@ -29,14 +34,14 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
+fun MainLayout() {
+    Text(text = "Main")
 }
 
 @Preview(showBackground = true)
 @Composable
-fun DefaultPreview() {
+fun MainLayoutPreview() {
     ParkingTheme {
-        Greeting("Android")
+        MainLayout()
     }
 }

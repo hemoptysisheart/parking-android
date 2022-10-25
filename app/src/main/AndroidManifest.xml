@@ -12,13 +12,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Parking">
         <activity
-            android:name=".app.activity.MainActivity"
+            android:name=".app.activity.LauncherActivity"
             android:exported="true"
+            android:noHistory="true"
             android:theme="@style/Theme.Parking">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".app.activity.MainActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Parking" />
     </application>
 </manifest>

@@ -6,11 +6,18 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.github.hemoptysisheart.parking.R
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
+import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.LatLng
+import com.google.maps.android.compose.GoogleMap
+import com.google.maps.android.compose.Marker
+import com.google.maps.android.compose.MarkerState
+import com.google.maps.android.compose.rememberCameraPositionState
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -26,7 +33,7 @@ class MainActivity : ComponentActivity() {
             ParkingTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
-                    MainLayout()
+                    MapLayout()
                 }
             }
         }
@@ -34,14 +41,25 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MainLayout() {
-    Text(text = "Main")
+fun MapLayout() {
+    val cameraPositionState = rememberCameraPositionState {
+        position = CameraPosition.fromLatLngZoom(LatLng(35.583323, 139.540254), 19.0F)
+    }
+    GoogleMap(
+        modifier = Modifier.fillMaxSize(),
+        cameraPositionState = cameraPositionState
+    ) {
+        Marker(
+            state = MarkerState(position = cameraPositionState.position.target),
+            title = stringResource(R.string.map_marker_current_title)
+        )
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun MainLayoutPreview() {
+fun MapLayoutPreview() {
     ParkingTheme {
-        MainLayout()
+        MapLayout()
     }
 }

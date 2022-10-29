@@ -43,7 +43,11 @@
         - 키 추가 : `<meta-data android:name="com.google.android.geo.API_KEY" android:value="${GOOGLE_MAPS_API_KEY}" />`
     3. 키 설정 추가 : [`sample-local.properties`](../sample-local.properties) 파일을 복사해서 `local.properties` 파일을 만들고, 설정을 변경.
        ![로컬 키 설정](asset/gcp/maps%20local%20config.png)
+5. 지도 표시
+    1. 의존성 추가 : `com.google.maps.android:maps-compose`, `com.google.android.gms:play-services-maps`
+    2. UI 추가 : [`MapLayout()`](../app/src/main/java/com/github/hemoptysisheart/parking/app/activity/MapActivity.kt)
 
 ## 참고
 
 - [Android용 Maps SDK 빠른 시작](https://developers.google.com/maps/documentation/android-sdk/start)
+- [지도 Compose 라이브러리](https://developers.google.com/maps/documentation/android-sdk/maps-compose)

@@ -28,6 +28,10 @@ import kotlinx.coroutines.delay
 
 /**
  * 앱 시작 액티비티.
+ *
+ * TODO 권한 확인 및 요청.
+ * - 네트워크
+ * - 위치
  */
 @AndroidEntryPoint
 class LauncherActivity : ComponentActivity() {
@@ -37,7 +41,7 @@ class LauncherActivity : ComponentActivity() {
             ParkingTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
-                    LauncherLayout(stringResource(R.string.label_welcome_message, stringResource(R.string.app_name)))
+                    LauncherLayout()
                 }
             }
         }
@@ -45,7 +49,7 @@ class LauncherActivity : ComponentActivity() {
 }
 
 @Composable
-fun LauncherLayout(welcomeMessage: String) {
+fun LauncherLayout() {
     val context = LocalContext.current
 
     Column(
@@ -54,7 +58,7 @@ fun LauncherLayout(welcomeMessage: String) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = welcomeMessage,
+            text = stringResource(R.string.label_welcome_message, stringResource(R.string.app_name)),
             modifier = Modifier.fillMaxWidth(),
             fontSize = 44.sp,
             fontWeight = FontWeight.ExtraBold,
@@ -71,6 +75,6 @@ fun LauncherLayout(welcomeMessage: String) {
 @Composable
 fun LauncherLayoutPreview() {
     ParkingTheme {
-        LauncherLayout("운전 하면\nParking")
+        LauncherLayout()
     }
 }

@@ -17,6 +17,32 @@
     2. `사용자 인증 정보` -> `키 표시`
        ![설정](asset/gcp/maps%20api%20credential.png)
        ![키](asset/gcp/maps%20api%20key.png)
+4. 애플리케이션 설정.
+    1. 의존성 추가
+        - 플러그인 : `com.google.android.libraries.mapsplatform.secrets-gradle-plugin`
+        - 라이브러리 :
+    2. 권한 추가 : [`AndroidManifest.xml`](../app/src/main/AndroidManifest.xml)
+       ```xml
+       <?xml version="1.0" encoding="utf-8"?>
+       <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+       
+           <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+           <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+           <uses-permission android:name="android.permission.INTERNET" />
+       
+           <application>
+               <meta-data
+                   android:name="com.google.android.geo.API_KEY"
+                   android:value="${GOOGLE_MAPS_API_KEY}" />
+               <!-- ... -->
+           </application>
+       </manifest>
+       ```
+        - 권한 추가 : `android.permission.ACCESS_FINE_LOCATION`, `android.permission.ACCESS_NETWORK_STATE`
+          , `android.permission.INTERNET`
+        - 키 추가 : `<meta-data android:name="com.google.android.geo.API_KEY" android:value="${GOOGLE_MAPS_API_KEY}" />`
+    3. 키 설정 추가 : [`sample-local.properties`](../sample-local.properties) 파일을 복사해서 `local.properties` 파일을 만들고, 설정을 변경.
+       ![로컬 키 설정](asset/gcp/maps%20local%20config.png)
 
 ## 참고
 

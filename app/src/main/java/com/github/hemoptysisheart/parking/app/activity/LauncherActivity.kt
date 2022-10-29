@@ -67,7 +67,7 @@ fun LauncherLayout() {
     }
     LaunchedEffect(true) {
         delay(3000L)
-        context.startActivity(Intent(context, MainActivity::class.java))
+        context.startActivity(Intent(context, MapActivity::class.java))
     }
 }
 

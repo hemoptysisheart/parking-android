@@ -5,6 +5,10 @@ import android.content.SharedPreferences
 import android.util.Log
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
+import com.github.hemoptysisheart.core.model.LocationModel
+import com.github.hemoptysisheart.core.model.LocationModelImpl
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,7 +19,7 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 class AppModuleConfig {
     companion object {
-        val TAG = AppModuleConfig::class.simpleName
+        private val TAG = AppModuleConfig::class.simpleName
     }
 
     @Provides
@@ -34,5 +38,22 @@ class AppModuleConfig {
 
         Log.i(TAG, "#provideSharedPreferences return : $sharedPreferences")
         return sharedPreferences
+    }
+
+    @Provides
+    fun provideFusedLocationProviderClient(@ApplicationContext context: Context): FusedLocationProviderClient {
+        Log.v(TAG, "#provideFusedLocationProviderClient args : context=$context")
+
+        val client = LocationServices.getFusedLocationProviderClient(context)
+
+        Log.v(TAG, "#provideFusedLocationProviderClient return : $client")
+        return client
+    }
+
+    @Provides
+    fun provideLocationModel(locationProviderClient: FusedLocationProviderClient): LocationModel {
+        val model = LocationModelImpl(locationProviderClient)
+        model.init()
+        return model
     }
 }

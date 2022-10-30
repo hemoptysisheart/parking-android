@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.parking.app.ui.component
+package com.github.hemoptysisheart.parking.app.ui.component.map
 
 import android.util.Log
 import androidx.compose.foundation.background
@@ -23,11 +23,16 @@ import com.github.hemoptysisheart.parking.app.ui.config.Constants.TAG_COMPOSE
 import com.github.hemoptysisheart.parking.app.ui.container.Header
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 
+/**
+ * 기본 지도용 헤더.
+ * - 검색어 입력 필드.
+ * - 앱 설정 버튼.
+ */
 @Composable
 fun MapHeader() {
     Header {
         OutlinedTextField(
-            value = "search query",
+            value = "",
             onValueChange = {
                 Log.v(TAG_COMPOSE, "#MapHeader.onValueChange args : value=$it")
             },
@@ -36,7 +41,9 @@ fun MapHeader() {
                 .background(Color.White),
             enabled = true
         )
+
         Spacer(modifier = Modifier.width(10.dp))
+
         IconButton(
             onClick = {
                 Log.v(TAG_COMPOSE, "#MapHeader.onClick")

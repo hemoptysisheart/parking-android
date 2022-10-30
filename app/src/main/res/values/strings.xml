@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Parking</string>
     <string name="label_welcome_message">운전 하면\n%s</string>
+    <string name="label_preferences">설정</string>
     <string name="map_marker_current_title">현재 위치</string>
 </resources>

@@ -1,7 +1,7 @@
 package com.github.hemoptysisheart.parking.app.ui.component.map
 
 import android.util.Log
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -33,7 +33,8 @@ fun MapView(viewModel: MapViewModel = viewModel()) {
         mutableStateOf(MapProperties(isBuildingEnabled = true, isMyLocationEnabled = true, isTrafficEnabled = true))
     }
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier.fillMaxSize()) {
+        MapHeader()
         GoogleMap(
             modifier = Modifier.fillMaxSize(),
             cameraPositionState = cameraPositionState,
@@ -47,8 +48,6 @@ fun MapView(viewModel: MapViewModel = viewModel()) {
                 false
             }
         )
-
-        MapHeader()
     }
 
     LaunchedEffect(true) {

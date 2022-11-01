@@ -13,5 +13,8 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
+      - name: Prepare config file(s).
+        run: |
+          echo ${{ secrets.FILE_LOCAL_PROPERTIES }} >> local.properties
       - name: Unit Test
         run: ./gradlew clean test --continue

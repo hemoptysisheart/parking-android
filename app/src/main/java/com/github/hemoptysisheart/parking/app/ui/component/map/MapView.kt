@@ -7,7 +7,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.github.hemoptysisheart.parking.app.ui.config.Constants.TAG_COMPOSE
+import com.github.hemoptysisheart.parking.app.ui.config.LogicConstants.TAG_COMPOSE
 import com.github.hemoptysisheart.parking.app.viewmodel.MapViewModel
 import com.github.hemoptysisheart.parking.core.model.DummyLocationModel
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme

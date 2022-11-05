@@ -10,4 +10,8 @@ enum class PlaceLevel(
     COARSE_SPOT(0, "대략적 장소"),
     SPOT(1, "장소"),
     FINE_SPOT(2, "자세한 장소");
+
+    companion object {
+        operator fun get(ordinal: Int) = values()[ordinal]
+    }
 }

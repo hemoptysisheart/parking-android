@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.github.hemoptysisheart.parking.app.ui.component.map.MapView
-import com.github.hemoptysisheart.parking.app.ui.config.Constants.TAG_COMPOSE
+import com.github.hemoptysisheart.parking.app.ui.config.LogicConstants.TAG_COMPOSE
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 import dagger.hilt.android.AndroidEntryPoint
 

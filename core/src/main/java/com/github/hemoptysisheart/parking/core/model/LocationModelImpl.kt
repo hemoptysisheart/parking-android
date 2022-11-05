@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.core.model
+package com.github.hemoptysisheart.parking.core.model
 
 import android.annotation.SuppressLint
 import android.location.Location

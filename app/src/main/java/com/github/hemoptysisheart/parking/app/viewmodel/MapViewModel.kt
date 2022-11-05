@@ -2,7 +2,7 @@ package com.github.hemoptysisheart.parking.app.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.github.hemoptysisheart.core.model.LocationModel
+import com.github.hemoptysisheart.parking.core.model.LocationModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

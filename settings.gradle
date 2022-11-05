@@ -16,6 +16,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "Parking"
 
-include ':domain',
+include ':util',
+        ':domain',
         ':core',
         ':app'

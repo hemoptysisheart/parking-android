@@ -34,7 +34,7 @@ fun MapView(viewModel: MapViewModel = viewModel()) {
     }
 
     Column(modifier = Modifier.fillMaxSize()) {
-        MapHeader()
+        MapHeader(null)
         GoogleMap(
             modifier = Modifier.fillMaxSize(),
             cameraPositionState = cameraPositionState,

@@ -6,8 +6,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.github.hemoptysisheart.parking.app.ui.config.LogicConstants.TAG_COMPOSE
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.github.hemoptysisheart.parking.app.ui.configuration.LogicConstant.TAG_COMPOSE
 import com.github.hemoptysisheart.parking.app.viewmodel.MapViewModel
 import com.github.hemoptysisheart.parking.core.model.DummyLocationModel
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
@@ -20,7 +20,7 @@ import com.google.maps.android.compose.rememberCameraPositionState
 import kotlinx.coroutines.delay
 
 @Composable
-fun MapView(viewModel: MapViewModel = viewModel()) {
+fun MapView(viewModel: MapViewModel = hiltViewModel()) {
     Log.v(TAG_COMPOSE, "#MapView args : viewModel=$viewModel")
 
     val cameraPositionState = rememberCameraPositionState {

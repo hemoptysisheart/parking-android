@@ -7,10 +7,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.LocationOn
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.hemoptysisheart.parking.R
 import com.github.hemoptysisheart.parking.app.ui.config.LogicConstants.TAG_COMPOSE
+import com.github.hemoptysisheart.parking.app.ui.domain.PlaceViewSimple
 import com.github.hemoptysisheart.parking.app.ui.preview.domain.PlaceData
 import com.github.hemoptysisheart.parking.domain.Place
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
@@ -38,29 +36,7 @@ fun MapHeader(place: Place?) {
             .padding(5.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Row(
-            Modifier
-                .clickable {
-                    Log.v(TAG_COMPOSE, "#MapHeader place clicked.")
-                }
-                .background(Color.White, RoundedCornerShape(20.dp))
-                .border(1.dp, Color.LightGray, RoundedCornerShape(20.dp))
-                .padding(5.dp)
-                .weight(1.0F)
-        ) {
-            if (null == place) {
-                Icon(Icons.Default.Search, stringResource(R.string.map_place_view_simple_description))
-                Spacer(modifier = Modifier.width(3.dp))
-                Text(
-                    text = stringResource(R.string.map_place_view_simple_placeholder),
-                    color = Color.Gray
-                )
-            } else {
-                Icon(Icons.Default.LocationOn, place.name)
-                Spacer(modifier = Modifier.width(3.dp))
-                Text(place.name)
-            }
-        }
+        PlaceViewSimple(place = place)
 
         Spacer(modifier = Modifier.width(10.dp))
 

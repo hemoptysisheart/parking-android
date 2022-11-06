@@ -17,7 +17,6 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.rememberCameraPositionState
-import kotlinx.coroutines.delay
 
 @Composable
 fun MapScreen(viewModel: MapViewModel = hiltViewModel()) {
@@ -48,13 +47,6 @@ fun MapScreen(viewModel: MapViewModel = hiltViewModel()) {
                 false
             }
         )
-    }
-
-    LaunchedEffect(true) {
-        while (true) {
-            viewModel.test()
-            delay(1_000L)
-        }
     }
 }
 

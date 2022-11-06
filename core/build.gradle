@@ -34,10 +34,10 @@ android {
 
 dependencies {
     api project(':domain')
+    api 'com.github.f4b6a3:ulid-creator:5.1.0'
 
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.security:security-crypto-ktx:1.1.0-alpha03'
-    implementation 'com.github.f4b6a3:ulid-creator:5.1.0'
     implementation 'com.google.android.gms:play-services-location:21.0.0'
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
     implementation 'com.google.dagger:hilt-android:2.44'

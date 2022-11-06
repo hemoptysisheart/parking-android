@@ -3,7 +3,10 @@ package com.github.hemoptysisheart.parking.app.ui.component.map
 import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -19,7 +22,7 @@ import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.rememberCameraPositionState
 
 @Composable
-fun MapScreen(viewModel: MapViewModel = hiltViewModel()) {
+fun MapScreen(viewModel: MapViewModel = hiltViewModel(), navigateToSearch: () -> Unit = {}) {
     Log.v(TAG_COMPOSE, "#MapView args : viewModel=$viewModel")
 
     val cameraPositionState = rememberCameraPositionState {
@@ -33,7 +36,7 @@ fun MapScreen(viewModel: MapViewModel = hiltViewModel()) {
     }
 
     Column(modifier = Modifier.fillMaxSize()) {
-        MapHeader(null)
+        MapHeader(null, navigateToSearch)
         GoogleMap(
             modifier = Modifier.fillMaxSize(),
             cameraPositionState = cameraPositionState,

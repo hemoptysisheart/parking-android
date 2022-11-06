@@ -15,6 +15,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.github.hemoptysisheart.parking.app.ui.component.map.MapScreen
 import com.github.hemoptysisheart.parking.app.ui.configuration.NavGraphConstant.Destination
+import com.github.hemoptysisheart.parking.app.ui.screen.SearchScreen
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -46,7 +47,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainLayout(navController: NavHostController = rememberNavController()) {
     NavHost(navController = navController, Destination.MAP_SCREEN) {
-        composable(Destination.MAP_SCREEN) { MapScreen() }
+        composable(Destination.MAP_SCREEN) { MapScreen(navigateToSearch = { navController.navigate(Destination.SEARCH_SCREEN) }) }
+        composable(Destination.SEARCH_SCREEN) { SearchScreen() }
     }
 }
 

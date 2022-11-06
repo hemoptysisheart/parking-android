@@ -31,7 +31,9 @@ import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
  * - 앱 설정 버튼.
  */
 @Composable
-fun MapHeader(place: Place?) {
+fun MapHeader(place: Place?, navigateToSearch: () -> Unit = {}) {
+    Log.v(TAG_COMPOSE, "#MapHeader args : place=$place, navigateToSearch=$navigateToSearch")
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -41,7 +43,7 @@ fun MapHeader(place: Place?) {
         Row(
             Modifier
                 .clickable {
-                    Log.v(TAG_COMPOSE, "#MapHeader place clicked.")
+                    navigateToSearch()
                 }
                 .background(Color.White, RoundedCornerShape(20.dp))
                 .border(1.dp, Color.LightGray, RoundedCornerShape(20.dp))

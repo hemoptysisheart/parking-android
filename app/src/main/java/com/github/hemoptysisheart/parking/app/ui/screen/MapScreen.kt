@@ -20,7 +20,7 @@ import com.google.maps.android.compose.rememberCameraPositionState
 import kotlinx.coroutines.delay
 
 @Composable
-fun MapView(viewModel: MapViewModel = hiltViewModel()) {
+fun MapScreen(viewModel: MapViewModel = hiltViewModel()) {
     Log.v(TAG_COMPOSE, "#MapView args : viewModel=$viewModel")
 
     val cameraPositionState = rememberCameraPositionState {
@@ -60,8 +60,8 @@ fun MapView(viewModel: MapViewModel = hiltViewModel()) {
 
 @Composable
 @Preview
-fun MapViewPreview() {
+fun MapScreenPreview() {
     ParkingTheme {
-        MapView(MapViewModel(DummyLocationModel))
+        MapScreen(MapViewModel(DummyLocationModel))
     }
 }

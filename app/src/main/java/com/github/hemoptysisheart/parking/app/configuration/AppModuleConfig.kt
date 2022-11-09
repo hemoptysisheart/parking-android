@@ -16,6 +16,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -25,6 +26,7 @@ class AppModuleConfig {
     }
 
     @Provides
+    @Singleton
     fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
         Log.i(TAG, "#provideSharedPreferences args : context=$context")
 
@@ -43,6 +45,7 @@ class AppModuleConfig {
     }
 
     @Provides
+    @Singleton
     fun provideFusedLocationProviderClient(@ApplicationContext context: Context): FusedLocationProviderClient {
         Log.v(TAG, "#provideFusedLocationProviderClient args : context=$context")
 
@@ -53,6 +56,7 @@ class AppModuleConfig {
     }
 
     @Provides
+    @Singleton
     fun provideLocationModel(locationProviderClient: FusedLocationProviderClient): LocationModel {
         val model = LocationModelImpl(locationProviderClient)
         model.init()
@@ -60,5 +64,6 @@ class AppModuleConfig {
     }
 
     @Provides
+    @Singleton
     fun providePlaceModel(): PlaceModel = PlaceModelImpl()
 }

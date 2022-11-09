@@ -19,6 +19,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.github.hemoptysisheart.parking.app.ui.component.search.SearchHeader
 import com.github.hemoptysisheart.parking.app.ui.configuration.LogicConstant.TAG_COMPOSE
 import com.github.hemoptysisheart.parking.app.viewmodel.SearchViewModel
+import com.github.hemoptysisheart.parking.core.dummy.model.DummyPlaceModel
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 import java.util.*
 
@@ -64,6 +65,6 @@ fun SearchScreen(
 @Preview
 fun SearchScreenPreview() {
     ParkingTheme {
-        SearchScreen()
+        SearchScreen(SearchViewModel(DummyPlaceModel))
     }
 }

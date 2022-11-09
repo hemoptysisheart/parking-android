@@ -19,5 +19,5 @@ class SearchViewModel @Inject constructor(
 
     fun read(id: UUID) = placeModel.read(id)
 
-    override fun toString() = "$TAG(placeModel=$placeModel(${placeModel.hashCode()}))"
+    override fun toString() = "$TAG(places=$places)"
 }

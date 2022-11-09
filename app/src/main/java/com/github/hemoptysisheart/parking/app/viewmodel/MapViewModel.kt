@@ -31,5 +31,5 @@ class MapViewModel @Inject constructor(
         }
     }
 
-    override fun toString() = "$TAG(locationModel=$locationModel, placeModel=$placeModel(${placeModel.hashCode()}))"
+    override fun toString() = "$TAG(place=$place)"
 }

@@ -92,6 +92,6 @@ fun MapHeaderPreviewPlaceNull() {
 @Preview
 fun MapHeaderPreviewPlaceDummy() {
     ParkingTheme {
-        MapHeader(DummyPlace.PLACE)
+        MapHeader(DummyPlace.PLACE1)
     }
 }

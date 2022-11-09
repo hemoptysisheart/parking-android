@@ -1,21 +1,14 @@
 package com.github.hemoptysisheart.parking.app.activity
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import com.github.hemoptysisheart.parking.app.ui.component.map.MapScreen
-import com.github.hemoptysisheart.parking.app.ui.configuration.NavGraphConstant.Destination
-import com.github.hemoptysisheart.parking.app.ui.screen.SearchScreen
+import com.github.hemoptysisheart.parking.app.navigation.MainNavGraph
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,31 +24,15 @@ class MainActivity : ComponentActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.v(TAG, "#onCreate args : savedInstanceState=$savedInstanceState")
         super.onCreate(savedInstanceState)
 
         setContent {
             ParkingTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
-                    MainLayout()
+                    MainNavGraph()
                 }
             }
         }
-    }
-}
-
-@Composable
-fun MainLayout(navController: NavHostController = rememberNavController()) {
-    NavHost(navController = navController, Destination.MAP_SCREEN) {
-        composable(Destination.MAP_SCREEN) { MapScreen(navigateToSearch = { navController.navigate(Destination.SEARCH_SCREEN) }) }
-        composable(Destination.SEARCH_SCREEN) { SearchScreen() }
-    }
-}
-
-@Composable
-@Preview(showBackground = true)
-fun MainLayoutPreview() {
-    ParkingTheme {
-        MainLayout()
     }
 }

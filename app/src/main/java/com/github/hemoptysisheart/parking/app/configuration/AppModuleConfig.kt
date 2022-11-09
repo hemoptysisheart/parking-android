@@ -7,6 +7,8 @@ import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.github.hemoptysisheart.parking.core.model.LocationModel
 import com.github.hemoptysisheart.parking.core.model.LocationModelImpl
+import com.github.hemoptysisheart.parking.core.model.PlaceModel
+import com.github.hemoptysisheart.parking.core.model.PlaceModelImpl
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import dagger.Module
@@ -56,4 +58,7 @@ class AppModuleConfig {
         model.init()
         return model
     }
+
+    @Provides
+    fun providePlaceModel(): PlaceModel = PlaceModelImpl()
 }

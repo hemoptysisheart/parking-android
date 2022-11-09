@@ -12,7 +12,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.github.hemoptysisheart.parking.app.ui.configuration.LogicConstant.TAG_COMPOSE
 import com.github.hemoptysisheart.parking.app.viewmodel.MapViewModel
-import com.github.hemoptysisheart.parking.core.model.DummyLocationModel
+import com.github.hemoptysisheart.parking.core.dummy.model.DummyLocationModel
+import com.github.hemoptysisheart.parking.core.dummy.model.DummyPlaceModel
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
@@ -62,6 +63,6 @@ fun MapScreen(
 @Preview
 fun MapScreenPreview() {
     ParkingTheme {
-        MapScreen(viewModel = MapViewModel(DummyLocationModel))
+        MapScreen(viewModel = MapViewModel(DummyLocationModel, DummyPlaceModel))
     }
 }

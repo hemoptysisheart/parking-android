@@ -1,6 +1,5 @@
-package com.github.hemoptysisheart.parking.app.ui.preview.domain
+package com.github.hemoptysisheart.parking.core.dummy.domain
 
-import androidx.compose.ui.tooling.preview.Preview
 import com.github.f4b6a3.ulid.UlidCreator
 import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.domain.Place
@@ -11,9 +10,9 @@ import java.time.temporal.ChronoUnit
 import java.util.*
 
 /**
- * 미리보기([Preview])에 사용할 [Place]와 하위 타입의 인스턴스.
+ * 미리보기(`@Preview`)에 사용할 [Place]와 하위 타입의 인스턴스.
  */
-object PlaceData {
+object DummyPlace {
     val PLACE = object : Place {
         override val id: UUID = UlidCreator.getMonotonicUlid().toUuid()
 

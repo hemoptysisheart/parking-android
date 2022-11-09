@@ -20,10 +20,15 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.rememberCameraPositionState
+import java.util.*
 
 @Composable
-fun MapScreen(viewModel: MapViewModel = hiltViewModel(), navigateToSearch: () -> Unit = {}) {
-    Log.v(TAG_COMPOSE, "#MapView args : viewModel=$viewModel")
+fun MapScreen(
+    placeId: UUID? = null,
+    viewModel: MapViewModel = hiltViewModel(),
+    openSearch: () -> Unit = {}
+) {
+    Log.v(TAG_COMPOSE, "#MapView args : placeId=$placeId, viewModel=$viewModel, openSearch=$openSearch")
 
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(LatLng(35.583323, 139.540254), 17.0F)
@@ -36,7 +41,7 @@ fun MapScreen(viewModel: MapViewModel = hiltViewModel(), navigateToSearch: () ->
     }
 
     Column(modifier = Modifier.fillMaxSize()) {
-        MapHeader(null, navigateToSearch)
+        MapHeader(null, openSearch)
         GoogleMap(
             modifier = Modifier.fillMaxSize(),
             cameraPositionState = cameraPositionState,
@@ -57,6 +62,6 @@ fun MapScreen(viewModel: MapViewModel = hiltViewModel(), navigateToSearch: () ->
 @Preview
 fun MapScreenPreview() {
     ParkingTheme {
-        MapScreen(MapViewModel(DummyLocationModel))
+        MapScreen(viewModel = MapViewModel(DummyLocationModel))
     }
 }

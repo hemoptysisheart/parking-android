@@ -16,9 +16,13 @@ import com.github.hemoptysisheart.parking.app.ui.component.search.SearchHeader
 import com.github.hemoptysisheart.parking.app.ui.configuration.LogicConstant.TAG_COMPOSE
 import com.github.hemoptysisheart.parking.app.viewmodel.SearchViewModel
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
+import java.util.*
 
 @Composable
-fun SearchScreen(viewModel: SearchViewModel = hiltViewModel()) {
+fun SearchScreen(
+    viewModel: SearchViewModel = hiltViewModel(),
+    setPlaceOnMap: (UUID) -> Unit = {}
+) {
     Log.v(TAG_COMPOSE, "#SearchScreen args : viewModel=$viewModel")
 
     val list by viewModel.places.collectAsState()
@@ -29,7 +33,7 @@ fun SearchScreen(viewModel: SearchViewModel = hiltViewModel()) {
         }
 
         items(list) {
-            Button(onClick = { /*TODO*/ }) {
+            Button(onClick = { setPlaceOnMap(it.id) }) {
                 Text(text = "#${it.id} ${it.name}")
             }
         }

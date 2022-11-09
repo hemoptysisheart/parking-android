@@ -62,7 +62,7 @@ fun SearchScreen(
 }
 
 @Composable
-@Preview
+@Preview(showBackground = true)
 fun SearchScreenPreview() {
     ParkingTheme {
         SearchScreen(SearchViewModel(DummyPlaceModel))

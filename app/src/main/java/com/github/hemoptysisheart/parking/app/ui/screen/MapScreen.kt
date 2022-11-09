@@ -9,6 +9,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.github.hemoptysisheart.parking.app.ui.configuration.LogicConstant.TAG_COMPOSE
 import com.github.hemoptysisheart.parking.app.viewmodel.MapViewModel
+import com.github.hemoptysisheart.parking.core.dummy.domain.DummyPlace
 import com.github.hemoptysisheart.parking.core.dummy.model.DummyLocationModel
 import com.github.hemoptysisheart.parking.core.dummy.model.DummyPlaceModel
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
@@ -63,9 +64,20 @@ fun MapScreen(
 }
 
 @Composable
-@Preview
-fun MapScreenPreview() {
+@Preview(showBackground = true)
+fun MapScreenPreviewInit() {
     ParkingTheme {
         MapScreen(viewModel = MapViewModel(DummyLocationModel, DummyPlaceModel))
+    }
+}
+
+@Composable
+@Preview(showBackground = true)
+fun MapScreenPreviewSearch() {
+    ParkingTheme {
+        MapScreen(
+            placeId = DummyPlace.PLACE1.id,
+            viewModel = MapViewModel(DummyLocationModel, DummyPlaceModel)
+        )
     }
 }

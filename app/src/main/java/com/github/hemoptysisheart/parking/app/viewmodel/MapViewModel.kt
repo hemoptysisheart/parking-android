@@ -1,5 +1,6 @@
 package com.github.hemoptysisheart.parking.app.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.hemoptysisheart.parking.core.model.LocationModel
@@ -24,7 +25,11 @@ class MapViewModel @Inject constructor(
 
     fun loadPlace(id: UUID) {
         viewModelScope.launch {
-            place.emit(placeModel.read(id))
+            val p = placeModel.read(id)
+            Log.v(TAG, "#loadPlace : p=$p")
+            place.emit(p)
         }
     }
+
+    override fun toString() = "$TAG(locationModel=$locationModel, placeModel=$placeModel(${placeModel.hashCode()}))"
 }

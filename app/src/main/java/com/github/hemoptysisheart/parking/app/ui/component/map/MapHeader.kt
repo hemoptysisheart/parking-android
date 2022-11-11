@@ -20,8 +20,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.hemoptysisheart.parking.R
-import com.github.hemoptysisheart.parking.app.ui.config.LogicConstants.TAG_COMPOSE
-import com.github.hemoptysisheart.parking.app.ui.preview.domain.PlaceData
+import com.github.hemoptysisheart.parking.app.ui.configuration.LogicConstant.TAG_COMPOSE
+import com.github.hemoptysisheart.parking.core.dummy.domain.DummyPlace
 import com.github.hemoptysisheart.parking.domain.Place
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 
@@ -31,7 +31,9 @@ import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
  * - 앱 설정 버튼.
  */
 @Composable
-fun MapHeader(place: Place?) {
+fun MapHeader(place: Place?, navigateToSearch: () -> Unit = {}) {
+    Log.v(TAG_COMPOSE, "#MapHeader args : place=$place, navigateToSearch=$navigateToSearch")
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -41,7 +43,7 @@ fun MapHeader(place: Place?) {
         Row(
             Modifier
                 .clickable {
-                    Log.v(TAG_COMPOSE, "#MapHeader place clicked.")
+                    navigateToSearch()
                 }
                 .background(Color.White, RoundedCornerShape(20.dp))
                 .border(1.dp, Color.LightGray, RoundedCornerShape(20.dp))
@@ -90,6 +92,6 @@ fun MapHeaderPreviewPlaceNull() {
 @Preview
 fun MapHeaderPreviewPlaceDummy() {
     ParkingTheme {
-        MapHeader(PlaceData.PLACE)
+        MapHeader(DummyPlace.PLACE1)
     }
 }

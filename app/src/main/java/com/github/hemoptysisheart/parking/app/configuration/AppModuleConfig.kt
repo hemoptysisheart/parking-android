@@ -7,6 +7,8 @@ import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.github.hemoptysisheart.parking.core.model.LocationModel
 import com.github.hemoptysisheart.parking.core.model.LocationModelImpl
+import com.github.hemoptysisheart.parking.core.model.PlaceModel
+import com.github.hemoptysisheart.parking.core.model.PlaceModelImpl
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import dagger.Module
@@ -14,6 +16,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -23,6 +26,7 @@ class AppModuleConfig {
     }
 
     @Provides
+    @Singleton
     fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
         Log.i(TAG, "#provideSharedPreferences args : context=$context")
 
@@ -41,6 +45,7 @@ class AppModuleConfig {
     }
 
     @Provides
+    @Singleton
     fun provideFusedLocationProviderClient(@ApplicationContext context: Context): FusedLocationProviderClient {
         Log.v(TAG, "#provideFusedLocationProviderClient args : context=$context")
 
@@ -51,9 +56,14 @@ class AppModuleConfig {
     }
 
     @Provides
+    @Singleton
     fun provideLocationModel(locationProviderClient: FusedLocationProviderClient): LocationModel {
         val model = LocationModelImpl(locationProviderClient)
         model.init()
         return model
     }
+
+    @Provides
+    @Singleton
+    fun providePlaceModel(): PlaceModel = PlaceModelImpl()
 }

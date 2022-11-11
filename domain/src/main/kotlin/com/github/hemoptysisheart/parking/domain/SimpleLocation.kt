@@ -9,4 +9,6 @@ data class SimpleLocation(
     constructor(latitude: Double, longitude: Double) : this(BigDecimal(latitude), BigDecimal(longitude))
 
     constructor(latitude: String, longitude: String) : this(BigDecimal(latitude), BigDecimal(longitude))
+
+    override fun toString() = "($latitude, $longitude)"
 }

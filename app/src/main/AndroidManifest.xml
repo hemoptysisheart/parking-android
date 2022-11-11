@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".app.activity.MapActivity"
+            android:name=".app.activity.MainActivity"
             android:exported="false"
             android:theme="@style/Theme.Parking" />
 

@@ -66,7 +66,9 @@ fun MainNavGraph(navController: NavHostController = rememberNavController()) {
 
         composable(SCREEN_SEARCH) {
             SearchScreen(setPlaceOnMap = {
-                navController.navigate(SCREEN_MAP.replace("{${PLACE_ID}}", "$it"))
+                navController.navigate(SCREEN_MAP.replace("{${PLACE_ID}}", "$it")) {
+                    popUpTo(SCREEN_MAP) { inclusive = true }
+                }
             })
         }
     }

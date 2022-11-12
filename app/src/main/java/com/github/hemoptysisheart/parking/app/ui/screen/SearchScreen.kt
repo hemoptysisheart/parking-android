@@ -26,7 +26,7 @@ import java.util.*
 @Composable
 fun SearchScreen(
     viewModel: SearchViewModel = hiltViewModel(),
-    setPlaceOnMap: (UUID) -> Unit = {}
+    resultOnClick: (UUID) -> Unit = {}
 ) {
     Log.v(TAG_COMPOSE, "#SearchScreen args : viewModel=$viewModel")
 
@@ -53,7 +53,7 @@ fun SearchScreen(
             Column(
                 Modifier
                     .padding(3.dp)
-                    .clickable { setPlaceOnMap(place.id) }) {
+                    .clickable { resultOnClick(place.id) }) {
                 Text(text = place.name, fontSize = 20.sp, fontWeight = FontWeight.Bold)
                 Text(text = place.description, color = Color.LightGray, fontSize = 16.sp)
             }

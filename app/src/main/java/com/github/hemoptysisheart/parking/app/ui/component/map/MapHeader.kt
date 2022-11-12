@@ -31,8 +31,8 @@ import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
  * - 앱 설정 버튼.
  */
 @Composable
-fun MapHeader(place: Place?, navigateToSearch: () -> Unit = {}) {
-    Log.v(TAG_COMPOSE, "#MapHeader args : place=$place, navigateToSearch=$navigateToSearch")
+fun MapHeader(destination: Place?, destinationOnClick: () -> Unit = {}) {
+    Log.v(TAG_COMPOSE, "#MapHeader args : destination=$destination, destinationOnClick=$destinationOnClick")
 
     Row(
         modifier = Modifier
@@ -43,24 +43,24 @@ fun MapHeader(place: Place?, navigateToSearch: () -> Unit = {}) {
         Row(
             Modifier
                 .clickable {
-                    navigateToSearch()
+                    destinationOnClick()
                 }
                 .background(Color.White, RoundedCornerShape(20.dp))
                 .border(1.dp, Color.LightGray, RoundedCornerShape(20.dp))
                 .padding(5.dp)
                 .weight(1.0F)
         ) {
-            if (null == place) {
-                Icon(Icons.Default.Search, stringResource(R.string.map_place_view_simple_description))
+            if (null == destination) {
+                Icon(Icons.Default.Search, stringResource(R.string.map_destination_view_simple_description))
                 Spacer(modifier = Modifier.width(3.dp))
                 Text(
-                    text = stringResource(R.string.map_place_view_simple_placeholder),
+                    text = stringResource(R.string.map_destination_view_simple_placeholder),
                     color = Color.Gray
                 )
             } else {
-                Icon(Icons.Default.LocationOn, place.name)
+                Icon(Icons.Default.LocationOn, destination.name)
                 Spacer(modifier = Modifier.width(3.dp))
-                Text(place.name)
+                Text(destination.name)
             }
         }
 

@@ -18,7 +18,8 @@ import java.util.*
 
 object Argument {
     /**
-     * [Place.id]
+     * @see [Place.id]
+     * @see [Argument.toUUID]
      */
     const val PLACE_ID = "placeId"
 
@@ -65,8 +66,8 @@ fun MainNavGraph(navController: NavHostController = rememberNavController()) {
         }
 
         composable(SCREEN_SEARCH) {
-            SearchScreen(setPlaceOnMap = {
-                navController.navigate(SCREEN_MAP.replace("{${PLACE_ID}}", "$it")) {
+            SearchScreen(resultOnClick = { placeId ->
+                navController.navigate(SCREEN_MAP.replace("{${PLACE_ID}}", "$placeId")) {
                     popUpTo(SCREEN_MAP) { inclusive = true }
                 }
             })

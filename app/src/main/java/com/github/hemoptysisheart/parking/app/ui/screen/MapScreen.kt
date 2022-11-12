@@ -33,7 +33,7 @@ fun MapScreen(
         viewModel.loadPlace(placeId)
     }
 
-    val place by viewModel.place.collectAsState()
+    val destination by viewModel.destination.collectAsState()
 
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(LatLng(35.583323, 139.540254), 17.0F)
@@ -46,7 +46,7 @@ fun MapScreen(
     }
 
     Column(modifier = Modifier.fillMaxSize()) {
-        MapHeader(place, openSearch)
+        MapHeader(destination, openSearch)
         GoogleMap(
             modifier = Modifier.fillMaxSize(),
             cameraPositionState = cameraPositionState,

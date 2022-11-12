@@ -21,15 +21,15 @@ class MapViewModel @Inject constructor(
         private val TAG = MapViewModel::class.simpleName
     }
 
-    val place: MutableStateFlow<Place?> = MutableStateFlow(null)
+    val destination: MutableStateFlow<Place?> = MutableStateFlow(null)
 
     fun loadPlace(id: UUID) {
         viewModelScope.launch {
             val p = placeModel.read(id)
             Log.v(TAG, "#loadPlace : p=$p")
-            place.emit(p)
+            destination.emit(p)
         }
     }
 
-    override fun toString() = "$TAG(place=$place)"
+    override fun toString() = "$TAG(destination=$destination)"
 }

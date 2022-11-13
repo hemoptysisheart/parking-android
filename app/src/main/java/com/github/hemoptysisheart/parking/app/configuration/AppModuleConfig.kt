@@ -5,8 +5,8 @@ import android.content.SharedPreferences
 import android.util.Log
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
-import com.github.hemoptysisheart.parking.core.model.LocationModel
-import com.github.hemoptysisheart.parking.core.model.LocationModelImpl
+import com.github.hemoptysisheart.parking.core.model.LocationTrackerModel
+import com.github.hemoptysisheart.parking.core.model.LocationTrackerModelImpl
 import com.github.hemoptysisheart.parking.core.model.PlaceModel
 import com.github.hemoptysisheart.parking.core.model.PlaceModelImpl
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -57,9 +57,9 @@ class AppModuleConfig {
 
     @Provides
     @Singleton
-    fun provideLocationModel(locationProviderClient: FusedLocationProviderClient): LocationModel {
-        val model = LocationModelImpl(locationProviderClient)
-        model.init()
+    fun provideLocationTrackerModel(locationProviderClient: FusedLocationProviderClient): LocationTrackerModel {
+        val model = LocationTrackerModelImpl(locationProviderClient)
+        model.start()
         return model
     }
 

@@ -6,18 +6,19 @@ import android.util.Log
 import com.google.android.gms.location.FusedLocationProviderClient
 import javax.inject.Inject
 
-class LocationModelImpl @Inject constructor(
+class LocationTrackerModelImpl @Inject constructor(
     private val client: FusedLocationProviderClient
-) : LocationModel {
+) : LocationTrackerModel {
     companion object {
-        private val TAG = LocationModelImpl::class.simpleName
+        private val TAG = LocationTrackerModelImpl::class.simpleName
     }
 
+    @Deprecated("Remove & call save location info.")
     private lateinit var location: Location
 
     @SuppressLint("MissingPermission")
-    override fun init() {
-        Log.v(TAG, "#init called.")
+    override fun start() {
+        Log.v(TAG, "#start called.")
 
         client.lastLocation.addOnSuccessListener {
             location = it

@@ -9,8 +9,4 @@ object DummyLocationModel : LocationModel {
     override fun init() {
         Log.v(TAG, "#init called.")
     }
-
-    override fun test() {
-        Log.v(TAG, "#test called.")
-    }
 }

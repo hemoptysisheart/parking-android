@@ -20,17 +20,7 @@ class LocationModelImpl @Inject constructor(
         Log.v(TAG, "#init called.")
 
         client.lastLocation.addOnSuccessListener {
-            Log.v(TAG, "#client.onSuccess args : location=$it")
             location = it
-        }
-    }
-
-    @SuppressLint("MissingPermission")
-    override fun test() {
-        if (this::location.isInitialized) {
-            Log.v(TAG, "#test : location=$location")
-        } else {
-            Log.v(TAG, "#test client does not initialized.")
         }
     }
 

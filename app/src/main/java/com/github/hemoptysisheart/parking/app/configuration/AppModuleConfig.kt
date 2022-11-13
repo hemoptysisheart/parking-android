@@ -9,7 +9,6 @@ import com.github.hemoptysisheart.parking.core.model.LocationTrackerModel
 import com.github.hemoptysisheart.parking.core.model.LocationTrackerModelImpl
 import com.github.hemoptysisheart.parking.core.model.PlaceModel
 import com.github.hemoptysisheart.parking.core.model.PlaceModelImpl
-import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import dagger.Module
 import dagger.Provides
@@ -46,20 +45,13 @@ class AppModuleConfig {
 
     @Provides
     @Singleton
-    fun provideFusedLocationProviderClient(@ApplicationContext context: Context): FusedLocationProviderClient {
-        Log.v(TAG, "#provideFusedLocationProviderClient args : context=$context")
+    fun provideLocationTrackerModel(@ApplicationContext context: Context): LocationTrackerModel {
+        Log.v(TAG, "#provideLocationTrackerModel args : context=$context")
 
         val client = LocationServices.getFusedLocationProviderClient(context)
+        val model = LocationTrackerModelImpl(client)
 
-        Log.v(TAG, "#provideFusedLocationProviderClient return : $client")
-        return client
-    }
-
-    @Provides
-    @Singleton
-    fun provideLocationTrackerModel(locationProviderClient: FusedLocationProviderClient): LocationTrackerModel {
-        val model = LocationTrackerModelImpl(locationProviderClient)
-        model.start()
+        Log.v(TAG, "#provideLocationTrackerModel return : $model")
         return model
     }
 

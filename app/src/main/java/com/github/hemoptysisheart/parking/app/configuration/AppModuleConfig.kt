@@ -5,7 +5,12 @@ import android.content.SharedPreferences
 import android.util.Log
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
-import com.github.hemoptysisheart.parking.core.model.*
+import com.github.hemoptysisheart.parking.core.model.LocationTrackerModel
+import com.github.hemoptysisheart.parking.core.model.LocationTrackerModelImpl
+import com.github.hemoptysisheart.parking.core.model.PlaceModel
+import com.github.hemoptysisheart.parking.core.model.PlaceModelImpl
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -39,36 +44,26 @@ class AppModuleConfig {
         return sharedPreferences
     }
 
-//    @Provides
-//    @Singleton
-//    fun provideLocationTrackerModel(@ApplicationContext context: Context): LocationTrackerModel {
-//        Log.v(TAG, "#provideLocationTrackerModel args : context=$context")
-//
-//        val client = LocationServices.getFusedLocationProviderClient(context)
-//        Log.v(TAG, "#provideLocationTrackerModel : client=$client")
-//
-//        val model = LocationTrackerModelImpl(client)
-//        model.start()
-//
-//        Log.v(TAG, "#provideLocationTrackerModel return : $model")
-//        return model
-//    }
+    @Provides
+    @Singleton
+    fun provideFusedLocationProviderClient(@ApplicationContext context: Context): FusedLocationProviderClient {
+        Log.v(TAG, "#provideFusedLocationProviderClient args : context=$context")
+
+        val client = LocationServices.getFusedLocationProviderClient(context)
+
+        Log.v(TAG, "#provideFusedLocationProviderClient return : $client")
+        return client
+    }
+
+    @Provides
+    @Singleton
+    fun provideLocationTrackerModel(locationProviderClient: FusedLocationProviderClient): LocationTrackerModel {
+        val model = LocationTrackerModelImpl(locationProviderClient)
+        model.start()
+        return model
+    }
 
     @Provides
     @Singleton
     fun providePlaceModel(): PlaceModel = PlaceModelImpl()
-
-    @Provides
-    @Singleton
-    fun provideTestModel(): TestModel {
-        Log.v(TAG, "#provideTestModel called.")
-        return TestModel()
-    }
-
-//    @Provides
-//    @Singleton
-//    fun provideTestModel2(@ApplicationContext context: Context): TestModel2 {
-//        Log.v(TAG, "#provideTestModel2 args : context=$context")
-//        return TestModel2(context)
-//    }
 }

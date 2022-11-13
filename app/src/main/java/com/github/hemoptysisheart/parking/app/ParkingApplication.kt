@@ -22,6 +22,8 @@ class ParkingApplication : Application() {
 
         MainScope().launch {
             Log.i(TAG, "#onCreate start process initialize.")
+
+            Log.d(TAG, "#onCreate : sharedPreferences=$sharedPreferences")
         }
     }
 }

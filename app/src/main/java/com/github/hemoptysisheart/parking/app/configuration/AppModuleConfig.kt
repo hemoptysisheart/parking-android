@@ -5,10 +5,7 @@ import android.content.SharedPreferences
 import android.util.Log
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
-import com.github.hemoptysisheart.parking.core.model.LocationTrackerModel
-import com.github.hemoptysisheart.parking.core.model.LocationTrackerModelImpl
-import com.github.hemoptysisheart.parking.core.model.PlaceModel
-import com.github.hemoptysisheart.parking.core.model.PlaceModelImpl
+import com.github.hemoptysisheart.parking.core.model.*
 import com.google.android.gms.location.LocationServices
 import dagger.Module
 import dagger.Provides
@@ -45,11 +42,18 @@ class AppModuleConfig {
 
     @Provides
     @Singleton
-    fun provideLocationTrackerModel(@ApplicationContext context: Context): LocationTrackerModel {
-        Log.v(TAG, "#provideLocationTrackerModel args : context=$context")
+    fun provideLocationModel(): LocationModel = LocationModelImpl()
+
+    @Provides
+    @Singleton
+    fun provideLocationTrackerModel(
+        @ApplicationContext context: Context,
+        locationModel: LocationModel
+    ): LocationTrackerModel {
+        Log.v(TAG, "#provideLocationTrackerModel args : context=$context, locationModel=$locationModel")
 
         val client = LocationServices.getFusedLocationProviderClient(context)
-        val model = LocationTrackerModelImpl(client)
+        val model = LocationTrackerModelImpl(client, locationModel)
 
         Log.v(TAG, "#provideLocationTrackerModel return : $model")
         return model

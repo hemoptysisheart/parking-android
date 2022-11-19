@@ -11,6 +11,8 @@ import com.github.hemoptysisheart.parking.core.repository.LocationRepository
 import com.github.hemoptysisheart.parking.core.repository.LocationRepositoryImpl
 import com.github.hemoptysisheart.parking.core.room.configuration.ParkingRoomConfiguration
 import com.github.hemoptysisheart.parking.core.room.dao.LocationDao
+import com.github.hemoptysisheart.util.TimeProvider
+import com.github.hemoptysisheart.util.TruncatedTimeProvider
 import com.google.android.gms.location.LocationServices
 import dagger.Module
 import dagger.Provides
@@ -24,6 +26,14 @@ import javax.inject.Singleton
 class AppModuleConfig {
     companion object {
         private val TAG = AppModuleConfig::class.simpleName
+    }
+
+    @Provides
+    @Singleton
+    fun provideTimeProvider(): TimeProvider {
+        val provider = TruncatedTimeProvider()
+        Log.i(TAG, "#provideTimeProvider return : $provider")
+        return provider
     }
 
     @Provides

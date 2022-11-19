@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.github.hemoptysisheart.parking.core.room.mapping.LocationMapping
+import com.github.hemoptysisheart.parking.core.room.mapping.LocationMapping.COL_CREATED_AT
 import com.github.hemoptysisheart.parking.core.room.mapping.LocationMapping.COL_LATITUDE
 import com.github.hemoptysisheart.parking.core.room.mapping.LocationMapping.COL_LONGITUDE
 import com.github.hemoptysisheart.parking.domain.Location
@@ -12,6 +13,7 @@ import com.github.hemoptysisheart.parking.domain.Location.Companion.LATITUDE_VAL
 import com.github.hemoptysisheart.parking.domain.Location.Companion.LONGITUDE_VALIDATOR
 import com.github.hemoptysisheart.util.ToSimpleString
 import java.math.BigDecimal
+import java.time.Instant
 
 @Entity(tableName = LocationMapping.TABLE)
 class LocationEntity(
@@ -24,7 +26,9 @@ class LocationEntity(
      * 경도
      */
     @ColumnInfo(name = COL_LONGITUDE)
-    override val longitude: BigDecimal
+    override val longitude: BigDecimal,
+    @ColumnInfo(name = COL_CREATED_AT)
+    override val createdAt: Instant
 ) : Location, ToSimpleString {
     companion object {
         val TAG = LocationEntity::class.simpleName
@@ -54,5 +58,5 @@ class LocationEntity(
 
     override fun hashCode() = id.hashCode()
 
-    override fun toString() = "$TAG(id=$id, latitude=$latitude, longitude=$longitude)"
+    override fun toString() = "$TAG(id=$id, latitude=$latitude, longitude=$longitude, createdAt=$createdAt)"
 }

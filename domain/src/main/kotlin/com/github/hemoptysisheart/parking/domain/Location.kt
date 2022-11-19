@@ -1,11 +1,12 @@
 package com.github.hemoptysisheart.parking.domain
 
+import com.github.hemoptysisheart.util.Creatable
 import java.math.BigDecimal
 
 /**
  * 앱 사용중 위치 정보.
  */
-interface Location {
+interface Location : Creatable {
     @Suppress("MemberVisibilityCanBePrivate")
     companion object {
         val ID_VALIDATOR: (Long) -> Unit = { id ->

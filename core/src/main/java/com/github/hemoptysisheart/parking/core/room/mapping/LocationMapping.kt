@@ -22,4 +22,9 @@ object LocationMapping {
      * [Location.longitude]
      */
     const val COL_LONGITUDE = "longitude"
+
+    /**
+     * [Location.createdAt]
+     */
+    const val COL_CREATED_AT = "created_at"
 }

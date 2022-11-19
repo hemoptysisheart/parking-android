@@ -3,9 +3,12 @@ package com.github.hemoptysisheart.parking.app.configuration
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
+import androidx.room.Room
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.github.hemoptysisheart.parking.core.model.*
+import com.github.hemoptysisheart.parking.core.room.configuration.ParkingRoomConfiguration
+import com.github.hemoptysisheart.parking.core.room.dao.LocationDao
 import com.google.android.gms.location.LocationServices
 import dagger.Module
 import dagger.Provides
@@ -35,6 +38,23 @@ class AppModuleConfig {
         )
         Log.i(TAG, "#provideSharedPreferences return : $sharedPreferences")
         return sharedPreferences
+    }
+
+    @Provides
+    @Singleton
+    fun provideDatabase(@ApplicationContext context: Context): ParkingRoomConfiguration {
+        val room = Room.databaseBuilder(context, ParkingRoomConfiguration::class.java, "parking")
+            .build()
+        Log.i(TAG, "#provideDatabase return : $room")
+        return room
+    }
+
+    @Provides
+    @Singleton
+    fun provideLocationDao(room: ParkingRoomConfiguration): LocationDao {
+        val dao = room.locationDao()
+        Log.i(TAG, "#provideLocationDao return : $dao")
+        return dao
     }
 
     @Provides

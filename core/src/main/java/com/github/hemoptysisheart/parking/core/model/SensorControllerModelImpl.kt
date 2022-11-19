@@ -24,7 +24,7 @@ class SensorControllerModelImpl @Inject constructor(
         locationClient.requestLocationUpdates(
             LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 5_000L).build(),
             {
-                locationModel.update(SimpleLocation(it.latitude, it.longitude))
+                locationModel.update(SimpleLocation(Long.MAX_VALUE, it.latitude, it.longitude))
             },
             Looper.getMainLooper()
         )

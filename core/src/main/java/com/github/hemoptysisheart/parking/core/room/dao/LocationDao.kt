@@ -1,9 +1,6 @@
 package com.github.hemoptysisheart.parking.core.room.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.github.hemoptysisheart.parking.core.room.entity.LocationEntity
 import com.github.hemoptysisheart.parking.core.room.mapping.LocationMapping.COL_ID
 import com.github.hemoptysisheart.parking.core.room.mapping.LocationMapping.TABLE
@@ -16,8 +13,8 @@ interface LocationDao {
     @Query("SELECT * FROM $TABLE WHERE $COL_ID = :id")
     fun findById(id: Long): LocationEntity?
 
-    @Insert
-    fun insert(vararg locations: LocationEntity)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    suspend fun insert(location: LocationEntity): Long
 
     @Delete
     fun delete(location: LocationEntity)

@@ -15,8 +15,14 @@ import java.math.BigDecimal
 
 @Entity(tableName = LocationMapping.TABLE)
 class LocationEntity(
+    /**
+     * 위도
+     */
     @ColumnInfo(name = COL_LATITUDE)
     override val latitude: BigDecimal,
+    /**
+     * 경도
+     */
     @ColumnInfo(name = COL_LONGITUDE)
     override val longitude: BigDecimal
 ) : Location, ToSimpleString {

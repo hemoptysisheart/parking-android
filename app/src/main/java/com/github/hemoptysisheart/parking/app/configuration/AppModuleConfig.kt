@@ -7,6 +7,8 @@ import androidx.room.Room
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.github.hemoptysisheart.parking.core.model.*
+import com.github.hemoptysisheart.parking.core.repository.LocationRepository
+import com.github.hemoptysisheart.parking.core.repository.LocationRepositoryImpl
 import com.github.hemoptysisheart.parking.core.room.configuration.ParkingRoomConfiguration
 import com.github.hemoptysisheart.parking.core.room.dao.LocationDao
 import com.google.android.gms.location.LocationServices
@@ -59,8 +61,16 @@ class AppModuleConfig {
 
     @Provides
     @Singleton
-    fun provideLocationModel(): LocationModel {
-        val model = LocationModelImpl()
+    fun provideLocationRepository(dao: LocationDao): LocationRepository {
+        val repository = LocationRepositoryImpl(dao)
+        Log.i(TAG, "#provideLocationRepository return : $repository")
+        return repository
+    }
+
+    @Provides
+    @Singleton
+    fun provideLocationModel(repository: LocationRepository): LocationModel {
+        val model = LocationModelImpl(repository)
         Log.i(TAG, "#provideLocationModel return : $model")
         return model
     }

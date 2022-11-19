@@ -3,6 +3,7 @@ package com.github.hemoptysisheart.parking.core.model
 import android.annotation.SuppressLint
 import android.os.Looper
 import android.util.Log
+import com.github.hemoptysisheart.util.TimeProvider
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.Priority
@@ -13,7 +14,8 @@ import javax.inject.Inject
 
 class SensorControllerModelImpl @Inject constructor(
     private val locationClient: FusedLocationProviderClient,
-    private val locationModel: LocationModel
+    private val locationModel: LocationModel,
+    private val timeProvider: TimeProvider
 ) : SensorControllerModel {
     companion object {
         private val TAG = SensorControllerModelImpl::class.simpleName
@@ -30,9 +32,10 @@ class SensorControllerModelImpl @Inject constructor(
                 .setMinUpdateIntervalMillis(1_000L)
                 .build(),
             {
+                val timestamp = timeProvider.instant()
                 scope.launch {
                     Log.v(TAG, "#start : location=$it")
-                    locationModel.update(it)
+                    locationModel.update(it, timestamp)
                 }
             },
             Looper.getMainLooper()

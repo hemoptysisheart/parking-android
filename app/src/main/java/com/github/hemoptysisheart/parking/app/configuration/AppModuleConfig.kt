@@ -3,9 +3,16 @@ package com.github.hemoptysisheart.parking.app.configuration
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
+import androidx.room.Room
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.github.hemoptysisheart.parking.core.model.*
+import com.github.hemoptysisheart.parking.core.repository.LocationRepository
+import com.github.hemoptysisheart.parking.core.repository.LocationRepositoryImpl
+import com.github.hemoptysisheart.parking.core.room.configuration.ParkingRoomConfiguration
+import com.github.hemoptysisheart.parking.core.room.dao.LocationDao
+import com.github.hemoptysisheart.util.TimeProvider
+import com.github.hemoptysisheart.util.TruncatedTimeProvider
 import com.google.android.gms.location.LocationServices
 import dagger.Module
 import dagger.Provides
@@ -19,6 +26,14 @@ import javax.inject.Singleton
 class AppModuleConfig {
     companion object {
         private val TAG = AppModuleConfig::class.simpleName
+    }
+
+    @Provides
+    @Singleton
+    fun provideTimeProvider(): TimeProvider {
+        val provider = TruncatedTimeProvider()
+        Log.i(TAG, "#provideTimeProvider return : $provider")
+        return provider
     }
 
     @Provides
@@ -39,8 +54,33 @@ class AppModuleConfig {
 
     @Provides
     @Singleton
-    fun provideLocationModel(): LocationModel {
-        val model = LocationModelImpl()
+    fun provideDatabase(@ApplicationContext context: Context): ParkingRoomConfiguration {
+        val room = Room.databaseBuilder(context, ParkingRoomConfiguration::class.java, "parking")
+            .build()
+        Log.i(TAG, "#provideDatabase return : $room")
+        return room
+    }
+
+    @Provides
+    @Singleton
+    fun provideLocationDao(room: ParkingRoomConfiguration): LocationDao {
+        val dao = room.locationDao()
+        Log.i(TAG, "#provideLocationDao return : $dao")
+        return dao
+    }
+
+    @Provides
+    @Singleton
+    fun provideLocationRepository(dao: LocationDao): LocationRepository {
+        val repository = LocationRepositoryImpl(dao)
+        Log.i(TAG, "#provideLocationRepository return : $repository")
+        return repository
+    }
+
+    @Provides
+    @Singleton
+    fun provideLocationModel(repository: LocationRepository): LocationModel {
+        val model = LocationModelImpl(repository)
         Log.i(TAG, "#provideLocationModel return : $model")
         return model
     }
@@ -49,9 +89,14 @@ class AppModuleConfig {
     @Singleton
     fun provideSensorControllerModel(
         @ApplicationContext context: Context,
-        locationModel: LocationModel
+        locationModel: LocationModel,
+        timeProvider: TimeProvider
     ): SensorControllerModel {
-        val model = SensorControllerModelImpl(LocationServices.getFusedLocationProviderClient(context), locationModel)
+        val model = SensorControllerModelImpl(
+            LocationServices.getFusedLocationProviderClient(context),
+            locationModel,
+            timeProvider
+        )
         Log.i(TAG, "#provideSensorControllerModel return : $model")
         return model
     }

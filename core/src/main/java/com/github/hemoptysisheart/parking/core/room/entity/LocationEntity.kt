@@ -10,6 +10,7 @@ import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.domain.Location.Companion.ID_VALIDATOR
 import com.github.hemoptysisheart.parking.domain.Location.Companion.LATITUDE_VALIDATOR
 import com.github.hemoptysisheart.parking.domain.Location.Companion.LONGITUDE_VALIDATOR
+import com.github.hemoptysisheart.util.ToSimpleString
 import java.math.BigDecimal
 
 @Entity(tableName = LocationMapping.TABLE)
@@ -18,7 +19,7 @@ class LocationEntity(
     override val latitude: BigDecimal,
     @ColumnInfo(name = COL_LONGITUDE)
     override val longitude: BigDecimal
-) : Location {
+) : Location, ToSimpleString {
     companion object {
         val TAG = LocationEntity::class.simpleName
     }
@@ -31,6 +32,8 @@ class LocationEntity(
         LATITUDE_VALIDATOR(latitude)
         LONGITUDE_VALIDATOR(longitude)
     }
+
+    override fun toSimpleString() = "$latitude,$longitude"
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

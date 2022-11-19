@@ -28,6 +28,9 @@ import com.github.hemoptysisheart.parking.app.viewmodel.SearchViewModel
 import com.github.hemoptysisheart.parking.core.dummy.model.DummyPlaceModel
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 
+/**
+ * [header / search / query](https://www.figma.com/file/I3LN6lcAVaAXlNba0kBKPN/Parking?node-id=44%3A739&t=TzUdFxNeMKN4ZpTv-4)
+ */
 @Composable
 fun SearchHeader(viewModel: SearchViewModel = hiltViewModel()) {
     val navController: NavHostController = rememberNavController()

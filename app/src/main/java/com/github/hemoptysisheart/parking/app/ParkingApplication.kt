@@ -22,7 +22,6 @@ class ParkingApplication : Application() {
 
         MainScope().launch {
             Log.i(TAG, "#onCreate start initialize.")
-
             hwSensorModel.configure()
         }
     }

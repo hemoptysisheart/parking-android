@@ -46,16 +46,12 @@ class AppModuleConfig {
 
     @Provides
     @Singleton
-    fun provideLocationTrackerModel(
+    fun provideHwSensorModel(
         @ApplicationContext context: Context,
         locationModel: LocationModel
-    ): LocationTrackerModel {
-        Log.v(TAG, "#provideLocationTrackerModel args : context=$context, locationModel=$locationModel")
-
-        val client = LocationServices.getFusedLocationProviderClient(context)
-        val model = LocationTrackerModelImpl(client, locationModel)
-
-        Log.v(TAG, "#provideLocationTrackerModel return : $model")
+    ): HwSensorModel {
+        val model = HwSensorModelImpl(LocationServices.getFusedLocationProviderClient(context), locationModel)
+        Log.i(TAG, "#provideHwSensorModel return : $model")
         return model
     }
 

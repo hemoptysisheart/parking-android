@@ -24,8 +24,6 @@ class AppModuleConfig {
     @Provides
     @Singleton
     fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
-        Log.i(TAG, "#provideSharedPreferences args : context=$context")
-
         val sharedPreferences = EncryptedSharedPreferences.create(
             context,
             "com.github.hemoptysisheart.parking.encryptedSharedPreferences",
@@ -35,27 +33,34 @@ class AppModuleConfig {
             EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         )
-
         Log.i(TAG, "#provideSharedPreferences return : $sharedPreferences")
         return sharedPreferences
     }
 
     @Provides
     @Singleton
-    fun provideLocationModel(): LocationModel = LocationModelImpl()
-
-    @Provides
-    @Singleton
-    fun provideHwSensorModel(
-        @ApplicationContext context: Context,
-        locationModel: LocationModel
-    ): HwSensorModel {
-        val model = HwSensorModelImpl(LocationServices.getFusedLocationProviderClient(context), locationModel)
-        Log.i(TAG, "#provideHwSensorModel return : $model")
+    fun provideLocationModel(): LocationModel {
+        val model = LocationModelImpl()
+        Log.i(TAG, "#provideLocationModel return : $model")
         return model
     }
 
     @Provides
     @Singleton
-    fun providePlaceModel(): PlaceModel = PlaceModelImpl()
+    fun provideSensorControllerModel(
+        @ApplicationContext context: Context,
+        locationModel: LocationModel
+    ): SensorControllerModel {
+        val model = SensorControllerModelImpl(LocationServices.getFusedLocationProviderClient(context), locationModel)
+        Log.i(TAG, "#provideSensorControllerModel return : $model")
+        return model
+    }
+
+    @Provides
+    @Singleton
+    fun providePlaceModel(): PlaceModel {
+        val model = PlaceModelImpl()
+        Log.i(TAG, "#providePlaceModel return : $model")
+        return model
+    }
 }

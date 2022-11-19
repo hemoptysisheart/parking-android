@@ -9,12 +9,12 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.Priority
 import javax.inject.Inject
 
-class HwSensorModelImpl @Inject constructor(
+class SensorControllerModelImpl @Inject constructor(
     private val locationClient: FusedLocationProviderClient,
     private val locationModel: LocationModel
-) : HwSensorModel {
+) : SensorControllerModel {
     companion object {
-        private val TAG = HwSensorModelImpl::class.simpleName
+        private val TAG = SensorControllerModelImpl::class.simpleName
     }
 
     @SuppressLint("MissingPermission")

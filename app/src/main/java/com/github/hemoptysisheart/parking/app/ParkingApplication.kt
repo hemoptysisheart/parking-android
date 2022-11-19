@@ -2,7 +2,7 @@ package com.github.hemoptysisheart.parking.app
 
 import android.app.Application
 import android.util.Log
-import com.github.hemoptysisheart.parking.core.model.HwSensorModel
+import com.github.hemoptysisheart.parking.core.model.SensorControllerModel
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -15,14 +15,14 @@ class ParkingApplication : Application() {
     }
 
     @Inject
-    lateinit var hwSensorModel: HwSensorModel
+    lateinit var sensorControllerModel: SensorControllerModel
 
     override fun onCreate() {
         super.onCreate()
 
         MainScope().launch {
             Log.i(TAG, "#onCreate start initialize.")
-            hwSensorModel.configure()
+            sensorControllerModel.configure()
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.parking.app.ui.component.map
+package com.github.hemoptysisheart.parking.app.ui.screen
 
 import android.util.Log
 import androidx.compose.foundation.layout.Column
@@ -7,9 +7,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.github.hemoptysisheart.parking.app.ui.component.map.MapHeader
 import com.github.hemoptysisheart.parking.app.ui.configuration.LogicConstant.TAG_COMPOSE
 import com.github.hemoptysisheart.parking.app.viewmodel.MapViewModel
 import com.github.hemoptysisheart.parking.core.dummy.domain.DummyPlace
+import com.github.hemoptysisheart.parking.core.dummy.model.DummyLocationModel
 import com.github.hemoptysisheart.parking.core.dummy.model.DummyPlaceModel
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 import com.google.android.gms.maps.model.CameraPosition
@@ -35,10 +37,16 @@ fun MapScreen(
         viewModel.loadPlace(placeId)
     }
 
+    val location by viewModel.location.collectAsState()
+    val zoom by viewModel.zoom.collectAsState()
     val destination by viewModel.destination.collectAsState()
 
     val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(LatLng(35.583323, 139.540254), 17.0F)
+        Log.v(TAG_COMPOSE, "#MapScreen.cameraPositionState : location=$location")
+        position = CameraPosition.fromLatLngZoom(
+            LatLng(location.latitude.toDouble(), location.longitude.toDouble()),
+            zoom
+        )
     }
     val uiSettings by remember {
         mutableStateOf(MapUiSettings(indoorLevelPickerEnabled = false, mapToolbarEnabled = false))
@@ -54,12 +62,24 @@ fun MapScreen(
             cameraPositionState = cameraPositionState,
             properties = properties,
             uiSettings = uiSettings,
+            onMapClick = {
+                Log.v(TAG_COMPOSE, "#GoogleMap.onMapClick args : latlng=$it")
+            },
             onMapLongClick = {
-                Log.v(TAG_COMPOSE, "#map.onMapLongClick args : latlng=$it")
+                Log.v(TAG_COMPOSE, "#GoogleMap.onMapLongClick args : latlng=$it")
+            },
+            onMapLoaded = {
+                Log.v(TAG_COMPOSE, "#GoogleMap.onMapLoaded called.")
             },
             onMyLocationButtonClick = {
-                Log.v(TAG_COMPOSE, "#map.onMyLocationButtonClick called.")
+                Log.v(TAG_COMPOSE, "#GoogleMap.onMyLocationButtonClick called.")
                 false
+            },
+            onMyLocationClick = {
+                Log.v(TAG_COMPOSE, "#GoogleMap.onMyLocationClick args : location=$it")
+            },
+            onPOIClick = {
+                Log.v(TAG_COMPOSE, "#GoogleMap.onPOIClick args : pointOfInterest=$it")
             }
         )
     }
@@ -69,7 +89,7 @@ fun MapScreen(
 @Preview(showBackground = true)
 fun MapScreenPreviewInit() {
     ParkingTheme {
-        MapScreen(viewModel = MapViewModel(DummyPlaceModel))
+        MapScreen(viewModel = MapViewModel(DummyPlaceModel, DummyLocationModel))
     }
 }
 
@@ -79,7 +99,7 @@ fun MapScreenPreviewSearch() {
     ParkingTheme {
         MapScreen(
             placeId = DummyPlace.PLACE1.id,
-            viewModel = MapViewModel(DummyPlaceModel)
+            viewModel = MapViewModel(DummyPlaceModel, DummyLocationModel)
         )
     }
 }

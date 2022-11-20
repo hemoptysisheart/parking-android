@@ -11,7 +11,7 @@ import com.github.hemoptysisheart.parking.app.navigation.Argument.PLACE_ID
 import com.github.hemoptysisheart.parking.app.navigation.Argument.getUUID
 import com.github.hemoptysisheart.parking.app.navigation.Destination.SCREEN_MAP
 import com.github.hemoptysisheart.parking.app.navigation.Destination.SCREEN_SEARCH
-import com.github.hemoptysisheart.parking.app.ui.component.map.MapScreen
+import com.github.hemoptysisheart.parking.app.ui.screen.MapScreen
 import com.github.hemoptysisheart.parking.app.ui.screen.SearchScreen
 import com.github.hemoptysisheart.parking.domain.Place
 import java.util.*

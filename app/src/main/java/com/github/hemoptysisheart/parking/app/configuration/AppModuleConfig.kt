@@ -79,8 +79,8 @@ class AppModuleConfig {
 
     @Provides
     @Singleton
-    fun provideLocationModel(repository: LocationRepository): LocationModel {
-        val model = LocationModelImpl(repository)
+    fun provideLocationModel(repository: LocationRepository, timeProvider: TimeProvider): LocationModel {
+        val model = LocationModelImpl(repository, timeProvider)
         Log.i(TAG, "#provideLocationModel return : $model")
         return model
     }

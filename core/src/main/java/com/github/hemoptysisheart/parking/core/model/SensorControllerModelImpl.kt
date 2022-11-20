@@ -40,5 +40,12 @@ class SensorControllerModelImpl @Inject constructor(
             },
             Looper.getMainLooper()
         )
+
+        locationClient.lastLocation.addOnSuccessListener {
+            val timestamp = timeProvider.instant()
+            scope.launch {
+                locationModel.update(it, timestamp)
+            }
+        }
     }
 }

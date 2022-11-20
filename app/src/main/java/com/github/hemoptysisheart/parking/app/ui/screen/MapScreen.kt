@@ -10,6 +10,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.github.hemoptysisheart.parking.app.ui.configuration.LogicConstant.TAG_COMPOSE
 import com.github.hemoptysisheart.parking.app.viewmodel.MapViewModel
 import com.github.hemoptysisheart.parking.core.dummy.domain.DummyPlace
+import com.github.hemoptysisheart.parking.core.dummy.model.DummyLocationModel
 import com.github.hemoptysisheart.parking.core.dummy.model.DummyPlaceModel
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 import com.google.android.gms.maps.model.CameraPosition
@@ -35,10 +36,14 @@ fun MapScreen(
         viewModel.loadPlace(placeId)
     }
 
+    val location by viewModel.location.collectAsState()
     val destination by viewModel.destination.collectAsState()
 
     val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(LatLng(35.583323, 139.540254), 17.0F)
+        position = CameraPosition.fromLatLngZoom(
+            LatLng(location.latitude.toDouble(), location.longitude.toDouble()),
+            17.0F
+        )
     }
     val uiSettings by remember {
         mutableStateOf(MapUiSettings(indoorLevelPickerEnabled = false, mapToolbarEnabled = false))
@@ -69,7 +74,7 @@ fun MapScreen(
 @Preview(showBackground = true)
 fun MapScreenPreviewInit() {
     ParkingTheme {
-        MapScreen(viewModel = MapViewModel(DummyPlaceModel))
+        MapScreen(viewModel = MapViewModel(DummyLocationModel, DummyPlaceModel))
     }
 }
 
@@ -79,7 +84,7 @@ fun MapScreenPreviewSearch() {
     ParkingTheme {
         MapScreen(
             placeId = DummyPlace.PLACE1.id,
-            viewModel = MapViewModel(DummyPlaceModel)
+            viewModel = MapViewModel(DummyLocationModel, DummyPlaceModel)
         )
     }
 }

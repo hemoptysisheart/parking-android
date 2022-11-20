@@ -15,7 +15,7 @@ class LocationModelImpl(
     }
 
     override suspend fun update(src: android.location.Location, timestamp: Instant): Location {
-        val latitude = BigDecimal(src.latitude, LocationDegree.find(src.verticalAccuracyMeters).latitudeMathContext)
+        val latitude = BigDecimal(src.latitude, LocationDegree.find(src.accuracy).latitudeMathContext)
         val longitude = BigDecimal(src.longitude, LocationDegree.find(src.accuracy).longitudeMathContext)
         val entity = repository.create(LocationEntity(latitude, longitude, timestamp))
 

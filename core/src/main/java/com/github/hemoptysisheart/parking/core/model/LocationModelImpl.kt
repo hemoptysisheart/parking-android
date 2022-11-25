@@ -1,6 +1,5 @@
 package com.github.hemoptysisheart.parking.core.model
 
-import android.util.Log
 import com.github.hemoptysisheart.parking.core.repository.LocationRepository
 import com.github.hemoptysisheart.parking.core.room.entity.LocationEntity
 import com.github.hemoptysisheart.parking.domain.Location
@@ -22,7 +21,6 @@ class LocationModelImpl(
         val entity = repository.create(LocationEntity(src.latitude, src.longitude, timestamp))
         location = entity
 
-        Log.v(TAG, "#update return : $entity")
         return entity
     }
 

@@ -34,7 +34,6 @@ class SensorControllerModelImpl @Inject constructor(
             {
                 val timestamp = timeProvider.instant()
                 scope.launch {
-                    Log.v(TAG, "#start : location=$it")
                     locationModel.update(it, timestamp)
                 }
             },

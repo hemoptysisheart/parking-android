@@ -108,4 +108,12 @@ class AppModuleConfig {
         Log.i(TAG, "#providePlaceModel return : $model")
         return model
     }
+
+    @Provides
+    @Singleton
+    fun provideMapModel(): MapModel {
+        val model = MapModelImpl()
+        Log.i(TAG, "#provideMapModel return : $model")
+        return model
+    }
 }

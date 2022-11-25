@@ -11,8 +11,10 @@ import com.github.hemoptysisheart.parking.app.ui.configuration.LogicConstant.TAG
 import com.github.hemoptysisheart.parking.app.viewmodel.MapViewModel
 import com.github.hemoptysisheart.parking.core.dummy.domain.DummyPlace
 import com.github.hemoptysisheart.parking.core.dummy.model.DummyLocationModel
+import com.github.hemoptysisheart.parking.core.dummy.model.DummyMapModel
 import com.github.hemoptysisheart.parking.core.dummy.model.DummyPlaceModel
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
+import com.github.hemoptysisheart.util.TruncatedTimeProvider
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.GoogleMap
@@ -45,6 +47,9 @@ fun MapScreen(
             17.0F
         )
     }
+    viewModel.updateMapCenter(cameraPositionState.position.target)
+    viewModel.updateMapZoomLevel(cameraPositionState.position.zoom)
+
     val uiSettings by remember {
         mutableStateOf(MapUiSettings(indoorLevelPickerEnabled = false, mapToolbarEnabled = false))
     }
@@ -74,7 +79,7 @@ fun MapScreen(
 @Preview(showBackground = true)
 fun MapScreenPreviewInit() {
     ParkingTheme {
-        MapScreen(viewModel = MapViewModel(DummyLocationModel, DummyPlaceModel))
+        MapScreen(viewModel = MapViewModel(DummyLocationModel, DummyPlaceModel, DummyMapModel, TruncatedTimeProvider()))
     }
 }
 
@@ -84,7 +89,7 @@ fun MapScreenPreviewSearch() {
     ParkingTheme {
         MapScreen(
             placeId = DummyPlace.PLACE1.id,
-            viewModel = MapViewModel(DummyLocationModel, DummyPlaceModel)
+            viewModel = MapViewModel(DummyLocationModel, DummyPlaceModel, DummyMapModel, TruncatedTimeProvider())
         )
     }
 }

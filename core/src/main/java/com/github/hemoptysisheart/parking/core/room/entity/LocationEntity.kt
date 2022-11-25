@@ -12,7 +12,6 @@ import com.github.hemoptysisheart.parking.domain.Location.Companion.ID_VALIDATOR
 import com.github.hemoptysisheart.parking.domain.Location.Companion.LATITUDE_VALIDATOR
 import com.github.hemoptysisheart.parking.domain.Location.Companion.LONGITUDE_VALIDATOR
 import com.github.hemoptysisheart.util.ToSimpleString
-import java.math.BigDecimal
 import java.time.Instant
 
 @Entity(tableName = LocationMapping.TABLE)
@@ -21,12 +20,12 @@ class LocationEntity(
      * 위도
      */
     @ColumnInfo(name = COL_LATITUDE)
-    override val latitude: BigDecimal,
+    override val latitude: Double,
     /**
      * 경도
      */
     @ColumnInfo(name = COL_LONGITUDE)
-    override val longitude: BigDecimal,
+    override val longitude: Double,
     @ColumnInfo(name = COL_CREATED_AT)
     override val createdAt: Instant
 ) : Location, ToSimpleString {
@@ -43,7 +42,7 @@ class LocationEntity(
         LONGITUDE_VALIDATOR(longitude)
     }
 
-    override fun toSimpleString() = "$latitude,$longitude"
+    override fun toSimpleString() = "%.6f,%.6f".format(latitude, longitude)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

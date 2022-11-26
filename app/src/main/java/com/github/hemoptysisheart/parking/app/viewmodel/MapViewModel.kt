@@ -6,6 +6,7 @@ import com.github.hemoptysisheart.parking.core.model.LocationModel
 import com.github.hemoptysisheart.parking.core.model.MapModel
 import com.github.hemoptysisheart.parking.core.model.PlaceModel
 import com.github.hemoptysisheart.parking.core.model.param.MapStateParams
+import com.github.hemoptysisheart.parking.domain.MapState
 import com.github.hemoptysisheart.parking.domain.Place
 import com.github.hemoptysisheart.util.TimeProvider
 import com.google.android.gms.maps.model.LatLng
@@ -30,7 +31,13 @@ class MapViewModel @Inject constructor(
 
     val destination: MutableStateFlow<Place?> = MutableStateFlow(null)
 
+    val center = MutableStateFlow(locationModel.location.run { LatLng(latitude, longitude) })
+
+    val zoom = MutableStateFlow(MapState.ZOOM_DEFAULT)
+
     fun update(center: LatLng, zoom: Float) = viewModelScope.launch {
+        this@MapViewModel.center.emit(center)
+        this@MapViewModel.zoom.emit(zoom)
         mapModel.update(MapStateParams(center, zoom, timeProvider.instant()))
     }
 

@@ -16,7 +16,6 @@ import com.github.hemoptysisheart.parking.core.dummy.model.DummyPlaceModel
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 import com.github.hemoptysisheart.util.TruncatedTimeProvider
 import com.google.android.gms.maps.model.CameraPosition
-import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapUiSettings
@@ -40,12 +39,11 @@ fun MapScreen(
 
     val location by viewModel.location.collectAsState()
     val destination by viewModel.destination.collectAsState()
+    val center by viewModel.center.collectAsState()
+    val zoom by viewModel.zoom.collectAsState()
 
     val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(
-            LatLng(location.latitude, location.longitude),
-            17.0F
-        )
+        position = CameraPosition.fromLatLngZoom(center, zoom)
     }
     viewModel.update(cameraPositionState.position.target, cameraPositionState.position.zoom)
 
@@ -59,7 +57,6 @@ fun MapScreen(
     Column(modifier = Modifier.fillMaxSize()) {
         MapHeader(destination, openSearch)
         GoogleMap(
-            modifier = Modifier.fillMaxSize(),
             cameraPositionState = cameraPositionState,
             properties = properties,
             uiSettings = uiSettings,

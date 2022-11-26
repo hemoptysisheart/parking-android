@@ -72,7 +72,7 @@ fun MapScreen(
 }
 
 @Composable
-@Preview(showBackground = true)
+@Preview(name = "목적지가 없는 초기상태.", showBackground = true)
 fun MapScreenPreviewInit() {
     ParkingTheme {
         MapScreen(viewModel = MapViewModel(DummyLocationModel, DummyPlaceModel, DummyMapModel, TruncatedTimeProvider()))
@@ -80,7 +80,7 @@ fun MapScreenPreviewInit() {
 }
 
 @Composable
-@Preview(showBackground = true)
+@Preview(name = "목적지를 선택한 상태.", showBackground = true)
 fun MapScreenPreviewSearch() {
     ParkingTheme {
         MapScreen(

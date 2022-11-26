@@ -10,9 +10,11 @@ class MapModelImpl : MapModel {
         private val TAG = MapModelImpl::class.simpleName
     }
 
-    private var center = LatLng(0.0, 0.0)
+    override var center = LatLng(0.0, 0.0)
+        private set
 
-    private var zoom: Float = MapModel.ZOOM_DEFAULT
+    override var zoom: Float = MapModel.ZOOM_DEFAULT
+        private set
 
     /**
      * 모델 상태가 갱신됐다고 보고 저장한다.
@@ -23,8 +25,6 @@ class MapModelImpl : MapModel {
         delay(1L)
     }
 
-    override suspend fun getCenter() = center
-
     override suspend fun setCenter(center: LatLng, timestamp: Instant) {
         val dirty = center != this.center
         this.center = center
@@ -33,8 +33,6 @@ class MapModelImpl : MapModel {
             saveState(timestamp)
         }
     }
-
-    override suspend fun getZoom() = zoom
 
     override suspend fun setZoom(zoom: Float, timestamp: Instant) {
         val dirty = zoom != this.zoom

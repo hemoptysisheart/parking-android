@@ -14,17 +14,17 @@ interface MapModel {
     /**
      * 중심 좌표.
      */
-    suspend fun getCenter(): LatLng
+    val center: LatLng
+
+    /**
+     * 확대 수준.
+     */
+    val zoom: Float
 
     /**
      * 중심 좌표.
      */
     suspend fun setCenter(center: LatLng, timestamp: Instant = Instant.now())
-
-    /**
-     * 확대 수준.
-     */
-    suspend fun getZoom(): Float
 
     /**
      * 확대 수준.

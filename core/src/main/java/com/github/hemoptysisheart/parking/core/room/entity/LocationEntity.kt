@@ -8,9 +8,8 @@ import com.github.hemoptysisheart.parking.core.room.mapping.LocationMapping.COL_
 import com.github.hemoptysisheart.parking.core.room.mapping.LocationMapping.COL_LATITUDE
 import com.github.hemoptysisheart.parking.core.room.mapping.LocationMapping.COL_LONGITUDE
 import com.github.hemoptysisheart.parking.domain.Location
-import com.github.hemoptysisheart.parking.domain.Location.Companion.ID_VALIDATOR
-import com.github.hemoptysisheart.parking.domain.Location.Companion.LATITUDE_VALIDATOR
-import com.github.hemoptysisheart.parking.domain.Location.Companion.LONGITUDE_VALIDATOR
+import com.github.hemoptysisheart.util.NumberValidators.LATITUDE_VALIDATOR
+import com.github.hemoptysisheart.util.NumberValidators.LONGITUDE_VALIDATOR
 import com.github.hemoptysisheart.util.ToSimpleString
 import java.time.Instant
 
@@ -37,9 +36,8 @@ class LocationEntity(
     override var id: Long = 0L
 
     init {
-        ID_VALIDATOR(id)
-        LATITUDE_VALIDATOR(latitude)
-        LONGITUDE_VALIDATOR(longitude)
+        LATITUDE_VALIDATOR.validate(latitude)
+        LONGITUDE_VALIDATOR.validate(longitude)
     }
 
     override fun toSimpleString() = "%.6f,%.6f".format(latitude, longitude)

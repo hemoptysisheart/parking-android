@@ -8,7 +8,8 @@ import com.google.android.gms.maps.model.LatLng
  */
 interface MapModel {
     companion object {
-        const val ZOOM_DEFAULT = 17.0F
+        val LAT_LNG_DEFAULT = LatLng(0.0, 0.0)
+        const val ZOOM_DEFAULT = 15.0F
     }
 
     /**
@@ -24,5 +25,5 @@ interface MapModel {
     /**
      * 지도 상태 변경.
      */
-    suspend fun update(state: MapStateParams)
+    suspend fun update(params: MapStateParams)
 }

@@ -9,8 +9,11 @@ import androidx.security.crypto.MasterKey
 import com.github.hemoptysisheart.parking.core.model.*
 import com.github.hemoptysisheart.parking.core.repository.LocationRepository
 import com.github.hemoptysisheart.parking.core.repository.LocationRepositoryImpl
+import com.github.hemoptysisheart.parking.core.repository.MapStateRepository
+import com.github.hemoptysisheart.parking.core.repository.MapStateRepositoryImpl
 import com.github.hemoptysisheart.parking.core.room.configuration.ParkingRoomConfiguration
 import com.github.hemoptysisheart.parking.core.room.dao.LocationDao
+import com.github.hemoptysisheart.parking.core.room.dao.MapStateDao
 import com.github.hemoptysisheart.util.TimeProvider
 import com.github.hemoptysisheart.util.TruncatedTimeProvider
 import com.google.android.gms.location.LocationServices
@@ -71,9 +74,25 @@ class AppModuleConfig {
 
     @Provides
     @Singleton
+    fun provideMapStateDao(room: ParkingRoomConfiguration): MapStateDao {
+        val dao = room.mapStateDao()
+        Log.i(TAG, "#provideMapStateDao return : $dao")
+        return dao
+    }
+
+    @Provides
+    @Singleton
     fun provideLocationRepository(dao: LocationDao): LocationRepository {
         val repository = LocationRepositoryImpl(dao)
         Log.i(TAG, "#provideLocationRepository return : $repository")
+        return repository
+    }
+
+    @Provides
+    @Singleton
+    fun provideMapStateRepository(dao: MapStateDao): MapStateRepository {
+        val repository = MapStateRepositoryImpl(dao)
+        Log.i(TAG, "#provideMapStateRepository return : $repository")
         return repository
     }
 
@@ -111,8 +130,8 @@ class AppModuleConfig {
 
     @Provides
     @Singleton
-    fun provideMapModel(): MapModel {
-        val model = MapModelImpl()
+    fun provideMapModel(repository: MapStateRepository): MapModel {
+        val model = MapModelImpl(repository)
         Log.i(TAG, "#provideMapModel return : $model")
         return model
     }

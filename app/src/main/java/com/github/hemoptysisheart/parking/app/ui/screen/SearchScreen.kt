@@ -23,6 +23,9 @@ import com.github.hemoptysisheart.parking.core.dummy.model.DummyPlaceModel
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 import java.util.*
 
+/**
+ * [SearchScreen](https://www.figma.com/file/I3LN6lcAVaAXlNba0kBKPN/Parking?node-id=112%3A509&t=TzUdFxNeMKN4ZpTv-4)
+ */
 @Composable
 fun SearchScreen(
     viewModel: SearchViewModel = hiltViewModel(),

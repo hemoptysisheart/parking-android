@@ -1,40 +1,28 @@
 package com.github.hemoptysisheart.parking.core.model
 
-import android.annotation.SuppressLint
-import android.location.Location
-import android.util.Log
-import com.google.android.gms.location.FusedLocationProviderClient
-import javax.inject.Inject
+import com.github.hemoptysisheart.parking.core.repository.LocationRepository
+import com.github.hemoptysisheart.parking.core.room.entity.LocationEntity
+import com.github.hemoptysisheart.parking.domain.Location
+import com.github.hemoptysisheart.util.TimeProvider
+import java.time.Instant
 
-class LocationModelImpl @Inject constructor(
-    private val client: FusedLocationProviderClient
+class LocationModelImpl(
+    private val repository: LocationRepository,
+    private val timeProvider: TimeProvider
 ) : LocationModel {
     companion object {
         private val TAG = LocationModelImpl::class.simpleName
     }
 
-    private lateinit var location: Location
+    override var location: Location = LocationEntity(0.0, 0.0, timeProvider.instant())
+        private set
 
-    @SuppressLint("MissingPermission")
-    override fun init() {
-        Log.v(TAG, "#init called.")
+    override suspend fun update(src: android.location.Location, timestamp: Instant): Location {
+        val entity = repository.create(LocationEntity(src.latitude, src.longitude, timestamp))
+        location = entity
 
-        client.lastLocation.addOnSuccessListener {
-            Log.v(TAG, "#client.onSuccess args : location=$it")
-            location = it
-        }
+        return entity
     }
 
-    @SuppressLint("MissingPermission")
-    override fun test() {
-        if (this::location.isInitialized) {
-            Log.v(TAG, "#test : location=$location")
-        } else {
-            Log.v(TAG, "#test client does not initialized.")
-        }
-    }
-
-    @Suppress("IMPLICIT_CAST_TO_ANY")
-    override fun toString() =
-        "$TAG(client=$client, location=${if (this::location.isInitialized) location else "[ not initialized ]"})"
+    override fun toString() = "$TAG(repository=$repository, timeProvider=$timeProvider)"
 }

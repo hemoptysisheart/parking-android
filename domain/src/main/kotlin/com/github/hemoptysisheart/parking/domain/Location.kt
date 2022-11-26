@@ -1,18 +1,20 @@
 package com.github.hemoptysisheart.parking.domain
 
-import java.math.BigDecimal
+import com.github.hemoptysisheart.util.Creatable
 
 /**
- * 위치 정보.
+ * 앱 사용중 위치 정보.
  */
-interface Location {
+interface Location : Creatable {
+    val id: Long
+
     /**
      * 위도
      */
-    val latitude: BigDecimal
+    val latitude: Double
 
     /**
      * 경도
      */
-    val longitude: BigDecimal
+    val longitude: Double
 }

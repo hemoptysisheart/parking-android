@@ -11,16 +11,20 @@ import com.github.hemoptysisheart.parking.app.ui.configuration.LogicConstant.TAG
 import com.github.hemoptysisheart.parking.app.viewmodel.MapViewModel
 import com.github.hemoptysisheart.parking.core.dummy.domain.DummyPlace
 import com.github.hemoptysisheart.parking.core.dummy.model.DummyLocationModel
+import com.github.hemoptysisheart.parking.core.dummy.model.DummyMapModel
 import com.github.hemoptysisheart.parking.core.dummy.model.DummyPlaceModel
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
+import com.github.hemoptysisheart.util.TruncatedTimeProvider
 import com.google.android.gms.maps.model.CameraPosition
-import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.rememberCameraPositionState
 import java.util.*
 
+/**
+ * [MapScreen](https://www.figma.com/file/I3LN6lcAVaAXlNba0kBKPN/Parking?node-id=112%3A508&t=TzUdFxNeMKN4ZpTv-4)
+ */
 @Composable
 fun MapScreen(
     placeId: UUID? = null,
@@ -33,11 +37,16 @@ fun MapScreen(
         viewModel.loadPlace(placeId)
     }
 
+    val location by viewModel.location.collectAsState()
     val destination by viewModel.destination.collectAsState()
+    val center by viewModel.center.collectAsState()
+    val zoom by viewModel.zoom.collectAsState()
 
     val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(LatLng(35.583323, 139.540254), 17.0F)
+        position = CameraPosition.fromLatLngZoom(center, zoom)
     }
+    viewModel.update(cameraPositionState.position.target, cameraPositionState.position.zoom)
+
     val uiSettings by remember {
         mutableStateOf(MapUiSettings(indoorLevelPickerEnabled = false, mapToolbarEnabled = false))
     }
@@ -48,7 +57,6 @@ fun MapScreen(
     Column(modifier = Modifier.fillMaxSize()) {
         MapHeader(destination, openSearch)
         GoogleMap(
-            modifier = Modifier.fillMaxSize(),
             cameraPositionState = cameraPositionState,
             properties = properties,
             uiSettings = uiSettings,
@@ -64,20 +72,20 @@ fun MapScreen(
 }
 
 @Composable
-@Preview(showBackground = true)
+@Preview(name = "목적지가 없는 초기상태.", showBackground = true)
 fun MapScreenPreviewInit() {
     ParkingTheme {
-        MapScreen(viewModel = MapViewModel(DummyLocationModel, DummyPlaceModel))
+        MapScreen(viewModel = MapViewModel(DummyLocationModel, DummyPlaceModel, DummyMapModel, TruncatedTimeProvider()))
     }
 }
 
 @Composable
-@Preview(showBackground = true)
+@Preview(name = "목적지를 선택한 상태.", showBackground = true)
 fun MapScreenPreviewSearch() {
     ParkingTheme {
         MapScreen(
             placeId = DummyPlace.PLACE1.id,
-            viewModel = MapViewModel(DummyLocationModel, DummyPlaceModel)
+            viewModel = MapViewModel(DummyLocationModel, DummyPlaceModel, DummyMapModel, TruncatedTimeProvider())
         )
     }
 }

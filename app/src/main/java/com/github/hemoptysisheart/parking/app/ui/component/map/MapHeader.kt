@@ -29,6 +29,8 @@ import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
  * 기본 지도용 헤더.
  * - 검색어 입력 필드.
  * - 앱 설정 버튼.
+ *
+ * [header / map](https://www.figma.com/file/I3LN6lcAVaAXlNba0kBKPN/Parking?node-id=44%3A538&t=TzUdFxNeMKN4ZpTv-4)
  */
 @Composable
 fun MapHeader(destination: Place?, destinationOnClick: () -> Unit = {}) {

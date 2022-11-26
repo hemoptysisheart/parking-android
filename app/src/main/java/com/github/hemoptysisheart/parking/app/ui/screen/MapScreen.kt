@@ -47,8 +47,7 @@ fun MapScreen(
             17.0F
         )
     }
-    viewModel.updateMapCenter(cameraPositionState.position.target)
-    viewModel.updateMapZoomLevel(cameraPositionState.position.zoom)
+    viewModel.update(cameraPositionState.position.target, cameraPositionState.position.zoom)
 
     val uiSettings by remember {
         mutableStateOf(MapUiSettings(indoorLevelPickerEnabled = false, mapToolbarEnabled = false))

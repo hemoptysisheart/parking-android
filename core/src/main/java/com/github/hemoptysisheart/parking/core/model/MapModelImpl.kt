@@ -1,6 +1,7 @@
 package com.github.hemoptysisheart.parking.core.model
 
 import android.util.Log
+import com.github.hemoptysisheart.parking.core.model.param.MapStateParams
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.delay
 import java.time.Instant
@@ -21,25 +22,19 @@ class MapModelImpl : MapModel {
      */
     private suspend fun saveState(timestamp: Instant) {
         Log.v(TAG, "#saveState : center=$center, zoom=$zoom, timestamp=$timestamp")
-        // TODO 저장.
-        delay(1L)
+
+        delay(1L) // TODO 저장 로직으로 교체.
     }
 
-    override suspend fun setCenter(center: LatLng, timestamp: Instant) {
-        val dirty = center != this.center
-        this.center = center
+    override suspend fun update(params: MapStateParams) {
+        val dirty = center != params.center ||
+                zoom != params.zoom
+
+        center = params.center
+        zoom = params.zoom
 
         if (dirty) {
-            saveState(timestamp)
-        }
-    }
-
-    override suspend fun setZoom(zoom: Float, timestamp: Instant) {
-        val dirty = zoom != this.zoom
-        this.zoom = zoom
-
-        if (dirty) {
-            saveState(timestamp)
+            saveState(params.timestamp)
         }
     }
 

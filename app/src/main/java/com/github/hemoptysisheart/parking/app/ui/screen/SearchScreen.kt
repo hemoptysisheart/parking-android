@@ -17,21 +17,29 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.github.hemoptysisheart.parking.app.ui.component.search.SearchHeader
-import com.github.hemoptysisheart.parking.app.ui.configuration.LogicConstant.TAG_COMPOSE
+import com.github.hemoptysisheart.parking.app.ui.configuration.UiConstants.TAG_COMPOSE
 import com.github.hemoptysisheart.parking.app.viewmodel.SearchViewModel
 import com.github.hemoptysisheart.parking.core.dummy.model.DummyPlaceModel
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 import java.util.*
 
 /**
- * [SearchScreen](https://www.figma.com/file/I3LN6lcAVaAXlNba0kBKPN/Parking?node-id=112%3A509&t=TzUdFxNeMKN4ZpTv-4)
+ * 지도 중심을 기준으로 장소를 검색한다.
+ *
+ * UI : [SearchScreen](https://www.figma.com/file/I3LN6lcAVaAXlNba0kBKPN/Parking?node-id=112%3A509&t=TzUdFxNeMKN4ZpTv-4)
  */
 @Composable
 fun SearchScreen(
+    latitude: Double,
+    longitude: Double,
+    zoom: Float,
     viewModel: SearchViewModel = hiltViewModel(),
     resultOnClick: (UUID) -> Unit = {}
 ) {
-    Log.v(TAG_COMPOSE, "#SearchScreen args : viewModel=$viewModel")
+    Log.v(
+        TAG_COMPOSE,
+        "#SearchScreen args : latitude=$latitude, longitude=$longitude, zoom=$zoom, viewModel=$viewModel"
+    )
 
     val list by viewModel.places.collectAsState()
 
@@ -68,6 +76,6 @@ fun SearchScreen(
 @Preview(showBackground = true)
 fun SearchScreenPreview() {
     ParkingTheme {
-        SearchScreen(SearchViewModel(DummyPlaceModel))
+        SearchScreen(35.5956352, 139.604961, 16F, SearchViewModel(DummyPlaceModel))
     }
 }

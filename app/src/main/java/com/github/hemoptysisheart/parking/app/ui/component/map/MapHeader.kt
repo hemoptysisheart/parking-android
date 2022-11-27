@@ -20,7 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.hemoptysisheart.parking.R
-import com.github.hemoptysisheart.parking.app.ui.configuration.LogicConstant.TAG_COMPOSE
+import com.github.hemoptysisheart.parking.app.ui.configuration.UiConstants.TAG_COMPOSE
 import com.github.hemoptysisheart.parking.core.dummy.domain.DummyPlace
 import com.github.hemoptysisheart.parking.domain.Place
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
@@ -33,7 +33,11 @@ import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
  * [header / map](https://www.figma.com/file/I3LN6lcAVaAXlNba0kBKPN/Parking?node-id=44%3A538&t=TzUdFxNeMKN4ZpTv-4)
  */
 @Composable
-fun MapHeader(modifier: Modifier, destination: Place?, destinationOnClick: () -> Unit = {}) {
+fun MapHeader(
+    modifier: Modifier,
+    destination: Place?,
+    destinationOnClick: () -> Unit = { }
+) {
     Log.v(
         TAG_COMPOSE,
         "#MapHeader args : modifier=$modifier, destination=$destination, destinationOnClick=$destinationOnClick"

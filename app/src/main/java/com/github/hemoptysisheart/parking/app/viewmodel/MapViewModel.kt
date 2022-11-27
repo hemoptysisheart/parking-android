@@ -1,5 +1,6 @@
 package com.github.hemoptysisheart.parking.app.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.hemoptysisheart.parking.core.model.LocationModel
@@ -27,27 +28,36 @@ class MapViewModel @Inject constructor(
         private val TAG = MapViewModel::class.simpleName
     }
 
+    /**
+     * 지도에 표시할 목적지.
+     */
     val destination: MutableStateFlow<Place?> = MutableStateFlow(null)
 
-    val center = MutableStateFlow(locationModel.location.run {
-        LatLng(
-            locationModel.location.latitude,
-            locationModel.location.longitude
-        )
-    })
+    /**
+     * 지도 중심.
+     */
+    val center = MutableStateFlow(LatLng(locationModel.location.latitude, locationModel.location.longitude))
 
+    /**
+     * 지도의 확대 수준.
+     */
     val zoom = MutableStateFlow(MapState.ZOOM_DEFAULT)
 
+    /**
+     * 지도 상태를 갱신한다.
+     */
     fun update(center: LatLng, zoom: Float) = viewModelScope.launch {
+        Log.v(TAG, "#update args : center=$center, zoom=$zoom")
         this@MapViewModel.center.emit(center)
         this@MapViewModel.zoom.emit(zoom)
         mapModel.update(MapStateParams(center, zoom, timeProvider.instant()))
     }
 
-    fun loadPlace(id: UUID) {
-        viewModelScope.launch {
-            destination.emit(placeModel.read(id))
-        }
+    /**
+     * 지도에 표시하기 위해 목적지를 지정한다.
+     */
+    fun setDestination(id: UUID) = viewModelScope.launch {
+        destination.emit(placeModel.read(id))
     }
 
     override fun toString() = "$TAG(destination=$destination)"

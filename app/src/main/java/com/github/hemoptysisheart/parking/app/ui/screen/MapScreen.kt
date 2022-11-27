@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.github.hemoptysisheart.parking.app.ui.configuration.LogicConstant.TAG_COMPOSE
+import com.github.hemoptysisheart.parking.app.ui.configuration.UiConstants.TAG_COMPOSE
 import com.github.hemoptysisheart.parking.app.viewmodel.MapViewModel
 import com.github.hemoptysisheart.parking.core.dummy.domain.DummyPlace
 import com.github.hemoptysisheart.parking.core.dummy.model.DummyLocationModel
@@ -26,24 +26,31 @@ import com.github.hemoptysisheart.parking.core.dummy.model.DummyPlaceModel
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 import com.github.hemoptysisheart.util.TruncatedTimeProvider
 import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.rememberCameraPositionState
 import java.util.*
 
-
 /**
- * [MapScreen](https://www.figma.com/file/I3LN6lcAVaAXlNba0kBKPN/Parking?node-id=112%3A508&t=TzUdFxNeMKN4ZpTv-4)
+ * 지도에 정보를 표시한다.
+ *
+ * UI : [MapScreen](https://www.figma.com/file/I3LN6lcAVaAXlNba0kBKPN/Parking?node-id=112%3A508&t=TzUdFxNeMKN4ZpTv-4)
  */
 @Composable
+@Suppress("MoveLambdaOutsideParentheses")
 fun MapScreen(
-    placeId: UUID? = null, viewModel: MapViewModel = hiltViewModel(), openSearch: () -> Unit = {}
+    placeId: UUID? = null,
+    viewModel: MapViewModel = hiltViewModel(),
+    openSearch: (center: LatLng, zoom: Float) -> Unit = { center, zoom ->
+        Log.v(TAG_COMPOSE, "#openSearch args : center=$center, zoom=$zoom")
+    }
 ) {
     Log.v(TAG_COMPOSE, "#MapView args : placeId=$placeId, viewModel=$viewModel, openSearch=$openSearch")
 
     if (null != placeId) {
-        viewModel.loadPlace(placeId)
+        viewModel.setDestination(placeId)
     }
 
     val destination by viewModel.destination.collectAsState()
@@ -80,7 +87,10 @@ fun MapScreen(
                     end.linkTo(parent.end, 0.dp)
                 }
                 .fillMaxWidth()
-                .zIndex(1.0F), destination, openSearch)
+                .zIndex(1.0F),
+            destination,
+            { openSearch(center, zoom) }
+        )
 
         Text(
             text = "\uD83D\uDD18",
@@ -107,9 +117,7 @@ fun MapScreen(
             uiSettings = uiSettings,
             onMapClick = {
                 Log.d(TAG_COMPOSE, "map.onMapClick args : latLng=$it")
-            },
-            onMapLongClick = {
-                Log.d(TAG_COMPOSE, "#map.onMapLongClick args : latLng=$it")
+                // TODO 입력 UI 보이기/숨기기
             }
         )
     }

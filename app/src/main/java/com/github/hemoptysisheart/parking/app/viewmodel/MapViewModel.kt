@@ -27,11 +27,14 @@ class MapViewModel @Inject constructor(
         private val TAG = MapViewModel::class.simpleName
     }
 
-    val location = MutableStateFlow(locationModel.location)
-
     val destination: MutableStateFlow<Place?> = MutableStateFlow(null)
 
-    val center = MutableStateFlow(locationModel.location.run { LatLng(latitude, longitude) })
+    val center = MutableStateFlow(locationModel.location.run {
+        LatLng(
+            locationModel.location.latitude,
+            locationModel.location.longitude
+        )
+    })
 
     val zoom = MutableStateFlow(MapState.ZOOM_DEFAULT)
 

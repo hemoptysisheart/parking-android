@@ -33,12 +33,14 @@ import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
  * [header / map](https://www.figma.com/file/I3LN6lcAVaAXlNba0kBKPN/Parking?node-id=44%3A538&t=TzUdFxNeMKN4ZpTv-4)
  */
 @Composable
-fun MapHeader(destination: Place?, destinationOnClick: () -> Unit = {}) {
-    Log.v(TAG_COMPOSE, "#MapHeader args : destination=$destination, destinationOnClick=$destinationOnClick")
+fun MapHeader(modifier: Modifier, destination: Place?, destinationOnClick: () -> Unit = {}) {
+    Log.v(
+        TAG_COMPOSE,
+        "#MapHeader args : modifier=$modifier, destination=$destination, destinationOnClick=$destinationOnClick"
+    )
 
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
+        modifier = modifier
             .padding(5.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -86,7 +88,7 @@ fun MapHeader(destination: Place?, destinationOnClick: () -> Unit = {}) {
 @Preview
 fun MapHeaderPreviewPlaceNull() {
     ParkingTheme {
-        MapHeader(null)
+        MapHeader(Modifier.fillMaxWidth(), null)
     }
 }
 
@@ -94,6 +96,6 @@ fun MapHeaderPreviewPlaceNull() {
 @Preview
 fun MapHeaderPreviewPlaceDummy() {
     ParkingTheme {
-        MapHeader(DummyPlace.PLACE1)
+        MapHeader(Modifier.fillMaxWidth(), DummyPlace.PLACE1)
     }
 }

@@ -1,4 +1,4 @@
-# ADR : Information Architecture 우선
+# Information Architecture 우선
 
 ## 결정사항
 

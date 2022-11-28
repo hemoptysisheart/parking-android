@@ -1,4 +1,4 @@
-# ADR : `README.md` 링크하기
+# `README.md` 링크하기
 
 ## 결정사항
 

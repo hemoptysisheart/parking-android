@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
-import com.github.hemoptysisheart.parking.app.navigation.MainNavGraph
+import com.github.hemoptysisheart.parking.app.configuration.MainNavGraph
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 import dagger.hilt.android.AndroidEntryPoint
 

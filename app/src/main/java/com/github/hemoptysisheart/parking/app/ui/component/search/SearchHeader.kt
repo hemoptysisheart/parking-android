@@ -1,6 +1,5 @@
 package com.github.hemoptysisheart.parking.app.ui.component.search
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -11,31 +10,24 @@ import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.github.hemoptysisheart.parking.R
-import com.github.hemoptysisheart.parking.app.ui.configuration.UiConstants.TAG_COMPOSE
-import com.github.hemoptysisheart.parking.app.viewmodel.SearchViewModel
-import com.github.hemoptysisheart.parking.core.dummy.model.DummyPlaceModel
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 
 /**
  * [header / search / query](https://www.figma.com/file/I3LN6lcAVaAXlNba0kBKPN/Parking?node-id=44%3A739&t=TzUdFxNeMKN4ZpTv-4)
+ *
+ * @param query 현재의 쿼리.
+ * @param onQueryChange 쿼리 변경 리스너.
+ * @param onBack 돌아가기 버튼 리스너.
  */
 @Composable
-fun SearchHeader(viewModel: SearchViewModel = hiltViewModel()) {
-    val navController: NavHostController = rememberNavController()
-    val query by viewModel.query.collectAsState()
-
+fun SearchHeader(query: String = "", onQueryChange: (String) -> Unit = {}, onBack: () -> Unit = {}) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -46,7 +38,7 @@ fun SearchHeader(viewModel: SearchViewModel = hiltViewModel()) {
             Icons.Default.ArrowBack,
             stringResource(R.string.action_move_back),
             Modifier
-                .clickable { navController.popBackStack() }
+                .clickable { onBack() }
                 .background(Color.White, RoundedCornerShape(20.dp))
                 .border(1.dp, Color.LightGray, RoundedCornerShape(20.dp))
                 .padding(5.dp)
@@ -55,15 +47,14 @@ fun SearchHeader(viewModel: SearchViewModel = hiltViewModel()) {
         BasicTextField(
             value = query,
             onValueChange = {
-                Log.v(TAG_COMPOSE, "#search.onChange args : query=$it")
-                viewModel.search(it.trim())
+                onQueryChange(it)
             },
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Color.White, RoundedCornerShape(20.dp))
                 .border(1.dp, Color.LightGray, RoundedCornerShape(20.dp))
                 .padding(10.dp, 6.dp),
-            maxLines = 1
+            singleLine = true
         )
         // TODO 검색 필터 추가.
     }
@@ -73,6 +64,6 @@ fun SearchHeader(viewModel: SearchViewModel = hiltViewModel()) {
 @Preview
 fun SearchHeaderPreview() {
     ParkingTheme {
-        SearchHeader(SearchViewModel(DummyPlaceModel))
+        SearchHeader()
     }
 }

@@ -1,5 +1,6 @@
 package com.github.hemoptysisheart.parking.core.model
 
+import android.util.Log
 import com.github.hemoptysisheart.parking.core.dummy.model.DummyPlaceModel
 import java.util.*
 
@@ -10,7 +11,11 @@ class PlaceModelImpl : PlaceModel {
 
     override val places = DummyPlaceModel.places
 
-    override fun read(id: UUID) = places.firstOrNull { it.id == id }
+    override suspend fun read(id: UUID) = places.firstOrNull { it.id == id }
+
+    override suspend fun search(query: String) {
+        Log.d(TAG, "#search args : query=$query")
+    }
 
     override fun toString() = "$TAG(places=${places})"
 }

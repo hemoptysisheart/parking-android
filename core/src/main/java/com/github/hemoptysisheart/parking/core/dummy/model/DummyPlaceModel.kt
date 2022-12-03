@@ -6,7 +6,9 @@ import com.github.hemoptysisheart.parking.domain.Place
 import java.util.*
 
 object DummyPlaceModel : PlaceModel {
-    override val places: List<Place> = listOf(DummyPlace.PLACE1, DummyPlace.PLACE2, DummyPlace.PLACE3)
+    override var places: List<Place> = listOf(DummyPlace.PLACE1, DummyPlace.PLACE2, DummyPlace.PLACE3)
 
-    override fun read(id: UUID): Place? = places.firstOrNull { it.id == id }
+    override suspend fun read(id: UUID): Place? = places.firstOrNull { it.id == id }
+
+    override suspend fun search(query: String) {}
 }

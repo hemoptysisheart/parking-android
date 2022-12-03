@@ -6,5 +6,7 @@ import java.util.*
 interface PlaceModel {
     val places: List<Place>
 
-    fun read(id: UUID): Place?
+    suspend fun read(id: UUID): Place?
+
+    suspend fun search(query: String)
 }

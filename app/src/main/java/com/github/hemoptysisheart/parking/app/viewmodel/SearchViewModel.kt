@@ -19,17 +19,18 @@ class SearchViewModel @Inject constructor(
 
     val query = MutableStateFlow("")
 
-    fun search(query: String) {
-        viewModelScope.launch {
-            this@SearchViewModel.query.emit(query)
-        }
-    }
-
     @Deprecated("prototyping code")
     val places = MutableStateFlow(placeModel.places)
 
     @Deprecated("prototyping code")
-    fun read(id: UUID) = placeModel.read(id)
+    fun read(id: UUID) = viewModelScope.launch {
+        placeModel.read(id)
+    }
+
+    fun search(query: String) = viewModelScope.launch {
+        this@SearchViewModel.query.emit(query)
+        placeModel.search(query)
+    }
 
     override fun toString() = "$TAG(query=${query.value}, places=$places)"
 }

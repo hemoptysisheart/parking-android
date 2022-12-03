@@ -41,6 +41,7 @@ fun SearchScreen(
         "#SearchScreen args : latitude=$latitude, longitude=$longitude, zoom=$zoom, viewModel=$viewModel"
     )
 
+    val query by viewModel.query.collectAsState()
     val list by viewModel.places.collectAsState()
 
     LazyColumn(
@@ -49,7 +50,16 @@ fun SearchScreen(
             .padding(3.dp, 6.dp)
     ) {
         item {
-            SearchHeader()
+            SearchHeader(
+                query = query,
+                onQueryChange = {
+                    viewModel.search(it)
+                    Log.v(TAG_COMPOSE, "#SearchScreen.onQueryUpdate args : query=$it")
+                },
+                onBack = {
+                    Log.v(TAG_COMPOSE, "#SearchScreen.onBack called.")
+                }
+            )
         }
 
         itemsIndexed(list) { idx, place ->
@@ -76,6 +86,6 @@ fun SearchScreen(
 @Preview(showBackground = true)
 fun SearchScreenPreview() {
     ParkingTheme {
-        SearchScreen(35.5956352, 139.604961, 16F, SearchViewModel(DummyPlaceModel))
+        SearchScreen(35.5956352, 139.604961, 16.0F, SearchViewModel(DummyPlaceModel))
     }
 }

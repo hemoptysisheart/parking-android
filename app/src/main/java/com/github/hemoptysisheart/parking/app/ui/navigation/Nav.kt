@@ -17,6 +17,8 @@ abstract class Nav(
         const val ROUTE_PREFIX_SCREEN = "screen"
     }
 
+    abstract val routePath: String
+
     /**
      * 루트의 패턴.
      */
@@ -33,9 +35,13 @@ abstract class Nav(
         UUID.fromString(this)
     }
 
+    internal fun buildRoutePattern(path: String, vararg args: String) = args.joinToString("&", "$path?") {
+        "$it={$it}"
+    }
+
     internal fun buildRoute(vararg args: Pair<String, Any?>): String {
         val route = args.filter { argNames.contains(it.first) }
-            .joinToString("&", "$routePattern?") { "${it.first}=${it.second}" }
+            .joinToString("&", "$routePath?") { "${it.first}=${it.second}" }
 
         Log.d(TAG, "#route return : $route")
         return route

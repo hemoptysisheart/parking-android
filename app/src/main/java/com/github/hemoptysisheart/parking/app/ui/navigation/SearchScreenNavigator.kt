@@ -13,7 +13,9 @@ class SearchScreenNavigator(navController: NavHostController) : Nav(navControlle
         const val ARG_ZOOM = "zoom"
     }
 
-    override val routePattern = SCREEN_SEARCH
+    override val routePath = SCREEN_SEARCH
+
+    override val routePattern = buildRoutePattern(routePath, ARG_LATITUDE, ARG_LONGITUDE, ARG_ZOOM)
 
     override val argNames = setOf(ARG_LATITUDE, ARG_LONGITUDE, ARG_ZOOM)
 

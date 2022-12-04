@@ -22,7 +22,9 @@ class MapScreenNavigator(navController: NavHostController) : Nav(navController) 
 
     }
 
-    override val routePattern = SCREEN_MAP
+    override val routePath = SCREEN_MAP
+
+    override val routePattern = buildRoutePattern(routePath, ARG_PLACE_ID)
 
     override val argNames = setOf(ARG_PLACE_ID)
 

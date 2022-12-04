@@ -8,9 +8,11 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.github.hemoptysisheart.parking.app.ui.component.map.MapScreen
 import com.github.hemoptysisheart.parking.app.ui.navigation.MapScreenNavigator
-import com.github.hemoptysisheart.parking.app.ui.navigation.MapScreenNavigator.Companion.SCREEN_MAP
+import com.github.hemoptysisheart.parking.app.ui.navigation.MapScreenNavigator.Companion.ARG_PLACE_ID
 import com.github.hemoptysisheart.parking.app.ui.navigation.SearchScreenNavigator
-import com.github.hemoptysisheart.parking.app.ui.navigation.SearchScreenNavigator.Companion.SCREEN_SEARCH
+import com.github.hemoptysisheart.parking.app.ui.navigation.SearchScreenNavigator.Companion.ARG_LATITUDE
+import com.github.hemoptysisheart.parking.app.ui.navigation.SearchScreenNavigator.Companion.ARG_LONGITUDE
+import com.github.hemoptysisheart.parking.app.ui.navigation.SearchScreenNavigator.Companion.ARG_ZOOM
 import com.github.hemoptysisheart.parking.app.ui.screen.SearchScreen
 
 @Composable
@@ -18,11 +20,11 @@ fun MainNavGraph(navController: NavHostController = rememberNavController()) {
     val map = MapScreenNavigator(navController)
     val search = SearchScreenNavigator(navController)
 
-    NavHost(navController = navController, SCREEN_MAP) {
+    NavHost(navController = navController, map.routePattern) {
         composable(
-            SCREEN_MAP,
+            map.routePattern,
             listOf(
-                navArgument(MapScreenNavigator.ARG_PLACE_ID) { nullable = true }
+                navArgument(ARG_PLACE_ID) { nullable = true }
             )
         ) {
             MapScreen(
@@ -32,17 +34,17 @@ fun MainNavGraph(navController: NavHostController = rememberNavController()) {
         }
 
         composable(
-            SCREEN_SEARCH,
+            search.routePattern,
             arguments = listOf(
-                navArgument(SearchScreenNavigator.ARG_LATITUDE) { nullable = false },
-                navArgument(SearchScreenNavigator.ARG_LONGITUDE) { nullable = false },
-                navArgument(SearchScreenNavigator.ARG_ZOOM) { nullable = false }
+                navArgument(ARG_LATITUDE) { nullable = false },
+                navArgument(ARG_LONGITUDE) { nullable = false },
+                navArgument(ARG_ZOOM) { nullable = false }
             )
         ) {
             SearchScreen(
-                latitude = it.arguments!!.getString(SearchScreenNavigator.ARG_LATITUDE)!!.toDouble(),
-                longitude = it.arguments!!.getString(SearchScreenNavigator.ARG_LONGITUDE)!!.toDouble(),
-                zoom = it.arguments!!.getString(SearchScreenNavigator.ARG_ZOOM)!!.toFloat(),
+                latitude = it.arguments!!.getString(ARG_LATITUDE)!!.toDouble(),
+                longitude = it.arguments!!.getString(ARG_LONGITUDE)!!.toDouble(),
+                zoom = it.arguments!!.getString(ARG_ZOOM)!!.toFloat(),
                 resultOnClick = { placeId -> map.open(placeId) }
             )
         }

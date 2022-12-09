@@ -125,7 +125,7 @@ class AppModuleConfig {
     @Provides
     @Singleton
     fun providePlaceModel(@ApplicationContext context: Context): PlaceModel {
-        Places.initialize(context, BuildConfig.GOOGLE_MAPS_API_KEY)
+        Places.initialize(context, BuildConfig.GOOGLE_PLACES_API_KEY)
         val client = Places.createClient(context)
         val model = PlaceModelImpl(client)
         Log.i(TAG, "#providePlaceModel return : $model")

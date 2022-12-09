@@ -32,6 +32,7 @@ class PlaceModelImpl(
                 Field.TYPES
             )
         ).build()
+        Log.d(TAG, "#search : request=$request")
         val places = client.awaitFetchPlace(request)
         Log.d(TAG, "#search : places=$places")
     }

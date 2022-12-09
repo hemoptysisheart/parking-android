@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.room.Room
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
+import com.github.hemoptysisheart.parking.BuildConfig
 import com.github.hemoptysisheart.parking.core.model.*
 import com.github.hemoptysisheart.parking.core.repository.LocationRepository
 import com.github.hemoptysisheart.parking.core.repository.LocationRepositoryImpl
@@ -17,6 +18,7 @@ import com.github.hemoptysisheart.parking.core.room.dao.MapStateDao
 import com.github.hemoptysisheart.util.TimeProvider
 import com.github.hemoptysisheart.util.TruncatedTimeProvider
 import com.google.android.gms.location.LocationServices
+import com.google.android.libraries.places.api.Places
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -122,8 +124,10 @@ class AppModuleConfig {
 
     @Provides
     @Singleton
-    fun providePlaceModel(): PlaceModel {
-        val model = PlaceModelImpl()
+    fun providePlaceModel(@ApplicationContext context: Context): PlaceModel {
+        Places.initialize(context, BuildConfig.GOOGLE_MAPS_API_KEY)
+        val client = Places.createClient(context)
+        val model = PlaceModelImpl(client)
         Log.i(TAG, "#providePlaceModel return : $model")
         return model
     }

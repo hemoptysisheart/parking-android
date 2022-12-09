@@ -2,9 +2,15 @@ package com.github.hemoptysisheart.parking.core.model
 
 import android.util.Log
 import com.github.hemoptysisheart.parking.core.dummy.model.DummyPlaceModel
+import com.google.android.libraries.places.api.model.Place.Field
+import com.google.android.libraries.places.api.net.FetchPlaceRequest
+import com.google.android.libraries.places.api.net.PlacesClient
+import com.google.android.libraries.places.ktx.api.net.awaitFetchPlace
 import java.util.*
 
-class PlaceModelImpl : PlaceModel {
+class PlaceModelImpl(
+    private val client: PlacesClient
+) : PlaceModel {
     companion object {
         private val TAG = PlaceModelImpl::class.simpleName
     }
@@ -15,6 +21,19 @@ class PlaceModelImpl : PlaceModel {
 
     override suspend fun search(query: String) {
         Log.d(TAG, "#search args : query=$query")
+
+        val request = FetchPlaceRequest.builder(
+            query,
+            listOf(
+                Field.ID,
+                Field.NAME,
+                Field.LAT_LNG,
+                Field.ADDRESS,
+                Field.TYPES
+            )
+        ).build()
+        val places = client.awaitFetchPlace(request)
+        Log.d(TAG, "#search : places=$places")
     }
 
     override fun toString() = "$TAG(places=${places})"

@@ -2,6 +2,7 @@ package com.github.hemoptysisheart.parking.core.dummy.model
 
 import com.github.hemoptysisheart.parking.core.dummy.domain.DummyPlace
 import com.github.hemoptysisheart.parking.core.model.PlaceModel
+import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.domain.Place
 import java.util.*
 
@@ -10,5 +11,5 @@ object DummyPlaceModel : PlaceModel {
 
     override suspend fun read(id: UUID): Place? = places.firstOrNull { it.id == id }
 
-    override suspend fun search(query: String) {}
+    override suspend fun search(query: String, location: Location) {}
 }

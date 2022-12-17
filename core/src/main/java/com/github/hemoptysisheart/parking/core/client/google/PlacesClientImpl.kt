@@ -40,7 +40,7 @@ class PlacesClientImpl(config: PlacesClientConfig) : PlacesClient {
         val response = api.nearBy(
             keyword = params.keyword,
             location = "${params.latitude},${params.longitude}",
-            language = params.language?.language,
+            language = params.language?.let { "$it" },
             minPrice = params.minPrice,
             maxPrice = params.maxPrice,
             open = params.open,

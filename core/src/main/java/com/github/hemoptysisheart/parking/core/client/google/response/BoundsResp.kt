@@ -5,9 +5,9 @@ import com.google.gson.annotations.SerializedName
 /**
  * [Bounds](https://developers.google.com/maps/documentation/places/web-service/search-nearby#Bounds)
  */
-data class BoundsResponse(
+data class BoundsResp(
     @SerializedName("northeast")
-    var northEast: LatLngLiteralResponse? = null,
+    var northEast: LatLngLiteralResp? = null,
     @SerializedName("southwest")
-    var southWest: LatLngLiteralResponse? = null
+    var southWest: LatLngLiteralResp? = null
 )

@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 /**
  * [PlacePhoto](https://developers.google.com/maps/documentation/places/web-service/search-nearby#PlacePhoto)
  */
-data class PlacePhotoResponse(
+data class PlacePhotoResp(
     @SerializedName("height")
     var height: Int? = null,
     @SerializedName("html_attributions")

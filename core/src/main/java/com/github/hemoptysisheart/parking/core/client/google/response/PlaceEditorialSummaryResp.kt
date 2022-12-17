@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 /**
  * [PlaceEditorialSummary](https://developers.google.com/maps/documentation/places/web-service/search-nearby#PlaceEditorialSummary)
  */
-data class PlaceEditorialSummaryResponse(
+data class PlaceEditorialSummaryResp(
     @SerializedName("language")
     var language: String? = null,
     @SerializedName("overview")

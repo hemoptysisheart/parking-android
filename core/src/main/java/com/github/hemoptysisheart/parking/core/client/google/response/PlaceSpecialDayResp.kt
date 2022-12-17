@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 /**
  * [PlaceSpecialDay](https://developers.google.com/maps/documentation/places/web-service/search-nearby#PlaceSpecialDay)
  */
-data class PlaceSpecialDayResponse(
+data class PlaceSpecialDayResp(
     @SerializedName("date")
     var date: String? = null,
     @SerializedName("exceptional_hours")

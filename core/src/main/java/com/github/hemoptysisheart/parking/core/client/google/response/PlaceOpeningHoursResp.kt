@@ -5,13 +5,13 @@ import com.google.gson.annotations.SerializedName
 /**
  * [PlaceOpeningHours](https://developers.google.com/maps/documentation/places/web-service/search-nearby#PlaceOpeningHours)
  */
-data class PlaceOpeningHoursResponse(
+data class PlaceOpeningHoursResp(
     @SerializedName("open_now")
     var open: Boolean? = null,
     @SerializedName("periods")
-    var periods: List<PlaceOpeningHoursPeriodResponse>? = null,
+    var periods: List<PlaceOpeningHoursPeriodResp>? = null,
     @SerializedName("special_days")
-    var specialDays: List<PlaceSpecialDayResponse>? = null,
+    var specialDays: List<PlaceSpecialDayResp>? = null,
     @SerializedName("type")
     var type: String? = null,
     @SerializedName("weekday_text")

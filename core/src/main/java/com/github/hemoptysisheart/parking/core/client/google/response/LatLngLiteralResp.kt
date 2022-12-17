@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 /**
  * [LatLngLiteral](https://developers.google.com/maps/documentation/places/web-service/search-nearby#LatLngLiteral)
  */
-data class LatLngLiteralResponse(
+data class LatLngLiteralResp(
     @SerializedName("lat")
     var lat: Double? = null,
     @SerializedName("lng")

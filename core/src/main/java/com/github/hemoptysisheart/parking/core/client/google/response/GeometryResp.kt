@@ -5,9 +5,9 @@ import com.google.gson.annotations.SerializedName
 /**
  * [Geometry](https://developers.google.com/maps/documentation/places/web-service/search-nearby#Geometry)
  */
-data class GeometryResponse(
+data class GeometryResp(
     @SerializedName("location")
-    var location: LatLngLiteralResponse? = null,
+    var location: LatLngLiteralResp? = null,
     @SerializedName("viewport")
-    var viewport: BoundsResponse? = null
+    var viewport: BoundsResp? = null
 )

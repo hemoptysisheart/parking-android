@@ -5,9 +5,9 @@ import com.google.gson.annotations.SerializedName
 /**
  * [PlaceOpeningHoursPeriod](https://developers.google.com/maps/documentation/places/web-service/search-nearby#PlaceOpeningHoursPeriod)
  */
-data class PlaceOpeningHoursPeriodResponse(
+data class PlaceOpeningHoursPeriodResp(
     @SerializedName("open")
-    var open: PlaceOpeningHoursPeriodDetailResponse? = null,
+    var open: PlaceOpeningHoursPeriodDetailResp? = null,
     @SerializedName("close")
-    var close: PlaceOpeningHoursPeriodDetailResponse? = null
+    var close: PlaceOpeningHoursPeriodDetailResp? = null
 )

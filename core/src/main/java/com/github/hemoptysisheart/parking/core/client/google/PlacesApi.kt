@@ -1,6 +1,6 @@
 package com.github.hemoptysisheart.parking.core.client.google
 
-import com.github.hemoptysisheart.parking.core.client.google.response.NearbyResponse
+import com.github.hemoptysisheart.parking.core.client.google.response.PlacesNearbySearchResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -30,5 +30,5 @@ interface PlacesApi {
         @Query(PARAM_RANK_BY) rankBy: String? = null,
         @Query(PARAM_TYPE) type: String? = null,
         @Query(PARAM_KEY) key: String
-    ): NearbyResponse
+    ): PlacesNearbySearchResponse
 }

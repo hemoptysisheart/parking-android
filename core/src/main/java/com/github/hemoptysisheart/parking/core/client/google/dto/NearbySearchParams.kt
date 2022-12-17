@@ -2,7 +2,10 @@ package com.github.hemoptysisheart.parking.core.client.google.dto
 
 import java.util.*
 
-data class NearbyParams(
+/**
+ * [주변 지역 검색](https://developers.google.com/maps/documentation/places/web-service/search-nearby) 파라미터.
+ */
+data class NearbySearchParams(
     /**
      * 검색할 위치의 위도.
      * [location](https://developers.google.com/maps/documentation/places/web-service/search-nearby#location)
@@ -19,12 +22,12 @@ data class NearbyParams(
      */
     val keyword: String? = null,
     /**
-     * 검색할 언어. `null`이면 [PlacesClientConfig.locale]을 사용한다.
+     * 검색할 언어. `null`이면 `PlacesClientConfig.locale`을 사용한다.
      * [language](https://developers.google.com/maps/documentation/places/web-service/search-nearby#language)
      *
      * [영어가 아닌 언어로 Google Maps Platform 제품을 표시하려면 어떻게 해야 하나요?](https://developers.google.com/maps/faq#languagesupport) 참조.
      */
-    val language: Locale? = null,
+    val locale: Locale? = null,
     /**
      * [minprice](https://developers.google.com/maps/documentation/places/web-service/search-nearby#minprice)
      */
@@ -47,7 +50,10 @@ data class NearbyParams(
 ) {
     @Suppress("MemberVisibilityCanBePrivate")
     companion object {
-        const val DEFAULT_RADIUS = 5000
+        /**
+         * 50,000m = 50km
+         */
+        const val DEFAULT_RADIUS = 50_000
 
         const val PRICE_MIN = 0
         const val PRICE_MAX = 4

@@ -3,15 +3,20 @@ package com.github.hemoptysisheart.parking.core.client.google
 import com.github.hemoptysisheart.domain.d
 import com.github.hemoptysisheart.domain.i
 import com.github.hemoptysisheart.domain.logger
-import com.github.hemoptysisheart.parking.core.client.google.dto.NearbyParams
+import com.github.hemoptysisheart.parking.core.client.google.dto.NearbySearchParams
+import com.github.hemoptysisheart.parking.core.client.google.dto.NearbySearchResult
+import com.github.hemoptysisheart.parking.core.client.google.dto.ResultMeta
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.time.Instant
 
 class PlacesClientImpl(config: PlacesClientConfig) : PlacesClient {
     private val key = config.key
     private val locale = config.locale
+    private val useDefaultLocale = config.useDefaultLocale
+    private val timeProvider = config.timeProvider
     private val client: OkHttpClient
     private val api: PlacesApi
 
@@ -33,14 +38,14 @@ class PlacesClientImpl(config: PlacesClientConfig) : PlacesClient {
         logger.i("#init complete : $this")
     }
 
-    override suspend fun nearBy(params: NearbyParams) {
-        logger.d { "#nearBy args : params=$params" }
-
+    override suspend fun nearBy(params: NearbySearchParams, requestAt: Instant): NearbySearchResult {
+        logger.d { "#nearBy args : params=$params, requestAt=$requestAt" }
 
         val response = api.nearBy(
             keyword = params.keyword,
             location = "${params.latitude},${params.longitude}",
-            language = params.language?.let { "$it" },
+            language = params.locale?.language
+                ?: if (useDefaultLocale) this.locale.language else null,
             minPrice = params.minPrice,
             maxPrice = params.maxPrice,
             open = params.open,
@@ -49,7 +54,25 @@ class PlacesClientImpl(config: PlacesClientConfig) : PlacesClient {
             type = params.type?.code,
             key = key
         )
+        val responseAt = timeProvider.instant()
         logger.d { "#nearBy : response=$response" }
+
+        val page = NearbySearchResult(
+            meta = ResultMeta(
+                params = params,
+                requestAt = requestAt,
+                responseAt = responseAt
+            ),
+            places = response.results!!.map { DtoConverter.toPlaceDto(it) },
+            next = response.nextPageToken?.let {
+                suspend {
+                    TODO()
+                }
+            }
+        )
+
+        logger.d { "#nearBy return : $page" }
+        return page
     }
 
     override fun toString() = "${PlacesClientImpl::class.simpleName}(key=[ PROTECTED ], client=$client, api=$api)"

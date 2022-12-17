@@ -11,7 +11,8 @@
        ![프로젝트](asset/gcp/create%20project%20result.png)
        ![새 프로젝트 상세](asset/gcp/parking%20project.png)
 3. 맵 키 발급받기
-    1. `Maps SDK for Android` -> `사용`
+    1. [`Maps SDK for Android`](https://console.cloud.google.com/marketplace/product/google/maps-android-backend.googleapis.com)
+       -> `사용`
        ![Maps SDK for Android](asset/gcp/Maps%20SDK%20for%20Android.png)
        ![Maps SDK for Android 사용](asset/gcp/Maps%20SDK%20for%20Android%20enabled.png)
     2. `사용자 인증 정보` -> `키 표시`

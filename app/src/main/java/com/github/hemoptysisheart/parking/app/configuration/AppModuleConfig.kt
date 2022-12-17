@@ -7,6 +7,9 @@ import androidx.room.Room
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.github.hemoptysisheart.parking.BuildConfig
+import com.github.hemoptysisheart.parking.core.client.google.PlacesClient
+import com.github.hemoptysisheart.parking.core.client.google.PlacesClientConfig
+import com.github.hemoptysisheart.parking.core.client.google.PlacesClientImpl
 import com.github.hemoptysisheart.parking.core.model.*
 import com.github.hemoptysisheart.parking.core.repository.LocationRepository
 import com.github.hemoptysisheart.parking.core.repository.LocationRepositoryImpl
@@ -18,7 +21,6 @@ import com.github.hemoptysisheart.parking.core.room.dao.MapStateDao
 import com.github.hemoptysisheart.util.TimeProvider
 import com.github.hemoptysisheart.util.TruncatedTimeProvider
 import com.google.android.gms.location.LocationServices
-import com.google.android.libraries.places.api.Places
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -55,6 +57,15 @@ class AppModuleConfig {
         )
         Log.i(TAG, "#provideSharedPreferences return : $sharedPreferences")
         return sharedPreferences
+    }
+
+    @Provides
+    @Singleton
+    fun providePlacesClient(): PlacesClient {
+        val config = PlacesClientConfig(BuildConfig.GOOGLE_MAPS_PLATFORM_API_KEY)
+        val client = PlacesClientImpl(config)
+        Log.i(TAG, "#providePlacesClient return : $client")
+        return client
     }
 
     @Provides
@@ -124,10 +135,8 @@ class AppModuleConfig {
 
     @Provides
     @Singleton
-    fun providePlaceModel(@ApplicationContext context: Context): PlaceModel {
-        Places.initialize(context, BuildConfig.GOOGLE_MAPS_PLATFORM_API_KEY)
-        val client = Places.createClient(context)
-        val model = PlaceModelImpl(client)
+    fun providePlaceModel(placesClient: PlacesClient): PlaceModel {
+        val model = PlaceModelImpl(placesClient)
         Log.i(TAG, "#providePlaceModel return : $model")
         return model
     }

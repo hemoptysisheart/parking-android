@@ -2,6 +2,7 @@ package com.github.hemoptysisheart.parking.app
 
 import android.app.Application
 import android.util.Log
+import com.github.hemoptysisheart.parking.core.logging.AndroidLoggingHandler
 import com.github.hemoptysisheart.parking.core.model.SensorControllerModel
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.MainScope
@@ -20,6 +21,7 @@ class ParkingApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
+        AndroidLoggingHandler.setup()
         MainScope().launch {
             Log.i(TAG, "#onCreate start initialize.")
             sensorControllerModel.configure()

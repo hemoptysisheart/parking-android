@@ -5,7 +5,7 @@ package com.github.hemoptysisheart.parking.core.client.google.dto
  */
 sealed interface PlaceType {
     companion object {
-        operator fun get(code: String) = try {
+        operator fun get(code: String): PlaceType = try {
             PlaceTypes[code]
         } catch (e: NoSuchElementException) {
             PlaceTypeResultOnly[code]

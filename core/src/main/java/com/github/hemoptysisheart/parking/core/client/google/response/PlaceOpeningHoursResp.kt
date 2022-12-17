@@ -15,5 +15,5 @@ data class PlaceOpeningHoursResp(
     @SerializedName("type")
     var type: String? = null,
     @SerializedName("weekday_text")
-    var weekdayText: String? = null
+    var weekdayText: List<String>? = null
 )

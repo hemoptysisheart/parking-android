@@ -1,6 +1,7 @@
 package com.github.hemoptysisheart.parking.core.client.google.dto
 
 import java.net.URL
+import java.time.Duration
 
 data class PlaceDto(
     val addressComponents: List<AddressComponentDto>?,
@@ -18,7 +19,7 @@ data class PlaceDto(
     val iconBackgroundColor: String?,
     val iconMaskBase: URL?,
     val internationalPhoneNumber: String?,
-    val name: String,
+    val name: String?,
     val openingHours: PlaceOpeningHoursDto?,
     val photos: List<PlacePhotoDto>?,
     val placeId: String?,
@@ -39,7 +40,7 @@ data class PlaceDto(
     val types: Set<PlaceType>?,
     val url: URL?,
     val userRatingsTotal: Int?,
-    val utcOffset: Int?,
+    val utcOffset: Duration?,
     val vicinity: String?,
     val website: URL?,
     val wheelchairAccessibleEntrance: Boolean?

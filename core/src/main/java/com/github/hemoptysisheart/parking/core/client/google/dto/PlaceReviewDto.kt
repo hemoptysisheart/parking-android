@@ -6,7 +6,7 @@ import java.util.*
 
 data class PlaceReviewDto(
     val authorName: String,
-    val rating: Int,
+    val rating: Double,
     val relativeTimeDescription: String,
     val time: Instant,
     val author: URL?,

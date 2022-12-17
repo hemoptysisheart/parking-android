@@ -68,5 +68,9 @@ data class NearbyParams(
                 null != minPrice && it < minPrice -> throw IllegalArgumentException("maxPrice is less than minPrice : maxPrice=$maxPrice, minPrice=$minPrice")
             }
         }
+
+        if (type !is PlaceTypes) {
+            throw IllegalArgumentException("illegal type : type=$type")
+        }
     }
 }

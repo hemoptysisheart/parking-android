@@ -1,11 +1,27 @@
 package com.github.hemoptysisheart.parking.core.client.google.dto
 
 /**
- * [장소 유형](https://developers.google.com/maps/documentation/places/android-sdk/supported_types)
+ * 장소 유형.
  */
-enum class PlaceType(
+sealed interface PlaceType {
+    companion object {
+        operator fun get(code: String) = try {
+            PlaceTypes[code]
+        } catch (e: NoSuchElementException) {
+            PlaceTypeResultOnly[code]
+        }
+    }
+
     val code: String
-) {
+}
+
+/**
+ * 기본 장소 유형.
+ * 검색할 때 조건으로 사용할 수 있음.
+ */
+enum class PlaceTypes(
+    override val code: String
+) : PlaceType {
     ACCOUNTING("accounting"),
     AIRPORT("airport"),
     AMUSEMENT_PARK("amusement_park"),
@@ -112,6 +128,66 @@ enum class PlaceType(
         /**
          * [Map] 흉내.
          */
+        operator fun get(code: String) = values().first { it.code == code }
+    }
+}
+
+/**
+ * 검색 결과 추가 장소 유형.
+ * 검색 결과로 나타날 수 있음.
+ */
+enum class PlaceTypeResultOnly(
+    override val code: String
+) : PlaceType {
+    ADMINISTRATIVE_AREA_LEVEL_1("administrative_area_level_1"),
+    ADMINISTRATIVE_AREA_LEVEL_2("administrative_area_level_2"),
+    ADMINISTRATIVE_AREA_LEVEL_3("administrative_area_level_3"),
+    ADMINISTRATIVE_AREA_LEVEL_4("administrative_area_level_4"),
+    ADMINISTRATIVE_AREA_LEVEL_5("administrative_area_level_5"),
+    ADMINISTRATIVE_AREA_LEVEL_6("administrative_area_level_6"),
+    ADMINISTRATIVE_AREA_LEVEL_7("administrative_area_level_7"),
+    ARCHIPELAGO("archipelago"),
+    COLLOQUIAL_AREA("colloquial_area"),
+    CONTINENT("continent"),
+    COUNTRY("country"),
+    ESTABLISHMENT("establishment"),
+    FINANCE("finance"),
+    FLOOR("floor"),
+    FOOD("food"),
+    GENERAL_CONTRACTOR("general_contractor"),
+    GEOCODE("geocode"),
+    HEALTH("health"),
+    INTERSECTION("intersection"),
+    LANDMARK("landmark"),
+    LOCALITY("locality"),
+    NATURAL_FEATURE("natural_feature"),
+    NEIGHBORHOOD("neighborhood"),
+    PLACE_OF_WORSHIP("place_of_worship"),
+    PLUS_CODE("plus_code"),
+    POINT_OF_INTEREST("point_of_interest"),
+    POLITICAL("political"),
+    POST_BOX("post_box"),
+    POSTAL_CODE("postal_code"),
+    POSTAL_CODE_PREFIX("postal_code_prefix"),
+    POSTAL_CODE_SUFFIX("postal_code_suffix"),
+    POSTAL_TOWN("postal_town"),
+    PREMISE("premise"),
+    ROOM("room"),
+    ROUTE("route"),
+    STREET_ADDRESS("street_address"),
+    STREET_NUMBER("street_number"),
+    SUBLOCALITY("sublocality"),
+    SUBLOCALITY_LEVEL_1("sublocality_level_1"),
+    SUBLOCALITY_LEVEL_2("sublocality_level_2"),
+    SUBLOCALITY_LEVEL_3("sublocality_level_3"),
+    SUBLOCALITY_LEVEL_4("sublocality_level_4"),
+    SUBLOCALITY_LEVEL_5("sublocality_level_5"),
+    SUBPREMISE("subpremise"),
+    TOWN_SQUARE("town_square");
+
+    companion object {
+        operator fun get(ordinal: Int) = values()[ordinal]
+
         operator fun get(code: String) = values().first { it.code == code }
     }
 }

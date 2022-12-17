@@ -1,9 +1,9 @@
 package com.github.hemoptysisheart.parking.core.model
 
 import android.util.Log
-import com.github.hemoptysisheart.parking.core.client.google.NearbyParams
-import com.github.hemoptysisheart.parking.core.client.google.PlaceType
 import com.github.hemoptysisheart.parking.core.client.google.PlacesClient
+import com.github.hemoptysisheart.parking.core.client.google.dto.NearbyParams
+import com.github.hemoptysisheart.parking.core.client.google.dto.PlaceType
 import com.github.hemoptysisheart.parking.core.dummy.model.DummyPlaceModel
 import com.github.hemoptysisheart.parking.domain.Location
 import java.util.*
@@ -29,7 +29,7 @@ class PlaceModelImpl(
             longitude = location.longitude,
             latitude = location.latitude,
             keyword = query,
-            types = setOf(PlaceType.PARKING)
+            type = PlaceType.PARKING
         )
         placesClient.nearBy(params)
     }

@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.parking.core.client.google
+package com.github.hemoptysisheart.parking.core.client.google.dto
 
 /**
  * [장소 유형](https://developers.google.com/maps/documentation/places/android-sdk/supported_types)

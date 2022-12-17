@@ -62,7 +62,7 @@ class AppModuleConfig {
     @Provides
     @Singleton
     fun providePlacesClient(): PlacesClient {
-        val config = PlacesClientConfig(BuildConfig.GOOGLE_MAPS_PLATFORM_API_KEY)
+        val config = PlacesClientConfig(key = BuildConfig.GOOGLE_MAPS_PLATFORM_API_KEY, debug = BuildConfig.DEBUG)
         val client = PlacesClientImpl(config)
         Log.i(TAG, "#providePlacesClient return : $client")
         return client

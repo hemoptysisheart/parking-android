@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.parking.core.client.google
+package com.github.hemoptysisheart.parking.core.client.google.dto
 
 import java.util.*
 
@@ -41,26 +41,17 @@ data class NearbyParams(
      * 검색할 위치([longitude], [latitude])의 반경. 미터(meter) 단위.
      * [radius](https://developers.google.com/maps/documentation/places/web-service/search-nearby#radius)
      */
-    val radius: Int? = null,
-    val rankBy: RankBy = RankBy.PROMINENCE,
-    val types: Set<PlaceType> = setOf()
+    val radius: Int? = DEFAULT_RADIUS,
+    val rankBy: RankBy? = null,
+    val type: PlaceType? = null
 ) {
     @Suppress("MemberVisibilityCanBePrivate")
     companion object {
+        const val DEFAULT_RADIUS = 5000
+
         const val PRICE_MIN = 0
         const val PRICE_MAX = 4
         val MAX_PRICE_RANGE = PRICE_MIN..PRICE_MAX
-
-        const val PARAM_LONGITUDE = "longitude"
-        const val PARAM_LATITUDE = "latitude"
-        const val PARAM_KEYWORD = "keyword"
-        const val PARAM_LANGUAGE = "language"
-        const val PARAM_MIN_PRICE = "minprice"
-        const val PARAM_MAX_PRICE = "maxprice"
-        const val PARAM_OPEN = "opennow"
-        const val PARAM_RADIUS = "radius"
-        const val PARAM_RANK_BY = "rankby"
-        const val PARAM_TYPE = "type"
     }
 
     init {
@@ -78,38 +69,4 @@ data class NearbyParams(
             }
         }
     }
-
-    /**
-     * API 리퀘스트 파라미터.
-     */
-    val params: Map<String, String>
-        get() {
-            val map = mutableMapOf(
-                PARAM_LONGITUDE to "$longitude",
-                PARAM_LATITUDE to "$latitude"
-            )
-
-            keyword?.let {
-                map[PARAM_KEYWORD] = it
-            }
-            language?.let {
-                map[PARAM_LANGUAGE] = it.language
-            }
-            minPrice?.let {
-                map[PARAM_MIN_PRICE] = "$it"
-            }
-            maxPrice?.let {
-                map[PARAM_MAX_PRICE] = "$it"
-            }
-            open?.let {
-                map[PARAM_OPEN] = "$it"
-            }
-            radius?.let {
-                map[PARAM_RADIUS] = "$it"
-            }
-            map[PARAM_RANK_BY] = rankBy.code
-            map[PARAM_TYPE] = types.joinToString("|") { it.code }
-
-            return map
-        }
 }

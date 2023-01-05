@@ -66,7 +66,7 @@ class PlacesClientImpl(config: PlacesClientConfig) : PlacesClient {
             places = response.results!!.map { DtoConverter.toPlaceDto(it) },
             next = response.nextPageToken?.let {
                 suspend {
-                    TODO()
+                    TODO("API 호출.")
                 }
             }
         )
@@ -75,5 +75,6 @@ class PlacesClientImpl(config: PlacesClientConfig) : PlacesClient {
         return page
     }
 
-    override fun toString() = "${PlacesClientImpl::class.simpleName}(key=[ PROTECTED ], client=$client, api=$api)"
+    override fun toString() =
+        "${PlacesClientImpl::class.simpleName}(key=[ PROTECTED ], locale=$locale, useDefaultLocale=$useDefaultLocale, timeProvider=$timeProvider, client=$client, api=$api)"
 }

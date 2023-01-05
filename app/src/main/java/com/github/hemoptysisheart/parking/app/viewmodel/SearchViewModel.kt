@@ -1,5 +1,6 @@
 package com.github.hemoptysisheart.parking.app.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.hemoptysisheart.parking.core.model.LocationModel
@@ -30,8 +31,13 @@ class SearchViewModel @Inject constructor(
     }
 
     fun search(query: String) = viewModelScope.launch {
+        Log.v(TAG, "#search args : query=$query")
+
         this@SearchViewModel.query.emit(query)
-        placeModel.search(query, locationModel.location)
+        val result = placeModel.search(query, locationModel.location)
+        Log.v(TAG, "#search : result=$result")
+
+        // TODO 장소 검색을 선점형으로 바꾸기.
     }
 
     override fun toString() = "$TAG(query=${query.value}, places=$places)"

@@ -9,6 +9,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -43,7 +44,7 @@ fun SearchScreen(
     )
 
     val query by viewModel.query.collectAsState()
-    val list by viewModel.places.collectAsState()
+    val result by remember { viewModel.searchResult }
 
     LazyColumn(
         Modifier
@@ -63,21 +64,24 @@ fun SearchScreen(
             )
         }
 
-        itemsIndexed(list) { idx, place ->
-            if (0 < idx) {
-                Spacer(
-                    Modifier
-                        .fillMaxWidth()
-                        .height(3.dp)
-                )
-            }
+        result?.list?.let { list ->
+            itemsIndexed(list) { idx, item ->
+                Log.v(TAG_COMPOSE, "#itemsIndexed args : idx=$idx, item=$item")
+                if (0 < idx) {
+                    Spacer(
+                        Modifier
+                            .fillMaxWidth()
+                            .height(3.dp)
+                    )
+                }
 
-            Column(
-                Modifier
-                    .padding(3.dp)
-                    .clickable { resultOnClick(place.id) }) {
-                Text(text = place.name, fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                Text(text = place.description, color = Color.LightGray, fontSize = 16.sp)
+                Column(
+                    Modifier
+                        .padding(3.dp)
+                        .clickable { resultOnClick(item.id) }) {
+                    Text(text = item.name, fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                    Text(text = item.address, color = Color.LightGray, fontSize = 16.sp)
+                }
             }
         }
     }

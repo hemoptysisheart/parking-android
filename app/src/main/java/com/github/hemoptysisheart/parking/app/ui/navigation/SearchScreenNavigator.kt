@@ -28,5 +28,5 @@ class SearchScreenNavigator(navController: NavHostController) : Nav(navControlle
             ARG_LONGITUDE to longitude,
             ARG_ZOOM to zoom
         )
-    ) {}
+    ) { }
 }

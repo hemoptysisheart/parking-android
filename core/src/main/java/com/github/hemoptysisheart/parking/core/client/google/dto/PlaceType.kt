@@ -5,11 +5,9 @@ package com.github.hemoptysisheart.parking.core.client.google.dto
  */
 sealed interface PlaceType {
     companion object {
-        operator fun get(code: String): PlaceType = try {
-            PlaceTypes[code]
-        } catch (e: NoSuchElementException) {
-            PlaceTypeResultOnly[code]
-        }
+        operator fun get(code: String): PlaceType = PlaceTypes[code]
+            ?: PlaceTypeResultOnly[code]
+            ?: UnknownPlaceType(code)
     }
 
     val code: String
@@ -128,7 +126,7 @@ enum class PlaceTypes(
         /**
          * [Map] 흉내.
          */
-        operator fun get(code: String) = values().first { it.code == code }
+        operator fun get(code: String) = values().firstOrNull { it.code == code }
     }
 }
 
@@ -188,6 +186,10 @@ enum class PlaceTypeResultOnly(
     companion object {
         operator fun get(ordinal: Int) = values()[ordinal]
 
-        operator fun get(code: String) = values().first { it.code == code }
+        operator fun get(code: String) = values().firstOrNull { it.code == code }
     }
 }
+
+data class UnknownPlaceType(
+    override val code: String
+) : PlaceType

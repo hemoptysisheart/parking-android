@@ -4,7 +4,6 @@ import android.util.Log
 import com.github.hemoptysisheart.parking.core.client.google.PlacesClient
 import com.github.hemoptysisheart.parking.core.client.google.dto.NearbySearchParams
 import com.github.hemoptysisheart.parking.core.client.google.dto.NearbySearchResult
-import com.github.hemoptysisheart.parking.core.client.google.dto.PlaceTypes
 import com.github.hemoptysisheart.parking.core.dummy.model.DummyPlaceModel
 import com.github.hemoptysisheart.parking.core.model.data.GoogleSearchResultItem
 import com.github.hemoptysisheart.parking.core.model.data.SearchResult
@@ -49,8 +48,7 @@ class PlaceModelImpl(
         val params = NearbySearchParams(
             longitude = location.longitude,
             latitude = location.latitude,
-            keyword = query,
-            type = PlaceTypes.PARKING
+            keyword = query
         )
         val dto = placesClient.nearBy(params, timeProvider.instant())
         Log.v(TAG, "#search : dto=$dto")

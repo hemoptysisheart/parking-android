@@ -75,7 +75,7 @@ data class NearbySearchParams(
             }
         }
 
-        if (type !is PlaceTypes) {
+        if (type !is PlaceTypes?) {
             throw IllegalArgumentException("illegal type : type=$type")
         }
     }

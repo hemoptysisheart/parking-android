@@ -1,23 +1,19 @@
 package com.github.hemoptysisheart.parking.app.ui.screen
 
 import android.util.Log
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.github.hemoptysisheart.parking.app.ui.component.search.SearchHeader
+import com.github.hemoptysisheart.parking.app.ui.component.search.SearchHeaderUi
+import com.github.hemoptysisheart.parking.app.ui.component.search.SearchResultView
 import com.github.hemoptysisheart.parking.app.ui.configuration.UiConstants.TAG_COMPOSE
 import com.github.hemoptysisheart.parking.app.viewmodel.SearchViewModel
 import com.github.hemoptysisheart.parking.core.dummy.model.DummyLocationModel
@@ -46,50 +42,31 @@ fun SearchScreen(
     val query by viewModel.query.collectAsState()
     val result by remember { viewModel.searchResult }
 
-    LazyColumn(
+    Column(
         Modifier
             .fillMaxSize()
             .padding(3.dp, 6.dp)
     ) {
-        item {
-            SearchHeader(
-                query = query,
-                onQueryChange = {
-                    viewModel.search(it)
-                    Log.v(TAG_COMPOSE, "#SearchScreen.onQueryUpdate args : query=$it")
-                },
-                onBack = {
-                    Log.v(TAG_COMPOSE, "#SearchScreen.onBack called.")
-                }
-            )
-        }
-
-        result?.list?.let { list ->
-            itemsIndexed(list) { idx, item ->
-                Log.v(TAG_COMPOSE, "#itemsIndexed args : idx=$idx, item=$item")
-                if (0 < idx) {
-                    Spacer(
-                        Modifier
-                            .fillMaxWidth()
-                            .height(3.dp)
-                    )
-                }
-
-                Column(
-                    Modifier
-                        .padding(3.dp)
-                        .clickable { resultOnClick(item.id) }) {
-                    Text(text = item.name, fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                    Text(text = item.address, color = Color.LightGray, fontSize = 16.sp)
-                }
+        SearchHeaderUi(
+            query = query,
+            onQueryChange = {
+                viewModel.search(it)
+                Log.v(TAG_COMPOSE, "#SearchScreen.onQueryUpdate args : query=$it")
+            },
+            onBack = {
+                Log.v(TAG_COMPOSE, "#SearchScreen.onBack called.")
             }
+        )
+
+        result?.let {
+            SearchResultView(it, resultOnClick)
         }
     }
 }
 
 @Composable
 @Preview(showBackground = true)
-fun SearchScreenPreview() {
+fun PreviewSearchScreen() {
     ParkingTheme {
         SearchScreen(35.5956352, 139.604961, 16.0F, SearchViewModel(DummyPlaceModel, DummyLocationModel))
     }

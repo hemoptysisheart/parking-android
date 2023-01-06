@@ -16,5 +16,5 @@ class GoogleSearchResultItem(
         ?: throw IllegalArgumentException("no address source.")
 
     override fun toString() =
-        "${GoogleSearchResultItem::class.simpleName}(place=$place, name='$name', address='$address')"
+        "${GoogleSearchResultItem::class.simpleName}(id=$id, place=$place, name='$name', address='$address')"
 }

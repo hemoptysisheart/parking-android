@@ -27,7 +27,7 @@ import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
  * @param onBack 돌아가기 버튼 리스너.
  */
 @Composable
-fun SearchHeader(query: String = "", onQueryChange: (String) -> Unit = {}, onBack: () -> Unit = {}) {
+fun SearchHeaderUi(query: String = "", onQueryChange: (String) -> Unit = {}, onBack: () -> Unit = {}) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -61,9 +61,9 @@ fun SearchHeader(query: String = "", onQueryChange: (String) -> Unit = {}, onBac
 }
 
 @Composable
-@Preview
-fun SearchHeaderPreview() {
+@Preview(showBackground = true)
+fun PreviewSearchHeaderUi() {
     ParkingTheme {
-        SearchHeader()
+        SearchHeaderUi()
     }
 }

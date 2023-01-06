@@ -8,8 +8,8 @@ import java.time.format.DateTimeFormatter
 data class PlaceOpeningHoursPeriodDetailDto(
     val day: DayOfWeek,
     val time: LocalTime,
-    val date: LocalDate?,
-    val truncated: Boolean
+    val date: LocalDate? = null,
+    val truncated: Boolean = false
 ) {
     companion object {
         const val TIME_PATTERN = "hhmm"

@@ -9,10 +9,10 @@ data class PlaceReviewDto(
     val rating: Double,
     val relativeTimeDescription: String,
     val time: Instant,
-    val author: URL?,
-    val language: Locale?,
-    val originalLanguage: Locale?,
-    val profilePhoto: URL?,
-    val text: String?,
-    val translated: Boolean
+    val author: URL? = null,
+    val language: Locale? = null,
+    val originalLanguage: Locale? = null,
+    val profilePhoto: URL? = null,
+    val text: String? = null,
+    val translated: Boolean = false
 )

@@ -4,7 +4,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 data class PlaceSpecialDayDto(
-    val date: LocalDate?,
+    val date: LocalDate? = null,
     val exceptionalHours: Boolean = false
 ) {
     companion object {

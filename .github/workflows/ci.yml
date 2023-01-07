@@ -15,4 +15,4 @@ jobs:
           echo GOOGLE_MAPS_PLATFORM_API_KEY=${{ secrets.GOOGLE_MAPS_PLATFORM_API_KEY }} >> local.properties
           cat local.properties
       - name: Unit Test
-        run: ./gradlew clean testDebugUnitTest --continue
+        run: ./gradlew clean :util:test :domain:test testDebugUnitTest --continue

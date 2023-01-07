@@ -8,3 +8,4 @@
 - [Save Actions](https://plugins.jetbrains.com/plugin/7642-save-actions)
 - [scrcpy](https://plugins.jetbrains.com/plugin/14565-scrcpy)
 - [SequenceDiagram](https://plugins.jetbrains.com/plugin/8286-sequencediagram)
+- [.ignore](https://plugins.jetbrains.com/plugin/7495--ignore)

@@ -15,4 +15,4 @@ jobs:
           echo MAPS_API_KEY=${{ secrets.MAPS_API_KEY }} >> local.properties
           cat local.properties
       - name: Unit Test
-        run: ./gradlew clean test --continue --stacktrace
+        run: ./gradlew clean testDebugUnitTest --continue --stacktrace

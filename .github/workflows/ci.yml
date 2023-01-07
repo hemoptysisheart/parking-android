@@ -12,6 +12,6 @@ jobs:
           distribution: 'adopt'
       - name: Prepare config file(s).
         run: |
-          echo ${{ secrets.FILE_LOCAL_PROPERTIES }} >> local.properties
+          echo MAPS_API_KEY=${{ secrets.MAPS_API_KEY }} >> local.properties ; echo TEST=${{ secrets.TEST }} >> local.properties ; cat local.properties
       - name: Unit Test
         run: ./gradlew clean test --continue

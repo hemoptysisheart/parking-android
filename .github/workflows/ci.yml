@@ -10,6 +10,8 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
       - name: Prepare config file(s).
         run: |
           echo ${{ secrets.FILE_LOCAL_PROPERTIES }} >> local.properties

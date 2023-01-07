@@ -88,7 +88,7 @@ M2 이후로 나가기 위해 최소한의 유저 확보가 목표. 이 단계�
 
 [정보구조](doc/ia.md)
 
-- [ADR : Information Architecture 우선](doc/adr/ia%201st.md)
+- [Information Architecture 우선](doc/adr/ia%201st.md)
 
 TODO
 

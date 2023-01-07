@@ -34,17 +34,32 @@ android {
 
 dependencies {
     api project(':domain')
+    // TODO Hilt 컴포넌트 설정을 위해 `api`로 설정함. `implementation`으로 설정할 수 있도록 구조 변경.
+    api 'androidx.room:room-ktx:2.4.3'
+    api 'androidx.room:room-runtime:2.4.3'
     api 'com.github.f4b6a3:ulid-creator:5.1.0'
 
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.security:security-crypto-ktx:1.1.0-alpha03'
     implementation 'com.google.android.gms:play-services-location:21.0.0'
+    implementation 'com.android.volley:volley:1.2.1'
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
+    implementation 'com.google.code.gson:gson:2.10'
     implementation 'com.google.dagger:hilt-android:2.44'
+    implementation 'com.google.maps.android:places-ktx:0.4.0'
+    implementation platform('com.squareup.okhttp3:okhttp-bom:4.10.0')
+    implementation 'com.squareup.okhttp3:okhttp'
+    implementation 'com.squareup.okhttp3:logging-interceptor'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
 
+    annotationProcessor 'androidx.room:room-compiler:2.4.3'
+
+    kapt 'androidx.room:room-compiler:2.4.3'
     kapt 'com.google.dagger:hilt-android-compiler:2.44'
 
+    testImplementation 'androidx.room:room-testing:2.4.3'
     testImplementation 'com.google.dagger:hilt-android-testing:2.44'
     testImplementation 'io.github.microutils:kotlin-logging-jvm:3.0.0'
     testImplementation 'io.kotest:kotest-runner-junit5:5.5.0'

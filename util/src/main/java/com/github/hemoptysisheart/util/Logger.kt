@@ -106,3 +106,6 @@ fun Logger.e(message: () -> String) {
 fun Logger.e(e: Exception, message: () -> String) {
     log(SEVERE, message(), e)
 }
+
+val Any.logger: Logger
+    get() = Logger.getLogger(this::class.simpleName)

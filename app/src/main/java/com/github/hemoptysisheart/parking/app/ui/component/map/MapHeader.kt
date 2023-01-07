@@ -20,7 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.hemoptysisheart.parking.R
-import com.github.hemoptysisheart.parking.app.ui.configuration.LogicConstant.TAG_COMPOSE
+import com.github.hemoptysisheart.parking.app.ui.configuration.UiConstants.TAG_COMPOSE
 import com.github.hemoptysisheart.parking.core.dummy.domain.DummyPlace
 import com.github.hemoptysisheart.parking.domain.Place
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
@@ -29,38 +29,46 @@ import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
  * 기본 지도용 헤더.
  * - 검색어 입력 필드.
  * - 앱 설정 버튼.
+ *
+ * [header / map](https://www.figma.com/file/I3LN6lcAVaAXlNba0kBKPN/Parking?node-id=44%3A538&t=TzUdFxNeMKN4ZpTv-4)
  */
 @Composable
-fun MapHeader(place: Place?, navigateToSearch: () -> Unit = {}) {
-    Log.v(TAG_COMPOSE, "#MapHeader args : place=$place, navigateToSearch=$navigateToSearch")
+fun MapHeader(
+    modifier: Modifier,
+    destination: Place?,
+    destinationOnClick: () -> Unit = { }
+) {
+    Log.v(
+        TAG_COMPOSE,
+        "#MapHeader args : modifier=$modifier, destination=$destination, destinationOnClick=$destinationOnClick"
+    )
 
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
+        modifier = modifier
             .padding(5.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Row(
             Modifier
                 .clickable {
-                    navigateToSearch()
+                    destinationOnClick()
                 }
                 .background(Color.White, RoundedCornerShape(20.dp))
                 .border(1.dp, Color.LightGray, RoundedCornerShape(20.dp))
                 .padding(5.dp)
                 .weight(1.0F)
         ) {
-            if (null == place) {
-                Icon(Icons.Default.Search, stringResource(R.string.map_place_view_simple_description))
+            if (null == destination) {
+                Icon(Icons.Default.Search, stringResource(R.string.map_destination_view_simple_description))
                 Spacer(modifier = Modifier.width(3.dp))
                 Text(
-                    text = stringResource(R.string.map_place_view_simple_placeholder),
+                    text = stringResource(R.string.map_destination_view_simple_placeholder),
                     color = Color.Gray
                 )
             } else {
-                Icon(Icons.Default.LocationOn, place.name)
+                Icon(Icons.Default.LocationOn, destination.name)
                 Spacer(modifier = Modifier.width(3.dp))
-                Text(place.name)
+                Text(destination.name)
             }
         }
 
@@ -84,7 +92,7 @@ fun MapHeader(place: Place?, navigateToSearch: () -> Unit = {}) {
 @Preview
 fun MapHeaderPreviewPlaceNull() {
     ParkingTheme {
-        MapHeader(null)
+        MapHeader(Modifier.fillMaxWidth(), null)
     }
 }
 
@@ -92,6 +100,6 @@ fun MapHeaderPreviewPlaceNull() {
 @Preview
 fun MapHeaderPreviewPlaceDummy() {
     ParkingTheme {
-        MapHeader(DummyPlace.PLACE1)
+        MapHeader(Modifier.fillMaxWidth(), DummyPlace.PLACE1)
     }
 }

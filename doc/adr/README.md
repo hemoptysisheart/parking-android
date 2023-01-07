@@ -4,9 +4,11 @@
 
 [템플릿](template.md)
 
-1. [ADR : Information Architecture 우선주의](ia%201st.md)
-2. [ADR : git 규칙](git%20rule.md)
-3. [ADR : `README.md` 링크하기](link%20to%20readme.md)
+1. [Information Architecture 우선주의](ia%201st.md)
+2. [git 규칙](git%20rule.md)
+3. [`README.md` 링크하기](link%20to%20readme.md)
+4. [UI 네비게이션 루트 만들기](UI%20navigation%20route.md)
+5. [`DTO`와 `Resp`](dto%20and%20resp.md)
 
 ## 참고
 

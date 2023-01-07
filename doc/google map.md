@@ -11,13 +11,23 @@
        ![프로젝트](asset/gcp/create%20project%20result.png)
        ![새 프로젝트 상세](asset/gcp/parking%20project.png)
 3. 맵 키 발급받기
-    1. `Maps SDK for Android` -> `사용`
+    1. [`Maps SDK for Android`](https://console.cloud.google.com/marketplace/product/google/maps-android-backend.googleapis.com)
+       -> `사용`
        ![Maps SDK for Android](asset/gcp/Maps%20SDK%20for%20Android.png)
        ![Maps SDK for Android 사용](asset/gcp/Maps%20SDK%20for%20Android%20enabled.png)
     2. `사용자 인증 정보` -> `키 표시`
        ![설정](asset/gcp/maps%20api%20credential.png)
        ![키](asset/gcp/maps%20api%20key.png)
-4. 애플리케이션 설정.
+4. Places API 설정.
+    1. [Places API](https://console.cloud.google.com/apis/library/places-backend.googleapis.com) -> `사용` 클릭.
+       ![Places API](asset/gcp/gcp%20places%20api.png)
+    2. [API list](https://console.cloud.google.com/google/maps-apis/api-list)에서 확인.
+       ![API list](asset/gcp/project%20api%20list.png)
+    3. 사용자 인증 정보 -> `Places API` 선택 -> `사용자 인증 정보 만들기` 선택 -> `API 키` 선택.
+       ![Places API 사용자 인증 정보](asset/gcp/places%20api%20credential%201.png)
+       ![Places API 사용자 인증 정보 - 키 종류](asset/gcp/places%20api%20credential%202.png)
+       ![Places API 사용자 인증 정보 - 결과](asset/gcp/places%20api%20credential%203.png)
+5. 애플리케이션 설정.
     1. 의존성 추가
         - 플러그인 : `com.google.android.libraries.mapsplatform.secrets-gradle-plugin`
         - 라이브러리 :
@@ -43,7 +53,7 @@
         - 키 추가 : `<meta-data android:name="com.google.android.geo.API_KEY" android:value="${GOOGLE_MAPS_API_KEY}" />`
     3. 키 설정 추가 : [`sample-local.properties`](../sample-local.properties) 파일을 복사해서 `local.properties` 파일을 만들고, 설정을 변경.
        ![로컬 키 설정](asset/gcp/maps%20local%20config.png)
-5. 지도 표시
+6. 지도 표시
     1. 의존성 추가 : `com.google.maps.android:maps-compose`, `com.google.android.gms:play-services-maps`
     2. UI 추가 : [`MapLayout()`](../app/src/main/java/com/github/hemoptysisheart/parking/app/activity/MapActivity.kt)
 

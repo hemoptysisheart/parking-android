@@ -12,7 +12,7 @@ jobs:
           distribution: 'adopt'
       - name: Prepare config file(s).
         run: |
-          echo MAPS_API_KEY=${{ secrets.MAPS_API_KEY }} >> local.properties
+          echo GOOGLE_MAPS_PLATFORM_API_KEY=${{ secrets.GOOGLE_MAPS_PLATFORM_API_KEY }} >> local.properties
           cat local.properties
       - name: Unit Test
-        run: ./gradlew clean testDebugUnitTest --continue --stacktrace
+        run: ./gradlew clean testDebugUnitTest --continue

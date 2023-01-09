@@ -12,7 +12,7 @@ class NearbySearchResult(
     /**
      * 다음 페이지 반환.
      */
-    val next: (suspend () -> NearbySearchResult)?
+    val next: (suspend () -> NearbySearchResult)? = null
 ) {
     val hasNext = null != next
 

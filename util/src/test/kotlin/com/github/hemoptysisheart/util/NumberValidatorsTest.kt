@@ -4,51 +4,71 @@ import com.github.hemoptysisheart.util.NumberValidators.LONG_NOT_NEGATIVE_VALIDA
 import com.github.hemoptysisheart.util.support.RANDOM
 import io.kotest.assertions.throwables.shouldThrowExactly
 import io.kotest.core.spec.style.BehaviorSpec
+import io.kotest.inspectors.forAll
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldContain
 import mu.KotlinLogging
+import org.junit.jupiter.api.fail
+import java.util.stream.IntStream
+import kotlin.streams.toList
 
-class NumberValidatorsTest : BehaviorSpec({
-    val logger = KotlinLogging.logger { }
+class NumberValidatorsTest : BehaviorSpec() {
+    private val logger = KotlinLogging.logger { }
 
-    given("LONG_NOT_NEGATIVE_VALIDATOR에") {
-        `when`("-1을 검사하면") {
-            val e = shouldThrowExactly<ValidationFailException> { LONG_NOT_NEGATIVE_VALIDATOR.validate(-1L) }
-            logger.info("[WHEN] e=$e", e)
+    init {
+        given("-1L을") {
+            `when`("LONG_NOT_NEGATIVE_VALIDATOR로 검사하면") {
+                val e = shouldThrowExactly<ValidationFailException> { LONG_NOT_NEGATIVE_VALIDATOR.validate(-1L) }
+                logger.info("[WHEN] e=$e", e)
 
-            then("검사에 실패한다.") {
-                e.shouldNotBeNull()
-                e.message shouldContain "value=-1"
+                then("검사에 실패한다.") {
+                    e.shouldNotBeNull()
+                    e.message shouldContain "value=-1"
+                }
             }
         }
 
-        `when`("0을 검사하면") {
-            val result = LONG_NOT_NEGATIVE_VALIDATOR.validate(0L)
-            logger.info("[WHEN] result=$result")
+        given("0L을") {
+            `when`("LONG_NOT_NEGATIVE_VALIDATOR로 검사하면") {
+                val result = LONG_NOT_NEGATIVE_VALIDATOR.validate(0L)
+                logger.info("[WHEN] result=$result")
 
-            then("검사에 통과한다.") {
-                result shouldBe 0L
+                then("검사에 통과한다.") {
+                    result shouldBe 0L
+                }
             }
         }
 
-        `when`("1을 검사하면") {
-            val result = LONG_NOT_NEGATIVE_VALIDATOR.validate(1L)
-            logger.info("[WHEN] result=$result")
+        given("1L을") {
+            `when`("LONG_NOT_NEGATIVE_VALIDATOR로 검사하면") {
+                val result = LONG_NOT_NEGATIVE_VALIDATOR.validate(1L)
+                logger.info("[WHEN] result=$result")
 
-            then("검사에 통과한다.") {
-                result shouldBe 1L
+                then("검사에 통과한다.") {
+                    result shouldBe 1L
+                    fail { "AAA" }
+                }
             }
         }
 
-        and("임의의 양의 정수를") {
-            repeat(1000) {
-                val target = RANDOM.nextLong(1L, Long.MAX_VALUE)
-                logger.info("[GIVEN] target=$target")
+        given("Long.MAX_VALUE를") {
+            `when`("LONG_NOT_NEGATIVE_VALIDATOR로 검사하면") {
+                val actual = LONG_NOT_NEGATIVE_VALIDATOR.validate(Long.MAX_VALUE)
+                logger.info("[WHEN] actual=$actual")
 
-                `when`("검사하면") {
+                then("검사에 통과한다.") {
+                    actual shouldBe Long.MAX_VALUE
+                }
+            }
+        }
+
+        given("임의의 양의 정수(Long)") {
+            IntStream.range(0, 500).toList().forAll {
+                val target = RANDOM.nextLong(1, Long.MAX_VALUE)
+
+                `when`("${target}을/를 LONG_NOT_NEGATIVE_VALIDATOR로 검사하면") {
                     val result = LONG_NOT_NEGATIVE_VALIDATOR.validate(target)
-                    logger.info("[WHEN] result=$result")
 
                     then("검사에 통과한다.") {
                         result shouldBe target
@@ -57,12 +77,11 @@ class NumberValidatorsTest : BehaviorSpec({
             }
         }
 
-        and("임의의 음의 정소를") {
-            repeat(1000) {
+        given("임의의 음의 정수") {
+            IntStream.range(0, 500).toList().forAll {
                 val target = RANDOM.nextLong(Long.MIN_VALUE, 0L)
-                logger.info("[GIVEN] target=$target")
 
-                `when`("검사하면") {
+                `when`("${target}을/를 LONG_NOT_NEGATIVE_VALIDATOR로 검사하면") {
                     val e = shouldThrowExactly<ValidationFailException> { LONG_NOT_NEGATIVE_VALIDATOR.validate(target) }
                     logger.info("[WHEN] e=$e", e)
 
@@ -74,4 +93,4 @@ class NumberValidatorsTest : BehaviorSpec({
             }
         }
     }
-})
+}

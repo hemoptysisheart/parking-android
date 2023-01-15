@@ -9,6 +9,11 @@ java {
 }
 
 dependencies {
+    testImplementation 'ch.qos.logback:logback-classic:1.4.5'
     testImplementation 'io.github.microutils:kotlin-logging-jvm:3.0.0'
     testImplementation 'io.kotest:kotest-runner-junit5:5.5.0'
+}
+
+test {
+    useJUnitPlatform()
 }

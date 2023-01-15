@@ -1,7 +1,7 @@
 package com.github.hemoptysisheart.util
 
 @Suppress("MemberVisibilityCanBePrivate")
-class RangeValidator<T : Comparable<T>>(
+open class RangeValidator<T : Comparable<T>>(
     val min: T,
     val max: T,
     val includeMin: Boolean = true,

@@ -7,7 +7,7 @@ import com.github.hemoptysisheart.parking.core.client.google.dto.NearbySearchRes
 import com.github.hemoptysisheart.parking.core.dummy.model.DummyPlaceModel
 import com.github.hemoptysisheart.parking.core.model.data.GoogleSearchResultItem
 import com.github.hemoptysisheart.parking.core.model.data.SearchResult
-import com.github.hemoptysisheart.parking.domain.Location
+import com.github.hemoptysisheart.parking.domain.Coordinate
 import com.github.hemoptysisheart.util.TimeProvider
 import java.util.*
 
@@ -42,7 +42,7 @@ class PlaceModelImpl(
         }
     }
 
-    override suspend fun search(query: String, location: Location): SearchResult {
+    override suspend fun search(query: String, location: Coordinate): SearchResult {
         Log.d(TAG, "#search args : query=$query, location=$location")
 
         val params = NearbySearchParams(

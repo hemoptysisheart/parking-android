@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.github.hemoptysisheart.parking.R
 import com.github.hemoptysisheart.parking.app.ui.configuration.UiConstants.TAG_COMPOSE
 import com.github.hemoptysisheart.parking.core.dummy.domain.DummyPlace
-import com.github.hemoptysisheart.parking.domain.Place1
+import com.github.hemoptysisheart.parking.domain.Place
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 
 /**
@@ -35,7 +35,7 @@ import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 @Composable
 fun MapHeader(
     modifier: Modifier,
-    destination: Place1?,
+    destination: Place?,
     destinationOnClick: () -> Unit = { }
 ) {
     Log.v(
@@ -100,6 +100,6 @@ fun MapHeaderPreviewPlaceNull() {
 @Preview
 fun MapHeaderPreviewPlaceDummy() {
     ParkingTheme {
-        MapHeader(Modifier.fillMaxWidth(), DummyPlace.PLACE1)
+        MapHeader(Modifier.fillMaxWidth(), DummyPlace.QUERY_PLACE)
     }
 }

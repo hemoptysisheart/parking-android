@@ -1,10 +1,7 @@
 package com.github.hemoptysisheart.parking.core.dummy.domain
 
 import com.github.f4b6a3.ulid.UlidCreator
-import com.github.hemoptysisheart.parking.domain.Location
-import com.github.hemoptysisheart.parking.domain.Place1
-import com.github.hemoptysisheart.parking.domain.PlaceLevel
-import com.github.hemoptysisheart.parking.domain.SimpleLocation
+import com.github.hemoptysisheart.parking.domain.*
 import java.time.Instant
 import java.time.temporal.ChronoUnit
 import java.util.*
@@ -47,4 +44,6 @@ object DummyPlace {
         override fun toString() =
             "{id=$id, level=$level, location=$location, name=$name, description=$description, createdAt=$createdAt, updatedAt=$updatedAt}"
     }
+
+    val QUERY_PLACE = QueryPlace("검색어", Coordinate(0.0, 0.0))
 }

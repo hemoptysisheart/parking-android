@@ -116,8 +116,8 @@ class AppModuleConfig {
 
     @Provides
     @Singleton
-    fun provideLocationModel(repository: LocationRepository, timeProvider: TimeProvider): LocationModel {
-        val model = LocationModelImpl(repository, timeProvider)
+    fun provideLocationModel(timeProvider: TimeProvider): LocationModel {
+        val model = LocationModelImpl(timeProvider)
         Log.i(TAG, "#provideLocationModel return : $model")
         return model
     }
@@ -131,8 +131,7 @@ class AppModuleConfig {
     ): SensorControllerModel {
         val model = SensorControllerModelImpl(
             LocationServices.getFusedLocationProviderClient(context),
-            locationModel,
-            timeProvider
+            locationModel
         )
         Log.i(TAG, "#provideSensorControllerModel return : $model")
         return model

@@ -47,7 +47,7 @@ abstract class Nav(
         return route
     }
 
-    internal fun open(route: String, options: NavOptionsBuilder.() -> Unit) {
+    internal fun open(route: String, options: NavOptionsBuilder.() -> Unit = {}) {
         Log.v(TAG, "#open args : route=$route, options=$options")
         navController.navigate(route, options)
     }

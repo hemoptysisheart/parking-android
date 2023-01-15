@@ -22,7 +22,9 @@ import com.github.hemoptysisheart.parking.app.viewmodel.MapViewModel
 import com.github.hemoptysisheart.parking.core.dummy.domain.DummyPlace
 import com.github.hemoptysisheart.parking.core.dummy.model.DummyLocationModel
 import com.github.hemoptysisheart.parking.core.dummy.model.DummyMapModel
+import com.github.hemoptysisheart.parking.core.dummy.model.DummyMapModel.zoom
 import com.github.hemoptysisheart.parking.core.dummy.model.DummyPlaceModel
+import com.github.hemoptysisheart.parking.domain.Coordinate
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 import com.github.hemoptysisheart.util.TruncatedTimeProvider
 import com.google.android.gms.maps.model.CameraPosition
@@ -41,24 +43,26 @@ import java.util.*
 @Composable
 @Suppress("MoveLambdaOutsideParentheses")
 fun MapScreen(
-    placeId: UUID? = null,
+    placeId: String? = null,
     viewModel: MapViewModel = hiltViewModel(),
-    openSearch: (center: LatLng, zoom: Float) -> Unit = { center, zoom ->
+    openSearch: (center: Coordinate, zoom: Float) -> Unit = { center, zoom ->
         Log.v(TAG_COMPOSE, "#openSearch args : center=$center, zoom=$zoom")
     }
 ) {
     Log.v(TAG_COMPOSE, "#MapView args : placeId=$placeId, viewModel=$viewModel, openSearch=$openSearch")
 
+    val destination by remember { viewModel.destination }
+    val center by remember { viewModel.center }
+
     if (null != placeId) {
         viewModel.setDestination(placeId)
     }
 
-    val destination by viewModel.destination1.collectAsState()
-    val center by viewModel.center1.collectAsState()
-    val zoom by viewModel.zoom.collectAsState()
-
     val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(center, zoom)
+        position = CameraPosition.fromLatLngZoom(
+            center.run { LatLng(latitude, longitude) },
+            zoom
+        )
     }
     viewModel.update(cameraPositionState.position.target, cameraPositionState.position.zoom)
 
@@ -136,7 +140,7 @@ fun MapScreenPreviewInit() {
 fun MapScreenPreviewSearch() {
     ParkingTheme {
         MapScreen(
-            placeId = DummyPlace.PLACE1.id,
+            placeId = DummyPlace.QUERY_PLACE.id,
             viewModel = MapViewModel(DummyLocationModel, DummyPlaceModel, DummyMapModel, TruncatedTimeProvider())
         )
     }

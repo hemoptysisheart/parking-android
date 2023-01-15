@@ -28,7 +28,7 @@ class MapScreenNavigator(navController: NavHostController) : Nav(navController) 
 
     override val argNames = setOf(ARG_PLACE_ID)
 
-    fun placeId(entry: NavBackStackEntry) = entry.arguments?.getString(ARG_PLACE_ID).toUUID()
+    fun placeId(entry: NavBackStackEntry) = entry.arguments?.getString(ARG_PLACE_ID)
 
     /**
      * 장소의 위치를 중심으로 지도 열기.

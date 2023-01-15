@@ -5,6 +5,7 @@ import com.github.hemoptysisheart.parking.core.room.dao.LocationDao
 import com.github.hemoptysisheart.parking.core.room.entity.LocationEntity
 import com.github.hemoptysisheart.parking.domain.Location
 
+@Deprecated("나중에")
 class LocationRepositoryImpl(
     private val dao: LocationDao
 ) : LocationRepository {

@@ -22,7 +22,6 @@ import com.github.hemoptysisheart.parking.app.viewmodel.MapViewModel
 import com.github.hemoptysisheart.parking.core.dummy.domain.DummyPlace
 import com.github.hemoptysisheart.parking.core.dummy.model.DummyLocationModel
 import com.github.hemoptysisheart.parking.core.dummy.model.DummyMapModel
-import com.github.hemoptysisheart.parking.core.dummy.model.DummyMapModel.zoom
 import com.github.hemoptysisheart.parking.core.dummy.model.DummyPlaceModel
 import com.github.hemoptysisheart.parking.domain.Coordinate
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
@@ -53,6 +52,7 @@ fun MapScreen(
 
     val destination by remember { viewModel.destination }
     val center by remember { viewModel.center }
+    val zoom by remember { viewModel.zoom }
 
     if (null != placeId) {
         viewModel.setDestination(placeId)
@@ -107,6 +107,8 @@ fun MapScreen(
                 .padding(8.dp)
                 .clickable {
                     Log.v(TAG_COMPOSE, "#myLocation.onClick")
+                    cameraPositionState.position = CameraPosition
+                        .fromLatLngZoom(LatLng(center.latitude, center.longitude), zoom)
                 }
                 .zIndex(1.0F),
             fontSize = 18.sp

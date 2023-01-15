@@ -31,12 +31,14 @@ class MapViewModel @Inject constructor(
     /**
      * 지도에 표시할 목적지.
      */
-    val destination: MutableStateFlow<Place1?> = MutableStateFlow(null)
+    @Deprecated("deprecated.")
+    val destination1: MutableStateFlow<Place1?> = MutableStateFlow(null)
 
     /**
      * 지도 중심.
      */
-    val center = MutableStateFlow(LatLng(locationModel.location.latitude, locationModel.location.longitude))
+    @Deprecated("deprecated.")
+    val center1 = MutableStateFlow(LatLng(locationModel.location.latitude, locationModel.location.longitude))
 
     /**
      * 지도의 확대 수준.
@@ -48,7 +50,7 @@ class MapViewModel @Inject constructor(
      */
     fun update(center: LatLng, zoom: Float) = viewModelScope.launch {
         Log.v(TAG, "#update args : center=$center, zoom=$zoom")
-        this@MapViewModel.center.emit(center)
+        this@MapViewModel.center1.emit(center)
         this@MapViewModel.zoom.emit(zoom)
         mapModel.update(MapStateParams(center, zoom, timeProvider.instant()))
     }
@@ -57,8 +59,8 @@ class MapViewModel @Inject constructor(
      * 지도에 표시하기 위해 목적지를 지정한다.
      */
     fun setDestination(id: UUID) = viewModelScope.launch {
-        destination.emit(placeModel.read(id))
+        destination1.emit(placeModel.read(id))
     }
 
-    override fun toString() = "$TAG(destination=$destination)"
+    override fun toString() = "$TAG(destination=$destination1)"
 }

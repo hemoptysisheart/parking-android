@@ -53,8 +53,8 @@ fun MapScreen(
         viewModel.setDestination(placeId)
     }
 
-    val destination by viewModel.destination.collectAsState()
-    val center by viewModel.center.collectAsState()
+    val destination by viewModel.destination1.collectAsState()
+    val center by viewModel.center1.collectAsState()
     val zoom by viewModel.zoom.collectAsState()
 
     val cameraPositionState = rememberCameraPositionState {

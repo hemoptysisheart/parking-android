@@ -8,7 +8,7 @@ import com.github.hemoptysisheart.parking.core.model.MapModel
 import com.github.hemoptysisheart.parking.core.model.PlaceModel
 import com.github.hemoptysisheart.parking.core.model.param.MapStateParams
 import com.github.hemoptysisheart.parking.domain.MapState
-import com.github.hemoptysisheart.parking.domain.Place
+import com.github.hemoptysisheart.parking.domain.Place1
 import com.github.hemoptysisheart.util.TimeProvider
 import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -31,7 +31,7 @@ class MapViewModel @Inject constructor(
     /**
      * 지도에 표시할 목적지.
      */
-    val destination: MutableStateFlow<Place?> = MutableStateFlow(null)
+    val destination: MutableStateFlow<Place1?> = MutableStateFlow(null)
 
     /**
      * 지도 중심.

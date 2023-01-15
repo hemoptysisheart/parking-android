@@ -17,5 +17,5 @@ interface SearchLog : Creatable {
     /**
      * 사용자가 선택한 어떤 장소.
      */
-    val selected: Place
+    val selected: Place1
 }

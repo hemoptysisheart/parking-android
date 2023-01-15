@@ -5,7 +5,7 @@ import java.util.*
 /**
  * 대략적 장소
  */
-interface CoarseSpot : Place {
+interface CoarseSpot : Place1 {
     override val level: PlaceLevel
         get() = PlaceLevel.COARSE_SPOT
 

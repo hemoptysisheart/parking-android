@@ -4,13 +4,13 @@ import com.github.hemoptysisheart.parking.core.dummy.domain.DummyPlace
 import com.github.hemoptysisheart.parking.core.model.PlaceModel
 import com.github.hemoptysisheart.parking.core.model.data.SearchResult
 import com.github.hemoptysisheart.parking.domain.Location
-import com.github.hemoptysisheart.parking.domain.Place
+import com.github.hemoptysisheart.parking.domain.Place1
 import java.util.*
 
 object DummyPlaceModel : PlaceModel {
-    override var places: List<Place> = listOf(DummyPlace.PLACE1, DummyPlace.PLACE2, DummyPlace.PLACE3)
+    override var places: List<Place1> = listOf(DummyPlace.PLACE1, DummyPlace.PLACE2, DummyPlace.PLACE3)
 
-    override suspend fun read(id: UUID): Place? = places.firstOrNull { it.id == id }
+    override suspend fun read(id: UUID): Place1? = places.firstOrNull { it.id == id }
 
     override suspend fun search(query: String, location: Location) = SearchResult(query, listOf())
 }

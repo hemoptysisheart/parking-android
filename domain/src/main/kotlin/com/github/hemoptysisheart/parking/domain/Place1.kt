@@ -6,7 +6,7 @@ import java.util.*
 /**
  * 어떤 장소
  */
-interface Place : Savable {
+interface Place1 : Savable {
     val id: UUID
 
     val level: PlaceLevel

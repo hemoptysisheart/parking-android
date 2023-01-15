@@ -9,7 +9,6 @@ import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldContain
 import mu.KotlinLogging
-import org.junit.jupiter.api.fail
 import java.util.stream.IntStream
 import kotlin.streams.toList
 
@@ -47,7 +46,6 @@ class NumberValidatorsTest : BehaviorSpec() {
 
                 then("검사에 통과한다.") {
                     result shouldBe 1L
-                    fail { "AAA" }
                 }
             }
         }

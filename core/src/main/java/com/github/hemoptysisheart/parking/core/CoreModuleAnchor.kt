@@ -1,5 +1,5 @@
 package com.github.hemoptysisheart.parking.core
 
 object CoreModuleAnchor {
-    val TAG = CoreModuleAnchor::class.simpleName
+    private val TAG = CoreModuleAnchor::class.simpleName
 }

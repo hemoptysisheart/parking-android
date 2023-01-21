@@ -1,6 +1,5 @@
 package com.github.hemoptysisheart.parking.app.activity
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -28,10 +27,6 @@ import kotlinx.coroutines.delay
 
 /**
  * 앱 시작 액티비티.
- *
- * TODO 권한 확인 및 요청.
- * - 네트워크
- * - 위치
  */
 @AndroidEntryPoint
 class LauncherActivity : ComponentActivity() {
@@ -39,7 +34,6 @@ class LauncherActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ParkingTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
                     LauncherLayout()
                 }
@@ -67,7 +61,7 @@ fun LauncherLayout() {
     }
     LaunchedEffect(true) {
         delay(3000L)
-        context.startActivity(Intent(context, MainActivity::class.java))
+        //context.startActivity(Intent(context, MainActivity::class.java))
     }
 }
 

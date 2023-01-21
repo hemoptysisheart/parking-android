@@ -1,7 +1,6 @@
 package com.github.hemoptysisheart.parking.core.logging
 
 import android.util.Log
-import com.github.hemoptysisheart.parking.core.BuildConfig
 import java.util.logging.Handler
 import java.util.logging.Level
 import java.util.logging.LogManager
@@ -20,7 +19,7 @@ class AndroidLoggingHandler : Handler() {
     }
 
     override fun isLoggable(record: LogRecord?): Boolean =
-        super.isLoggable(record) && BuildConfig.DEBUG
+        super.isLoggable(record) // && BuildConfig.DEBUG
 
     override fun close() {
         // ignore

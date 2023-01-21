@@ -3,7 +3,7 @@ package com.github.hemoptysisheart.parking.domain
 /**
  * 자세한 장소
  */
-interface FineSpot : Place {
+interface FineSpot : Place1 {
     override val level: PlaceLevel
         get() = PlaceLevel.FINE_SPOT
 

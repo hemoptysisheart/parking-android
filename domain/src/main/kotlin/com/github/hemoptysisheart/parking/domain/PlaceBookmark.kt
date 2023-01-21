@@ -15,7 +15,7 @@ interface PlaceBookmark : Savable {
     /**
      * 즐겨찾기 대상인 어떤 장소.
      */
-    val place: Place
+    val place: Place1
 
     /**
      * 요약 정보.

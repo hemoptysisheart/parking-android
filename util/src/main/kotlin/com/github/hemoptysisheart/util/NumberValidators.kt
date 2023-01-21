@@ -24,10 +24,12 @@ object NumberValidators {
     /**
      * 위도 검증기.
      */
+    @Deprecated("deprecated")
     val LATITUDE_VALIDATOR = RangeValidator(min = -90.0, max = 90.0, includeMin = true, includeMax = true)
 
     /**
      * 경도 검증기
      */
+    @Deprecated("deprecated")
     val LONGITUDE_VALIDATOR = RangeValidator(min = -180.0, max = 180.0, includeMin = true, includeMax = true)
 }

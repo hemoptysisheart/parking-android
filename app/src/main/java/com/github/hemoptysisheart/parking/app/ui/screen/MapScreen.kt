@@ -23,6 +23,7 @@ import com.github.hemoptysisheart.parking.core.dummy.domain.DummyPlace
 import com.github.hemoptysisheart.parking.core.dummy.model.DummyLocationModel
 import com.github.hemoptysisheart.parking.core.dummy.model.DummyMapModel
 import com.github.hemoptysisheart.parking.core.dummy.model.DummyPlaceModel
+import com.github.hemoptysisheart.parking.domain.Coordinate
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 import com.github.hemoptysisheart.util.TruncatedTimeProvider
 import com.google.android.gms.maps.model.CameraPosition
@@ -41,24 +42,27 @@ import java.util.*
 @Composable
 @Suppress("MoveLambdaOutsideParentheses")
 fun MapScreen(
-    placeId: UUID? = null,
+    placeId: String? = null,
     viewModel: MapViewModel = hiltViewModel(),
-    openSearch: (center: LatLng, zoom: Float) -> Unit = { center, zoom ->
+    openSearch: (center: Coordinate, zoom: Float) -> Unit = { center, zoom ->
         Log.v(TAG_COMPOSE, "#openSearch args : center=$center, zoom=$zoom")
     }
 ) {
     Log.v(TAG_COMPOSE, "#MapView args : placeId=$placeId, viewModel=$viewModel, openSearch=$openSearch")
 
+    val destination by remember { viewModel.destination }
+    val center by remember { viewModel.center }
+    val zoom by remember { viewModel.zoom }
+
     if (null != placeId) {
         viewModel.setDestination(placeId)
     }
 
-    val destination by viewModel.destination.collectAsState()
-    val center by viewModel.center.collectAsState()
-    val zoom by viewModel.zoom.collectAsState()
-
     val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(center, zoom)
+        position = CameraPosition.fromLatLngZoom(
+            center.run { LatLng(latitude, longitude) },
+            zoom
+        )
     }
     viewModel.update(cameraPositionState.position.target, cameraPositionState.position.zoom)
 
@@ -103,6 +107,8 @@ fun MapScreen(
                 .padding(8.dp)
                 .clickable {
                     Log.v(TAG_COMPOSE, "#myLocation.onClick")
+                    cameraPositionState.position = CameraPosition
+                        .fromLatLngZoom(LatLng(center.latitude, center.longitude), zoom)
                 }
                 .zIndex(1.0F),
             fontSize = 18.sp
@@ -124,7 +130,7 @@ fun MapScreen(
 }
 
 @Composable
-@Preview(name = "목적지가 없는 초기상태.", showBackground = true)
+@Preview(name = "목적지가 없는 초기상태.", showSystemUi = true, showBackground = true)
 fun MapScreenPreviewInit() {
     ParkingTheme {
         MapScreen(viewModel = MapViewModel(DummyLocationModel, DummyPlaceModel, DummyMapModel, TruncatedTimeProvider()))
@@ -132,11 +138,11 @@ fun MapScreenPreviewInit() {
 }
 
 @Composable
-@Preview(name = "목적지를 선택한 상태.", showBackground = true)
+@Preview(name = "목적지를 선택한 상태.", showSystemUi = true, showBackground = true)
 fun MapScreenPreviewSearch() {
     ParkingTheme {
         MapScreen(
-            placeId = DummyPlace.PLACE1.id,
+            placeId = DummyPlace.QUERY_PLACE.id,
             viewModel = MapViewModel(DummyLocationModel, DummyPlaceModel, DummyMapModel, TruncatedTimeProvider())
         )
     }

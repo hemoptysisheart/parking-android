@@ -3,7 +3,7 @@ package com.github.hemoptysisheart.parking.domain
 /**
  * 장소
  */
-interface Spot : Place {
+interface Spot : Place1 {
     override val level: PlaceLevel
         get() = PlaceLevel.SPOT
 

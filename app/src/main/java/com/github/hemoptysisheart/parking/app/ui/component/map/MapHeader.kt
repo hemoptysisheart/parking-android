@@ -100,6 +100,6 @@ fun MapHeaderPreviewPlaceNull() {
 @Preview
 fun MapHeaderPreviewPlaceDummy() {
     ParkingTheme {
-        MapHeader(Modifier.fillMaxWidth(), DummyPlace.PLACE1)
+        MapHeader(Modifier.fillMaxWidth(), DummyPlace.QUERY_PLACE)
     }
 }

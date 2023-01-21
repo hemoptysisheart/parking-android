@@ -3,7 +3,7 @@ package com.github.hemoptysisheart.parking.app.ui.navigation
 import android.util.Log
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
-import com.github.hemoptysisheart.parking.domain.Place
+import com.github.hemoptysisheart.parking.domain.Place1
 import java.util.*
 
 /**
@@ -28,12 +28,12 @@ class MapScreenNavigator(navController: NavHostController) : Nav(navController) 
 
     override val argNames = setOf(ARG_PLACE_ID)
 
-    fun placeId(entry: NavBackStackEntry) = entry.arguments?.getString(ARG_PLACE_ID).toUUID()
+    fun placeId(entry: NavBackStackEntry) = entry.arguments?.getString(ARG_PLACE_ID)
 
     /**
      * 장소의 위치를 중심으로 지도 열기.
      *
-     * @param place [Place.id]
+     * @param place [Place1.id]
      */
     fun open(place: UUID? = null) = open(buildRoute(ARG_PLACE_ID to place)) {
         popUpTo(SCREEN_MAP)

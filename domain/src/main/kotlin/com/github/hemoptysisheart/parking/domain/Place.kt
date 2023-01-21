@@ -1,22 +1,32 @@
 package com.github.hemoptysisheart.parking.domain
 
-import com.github.hemoptysisheart.util.Savable
-import java.util.*
-
 /**
- * 어떤 장소
+ * 어떤 장소에 관한 정보.
  */
-interface Place : Savable {
-    val id: UUID
-
-    val level: PlaceLevel
-
-    val location: Location
+interface Place {
+    /**
+     * 종류
+     */
+    val type: PlaceType
 
     /**
-     * 목록처럼 어려 어떤 장소를 표시할 때 대표 정보로 사용.
+     * 장소 ID.
      */
-    var name: String
+    val id: String
 
-    var description: String
+    /**
+     * 장소 이름.
+     */
+    val name: String
+
+    /**
+     * 장소 설명.
+     * 기본 `null`.
+     */
+    val description: String?
+
+    /**
+     * 좌표. 알려지지 않았거나 대표할 수 있는 좌표가 없는 경우엔 `null`.
+     */
+    val coordinate: Coordinate?
 }

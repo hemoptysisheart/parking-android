@@ -65,7 +65,7 @@ fun SearchScreen(
 }
 
 @Composable
-@Preview(showBackground = true)
+@Preview(showSystemUi = true, showBackground = true)
 fun PreviewSearchScreen() {
     ParkingTheme {
         SearchScreen(35.5956352, 139.604961, 16.0F, SearchViewModel(DummyPlaceModel, DummyLocationModel))

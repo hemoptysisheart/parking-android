@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.TAG_COMPOSE
+import com.github.hemoptysisheart.parking.app.ui.preview.PreviewViewModel.MAIN_VM
 import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 
@@ -28,7 +29,7 @@ fun MainScreen(viewModel: MainViewModel = hiltViewModel()) {
 fun preview_MainScreen() {
     ParkingTheme {
         Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
-            MainScreen()
+            MainScreen(MAIN_VM)
         }
     }
 }

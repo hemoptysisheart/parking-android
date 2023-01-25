@@ -1,12 +1,13 @@
 package com.github.hemoptysisheart.parking.app.viewmodel
 
 import android.util.Log
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.github.hemoptysisheart.parking.core.model.LocationModel
+import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,11 +18,20 @@ class MainViewModel @Inject constructor(
         private val TAG = MainViewModel::class.simpleName!!
     }
 
-    var here by mutableStateOf(locationModel.location)
+    val here = MutableStateFlow(locationModel.location)
+
+    val center = MutableStateFlow<LatLng?>(null)
+    val zoom = MutableStateFlow(17.0F)
 
     init {
         locationModel.addCallback(TAG) {
-            here = it
+            viewModelScope.launch {
+                here.emit(it)
+
+                if (null == center.value) {
+                    center.emit(LatLng(it.latitude, it.longitude))
+                }
+            }
         }
     }
 
@@ -31,5 +41,5 @@ class MainViewModel @Inject constructor(
         locationModel.removeCallback(TAG)
     }
 
-    override fun toString() = "$TAG(here=$here)"
+    override fun toString() = "$TAG(here=${here.value}, center=${center.value}, zoom=${zoom.value})"
 }

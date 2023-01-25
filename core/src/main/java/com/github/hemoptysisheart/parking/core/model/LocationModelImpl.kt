@@ -13,21 +13,35 @@ class LocationModelImpl(
 ) : LocationModel {
     companion object {
         private val TAG = LocationModelImpl::class.simpleName
+
+        /**
+         * 초기 좌표.
+         */
+        val INIT_LOCATION = GeoLocation(0.0, 0.0)
     }
 
     private val callbacks = mutableMapOf<String, (GeoLocation) -> Unit>()
 
-    override var location: GeoLocation = GeoLocation(0.0, 0.0)
+    /**
+     * `lateinit var`로 설정 하거나 `null`로 설정 할 수 없으니 초기 좌표로 설정한다.
+     */
+    override var location: GeoLocation = INIT_LOCATION
         private set(value) {
-            Log.v(TAG, "#location : $value")
-
             for (callback in callbacks.values) {
                 callback(value)
             }
             field = value
         }
 
+    /**
+     * TODO `LauncherActivity`에서 권한을 확인 한 후에 쓸 수 있도록 메서드로 변경.
+     */
     init {
+        client.lastLocation.addOnSuccessListener {
+            // 앱 실행시 위치 정보 설정하기.
+            location = GeoLocation(it.latitude, it.longitude)
+        }
+
         client.requestLocationUpdates(
             LocationRequest.Builder(PRIORITY_HIGH_ACCURACY, 5_000L)
                 .setMinUpdateIntervalMillis(1_000L)
@@ -35,10 +49,6 @@ class LocationModelImpl(
             { this.location = GeoLocation(it.latitude, it.longitude) },
             Looper.getMainLooper()
         )
-
-        client.lastLocation.addOnSuccessListener {
-            location = GeoLocation(it.latitude, it.longitude)
-        }
     }
 
     override fun addCallback(key: String, callback: (GeoLocation) -> Unit) {

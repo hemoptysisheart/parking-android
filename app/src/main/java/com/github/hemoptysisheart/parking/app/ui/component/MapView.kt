@@ -32,6 +32,8 @@ fun MapView(
         Log.v(TAG_COMPOSE, "#MapView.observer args : center=$center, zoom=$zoom")
     }
 ) {
+    Log.v(TAG_COMPOSE, "#MapView args : initCenter=$initCenter, initZoom=$initZoom, mapObserver=$mapObserver")
+
     val cameraPositionState = rememberCameraPositionState()
     if (null != initCenter && null != initZoom) {
         cameraPositionState.position = CameraPosition.fromLatLngZoom(initCenter, initZoom)

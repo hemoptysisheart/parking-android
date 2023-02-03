@@ -9,48 +9,34 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.github.hemoptysisheart.parking.app.ui.component.MapView
 import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.TAG_COMPOSE
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewViewModel.MAIN_VM
+import com.github.hemoptysisheart.parking.app.ui.state.MainScreenState
 import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
-import com.google.android.gms.maps.model.CameraPosition
-import com.google.maps.android.compose.GoogleMap
-import com.google.maps.android.compose.MapProperties
-import com.google.maps.android.compose.MapUiSettings
-import com.google.maps.android.compose.rememberCameraPositionState
 
+/**
+ * 메인 화면 UI.
+ */
 @Composable
 fun MainScreen(viewModel: MainViewModel = hiltViewModel()) {
+    val state = remember {
+        MainScreenState()
+    }
     val here by viewModel.here.collectAsState()
-    val center by viewModel.center.collectAsState()
-    val zoom by viewModel.zoom.collectAsState()
-    Log.v(TAG_COMPOSE, "#MainScreen : here=$here, center=$center, zoom=$zoom")
+    Log.v(TAG_COMPOSE, "#MainScreen : here=$here")
 
-    val cameraPositionState = rememberCameraPositionState()
-    center?.let {
-        cameraPositionState.position = CameraPosition.fromLatLngZoom(it, zoom)
-    }
-    val uiSettings by remember {
-        mutableStateOf(
-            MapUiSettings(
-                indoorLevelPickerEnabled = false,
-                mapToolbarEnabled = false,
-                myLocationButtonEnabled = false,
-                zoomControlsEnabled = false
-            )
-        )
-    }
-    val properties by remember {
-        mutableStateOf(MapProperties(isBuildingEnabled = true, isMyLocationEnabled = true, isTrafficEnabled = true))
-    }
+    if (state.extendOverlay) {
+        // TODO 열린 오버레이 표시.
+    } else {
+        // TODO 접힌 오버레이(헤더) 표시.
 
-    GoogleMap(
-        modifier = Modifier
-            .fillMaxSize(),
-        cameraPositionState = cameraPositionState,
-        properties = properties,
-        uiSettings = uiSettings
-    )
+        MapView(viewModel.center, viewModel.zoom) { newCenter, newZoom ->
+            viewModel.center = newCenter
+            viewModel.zoom = newZoom
+        }
+    }
 }
 
 @SuppressLint("ComposableNaming")

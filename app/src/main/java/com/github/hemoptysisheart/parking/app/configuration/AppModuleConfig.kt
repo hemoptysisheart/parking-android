@@ -5,8 +5,11 @@ import android.content.SharedPreferences
 import android.util.Log
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
+import com.github.hemoptysisheart.parking.core.model.LocationModel
+import com.github.hemoptysisheart.parking.core.model.LocationModelImpl
 import com.github.hemoptysisheart.util.TimeProvider
 import com.github.hemoptysisheart.util.TruncatedTimeProvider
+import com.google.android.gms.location.LocationServices
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -44,5 +47,15 @@ class AppModuleConfig {
         )
         Log.i(TAG, "#provideSharedPreferences return : $sharedPreferences")
         return sharedPreferences
+    }
+
+    @Provides
+    @Singleton
+    fun provideLocationModel(@ApplicationContext context: Context): LocationModel {
+        val client = LocationServices.getFusedLocationProviderClient(context)
+        val model = LocationModelImpl(client)
+
+        Log.i(TAG, "#provideLocationModel return : $model")
+        return model
     }
 }

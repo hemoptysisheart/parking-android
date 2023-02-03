@@ -3,6 +3,7 @@ package com.github.hemoptysisheart.parking.app.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel.Status.*
 import com.github.hemoptysisheart.parking.core.model.LocationModel
 import com.github.hemoptysisheart.parking.domain.GeoLocation
 import com.google.android.gms.maps.model.LatLng
@@ -17,8 +18,23 @@ class MainViewModel @Inject constructor(
 ) : ViewModel() {
     companion object {
         private val TAG = MainViewModel::class.simpleName!!
+    }
 
-        const val DEFAULT_ZOOM_LEVEL = 17.0F
+    enum class Status {
+        /**
+         * 초기 상태.
+         */
+        INIT,
+
+        /**
+         * 현재 위치 획득.
+         */
+        LOCATION_READY,
+
+        /**
+         * 지도 UI 컴포넌트와 VM 연동 완료.
+         */
+        UI_LINKED;
     }
 
     /**
@@ -26,20 +42,14 @@ class MainViewModel @Inject constructor(
      */
     private val locationCallback: (GeoLocation) -> Unit = {
         viewModelScope.launch {
-            if (!locationPrepared.value) {
-                locationPrepared.emit(true)
-
-                center = LatLng(it.latitude, it.longitude)
-                zoom = DEFAULT_ZOOM_LEVEL
+            if (INIT == status.value) {
+                status.emit(LOCATION_READY)
             }
             here.emit(it)
         }
     }
 
-    /**
-     * 지도 중심 위치가 현재 위치로 초기화 됐는지 여부.
-     */
-    val locationPrepared = MutableStateFlow(false)
+    val status = MutableStateFlow(INIT)
 
     /**
      * 위치가 바뀔 경우 갱신해서 UI에 반영한다.
@@ -51,7 +61,7 @@ class MainViewModel @Inject constructor(
      */
     var center: LatLng? = null
         set(value) {
-            Log.v(TAG, "#center args : value=$value")
+            Log.v(TAG, "#center set : $value")
             field = value
         }
 
@@ -60,7 +70,7 @@ class MainViewModel @Inject constructor(
      */
     var zoom: Float? = null
         set(value) {
-            Log.v(TAG, "#zoom args : value=$value")
+            Log.v(TAG, "#zoom set : $value")
             field = value
         }
 
@@ -68,11 +78,20 @@ class MainViewModel @Inject constructor(
         locationModel.addCallback(TAG, locationCallback)
     }
 
+    /**
+     * UI가 VM과 연동됐음을 알릴 때 사용.
+     */
+    fun ready() {
+        viewModelScope.launch {
+            status.emit(UI_LINKED)
+        }
+    }
+
     override fun onCleared() {
-        Log.v(TAG, "#onCleared called.")
+        Log.d(TAG, "#onCleared called.")
 
         locationModel.removeCallback(TAG)
     }
 
-    override fun toString() = "$TAG(here=${here.value}, center=$center, zoom=$zoom)"
+    override fun toString() = "$TAG(status=${status.value}, here=${here.value}, center=$center, zoom=$zoom)"
 }

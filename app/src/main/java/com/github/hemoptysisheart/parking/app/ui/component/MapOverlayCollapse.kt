@@ -38,7 +38,7 @@ fun MapOverlayCollapse() {
             text = "관심 장소",
             modifier = Modifier
                 .weight(1.0F)
-                .background(Color.White)
+                .background(Color.White, RoundedCornerShape(20.dp))
                 .border(BorderStroke(1.dp, Color.LightGray), RoundedCornerShape(20.dp))
                 .padding(10.dp, 1.dp)
         )
@@ -47,12 +47,16 @@ fun MapOverlayCollapse() {
             onClick = { /*TODO*/ },
             modifier = Modifier
                 .weight(0.1F)
-
         ) {
             Icon(
                 imageVector = Icons.Default.Settings,
                 contentDescription = "관심 장소 필터 설정",
-                modifier = Modifier.scale(1.1F)
+                modifier = Modifier
+                    .scale(1.1F)
+                    .background(Color.White, RoundedCornerShape(20.dp))
+                    .border(1.dp, Color.LightGray, RoundedCornerShape(20.dp))
+                    .padding(3.dp),
+                tint = Color.Black
             )
         }
     }

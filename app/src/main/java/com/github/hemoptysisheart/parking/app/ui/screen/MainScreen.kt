@@ -30,11 +30,11 @@ import com.google.maps.android.compose.rememberCameraPositionState
  */
 @Composable
 fun MainScreen(viewModel: MainViewModel = hiltViewModel()) {
-    val state = remember { MainScreenState() }
+    val state by remember { mutableStateOf(MainScreenState()) }
 
     val status by viewModel.status.collectAsStateWithLifecycle()
     val here by viewModel.here.collectAsStateWithLifecycle()
-    Log.v(TAG_COMPOSE, "#MainScreen : status=$status, here=$here")
+    Log.v(TAG_COMPOSE, "#MainScreen : state=$state, status=$status, here=$here")
 
     val cameraPositionState = rememberCameraPositionState()
     when (status) {
@@ -55,7 +55,10 @@ fun MainScreen(viewModel: MainViewModel = hiltViewModel()) {
         if (OverlayState.HIDE != state.overlayState) {
             MapOverlay(state)
         }
-        Map(cameraPositionState)
+        Map(
+            cameraPositionState = cameraPositionState,
+            onMapClick = { state.shiftHideCollapse() }
+        )
     }
 }
 

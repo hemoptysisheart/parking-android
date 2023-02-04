@@ -10,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.hemoptysisheart.parking.app.ui.component.Map
 import com.github.hemoptysisheart.parking.app.ui.component.MapOverlay
 import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.DEFAULT_ZOOM_LEVEL
@@ -31,8 +32,8 @@ import com.google.maps.android.compose.rememberCameraPositionState
 fun MainScreen(viewModel: MainViewModel = hiltViewModel()) {
     val state = remember { MainScreenState() }
 
-    val status by viewModel.status.collectAsState()
-    val here by viewModel.here.collectAsState()
+    val status by viewModel.status.collectAsStateWithLifecycle()
+    val here by viewModel.here.collectAsStateWithLifecycle()
     Log.v(TAG_COMPOSE, "#MainScreen : status=$status, here=$here")
 
     val cameraPositionState = rememberCameraPositionState()

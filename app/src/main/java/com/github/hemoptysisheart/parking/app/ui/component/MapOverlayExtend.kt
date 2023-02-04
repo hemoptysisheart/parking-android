@@ -23,7 +23,11 @@ import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 fun MapOverlayExtend() {
     Log.v(Constant.TAG_COMPOSE, "#MapOverlayExtend called.")
 
-    LazyColumn(Modifier.fillMaxSize()) {
+    LazyColumn(
+        Modifier
+            .fillMaxSize()
+            .zIndex(1.0F)
+    ) {
         item {
             Row(
                 modifier = Modifier

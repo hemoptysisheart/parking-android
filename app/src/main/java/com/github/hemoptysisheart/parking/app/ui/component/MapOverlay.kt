@@ -10,12 +10,15 @@ import com.github.hemoptysisheart.parking.app.ui.state.OverlayState.*
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 
 @Composable
-fun MapOverlay(state: MainScreenState) {
+fun MapOverlay(
+    state: MainScreenState,
+    onExpand: () -> Unit = { Log.v(TAG_COMPOSE, "#onExpand called.") }
+) {
     Log.v(TAG_COMPOSE, "#MapOverlay args : state=$state")
 
     when (state.overlayState) {
         COLLAPSE ->
-            MapOverlayCollapse()
+            MapOverlayCollapse(onExpand)
         EXTEND ->
             MapOverlayExtend()
         else ->

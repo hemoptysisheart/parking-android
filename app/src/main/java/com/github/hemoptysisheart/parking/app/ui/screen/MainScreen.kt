@@ -53,7 +53,10 @@ fun MainScreen(viewModel: MainViewModel = hiltViewModel()) {
 
     Box(modifier = Modifier.fillMaxSize()) {
         if (OverlayState.HIDE != state.overlayState) {
-            MapOverlay(state)
+            MapOverlay(
+                state = state,
+                onExpand = { state.shiftCollapseExpand() }
+            )
         }
         Map(
             cameraPositionState = cameraPositionState,

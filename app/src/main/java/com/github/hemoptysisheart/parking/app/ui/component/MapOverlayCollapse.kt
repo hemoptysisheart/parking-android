@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
@@ -20,12 +21,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import com.github.hemoptysisheart.parking.app.ui.configuration.Constant
+import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.TAG_COMPOSE
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 
 @Composable
-fun MapOverlayCollapse() {
-    Log.v(Constant.TAG_COMPOSE, "#MapOverlayCollapse called.")
+fun MapOverlayCollapse(
+    onExpand: () -> Unit = { Log.v(TAG_COMPOSE, "#onExpand called.") }
+) {
+    Log.v(TAG_COMPOSE, "#MapOverlayCollapse args : onExpand=$onExpand")
 
     Row(
         modifier = Modifier
@@ -41,6 +44,7 @@ fun MapOverlayCollapse() {
                 .background(Color.White, RoundedCornerShape(20.dp))
                 .border(BorderStroke(1.dp, Color.LightGray), RoundedCornerShape(20.dp))
                 .padding(10.dp, 1.dp)
+                .clickable { onExpand() }
         )
         Spacer(modifier = Modifier.width(10.dp))
         IconButton(

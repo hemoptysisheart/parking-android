@@ -17,7 +17,7 @@ import com.google.maps.android.compose.*
  * @param cameraPositionState 지도 카메라 위치.
  */
 @Composable
-fun MapView(
+fun Map(
     cameraPositionState: CameraPositionState
 ) {
     val uiSettings by remember {
@@ -48,6 +48,6 @@ fun MapView(
 @SuppressLint("ComposableNaming")
 fun preview_MapView() {
     ParkingTheme {
-        MapView(rememberCameraPositionState())
+        Map(rememberCameraPositionState())
     }
 }

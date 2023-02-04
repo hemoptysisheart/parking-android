@@ -2,6 +2,7 @@ package com.github.hemoptysisheart.parking.app.ui.screen
 
 import android.annotation.SuppressLint
 import android.util.Log
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -9,11 +10,13 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.github.hemoptysisheart.parking.app.ui.component.MapView
+import com.github.hemoptysisheart.parking.app.ui.component.Map
+import com.github.hemoptysisheart.parking.app.ui.component.MapOverlay
 import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.DEFAULT_ZOOM_LEVEL
 import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.TAG_COMPOSE
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewViewModel.MAIN_VM
 import com.github.hemoptysisheart.parking.app.ui.state.MainScreenState
+import com.github.hemoptysisheart.parking.app.ui.state.OverlayState
 import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel.Status.*
 import com.github.hemoptysisheart.parking.app.viewmodel.toLatLng
@@ -47,7 +50,12 @@ fun MainScreen(viewModel: MainViewModel = hiltViewModel()) {
 
     // ----------------------------------------------------------------------------------------------------------------
 
-    MapView(cameraPositionState)
+    Box(modifier = Modifier.fillMaxSize()) {
+        if (OverlayState.HIDE != state.overlayState) {
+            MapOverlay(state)
+        }
+        Map(cameraPositionState)
+    }
 }
 
 @SuppressLint("ComposableNaming")

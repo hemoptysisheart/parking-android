@@ -12,7 +12,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.hemoptysisheart.parking.app.ui.component.Map
-import com.github.hemoptysisheart.parking.app.ui.component.MapOverlay
+import com.github.hemoptysisheart.parking.app.ui.component.MapOverlayCollapse
+import com.github.hemoptysisheart.parking.app.ui.component.MapOverlayExtend
 import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.DEFAULT_ZOOM_LEVEL
 import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.TAG_COMPOSE
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewViewModel.MAIN_VM
@@ -52,12 +53,18 @@ fun MainScreen(viewModel: MainViewModel = hiltViewModel()) {
     // ----------------------------------------------------------------------------------------------------------------
 
     Box(modifier = Modifier.fillMaxSize()) {
-        if (OverlayState.HIDE != state.overlayState) {
-            MapOverlay(
-                state = state,
-                onExpand = { state.shiftCollapseExpand() }
-            )
+        when (state.overlayState) {
+            OverlayState.COLLAPSE ->
+                MapOverlayCollapse() {
+                    state.shiftCollapseExpand()
+                }
+            OverlayState.EXTEND ->
+                MapOverlayExtend() {
+                    state.shiftCollapseExpand()
+                }
+            else -> {}
         }
+
         Map(
             cameraPositionState = cameraPositionState,
             onMapClick = { state.shiftHideCollapse() }

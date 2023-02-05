@@ -23,7 +23,7 @@ import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel.Status.*
 import com.github.hemoptysisheart.parking.app.viewmodel.toLatLng
 import com.github.hemoptysisheart.parking.core.logging.logArgs
-import com.github.hemoptysisheart.parking.core.logging.logVars
+import com.github.hemoptysisheart.parking.core.logging.logVarsV
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.maps.android.compose.rememberCameraPositionState
@@ -42,7 +42,7 @@ fun MainScreen(
     val status by viewModel.status.collectAsStateWithLifecycle()
     val here by viewModel.here.collectAsStateWithLifecycle()
     val query by viewModel.query.collectAsStateWithLifecycle()
-    logVars(
+    logVarsV(
         TAG_COMPOSE, "MainScreen",
         "state" to state,
         "status" to status,

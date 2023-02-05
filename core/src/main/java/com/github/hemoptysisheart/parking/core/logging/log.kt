@@ -40,3 +40,13 @@ inline fun logVars(tag: String, method: String, vararg variables: Pair<String, A
         "#$method : " + variables.joinToString(", ") { "${it.first}=${it.second}" }
     )
 }
+
+/**
+ * 변수를 로그로 출력. [Log.VERBOSE] 레벨 사용.
+ */
+inline fun logVarsV(tag: String, method: String, vararg variables: Pair<String, Any?>) {
+    Log.v(
+        tag,
+        "#$method : " + variables.joinToString(", ") { "${it.first}=${it.second}" }
+    )
+}

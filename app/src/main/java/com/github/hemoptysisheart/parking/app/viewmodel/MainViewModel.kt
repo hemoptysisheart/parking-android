@@ -6,8 +6,11 @@ import androidx.lifecycle.viewModelScope
 import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel.Status.*
 import com.github.hemoptysisheart.parking.core.logging.logArgs
 import com.github.hemoptysisheart.parking.core.logging.logSet
+import com.github.hemoptysisheart.parking.core.logging.logVars
 import com.github.hemoptysisheart.parking.core.model.LocationModel
+import com.github.hemoptysisheart.parking.core.model.PlaceModel
 import com.github.hemoptysisheart.parking.domain.GeoLocation
+import com.github.hemoptysisheart.parking.domain.RecommendItem
 import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +19,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val locationModel: LocationModel
+    private val locationModel: LocationModel,
+    private val placeModel: PlaceModel
 ) : ViewModel() {
     companion object {
         private val TAG = MainViewModel::class.simpleName!!
@@ -39,7 +43,7 @@ class MainViewModel @Inject constructor(
         /**
          * 지도 UI 컴포넌트와 VM 연동 완료.
          */
-        UI_LINKED;
+        LINKED;
     }
 
     /**
@@ -65,6 +69,8 @@ class MainViewModel @Inject constructor(
      * 목적지 검색어.
      */
     val query = MutableStateFlow("")
+
+    val recommended = MutableStateFlow(listOf<RecommendItem<*>>())
 
     /**
      * UI에서 지도 중심을 받는다.
@@ -92,7 +98,7 @@ class MainViewModel @Inject constructor(
      * UI가 VM과 연동됐음을 알릴 때 사용.
      */
     fun linked() = viewModelScope.launch {
-        status.emit(UI_LINKED)
+        status.emit(LINKED)
     }
 
     fun search(query: String) {
@@ -103,7 +109,9 @@ class MainViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-            // TODO 검색
+            val result = placeModel.search(center!!.toGeoLocation(), query)
+            logVars(TAG, "search", "result" to result)
+            recommended.emit(result.places)
         }
     }
 

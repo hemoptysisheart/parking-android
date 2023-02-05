@@ -1,6 +1,8 @@
 package com.github.hemoptysisheart.parking.app.ui.preview
 
 import com.github.hemoptysisheart.parking.core.model.LocationModel
+import com.github.hemoptysisheart.parking.core.model.PlaceModel
+import com.github.hemoptysisheart.parking.core.model.dto.PlaceSearchResult
 import com.github.hemoptysisheart.parking.domain.GeoLocation
 
 object PreviewModel {
@@ -10,5 +12,11 @@ object PreviewModel {
         override fun addCallback(key: String, callback: (GeoLocation) -> Unit) {}
 
         override fun removeCallback(key: String) {}
+    }
+
+    val PLACE_MODEL = object : PlaceModel {
+        override suspend fun search(center: GeoLocation, query: String): PlaceSearchResult {
+            return PlaceSearchResult(center, query, listOf())
+        }
     }
 }

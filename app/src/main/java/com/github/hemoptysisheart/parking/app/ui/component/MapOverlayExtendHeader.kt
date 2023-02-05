@@ -5,10 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Settings
@@ -66,10 +63,13 @@ fun MapOverlayExtendHeader(
 
         Spacer(modifier = Modifier.width(10.dp))
 
-        OutlinedTextField(
+        TextField(
             value = query,
             onValueChange = onQueryChange,
-            modifier = Modifier.weight(1.0F),
+            modifier = Modifier
+                .border(1.dp, Color.LightGray, RoundedCornerShape(20.dp))
+                .background(Color.White, RoundedCornerShape(20.dp))
+                .weight(1.0F),
             placeholder = {
                 Text(stringResource(R.string.map_overlay_query_placeholder))
             },
@@ -99,10 +99,20 @@ fun MapOverlayExtendHeader(
 }
 
 @Composable
-@Preview(showBackground = true)
+@Preview(name = "검색어 없음.", showBackground = true)
 @SuppressLint("ComposableNaming")
-fun preview_MapOverlayExtendHeader() {
+fun preview_MapOverlayExtendHeader_query_empty() {
     ParkingTheme {
         MapOverlayExtendHeader()
+    }
+}
+
+@Composable
+@Preview(name = "검색어 : 新宿", showBackground = true)
+@Suppress("NonAsciiCharacters")
+@SuppressLint("ComposableNaming")
+fun preview_MapOverlayExtendHeader_query_新宿() {
+    ParkingTheme {
+        MapOverlayExtendHeader("新宿")
     }
 }

@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel.Status.*
+import com.github.hemoptysisheart.parking.core.logging.logArgs
+import com.github.hemoptysisheart.parking.core.logging.logSet
 import com.github.hemoptysisheart.parking.core.model.LocationModel
 import com.github.hemoptysisheart.parking.domain.GeoLocation
 import com.google.android.gms.maps.model.LatLng
@@ -66,7 +68,7 @@ class MainViewModel @Inject constructor(
      */
     var center: LatLng? = null
         set(value) {
-            Log.v(TAG, "#center set : $value")
+            logSet(TAG, "center", value)
             field = value
         }
 
@@ -75,7 +77,7 @@ class MainViewModel @Inject constructor(
      */
     var zoom: Float? = null
         set(value) {
-            Log.v(TAG, "#zoom set : $value")
+            logSet(TAG, "zoom", value)
             field = value
         }
 
@@ -93,7 +95,7 @@ class MainViewModel @Inject constructor(
     }
 
     fun search(query: String) {
-        Log.v(TAG, "#search args : query=$query")
+        logArgs(TAG, "search", "query" to query)
 
         viewModelScope.launch {
             this@MainViewModel.query.emit(query)

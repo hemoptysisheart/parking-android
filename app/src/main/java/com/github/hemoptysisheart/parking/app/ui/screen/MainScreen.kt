@@ -22,6 +22,8 @@ import com.github.hemoptysisheart.parking.app.ui.state.OverlayState.*
 import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel.Status.*
 import com.github.hemoptysisheart.parking.app.viewmodel.toLatLng
+import com.github.hemoptysisheart.parking.core.logging.logArgs
+import com.github.hemoptysisheart.parking.core.logging.logVars
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.maps.android.compose.rememberCameraPositionState
@@ -33,12 +35,20 @@ import com.google.maps.android.compose.rememberCameraPositionState
 fun MainScreen(
     viewModel: MainViewModel = hiltViewModel()
 ) {
+    logArgs(TAG_COMPOSE, "MainScreen", "viewModel" to viewModel)
+
     val state by remember { mutableStateOf(MainScreenState()) }
 
     val status by viewModel.status.collectAsStateWithLifecycle()
     val here by viewModel.here.collectAsStateWithLifecycle()
     val query by viewModel.query.collectAsStateWithLifecycle()
-    Log.v(TAG_COMPOSE, "#MainScreen : state=$state, status=$status, here=$here, query=$query")
+    logVars(
+        TAG_COMPOSE, "MainScreen",
+        "state" to state,
+        "status" to status,
+        "here" to here,
+        "query" to query
+    )
 
     val cameraPositionState = rememberCameraPositionState()
     when (status) {

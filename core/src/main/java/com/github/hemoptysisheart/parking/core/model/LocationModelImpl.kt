@@ -2,7 +2,7 @@ package com.github.hemoptysisheart.parking.core.model
 
 import android.annotation.SuppressLint
 import android.os.Looper
-import android.util.Log
+import com.github.hemoptysisheart.parking.core.logging.logArgs
 import com.github.hemoptysisheart.parking.domain.GeoLocation
 import com.google.android.gms.location.*
 import com.google.android.gms.location.Priority.PRIORITY_HIGH_ACCURACY
@@ -12,7 +12,7 @@ class LocationModelImpl(
     private val client: FusedLocationProviderClient
 ) : LocationModel {
     companion object {
-        private val TAG = LocationModelImpl::class.simpleName
+        private val TAG = LocationModelImpl::class.simpleName!!
 
         /**
          * 초기 좌표.
@@ -52,13 +52,13 @@ class LocationModelImpl(
     }
 
     override fun addCallback(key: String, callback: (GeoLocation) -> Unit) {
-        Log.v(TAG, "#addCallback args : key=$key, callback=$callback")
+        logArgs(TAG, "addCallback", "key" to key, "callback" to callback)
 
         callbacks[key] = callback
     }
 
     override fun removeCallback(key: String) {
-        Log.v(TAG, "#removeCallback args : key=$key")
+        logArgs(TAG, "removeCallback", "key" to key)
 
         callbacks.remove(key)
     }

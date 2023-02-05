@@ -22,6 +22,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.github.hemoptysisheart.parking.R
+import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.TAG_COMPOSE
+import com.github.hemoptysisheart.parking.core.logging.logArgs
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 
 @Composable
@@ -30,6 +32,13 @@ fun MapOverlayExtendHeader(
     onQueryChange: (String) -> Unit = { },
     onCollapse: () -> Unit = { }
 ) {
+    logArgs(
+        TAG_COMPOSE, "MapOverlayExtendHeader",
+        "query" to query,
+        "onQueryChange" to onQueryChange,
+        "onCollapse" to onCollapse
+    )
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -45,7 +54,7 @@ fun MapOverlayExtendHeader(
         ) {
             Icon(
                 imageVector = Icons.Default.Close,
-                contentDescription = "돌아가기 버튼",
+                contentDescription = stringResource(R.string.map_overlay_collapse_button_description),
                 modifier = Modifier
                     .scale(1.1F)
                     .background(Color.White, RoundedCornerShape(20.dp))

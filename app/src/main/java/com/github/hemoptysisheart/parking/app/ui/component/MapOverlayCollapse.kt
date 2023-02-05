@@ -19,7 +19,8 @@ fun MapOverlayCollapse(
     Column(
         Modifier
             .fillMaxWidth()
-            .zIndex(1.0F)) {
+            .zIndex(1.0F)
+    ) {
         MapOverlayCollapseHeader(onExtend)
     }
 }

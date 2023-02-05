@@ -1,6 +1,7 @@
 package com.github.hemoptysisheart.parking.app.ui.component
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -8,7 +9,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.TAG_COMPOSE
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
+import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.*
 
 /**
@@ -17,9 +20,12 @@ import com.google.maps.android.compose.*
  * @param cameraPositionState 지도 카메라 위치.
  */
 @Composable
-fun MapView(
-    cameraPositionState: CameraPositionState
+fun Map(
+    cameraPositionState: CameraPositionState,
+    onMapClick: (LatLng) -> Unit = { Log.v(TAG_COMPOSE, "#onMapClick called.") }
 ) {
+    Log.v(TAG_COMPOSE, "#Map args : cameraPositionState=$cameraPositionState, onMapClick=$onMapClick")
+
     val uiSettings by remember {
         mutableStateOf(
             MapUiSettings(
@@ -39,7 +45,8 @@ fun MapView(
             .fillMaxSize(),
         cameraPositionState = cameraPositionState,
         properties = properties,
-        uiSettings = uiSettings
+        uiSettings = uiSettings,
+        onMapClick = onMapClick
     )
 }
 
@@ -48,6 +55,6 @@ fun MapView(
 @SuppressLint("ComposableNaming")
 fun preview_MapView() {
     ParkingTheme {
-        MapView(rememberCameraPositionState())
+        Map(rememberCameraPositionState())
     }
 }

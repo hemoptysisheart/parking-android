@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.zIndex
 import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.TAG_COMPOSE
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 
@@ -15,7 +16,10 @@ fun MapOverlayCollapse(
 ) {
     Log.v(TAG_COMPOSE, "#MapOverlayCollapse args : onExtend=$onExtend")
 
-    Column(Modifier.fillMaxWidth()) {
+    Column(
+        Modifier
+            .fillMaxWidth()
+            .zIndex(1.0F)) {
         MapOverlayCollapseHeader(onExtend)
     }
 }

@@ -20,7 +20,6 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.zIndex
 import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.TAG_COMPOSE
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 
@@ -32,8 +31,7 @@ fun MapOverlayCollapseHeader(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(10.dp)
-            .zIndex(1.0F),
+            .padding(10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(

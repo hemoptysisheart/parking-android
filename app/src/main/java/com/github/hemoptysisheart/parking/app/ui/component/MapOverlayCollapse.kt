@@ -12,7 +12,7 @@ import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 
 @Composable
 fun MapOverlayCollapse(
-    onExtend: () -> Unit = { Log.v(TAG_COMPOSE, "#onExtend called.") }
+    onExtend: () -> Unit = { }
 ) {
     Log.v(TAG_COMPOSE, "#MapOverlayCollapse args : onExtend=$onExtend")
 

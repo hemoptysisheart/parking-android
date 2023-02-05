@@ -18,7 +18,8 @@ import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 @Composable
 fun MapOverlayExtend(
     query: String = "",
-    onCollapse: () -> Unit = { Log.v(TAG_COMPOSE, "#onCollapse called.") }
+    onQueryChange: (String) -> Unit = {},
+    onCollapse: () -> Unit = { }
 ) {
     Log.v(TAG_COMPOSE, "#MapOverlayExtend args : onCollapse=$onCollapse")
 
@@ -28,7 +29,7 @@ fun MapOverlayExtend(
             .background(Color.White)
             .zIndex(1.0F)
     ) {
-        MapOverlayExtendHeader(query)
+        MapOverlayExtendHeader(query, onQueryChange, onCollapse)
 
         LazyColumn {
             items(30) {

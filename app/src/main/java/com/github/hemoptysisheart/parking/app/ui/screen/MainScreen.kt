@@ -30,12 +30,15 @@ import com.google.maps.android.compose.rememberCameraPositionState
  * 메인 화면 UI.
  */
 @Composable
-fun MainScreen(viewModel: MainViewModel = hiltViewModel()) {
+fun MainScreen(
+    viewModel: MainViewModel = hiltViewModel()
+) {
     val state by remember { mutableStateOf(MainScreenState()) }
 
     val status by viewModel.status.collectAsStateWithLifecycle()
     val here by viewModel.here.collectAsStateWithLifecycle()
-    Log.v(TAG_COMPOSE, "#MainScreen : state=$state, status=$status, here=$here")
+    val query by viewModel.query.collectAsStateWithLifecycle()
+    Log.v(TAG_COMPOSE, "#MainScreen : state=$state, status=$status, here=$here, query=$query")
 
     val cameraPositionState = rememberCameraPositionState()
     when (status) {
@@ -59,9 +62,16 @@ fun MainScreen(viewModel: MainViewModel = hiltViewModel()) {
                     state.onExtend()
                 }
             EXTEND ->
-                MapOverlayExtend(state.query) {
-                    state.onCollapse()
-                }
+                MapOverlayExtend(
+                    query = query,
+                    onQueryChange = {
+                        Log.v(TAG_COMPOSE, "#onQueryChange args : query=$it")
+                        viewModel.search(it)
+                    },
+                    onCollapse = {
+                        state.onCollapse()
+                    }
+                )
             else -> {}
         }
 

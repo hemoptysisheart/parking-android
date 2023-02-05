@@ -1,7 +1,6 @@
 package com.github.hemoptysisheart.parking.app.ui.component
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -11,7 +10,7 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,13 +22,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.github.hemoptysisheart.parking.R
-import com.github.hemoptysisheart.parking.app.ui.configuration.Constant
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 
 @Composable
 fun MapOverlayExtendHeader(
     query: String = "",
-    onCollapse: () -> Unit = { Log.v(Constant.TAG_COMPOSE, "#onCollapse called.") }
+    onQueryChange: (String) -> Unit = { },
+    onCollapse: () -> Unit = { }
 ) {
     Row(
         modifier = Modifier
@@ -45,7 +44,7 @@ fun MapOverlayExtendHeader(
                 .padding(3.dp)
         ) {
             Icon(
-                imageVector = Icons.Default.ArrowBack,
+                imageVector = Icons.Default.Close,
                 contentDescription = "돌아가기 버튼",
                 modifier = Modifier
                     .scale(1.1F)
@@ -60,11 +59,12 @@ fun MapOverlayExtendHeader(
 
         OutlinedTextField(
             value = query,
-            onValueChange = {},
+            onValueChange = onQueryChange,
             modifier = Modifier.weight(1.0F),
             placeholder = {
                 Text(stringResource(R.string.map_overlay_query_placeholder))
-            }
+            },
+            singleLine = true
         )
 
         Spacer(modifier = Modifier.width(10.dp))
@@ -97,4 +97,3 @@ fun preview_MapOverlayExtendHeader() {
         MapOverlayExtendHeader()
     }
 }
-

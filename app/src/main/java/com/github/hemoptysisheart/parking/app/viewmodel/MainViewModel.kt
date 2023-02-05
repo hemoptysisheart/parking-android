@@ -57,6 +57,11 @@ class MainViewModel @Inject constructor(
     val here = MutableStateFlow(locationModel.location)
 
     /**
+     * 목적지 검색어.
+     */
+    val query = MutableStateFlow("")
+
+    /**
      * UI에서 지도 중심을 받는다.
      */
     var center: LatLng? = null
@@ -84,6 +89,18 @@ class MainViewModel @Inject constructor(
     fun ready() {
         viewModelScope.launch {
             status.emit(UI_LINKED)
+        }
+    }
+
+    fun search(query: String) {
+        Log.v(TAG, "#search args : query=$query")
+
+        viewModelScope.launch {
+            this@MainViewModel.query.emit(query)
+        }
+
+        viewModelScope.launch {
+            // TODO 검색
         }
     }
 

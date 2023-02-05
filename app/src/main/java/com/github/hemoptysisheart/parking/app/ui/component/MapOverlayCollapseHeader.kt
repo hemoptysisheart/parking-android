@@ -25,7 +25,7 @@ import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 
 @Composable
 fun MapOverlayCollapseHeader(
-    onExtend: () -> Unit = { Log.v(TAG_COMPOSE, "#onExtend called.") }
+    onExtend: () -> Unit = { }
 ) {
     Log.v(TAG_COMPOSE, "#MapOverlayPoi args : onExtend=$onExtend")
     Row(

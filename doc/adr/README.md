@@ -9,6 +9,7 @@
 3. [`README.md` 링크하기](link%20to%20readme.md)
 4. [UI 네비게이션 루트 만들기](UI%20navigation%20route.md)
 5. [`DTO`와 `Resp`](dto%20and%20resp.md)
+6. [Jetpack Compose 호이스팅](Jetpack%20Compose%20hoisting.md)
 
 ## 참고
 

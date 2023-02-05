@@ -8,4 +8,5 @@
     <string name="map_marker_current_title">현재 위치</string>
     <string name="map_destination_view_simple_description">목적지를 지정해주세요.</string>
     <string name="map_destination_view_simple_placeholder">목적지 검색</string>
+    <string name="map_overlay_query_placeholder">목적지를 검색하세요.</string>
 </resources>

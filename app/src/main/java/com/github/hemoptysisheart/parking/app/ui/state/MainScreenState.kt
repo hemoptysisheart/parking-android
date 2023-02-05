@@ -8,7 +8,12 @@ data class MainScreenState(
     /**
      * 추천 항목을 포함하는 오버레이를 열어서 보일지 여부.
      */
-    var overlayState: OverlayState = COLLAPSE
+    var overlayState: OverlayState = COLLAPSE,
+
+    /**
+     * 장소 검색 쿼리
+     */
+    var query: String = ""
 ) {
     fun onHide() {
         if (COLLAPSE == overlayState) {

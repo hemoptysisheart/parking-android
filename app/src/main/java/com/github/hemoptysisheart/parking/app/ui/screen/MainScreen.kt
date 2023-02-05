@@ -18,9 +18,7 @@ import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.DEFAULT_
 import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.TAG_COMPOSE
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewViewModel.MAIN_VM
 import com.github.hemoptysisheart.parking.app.ui.state.MainScreenState
-import com.github.hemoptysisheart.parking.app.ui.state.OverlayState
-import com.github.hemoptysisheart.parking.app.ui.state.OverlayState.COLLAPSE
-import com.github.hemoptysisheart.parking.app.ui.state.OverlayState.HIDE
+import com.github.hemoptysisheart.parking.app.ui.state.OverlayState.*
 import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel.Status.*
 import com.github.hemoptysisheart.parking.app.viewmodel.toLatLng
@@ -57,11 +55,11 @@ fun MainScreen(viewModel: MainViewModel = hiltViewModel()) {
     Box(modifier = Modifier.fillMaxSize()) {
         when (state.overlayState) {
             COLLAPSE ->
-                MapOverlayCollapse() {
+                MapOverlayCollapse {
                     state.onExtend()
                 }
-            OverlayState.EXTEND ->
-                MapOverlayExtend() {
+            EXTEND ->
+                MapOverlayExtend(state.query) {
                     state.onCollapse()
                 }
             else -> {}

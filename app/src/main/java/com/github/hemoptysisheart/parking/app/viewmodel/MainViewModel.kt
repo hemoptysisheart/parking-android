@@ -22,9 +22,12 @@ class MainViewModel @Inject constructor(
         private val TAG = MainViewModel::class.simpleName!!
     }
 
+    /**
+     * UI - ViewModel 연동 상태.
+     */
     enum class Status {
         /**
-         * 초기 상태.
+         * 초기 상태(인스턴스 생성 직후).
          */
         INIT,
 
@@ -88,10 +91,8 @@ class MainViewModel @Inject constructor(
     /**
      * UI가 VM과 연동됐음을 알릴 때 사용.
      */
-    fun ready() {
-        viewModelScope.launch {
-            status.emit(UI_LINKED)
-        }
+    fun linked() = viewModelScope.launch {
+        status.emit(UI_LINKED)
     }
 
     fun search(query: String) {
@@ -112,5 +113,6 @@ class MainViewModel @Inject constructor(
         locationModel.removeCallback(TAG)
     }
 
-    override fun toString() = "$TAG(status=${status.value}, here=${here.value}, center=$center, zoom=$zoom)"
+    override fun toString() =
+        "$TAG(status=${status.value}, here=${here.value}, query=${query.value}, center=$center, zoom=$zoom)"
 }

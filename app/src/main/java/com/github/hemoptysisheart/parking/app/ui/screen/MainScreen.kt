@@ -55,7 +55,7 @@ fun MainScreen(
         INIT -> {}
         LOCATION_READY -> {
             cameraPositionState.position = CameraPosition.fromLatLngZoom(here.toLatLng(), DEFAULT_ZOOM_LEVEL)
-            viewModel.ready()
+            viewModel.linked()
         }
         UI_LINKED -> {
             viewModel.center = cameraPositionState.position.target

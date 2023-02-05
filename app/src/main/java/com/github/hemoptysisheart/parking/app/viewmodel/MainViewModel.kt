@@ -13,7 +13,6 @@ import com.github.hemoptysisheart.parking.domain.GeoLocation
 import com.github.hemoptysisheart.parking.domain.RecommendItem
 import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -73,9 +72,6 @@ class MainViewModel @Inject constructor(
 
     val recommended = MutableStateFlow(listOf<RecommendItem<*>>())
 
-    private var searchJob: Job? = null
-    private var waitingQuery: String? = null
-
     /**
      * UI에서 지도 중심을 받는다.
      */
@@ -112,26 +108,10 @@ class MainViewModel @Inject constructor(
             this@MainViewModel.query.emit(query)
         }
 
-        if (true == searchJob?.isActive) {
-            Log.d(TAG, "#search there is active search job : searchJob=$searchJob")
-            waitingQuery = query
-        } else {
-            searchJob = viewModelScope.launch {
-                val result = placeModel.search(center!!.toGeoLocation(), query)
-                logVars(TAG, "search", "result" to result)
-                recommended.emit(result.places)
-
-                waitingQuery?.also { waitingQuery ->
-                    Log.d(TAG, "#search there is waiting query : waitingQuery=$waitingQuery")
-                    if (waitingQuery == query) {
-                        this@MainViewModel.waitingQuery = null
-                        searchJob = null
-                    } else {
-                        this@MainViewModel.waitingQuery = null
-                        search(waitingQuery)
-                    }
-                }
-            }
+        viewModelScope.launch {
+            val result = placeModel.search(center!!.toGeoLocation(), query)
+            logVars(TAG, "search", "result" to result)
+            recommended.emit(result.places)
         }
     }
 

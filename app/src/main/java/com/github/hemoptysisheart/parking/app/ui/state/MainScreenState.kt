@@ -10,28 +10,35 @@ data class MainScreenState(
      */
     var overlayState: OverlayState = COLLAPSE
 ) {
-    fun shiftHideCollapse() {
-        Log.v(TAG_COMPOSE, "#shiftHideCollapse called : overlayState=$overlayState")
-        when (overlayState) {
-            HIDE ->
-                overlayState = COLLAPSE
-            COLLAPSE ->
-                overlayState = HIDE
-            else ->
-                Log.e(TAG_COMPOSE, "#shiftHideCollapse illegal state : overlayState=$overlayState")
+    fun onHide() {
+        if (COLLAPSE == overlayState) {
+            overlayState = HIDE
+        } else {
+            Log.w(TAG_COMPOSE, "#onHide illegal state : overlayState=$overlayState")
         }
     }
 
-    fun shiftCollapseExpand() {
-        Log.v(TAG_COMPOSE, "#shiftCollapseExpand called : overlayState=$overlayState")
+    fun onShow() {
+        if (HIDE == overlayState) {
+            overlayState = COLLAPSE
+        } else {
+            Log.w(TAG_COMPOSE, "#onShow illegal state : overlayState=$overlayState")
+        }
+    }
 
-        when (overlayState) {
-            HIDE ->
-                Log.e(TAG_COMPOSE, "#shiftCollapseExpand illegal state : overlayState=$overlayState")
-            COLLAPSE ->
-                overlayState = EXTEND
-            EXTEND ->
-                overlayState = COLLAPSE
+    fun onExtend() {
+        if (COLLAPSE == overlayState) {
+            overlayState = EXTEND
+        } else {
+            Log.w(TAG_COMPOSE, "#onExtend illegal state : overlayState=$overlayState")
+        }
+    }
+
+    fun onCollapse() {
+        if (EXTEND == overlayState) {
+            overlayState = COLLAPSE
+        } else {
+            Log.w(TAG_COMPOSE, "#onCollapse illegal state : overlayState=$overlayState")
         }
     }
 }

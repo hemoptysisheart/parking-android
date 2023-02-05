@@ -19,6 +19,8 @@ import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.TAG_COMP
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewViewModel.MAIN_VM
 import com.github.hemoptysisheart.parking.app.ui.state.MainScreenState
 import com.github.hemoptysisheart.parking.app.ui.state.OverlayState
+import com.github.hemoptysisheart.parking.app.ui.state.OverlayState.COLLAPSE
+import com.github.hemoptysisheart.parking.app.ui.state.OverlayState.HIDE
 import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel.Status.*
 import com.github.hemoptysisheart.parking.app.viewmodel.toLatLng
@@ -54,20 +56,29 @@ fun MainScreen(viewModel: MainViewModel = hiltViewModel()) {
 
     Box(modifier = Modifier.fillMaxSize()) {
         when (state.overlayState) {
-            OverlayState.COLLAPSE ->
+            COLLAPSE ->
                 MapOverlayCollapse() {
-                    state.shiftCollapseExpand()
+                    state.onExtend()
                 }
             OverlayState.EXTEND ->
                 MapOverlayExtend() {
-                    state.shiftCollapseExpand()
+                    state.onCollapse()
                 }
             else -> {}
         }
 
         Map(
             cameraPositionState = cameraPositionState,
-            onMapClick = { state.shiftHideCollapse() }
+            onMapClick = {
+                when (state.overlayState) {
+                    HIDE ->
+                        state.onShow()
+                    COLLAPSE ->
+                        state.onHide()
+                    else ->
+                        Log.e(TAG_COMPOSE, "#onMapClick illegal state : state=$state")
+                }
+            }
         )
     }
 }

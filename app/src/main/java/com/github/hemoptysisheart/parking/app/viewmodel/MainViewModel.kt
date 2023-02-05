@@ -6,13 +6,13 @@ import androidx.lifecycle.viewModelScope
 import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel.Status.*
 import com.github.hemoptysisheart.parking.core.logging.logArgs
 import com.github.hemoptysisheart.parking.core.logging.logSet
-import com.github.hemoptysisheart.parking.core.logging.logVars
 import com.github.hemoptysisheart.parking.core.model.LocationModel
 import com.github.hemoptysisheart.parking.core.model.PlaceModel
 import com.github.hemoptysisheart.parking.domain.GeoLocation
 import com.github.hemoptysisheart.parking.domain.RecommendItem
 import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -72,6 +72,9 @@ class MainViewModel @Inject constructor(
 
     val recommended = MutableStateFlow(listOf<RecommendItem<*>>())
 
+    private val searchJobLock = Any()
+    private var searchJob: Job? = null
+
     /**
      * UI에서 지도 중심을 받는다.
      */
@@ -108,10 +111,20 @@ class MainViewModel @Inject constructor(
             this@MainViewModel.query.emit(query)
         }
 
-        viewModelScope.launch {
-            val result = placeModel.search(center!!.toGeoLocation(), query)
-            logVars(TAG, "search", "result" to result)
-            recommended.emit(result.places)
+        synchronized(searchJobLock) {
+            searchJob?.run {
+                Log.d(TAG, "#search cancel search job : searchJob=$searchJob")
+                if (isActive) {
+                    cancel()
+                }
+                searchJob = null
+            }
+
+            searchJob = viewModelScope.launch {
+                val result = placeModel.search(center!!.toGeoLocation(), query)
+                Log.d(TAG, "#search : result=$result")
+                recommended.emit(result.places)
+            }
         }
     }
 
@@ -121,6 +134,6 @@ class MainViewModel @Inject constructor(
         locationModel.removeCallback(TAG)
     }
 
-    override fun toString() =
-        "$TAG(status=${status.value}, here=${here.value}, query=${query.value}, center=$center, zoom=$zoom)"
+    override fun toString() = "$TAG(status=${status.value}, here=${here.value}, query=${query.value}, " +
+            "center=$center, zoom=$zoom)"
 }

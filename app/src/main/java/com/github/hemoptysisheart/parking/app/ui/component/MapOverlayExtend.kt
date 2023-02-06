@@ -13,6 +13,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.TAG_COMPOSE
+import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.ITEM_AAA_ANNEX_GALLERY
+import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.ITEM_AAA_NIHON_株式会社
+import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.ITEM_AAA_TOHO_TRADING
+import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.ITEM_株式会社ＡＡＡ
 import com.github.hemoptysisheart.parking.core.logging.logArgs
 import com.github.hemoptysisheart.parking.domain.RecommendItem
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
@@ -62,5 +66,23 @@ fun MapOverlayExtend(
 fun preview_MapOverlayExtend_recommendedEmpty() {
     ParkingTheme {
         MapOverlayExtend()
+    }
+}
+
+@Composable
+@Preview(showBackground = true)
+@SuppressLint("ComposableNaming")
+fun preview_MapOverlayExtend_recommended() {
+    ParkingTheme {
+        MapOverlayExtend(
+            query = "AAA",
+            recommended = listOf(
+                ITEM_AAA_TOHO_TRADING, ITEM_株式会社ＡＡＡ, ITEM_AAA_ANNEX_GALLERY, ITEM_AAA_NIHON_株式会社,
+                ITEM_AAA_TOHO_TRADING, ITEM_株式会社ＡＡＡ, ITEM_AAA_ANNEX_GALLERY, ITEM_AAA_NIHON_株式会社,
+                ITEM_AAA_TOHO_TRADING, ITEM_株式会社ＡＡＡ, ITEM_AAA_ANNEX_GALLERY, ITEM_AAA_NIHON_株式会社,
+                ITEM_AAA_TOHO_TRADING, ITEM_株式会社ＡＡＡ, ITEM_AAA_ANNEX_GALLERY, ITEM_AAA_NIHON_株式会社,
+                ITEM_AAA_TOHO_TRADING, ITEM_株式会社ＡＡＡ, ITEM_AAA_ANNEX_GALLERY, ITEM_AAA_NIHON_株式会社
+            )
+        )
     }
 }

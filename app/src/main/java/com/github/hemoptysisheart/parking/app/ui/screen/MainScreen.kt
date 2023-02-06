@@ -42,12 +42,14 @@ fun MainScreen(
     val status by viewModel.status.collectAsStateWithLifecycle()
     val here by viewModel.here.collectAsStateWithLifecycle()
     val query by viewModel.query.collectAsStateWithLifecycle()
+    val recommended by viewModel.recommended.collectAsStateWithLifecycle()
     logVarsV(
         TAG_COMPOSE, "MainScreen",
         "state" to state,
         "status" to status,
         "here" to here,
-        "query" to query
+        "query" to query,
+        "recommended" to recommended
     )
 
     val cameraPositionState = rememberCameraPositionState()
@@ -68,19 +70,15 @@ fun MainScreen(
     Box(modifier = Modifier.fillMaxSize()) {
         when (state.overlayState) {
             COLLAPSE ->
-                MapOverlayCollapse {
-                    state.onExtend()
-                }
+                MapOverlayCollapse(
+                    onExtend = { state.onExtend() }
+                )
             EXTEND ->
                 MapOverlayExtend(
                     query = query,
-                    onQueryChange = {
-                        Log.v(TAG_COMPOSE, "#onQueryChange args : query=$it")
-                        viewModel.search(it)
-                    },
-                    onCollapse = {
-                        state.onCollapse()
-                    }
+                    recommended = recommended,
+                    onQueryChange = { viewModel.search(it) },
+                    onCollapse = { state.onCollapse() }
                 )
             else -> {}
         }

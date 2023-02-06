@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -13,11 +14,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.TAG_COMPOSE
 import com.github.hemoptysisheart.parking.core.logging.logArgs
+import com.github.hemoptysisheart.parking.domain.RecommendItem
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 
 @Composable
 fun MapOverlayExtend(
     query: String = "",
+    recommended: List<RecommendItem<*>> = listOf(),
     onQueryChange: (String) -> Unit = {},
     onCollapse: () -> Unit = { }
 ) {
@@ -37,8 +40,8 @@ fun MapOverlayExtend(
         MapOverlayExtendHeader(query, onQueryChange, onCollapse)
 
         LazyColumn {
-            items(30) {
-                if (0 < it) {
+            itemsIndexed(recommended) { index, item ->
+                if (0 < index) {
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -47,7 +50,7 @@ fun MapOverlayExtend(
                             .background(Color.LightGray)
                     )
                 }
-                Text(text = "장소 검색 결과")
+                Text(text = item.toString())
             }
         }
     }
@@ -56,7 +59,7 @@ fun MapOverlayExtend(
 @Composable
 @Preview(showBackground = true)
 @SuppressLint("ComposableNaming")
-fun preview_MapOverlayExtend() {
+fun preview_MapOverlayExtend_recommendedEmpty() {
     ParkingTheme {
         MapOverlayExtend()
     }

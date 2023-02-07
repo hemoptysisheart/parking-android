@@ -1,6 +1,7 @@
 package com.github.hemoptysisheart.parking.app.ui.preview
 
 import com.github.hemoptysisheart.parking.core.client.google.dto.*
+import com.github.hemoptysisheart.parking.core.client.google.dto.BusinessStatus.OPERATIONAL
 import com.github.hemoptysisheart.parking.core.client.google.dto.PlaceTypeResultOnly.ESTABLISHMENT
 import com.github.hemoptysisheart.parking.core.client.google.dto.PlaceTypeResultOnly.POINT_OF_INTEREST
 import com.github.hemoptysisheart.parking.core.client.google.dto.PlaceTypes.*
@@ -9,7 +10,7 @@ import java.net.URL
 @Suppress("NonAsciiCharacters")
 object PlaceDtos {
     val PLACE_AAA_TOHO_TRADING = PlaceDto(
-        businessStatus = BusinessStatus.OPERATIONAL,
+        businessStatus = OPERATIONAL,
         geometry = GeometryDto(
             location = LatLngDto(35.4917783, 139.3650979),
             viewport = BoundsDto(
@@ -41,7 +42,7 @@ object PlaceDtos {
     )
 
     val PLACE_株式会社ＡＡＡ = PlaceDto(
-        businessStatus = BusinessStatus.OPERATIONAL,
+        businessStatus = OPERATIONAL,
         geometry = GeometryDto(
             location = LatLngDto(35.5319675, 139.5936011),
             viewport = BoundsDto(
@@ -62,7 +63,7 @@ object PlaceDtos {
     )
 
     val PLACE_AAA_ANNEX_GALLERY = PlaceDto(
-        businessStatus = BusinessStatus.OPERATIONAL,
+        businessStatus = OPERATIONAL,
         geometry = GeometryDto(
             location = LatLngDto(35.4428389, 139.6454866),
             viewport = BoundsDto(
@@ -93,7 +94,7 @@ object PlaceDtos {
     )
 
     val PLACE_AAA_NIHON_株式会社 = PlaceDto(
-        businessStatus = BusinessStatus.OPERATIONAL,
+        businessStatus = OPERATIONAL,
         geometry = GeometryDto(
             location = LatLngDto(35.5125369, 139.3055891),
             viewport = BoundsDto(
@@ -122,5 +123,35 @@ object PlaceDtos {
         types = setOf(CAR_DEALER, POINT_OF_INTEREST, STORE, ESTABLISHMENT),
         userRatingsTotal = 3,
         vicinity = "2023-2 Kamiogino, Atsugi"
+    )
+
+    val PLACE_GOOBNE_CHICKEN_曙橋店 = PlaceDto(
+        businessStatus = OPERATIONAL,
+        geometry = GeometryDto(
+            location = LatLngDto(35.6957648, 139.7197928),
+            viewport = BoundsDto(
+                northEast = LatLngDto(35.69710397989272, 139.7211313798927),
+                southWest = LatLngDto(35.69440432010728, 139.7184317201073)
+            )
+        ),
+        icon = URL("https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png"),
+        iconBackgroundColor = "#FF9E67",
+        iconMaskBase = URL("https://maps.gstatic.com/mapfiles/place_api/icons/v2/restaurant_pinlet"),
+        name = "Goobne Chicken 曙橋店",
+        openingHours = PlaceOpeningHoursDto(open = false),
+        photos = listOf(
+            PlacePhotoDto(
+                width = 3024,
+                height = 4032,
+                htmlAttributions = listOf("<a href=\"https://maps.google.com/maps/contrib/111865503606189267632\">순영</a>"),
+                photoReference = "AfLeUgNtdK-0y-VlJRsSyNAJP42exYmXGoHiZfB-pvaKizTyaSx34OHmioMN67B6fYQomWYcBxp2VmMQcLRp3dpENDGC4SgaL80_-WMp8nrT5KCULl3pfejIAmrgxIC0v4WyQpxXKpkIsJToC3ODqMfSIxa9tAccao-eR25VBUEXb4Xhnn4p"
+            )
+        ),
+        placeId = "ChIJHR3d64mNGGARMNiJ9_jF6rI",
+        plusCode = PlusCodeDto(globalCode = "8Q7XMPW9+8W", compoundCode = "MPW9+8W 신주쿠구 도쿄도"),
+        rating = 4.4,
+        types = setOf(RESTAURANT, PlaceTypeResultOnly.FOOD, POINT_OF_INTEREST, ESTABLISHMENT),
+        userRatingsTotal = 47,
+        vicinity = "Shinjuku City, Kawadacho, 3−8 THE DENS 1階"
     )
 }

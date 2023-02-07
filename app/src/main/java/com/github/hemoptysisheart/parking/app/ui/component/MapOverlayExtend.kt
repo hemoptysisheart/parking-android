@@ -16,6 +16,7 @@ import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.TAG_COMP
 import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.ITEM_AAA_ANNEX_GALLERY
 import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.ITEM_AAA_NIHON_株式会社
 import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.ITEM_AAA_TOHO_TRADING
+import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.ITEM_GOOBNE_CHICKEN_曙橋店
 import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.ITEM_株式会社ＡＡＡ
 import com.github.hemoptysisheart.parking.core.logging.logArgs
 import com.github.hemoptysisheart.parking.domain.RecommendItem
@@ -54,7 +55,7 @@ fun MapOverlayExtend(
                             .background(Color.LightGray)
                     )
                 }
-                Text(text = item.toString())
+                MapRecommendedItem(item)
             }
         }
     }
@@ -77,11 +78,10 @@ fun preview_MapOverlayExtend_recommended() {
         MapOverlayExtend(
             query = "AAA",
             recommended = listOf(
-                ITEM_AAA_TOHO_TRADING, ITEM_株式会社ＡＡＡ, ITEM_AAA_ANNEX_GALLERY, ITEM_AAA_NIHON_株式会社,
-                ITEM_AAA_TOHO_TRADING, ITEM_株式会社ＡＡＡ, ITEM_AAA_ANNEX_GALLERY, ITEM_AAA_NIHON_株式会社,
-                ITEM_AAA_TOHO_TRADING, ITEM_株式会社ＡＡＡ, ITEM_AAA_ANNEX_GALLERY, ITEM_AAA_NIHON_株式会社,
-                ITEM_AAA_TOHO_TRADING, ITEM_株式会社ＡＡＡ, ITEM_AAA_ANNEX_GALLERY, ITEM_AAA_NIHON_株式会社,
-                ITEM_AAA_TOHO_TRADING, ITEM_株式会社ＡＡＡ, ITEM_AAA_ANNEX_GALLERY, ITEM_AAA_NIHON_株式会社
+                ITEM_AAA_TOHO_TRADING, ITEM_株式会社ＡＡＡ, ITEM_AAA_ANNEX_GALLERY, ITEM_AAA_NIHON_株式会社, ITEM_GOOBNE_CHICKEN_曙橋店,
+                ITEM_AAA_TOHO_TRADING, ITEM_株式会社ＡＡＡ, ITEM_AAA_ANNEX_GALLERY, ITEM_AAA_NIHON_株式会社, ITEM_GOOBNE_CHICKEN_曙橋店,
+                ITEM_AAA_TOHO_TRADING, ITEM_株式会社ＡＡＡ, ITEM_AAA_ANNEX_GALLERY, ITEM_AAA_NIHON_株式会社, ITEM_GOOBNE_CHICKEN_曙橋店,
+                ITEM_AAA_TOHO_TRADING, ITEM_株式会社ＡＡＡ, ITEM_AAA_ANNEX_GALLERY, ITEM_AAA_NIHON_株式会社, ITEM_GOOBNE_CHICKEN_曙橋店
             )
         )
     }

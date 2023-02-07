@@ -10,11 +10,27 @@ class RecommendItemGmpPlace(
         val ID_PREFIX = "${PlaceDto::class.simpleName!!}:"
     }
 
+    private val contents = listOf(
+        item.name,
+        item.formattedAddress,
+        item.vicinity
+    )
+
     override val id = ID_PREFIX + item.placeId
 
-    override val summary: String = ""
+    override val summary = contents.firstOrNull { null != it }
+        ?: "No summary"
 
-    override val detail: String? = ""
+    override val detail: String?
+        get() {
+            val idx = contents.indexOfFirst { null != it }
+            return if (idx < contents.size - 1) {
+                contents.subList(idx + 1, contents.size)
+                    .firstOrNull { null != it }
+            } else {
+                null
+            }
+        }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

@@ -32,7 +32,8 @@ class PlaceModelImpl(
 
         val result = PlaceSearchResult(
             center, query,
-            apiResult.places.map { RecommendItemGmpPlace(it) }
+            apiResult.places.map { RecommendItemGmpPlace(it) },
+            apiResult.nextToken
         )
 
         Log.v(TAG, "#search return : $result")

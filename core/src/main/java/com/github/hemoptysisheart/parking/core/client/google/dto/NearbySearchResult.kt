@@ -10,12 +10,12 @@ class NearbySearchResult(
      */
     val places: List<PlaceDto>,
     /**
-     * 다음 페이지 반환.
+     * 다음 페이지 토큰.
      */
-    val next: (suspend () -> NearbySearchResult)? = null
+    val nextToken: String? = null
 ) {
-    val hasNext = null != next
+    val hasNext = null != nextToken
 
     override fun toString() =
-        "${NearbySearchResult::class.simpleName}(meta=$meta, places=$places, hasNext=$hasNext)"
+        "${NearbySearchResult::class.simpleName}(meta=$meta, places=$places, nextToken=$nextToken)"
 }

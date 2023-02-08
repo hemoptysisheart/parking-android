@@ -64,11 +64,7 @@ class PlacesClientImpl(config: PlacesClientConfig) : PlacesClient {
                 responseAt = responseAt
             ),
             places = response.results!!.map { DtoConverter.toPlaceDto(it) },
-            next = response.nextPageToken?.let {
-                suspend {
-                    TODO("API 호출.")
-                }
-            }
+            nextToken = response.nextPageToken
         )
 
         logger.d { "#nearBy return : $page" }

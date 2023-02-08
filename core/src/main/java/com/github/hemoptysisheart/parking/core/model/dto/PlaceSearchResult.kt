@@ -5,5 +5,6 @@ import com.github.hemoptysisheart.parking.domain.GeoLocation
 data class PlaceSearchResult(
     val center: GeoLocation,
     val query: String,
-    val places: List<RecommendItemGmpPlace>
+    val places: List<RecommendItemGmpPlace>,
+    val nextToken: String?
 )

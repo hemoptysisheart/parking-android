@@ -12,4 +12,6 @@ data class LatLngDto(
             throw IllegalArgumentException("out of longitude range : longitude=$longitude")
         }
     }
+
+    override fun toString() = "$latitude,$longitude"
 }

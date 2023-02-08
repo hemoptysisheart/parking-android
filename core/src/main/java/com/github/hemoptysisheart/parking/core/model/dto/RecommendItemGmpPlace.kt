@@ -3,21 +3,32 @@ package com.github.hemoptysisheart.parking.core.model.dto
 import com.github.hemoptysisheart.parking.core.client.google.dto.PlaceDto
 import com.github.hemoptysisheart.parking.domain.RecommendItem
 
+/**
+ * Google Places API 검색 결과용 추천 정보.
+ */
 class RecommendItemGmpPlace(
     override val item: PlaceDto
 ) : RecommendItem<PlaceDto> {
     companion object {
-        val ID_PREFIX = "${PlaceDto::class.simpleName!!}:"
+        private val TAG = PlaceDto::class.simpleName!!
     }
 
+    /**
+     * 추천정보 표시에 사용할 수 있는 내용 목록.
+     * 이 중에서 `null`이 아닌 것을 찾아서 사용한다.
+     */
     private val contents = listOf(
         item.name,
         item.formattedAddress,
-        item.vicinity
+        item.vicinity,
+        item.geometry?.location.toString()
     )
 
-    override val id = ID_PREFIX + item.placeId
+    override val id = "$TAG:${item.placeId}"
 
+    /**
+     * TODO [contents]에서 필요한 내용을 찾지 못했을 때 사용할 문자열 리소스로 빼기.
+     */
     override val summary = contents.firstOrNull { null != it }
         ?: "No summary"
 
@@ -32,18 +43,12 @@ class RecommendItemGmpPlace(
             }
         }
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
+    override fun equals(other: Any?) = this === other ||
+            null != other &&
+            other is RecommendItemGmpPlace &&
+            id == other.id
 
-        return other is RecommendItemGmpPlace &&
-                id == other.id
-    }
+    override fun hashCode() = id.hashCode()
 
-    override fun hashCode(): Int {
-        return id.hashCode()
-    }
-
-    override fun toString() =
-        "${RecommendItemGmpPlace::class.simpleName}(id='$id', summary='$summary', detail=$detail, item=$item)"
+    override fun toString() = "$TAG(id='$id', summary='$summary', detail=$detail, item=$item)"
 }

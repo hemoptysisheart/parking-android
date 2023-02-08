@@ -19,6 +19,7 @@ interface RecommendItem<T> {
 
     /**
      * 추천 항목의 ID.
+     * `"[Class 이름]:[item ID]"` 형식.
      */
     val id: String
 

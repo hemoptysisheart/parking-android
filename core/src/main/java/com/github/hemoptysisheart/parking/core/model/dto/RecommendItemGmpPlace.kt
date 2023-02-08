@@ -2,6 +2,7 @@ package com.github.hemoptysisheart.parking.core.model.dto
 
 import com.github.hemoptysisheart.parking.core.client.google.dto.PlaceDto
 import com.github.hemoptysisheart.parking.domain.RecommendItem
+import com.github.hemoptysisheart.parking.domain.RecommendItem.Companion.ID_VALIDATOR
 
 /**
  * Google Places API 검색 결과용 추천 정보.
@@ -10,7 +11,7 @@ class RecommendItemGmpPlace(
     override val item: PlaceDto
 ) : RecommendItem<PlaceDto> {
     companion object {
-        private val TAG = PlaceDto::class.simpleName!!
+        private val TAG = RecommendItemGmpPlace::class.simpleName!!
     }
 
     /**
@@ -24,7 +25,7 @@ class RecommendItemGmpPlace(
         item.geometry?.location.toString()
     )
 
-    override val id = "$TAG:${item.placeId}"
+    override val id = ID_VALIDATOR.validate("$TAG/${item.placeId}")
 
     /**
      * TODO [contents]에서 필요한 내용을 찾지 못했을 때 사용할 문자열 리소스로 빼기.
@@ -50,5 +51,5 @@ class RecommendItemGmpPlace(
 
     override fun hashCode() = id.hashCode()
 
-    override fun toString() = "$TAG(id='$id', summary='$summary', detail=$detail, item=$item)"
+    override fun toString() = "$TAG(id=$id, summary='$summary', detail=$detail, item=$item)"
 }

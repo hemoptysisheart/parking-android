@@ -36,27 +36,24 @@ fun MapOverlayExtend(
         "onCollapse" to onCollapse
     )
 
-    Column(
-        Modifier
+    LazyColumn(
+        modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
             .zIndex(1.0F)
     ) {
-        MapOverlayExtendHeader(query, onQueryChange, onCollapse)
-
-        LazyColumn {
-            itemsIndexed(recommended) { index, item ->
-                if (0 < index) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(30.dp, 3.dp)
-                            .height(1.dp)
-                            .background(Color.LightGray)
-                    )
-                }
-                MapRecommendedItem(item)
+        item { MapOverlayExtendHeader(query, onQueryChange, onCollapse) }
+        itemsIndexed(recommended) { index, item ->
+            if (0 < index) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(30.dp, 3.dp)
+                        .height(1.dp)
+                        .background(Color.LightGray)
+                )
             }
+            MapRecommendedItem(item)
         }
     }
 }
@@ -78,10 +75,26 @@ fun preview_MapOverlayExtend_recommended() {
         MapOverlayExtend(
             query = "AAA",
             recommended = listOf(
-                ITEM_AAA_TOHO_TRADING, ITEM_株式会社ＡＡＡ, ITEM_AAA_ANNEX_GALLERY, ITEM_AAA_NIHON_株式会社, ITEM_GOOBNE_CHICKEN_曙橋店,
-                ITEM_AAA_TOHO_TRADING, ITEM_株式会社ＡＡＡ, ITEM_AAA_ANNEX_GALLERY, ITEM_AAA_NIHON_株式会社, ITEM_GOOBNE_CHICKEN_曙橋店,
-                ITEM_AAA_TOHO_TRADING, ITEM_株式会社ＡＡＡ, ITEM_AAA_ANNEX_GALLERY, ITEM_AAA_NIHON_株式会社, ITEM_GOOBNE_CHICKEN_曙橋店,
-                ITEM_AAA_TOHO_TRADING, ITEM_株式会社ＡＡＡ, ITEM_AAA_ANNEX_GALLERY, ITEM_AAA_NIHON_株式会社, ITEM_GOOBNE_CHICKEN_曙橋店
+                ITEM_AAA_TOHO_TRADING,
+                ITEM_株式会社ＡＡＡ,
+                ITEM_AAA_ANNEX_GALLERY,
+                ITEM_AAA_NIHON_株式会社,
+                ITEM_GOOBNE_CHICKEN_曙橋店,
+                ITEM_AAA_TOHO_TRADING,
+                ITEM_株式会社ＡＡＡ,
+                ITEM_AAA_ANNEX_GALLERY,
+                ITEM_AAA_NIHON_株式会社,
+                ITEM_GOOBNE_CHICKEN_曙橋店,
+                ITEM_AAA_TOHO_TRADING,
+                ITEM_株式会社ＡＡＡ,
+                ITEM_AAA_ANNEX_GALLERY,
+                ITEM_AAA_NIHON_株式会社,
+                ITEM_GOOBNE_CHICKEN_曙橋店,
+                ITEM_AAA_TOHO_TRADING,
+                ITEM_株式会社ＡＡＡ,
+                ITEM_AAA_ANNEX_GALLERY,
+                ITEM_AAA_NIHON_株式会社,
+                ITEM_GOOBNE_CHICKEN_曙橋店
             )
         )
     }

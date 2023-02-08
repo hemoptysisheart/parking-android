@@ -3,6 +3,7 @@ package com.github.hemoptysisheart.parking.core.model
 import android.util.Log
 import com.github.hemoptysisheart.parking.core.client.google.PlacesClient
 import com.github.hemoptysisheart.parking.core.client.google.dto.NearbySearchParams
+import com.github.hemoptysisheart.parking.core.client.google.dto.RankBy
 import com.github.hemoptysisheart.parking.core.logging.logArgs
 import com.github.hemoptysisheart.parking.core.model.dto.PlaceSearchResult
 import com.github.hemoptysisheart.parking.core.model.dto.RecommendItemGmpPlace
@@ -24,7 +25,8 @@ class PlaceModelImpl(
         val params = NearbySearchParams(
             longitude = center.longitude,
             latitude = center.latitude,
-            keyword = query
+            keyword = query,
+            rankBy = RankBy.DISTANCE
         )
         val apiResult = placesClient.nearBy(params, now)
 

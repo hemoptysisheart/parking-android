@@ -1,15 +1,12 @@
 package com.github.hemoptysisheart.parking.app.ui.component
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,26 +26,21 @@ import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 fun MapOverlayExtend(
     query: String = "",
     recommended: List<RecommendItem<*>> = listOf(),
-    onNextRecommended: () -> Unit = {},
     onQueryChange: (String) -> Unit = {},
     onCollapse: () -> Unit = { }
 ) {
     logArgs(
         TAG_COMPOSE, "MapOverlayExtend",
         "query" to query,
-        "recommended" to recommended,
         "onQueryChange" to onQueryChange,
         "onCollapse" to onCollapse
     )
-
-    val listState = rememberLazyListState()
 
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .zIndex(1.0F),
-        state = listState
+            .zIndex(1.0F)
     ) {
         item { MapOverlayExtendHeader(query, onQueryChange, onCollapse) }
         itemsIndexed(recommended) { index, item ->
@@ -62,17 +54,6 @@ fun MapOverlayExtend(
                 )
             }
             MapRecommendedItem(item)
-        }
-    }
-
-    LaunchedEffect(listState.firstVisibleItemIndex) {
-        if (listState.firstVisibleItemIndex >= recommended.size - 10) {
-            Log.e(
-                TAG_COMPOSE,
-                "#MapOverlayExtend : listState.firstVisibleItemIndex=${listState.firstVisibleItemIndex}, " +
-                        "recommended.size=${recommended.size}"
-            )
-            onNextRecommended()
         }
     }
 }

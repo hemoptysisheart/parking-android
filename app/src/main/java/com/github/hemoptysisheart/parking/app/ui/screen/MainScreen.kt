@@ -77,7 +77,6 @@ fun MainScreen(
                 MapOverlayExtend(
                     query = query,
                     recommended = recommended,
-                    onNextRecommended = { viewModel.nextRecommended() },
                     onQueryChange = { viewModel.search(it) },
                     onCollapse = { state.onCollapse() }
                 )

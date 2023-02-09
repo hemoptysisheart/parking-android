@@ -8,7 +8,6 @@ import com.github.hemoptysisheart.parking.core.logging.logArgs
 import com.github.hemoptysisheart.parking.core.logging.logSet
 import com.github.hemoptysisheart.parking.core.model.LocationModel
 import com.github.hemoptysisheart.parking.core.model.PlaceModel
-import com.github.hemoptysisheart.parking.core.model.dto.PlaceSearchResult
 import com.github.hemoptysisheart.parking.domain.GeoLocation
 import com.github.hemoptysisheart.parking.domain.RecommendItem
 import com.google.android.gms.maps.model.LatLng
@@ -71,7 +70,6 @@ class MainViewModel @Inject constructor(
      */
     val query = MutableStateFlow("")
 
-    val recommendResult = MutableStateFlow<PlaceSearchResult?>(null)
     val recommended = MutableStateFlow(listOf<RecommendItem<*>>())
 
     private val searchJobLock = Any()
@@ -125,17 +123,7 @@ class MainViewModel @Inject constructor(
             searchJob = viewModelScope.launch {
                 val result = placeModel.search(center!!.toGeoLocation(), query)
                 Log.d(TAG, "#search : result=$result")
-                recommendResult.emit(result)
                 recommended.emit(result.places)
-            }
-        }
-    }
-
-    fun nextRecommended() {
-        Log.w(TAG, "#nextRecommended called.")
-        viewModelScope.launch {
-            recommendResult.value?.run {
-                Log.w(TAG, "#nextRecommended : nextToken=$nextToken")
             }
         }
     }

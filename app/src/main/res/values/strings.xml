@@ -1,11 +1,8 @@
 <resources>
+    <string name="launcher_label">Parking</string>
     <string name="app_name">Parking</string>
     <string name="label_welcome_message">운전 하면\n%s</string>
-    <string name="label_preferences">설정</string>
 
-    <string name="action_move_back">돌아가기</string>
-
-    <string name="map_marker_current_title">현재 위치</string>
-    <string name="map_destination_view_simple_description">목적지를 지정해주세요.</string>
-    <string name="map_destination_view_simple_placeholder">목적지 검색</string>
+    <string name="map_overlay_collapse_button_description">오버레이 닫기</string>
+    <string name="map_overlay_query_placeholder">목적지를 검색하세요.</string>
 </resources>

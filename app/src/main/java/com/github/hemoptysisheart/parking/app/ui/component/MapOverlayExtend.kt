@@ -1,91 +1,50 @@
 package com.github.hemoptysisheart.parking.app.ui.component
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.TAG_COMPOSE
+import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.ITEM_AAA_ANNEX_GALLERY
+import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.ITEM_AAA_NIHON_株式会社
+import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.ITEM_AAA_TOHO_TRADING
+import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.ITEM_GOOBNE_CHICKEN_曙橋店
+import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.ITEM_株式会社ＡＡＡ
+import com.github.hemoptysisheart.parking.core.logging.logArgs
+import com.github.hemoptysisheart.parking.domain.RecommendItem
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 
 @Composable
-fun MapOverlayExtend(onCollapse: () -> Unit = { Log.v(TAG_COMPOSE, "#onCollapse called.") }) {
-    Log.v(TAG_COMPOSE, "#MapOverlayExtend args : onCollapse=$onCollapse")
+fun MapOverlayExtend(
+    query: String = "",
+    recommended: List<RecommendItem<*>> = listOf(),
+    onQueryChange: (String) -> Unit = {},
+    onCollapse: () -> Unit = { }
+) {
+    logArgs(
+        TAG_COMPOSE, "MapOverlayExtend",
+        "query" to query,
+        "onQueryChange" to onQueryChange,
+        "onCollapse" to onCollapse
+    )
 
     LazyColumn(
-        Modifier
+        modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
             .zIndex(1.0F)
     ) {
-        item {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(10.dp)
-                    .zIndex(1.0F),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                IconButton(
-                    onClick = { onCollapse() },
-                    modifier = Modifier
-                        .weight(0.1F)
-                        .padding(3.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.ArrowBack,
-                        contentDescription = "돌아가기 버튼",
-                        modifier = Modifier
-                            .scale(1.1F)
-                            .background(Color.White, RoundedCornerShape(20.dp))
-                            .border(1.dp, Color.LightGray, RoundedCornerShape(20.dp))
-                            .padding(3.dp),
-                        tint = Color.Black
-                    )
-                }
-                Spacer(modifier = Modifier.width(10.dp))
-                OutlinedTextField(
-                    value = "관심 장소 쿼리",
-                    onValueChange = {},
-                    modifier = Modifier.weight(1.0F)
-                )
-                Spacer(modifier = Modifier.width(10.dp))
-                IconButton(
-                    onClick = { /*TODO*/ },
-                    modifier = Modifier
-                        .weight(0.1F)
-                        .padding(3.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Settings,
-                        contentDescription = "관심 장소 필터 설정",
-                        modifier = Modifier
-                            .scale(1.1F)
-                            .background(Color.White, RoundedCornerShape(20.dp))
-                            .border(1.dp, Color.LightGray, RoundedCornerShape(20.dp))
-                            .padding(3.dp),
-                        tint = Color.Black
-                    )
-                }
-            }
-        }
-        item { Spacer(modifier = Modifier.height(10.dp)) }
-        items(30) {
-            if (0 < it) {
+        item { MapOverlayExtendHeader(query, onQueryChange, onCollapse) }
+        itemsIndexed(recommended) { index, item ->
+            if (0 < index) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -94,7 +53,7 @@ fun MapOverlayExtend(onCollapse: () -> Unit = { Log.v(TAG_COMPOSE, "#onCollapse 
                         .background(Color.LightGray)
                 )
             }
-            Text(text = "장소 검색 결과")
+            MapRecommendedItem(item)
         }
     }
 }
@@ -102,8 +61,41 @@ fun MapOverlayExtend(onCollapse: () -> Unit = { Log.v(TAG_COMPOSE, "#onCollapse 
 @Composable
 @Preview(showBackground = true)
 @SuppressLint("ComposableNaming")
-fun preview_MapOverlayExtend() {
+fun preview_MapOverlayExtend_recommendedEmpty() {
     ParkingTheme {
         MapOverlayExtend()
+    }
+}
+
+@Composable
+@Preview(showBackground = true)
+@SuppressLint("ComposableNaming")
+fun preview_MapOverlayExtend_recommended() {
+    ParkingTheme {
+        MapOverlayExtend(
+            query = "AAA",
+            recommended = listOf(
+                ITEM_AAA_TOHO_TRADING,
+                ITEM_株式会社ＡＡＡ,
+                ITEM_AAA_ANNEX_GALLERY,
+                ITEM_AAA_NIHON_株式会社,
+                ITEM_GOOBNE_CHICKEN_曙橋店,
+                ITEM_AAA_TOHO_TRADING,
+                ITEM_株式会社ＡＡＡ,
+                ITEM_AAA_ANNEX_GALLERY,
+                ITEM_AAA_NIHON_株式会社,
+                ITEM_GOOBNE_CHICKEN_曙橋店,
+                ITEM_AAA_TOHO_TRADING,
+                ITEM_株式会社ＡＡＡ,
+                ITEM_AAA_ANNEX_GALLERY,
+                ITEM_AAA_NIHON_株式会社,
+                ITEM_GOOBNE_CHICKEN_曙橋店,
+                ITEM_AAA_TOHO_TRADING,
+                ITEM_株式会社ＡＡＡ,
+                ITEM_AAA_ANNEX_GALLERY,
+                ITEM_AAA_NIHON_株式会社,
+                ITEM_GOOBNE_CHICKEN_曙橋店
+            )
+        )
     }
 }

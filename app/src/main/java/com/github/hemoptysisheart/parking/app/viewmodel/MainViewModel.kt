@@ -4,25 +4,34 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel.Status.*
+import com.github.hemoptysisheart.parking.core.logging.logArgs
+import com.github.hemoptysisheart.parking.core.logging.logSet
 import com.github.hemoptysisheart.parking.core.model.LocationModel
+import com.github.hemoptysisheart.parking.core.model.PlaceModel
 import com.github.hemoptysisheart.parking.domain.GeoLocation
+import com.github.hemoptysisheart.parking.domain.RecommendItem
 import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val locationModel: LocationModel
+    private val locationModel: LocationModel,
+    private val placeModel: PlaceModel
 ) : ViewModel() {
     companion object {
         private val TAG = MainViewModel::class.simpleName!!
     }
 
+    /**
+     * UI - ViewModel 연동 상태.
+     */
     enum class Status {
         /**
-         * 초기 상태.
+         * 초기 상태(인스턴스 생성 직후).
          */
         INIT,
 
@@ -34,7 +43,7 @@ class MainViewModel @Inject constructor(
         /**
          * 지도 UI 컴포넌트와 VM 연동 완료.
          */
-        UI_LINKED;
+        LINKED;
     }
 
     /**
@@ -57,11 +66,21 @@ class MainViewModel @Inject constructor(
     val here = MutableStateFlow(locationModel.location)
 
     /**
+     * 목적지 검색어.
+     */
+    val query = MutableStateFlow("")
+
+    val recommended = MutableStateFlow(listOf<RecommendItem<*>>())
+
+    private val searchJobLock = Any()
+    private var searchJob: Job? = null
+
+    /**
      * UI에서 지도 중심을 받는다.
      */
     var center: LatLng? = null
         set(value) {
-            Log.v(TAG, "#center set : $value")
+            logSet(TAG, "center", value)
             field = value
         }
 
@@ -70,7 +89,7 @@ class MainViewModel @Inject constructor(
      */
     var zoom: Float? = null
         set(value) {
-            Log.v(TAG, "#zoom set : $value")
+            logSet(TAG, "zoom", value)
             field = value
         }
 
@@ -81,9 +100,31 @@ class MainViewModel @Inject constructor(
     /**
      * UI가 VM과 연동됐음을 알릴 때 사용.
      */
-    fun ready() {
+    fun linked() = viewModelScope.launch {
+        status.emit(LINKED)
+    }
+
+    fun search(query: String) {
+        logArgs(TAG, "search", "query" to query)
+
         viewModelScope.launch {
-            status.emit(UI_LINKED)
+            this@MainViewModel.query.emit(query)
+        }
+
+        synchronized(searchJobLock) {
+            searchJob?.run {
+                Log.d(TAG, "#search cancel search job : searchJob=$searchJob")
+                if (isActive) {
+                    cancel()
+                }
+                searchJob = null
+            }
+
+            searchJob = viewModelScope.launch {
+                val result = placeModel.search(center!!.toGeoLocation(), query)
+                Log.d(TAG, "#search : result=$result")
+                recommended.emit(result.places)
+            }
         }
     }
 
@@ -93,5 +134,6 @@ class MainViewModel @Inject constructor(
         locationModel.removeCallback(TAG)
     }
 
-    override fun toString() = "$TAG(status=${status.value}, here=${here.value}, center=$center, zoom=$zoom)"
+    override fun toString() = "$TAG(status=${status.value}, here=${here.value}, query=${query.value}, " +
+            "center=$center, zoom=$zoom)"
 }

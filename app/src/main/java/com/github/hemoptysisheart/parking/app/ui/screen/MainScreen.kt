@@ -18,12 +18,12 @@ import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.DEFAULT_
 import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.TAG_COMPOSE
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewViewModel.MAIN_VM
 import com.github.hemoptysisheart.parking.app.ui.state.MainScreenState
-import com.github.hemoptysisheart.parking.app.ui.state.OverlayState
-import com.github.hemoptysisheart.parking.app.ui.state.OverlayState.COLLAPSE
-import com.github.hemoptysisheart.parking.app.ui.state.OverlayState.HIDE
+import com.github.hemoptysisheart.parking.app.ui.state.OverlayState.*
 import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel.Status.*
 import com.github.hemoptysisheart.parking.app.viewmodel.toLatLng
+import com.github.hemoptysisheart.parking.core.logging.logArgs
+import com.github.hemoptysisheart.parking.core.logging.logVarsV
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.maps.android.compose.rememberCameraPositionState
@@ -32,21 +32,34 @@ import com.google.maps.android.compose.rememberCameraPositionState
  * 메인 화면 UI.
  */
 @Composable
-fun MainScreen(viewModel: MainViewModel = hiltViewModel()) {
+fun MainScreen(
+    viewModel: MainViewModel = hiltViewModel()
+) {
+    logArgs(TAG_COMPOSE, "MainScreen", "viewModel" to viewModel)
+
     val state by remember { mutableStateOf(MainScreenState()) }
 
     val status by viewModel.status.collectAsStateWithLifecycle()
     val here by viewModel.here.collectAsStateWithLifecycle()
-    Log.v(TAG_COMPOSE, "#MainScreen : state=$state, status=$status, here=$here")
+    val query by viewModel.query.collectAsStateWithLifecycle()
+    val recommended by viewModel.recommended.collectAsStateWithLifecycle()
+    logVarsV(
+        TAG_COMPOSE, "MainScreen",
+        "state" to state,
+        "status" to status,
+        "here" to here,
+        "query" to query,
+        "recommended" to recommended
+    )
 
     val cameraPositionState = rememberCameraPositionState()
     when (status) {
         INIT -> {}
         LOCATION_READY -> {
             cameraPositionState.position = CameraPosition.fromLatLngZoom(here.toLatLng(), DEFAULT_ZOOM_LEVEL)
-            viewModel.ready()
+            viewModel.linked()
         }
-        UI_LINKED -> {
+        LINKED -> {
             viewModel.center = cameraPositionState.position.target
             viewModel.zoom = cameraPositionState.position.zoom
         }
@@ -57,13 +70,16 @@ fun MainScreen(viewModel: MainViewModel = hiltViewModel()) {
     Box(modifier = Modifier.fillMaxSize()) {
         when (state.overlayState) {
             COLLAPSE ->
-                MapOverlayCollapse() {
-                    state.onExtend()
-                }
-            OverlayState.EXTEND ->
-                MapOverlayExtend() {
-                    state.onCollapse()
-                }
+                MapOverlayCollapse(
+                    onExtend = { state.onExtend() }
+                )
+            EXTEND ->
+                MapOverlayExtend(
+                    query = query,
+                    recommended = recommended,
+                    onQueryChange = { viewModel.search(it) },
+                    onCollapse = { state.onCollapse() }
+                )
             else -> {}
         }
 

@@ -44,17 +44,12 @@ data class NearbySearchParams(
      * 검색할 위치([longitude], [latitude])의 반경. 미터(meter) 단위.
      * [radius](https://developers.google.com/maps/documentation/places/web-service/search-nearby#radius)
      */
-    val radius: Int? = DEFAULT_RADIUS,
+    val radius: Int? = null,
     val rankBy: RankBy? = null,
     val type: PlaceType? = null
 ) {
     @Suppress("MemberVisibilityCanBePrivate")
     companion object {
-        /**
-         * 50,000m = 50km
-         */
-        const val DEFAULT_RADIUS = 50_000
-
         const val PRICE_MIN = 0
         const val PRICE_MAX = 4
         val MAX_PRICE_RANGE = PRICE_MIN..PRICE_MAX

@@ -35,7 +35,7 @@ fun MapOverlayCollapseHeader(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = "관심 장소",
+            text = "목적지",
             modifier = Modifier
                 .weight(1.0F)
                 .background(Color.White, RoundedCornerShape(20.dp))

@@ -41,15 +41,15 @@ fun MainScreen(
 
     val status by viewModel.status.collectAsStateWithLifecycle()
     val here by viewModel.here.collectAsStateWithLifecycle()
-    val query by viewModel.query.collectAsStateWithLifecycle()
-    val recommended by viewModel.recommended.collectAsStateWithLifecycle()
+    val destinationQuery by viewModel.destinationQuery.collectAsStateWithLifecycle()
+    val searchDestinationResult by viewModel.searchDestinationResult.collectAsStateWithLifecycle()
     logVarsV(
         TAG_COMPOSE, "MainScreen",
         "state" to state,
         "status" to status,
         "here" to here,
-        "query" to query,
-        "recommended" to recommended
+        "destinationQuery" to destinationQuery,
+        "searchDestinationResult" to searchDestinationResult
     )
 
     val cameraPositionState = rememberCameraPositionState()
@@ -75,9 +75,9 @@ fun MainScreen(
                 )
             EXTEND ->
                 MapOverlayExtend(
-                    query = query,
-                    recommended = recommended,
-                    onQueryChange = { viewModel.search(it) },
+                    destinationQuery = destinationQuery,
+                    searchDestinationResult = searchDestinationResult,
+                    onDestinationQueryChange = { viewModel.searchDestination(it) },
                     onCollapse = { state.onCollapse() }
                 )
             else -> {}

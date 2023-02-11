@@ -18,8 +18,8 @@ class PlaceModelImpl(
         private val TAG = PlaceModelImpl::class.simpleName!!
     }
 
-    override suspend fun search(center: GeoLocation, query: String): PlaceSearchResult {
-        logArgs(TAG, "search", "query" to query)
+    override suspend fun searchDestination(center: GeoLocation, query: String): PlaceSearchResult {
+        logArgs(TAG, "searchDestination", "query" to query)
 
         val now = timeProvider.instant()
         val params = NearbySearchParams(
@@ -36,9 +36,9 @@ class PlaceModelImpl(
             apiResult.nextToken
         )
 
-        Log.v(TAG, "#search return : $result")
+        Log.v(TAG, "#searchDestination return : $result")
         return result
     }
 
-    override fun toString() = "$TAG(placesClient=$placesClient)"
+    override fun toString() = "$TAG(placesClient=$placesClient, timeProvider=$timeProvider)"
 }

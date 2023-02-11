@@ -68,12 +68,12 @@ class MainViewModel @Inject constructor(
     /**
      * 목적지 검색어.
      */
-    val query = MutableStateFlow("")
+    val destinationQuery = MutableStateFlow("")
 
-    val recommended = MutableStateFlow(listOf<RecommendItem<*>>())
+    val searchDestinationResult = MutableStateFlow(listOf<RecommendItem<*>>())
 
-    private val searchJobLock = Any()
-    private var searchJob: Job? = null
+    private val searchDestinationJobLock = Any()
+    private var searchDestinationJob: Job? = null
 
     /**
      * UI에서 지도 중심을 받는다.
@@ -104,26 +104,26 @@ class MainViewModel @Inject constructor(
         status.emit(LINKED)
     }
 
-    fun search(query: String) {
+    fun searchDestination(query: String) {
         logArgs(TAG, "search", "query" to query)
 
         viewModelScope.launch {
-            this@MainViewModel.query.emit(query)
+            this@MainViewModel.destinationQuery.emit(query)
         }
 
-        synchronized(searchJobLock) {
-            searchJob?.run {
-                Log.d(TAG, "#search cancel search job : searchJob=$searchJob")
+        synchronized(searchDestinationJobLock) {
+            searchDestinationJob?.run {
+                Log.d(TAG, "#searchDestination cancel search job : searchDestinationJob=$searchDestinationJob")
                 if (isActive) {
                     cancel()
                 }
-                searchJob = null
+                searchDestinationJob = null
             }
 
-            searchJob = viewModelScope.launch {
-                val result = placeModel.search(center!!.toGeoLocation(), query)
-                Log.d(TAG, "#search : result=$result")
-                recommended.emit(result.places)
+            searchDestinationJob = viewModelScope.launch {
+                val result = placeModel.searchDestination(center!!.toGeoLocation(), query)
+                Log.d(TAG, "#searchDestination : result=$result")
+                searchDestinationResult.emit(result.places)
             }
         }
     }
@@ -134,6 +134,7 @@ class MainViewModel @Inject constructor(
         locationModel.removeCallback(TAG)
     }
 
-    override fun toString() = "$TAG(status=${status.value}, here=${here.value}, query=${query.value}, " +
+    override fun toString() = "$TAG(status=${status.value}, here=${here.value}, " +
+            "destinationQuery=${destinationQuery.value}, searchDestinationResult=${searchDestinationResult.value}" +
             "center=$center, zoom=$zoom)"
 }

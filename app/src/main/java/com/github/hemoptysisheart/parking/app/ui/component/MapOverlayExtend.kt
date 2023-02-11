@@ -24,15 +24,15 @@ import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 
 @Composable
 fun MapOverlayExtend(
-    query: String = "",
-    recommended: List<RecommendItem<*>> = listOf(),
-    onQueryChange: (String) -> Unit = {},
+    destinationQuery: String = "",
+    searchDestinationResult: List<RecommendItem<*>> = listOf(),
+    onDestinationQueryChange: (String) -> Unit = {},
     onCollapse: () -> Unit = { }
 ) {
     logArgs(
         TAG_COMPOSE, "MapOverlayExtend",
-        "query" to query,
-        "onQueryChange" to onQueryChange,
+        "destinationQuery" to destinationQuery,
+        "onDestinationQueryChange" to onDestinationQueryChange,
         "onCollapse" to onCollapse
     )
 
@@ -42,8 +42,8 @@ fun MapOverlayExtend(
             .background(Color.White)
             .zIndex(1.0F)
     ) {
-        item { MapOverlayExtendHeader(query, onQueryChange, onCollapse) }
-        itemsIndexed(recommended) { index, item ->
+        item { MapOverlayExtendHeader(destinationQuery, onDestinationQueryChange, onCollapse) }
+        itemsIndexed(searchDestinationResult) { index, item ->
             if (0 < index) {
                 Box(
                     modifier = Modifier
@@ -73,8 +73,8 @@ fun preview_MapOverlayExtend_recommendedEmpty() {
 fun preview_MapOverlayExtend_recommended() {
     ParkingTheme {
         MapOverlayExtend(
-            query = "AAA",
-            recommended = listOf(
+            destinationQuery = "AAA",
+            searchDestinationResult = listOf(
                 ITEM_AAA_TOHO_TRADING,
                 ITEM_株式会社ＡＡＡ,
                 ITEM_AAA_ANNEX_GALLERY,

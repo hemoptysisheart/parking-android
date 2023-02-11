@@ -39,6 +39,7 @@ fun MainScreen(
     val overlay by viewModel.overlay.collectAsStateWithLifecycle()
     val status by viewModel.status.collectAsStateWithLifecycle()
     val here by viewModel.here.collectAsStateWithLifecycle()
+    val destination by viewModel.destination.collectAsStateWithLifecycle()
     val destinationQuery by viewModel.destinationQuery.collectAsStateWithLifecycle()
     val searchDestinationResult by viewModel.destinationSearchResult.collectAsStateWithLifecycle()
     logVarsV(
@@ -46,6 +47,7 @@ fun MainScreen(
         "overlay" to overlay,
         "status" to status,
         "here" to here,
+        "destination" to destination,
         "destinationQuery" to destinationQuery,
         "searchDestinationResult" to searchDestinationResult
     )
@@ -69,6 +71,7 @@ fun MainScreen(
         when (overlay) {
             COLLAPSE ->
                 MapOverlayCollapse(
+                    destination = destination,
                     onExtend = { viewModel.onExtendOverlay() }
                 )
             EXTEND ->

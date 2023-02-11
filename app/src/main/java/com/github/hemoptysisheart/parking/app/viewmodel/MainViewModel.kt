@@ -150,6 +150,7 @@ class MainViewModel @Inject constructor(
 
         viewModelScope.launch {
             destination.emit(item)
+            overlay.emit(COLLAPSE)
         }
     }
 

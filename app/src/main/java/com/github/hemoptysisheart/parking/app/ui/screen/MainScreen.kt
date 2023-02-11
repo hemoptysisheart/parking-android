@@ -78,6 +78,7 @@ fun MainScreen(
                     destinationQuery = destinationQuery,
                     searchDestinationResult = searchDestinationResult,
                     onDestinationQueryChange = { viewModel.searchDestination(it) },
+                    onSetDestination = { viewModel.setDestination(it) },
                     onCollapse = { state.onCollapse() }
                 )
             else -> {}

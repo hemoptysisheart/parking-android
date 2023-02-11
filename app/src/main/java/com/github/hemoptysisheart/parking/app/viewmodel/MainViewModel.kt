@@ -66,6 +66,11 @@ class MainViewModel @Inject constructor(
     val here = MutableStateFlow(locationModel.location)
 
     /**
+     * 목적지.
+     */
+    val destination = MutableStateFlow<RecommendItem<*>?>(null)
+
+    /**
      * 목적지 검색어.
      */
     val destinationQuery = MutableStateFlow("")
@@ -125,6 +130,14 @@ class MainViewModel @Inject constructor(
                 Log.d(TAG, "#searchDestination : result=$result")
                 searchDestinationResult.emit(result.places)
             }
+        }
+    }
+
+    fun setDestination(item: RecommendItem<*>) {
+        Log.v(TAG, "#setDestination args : item=$item")
+
+        viewModelScope.launch {
+            destination.emit(item)
         }
     }
 

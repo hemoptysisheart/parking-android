@@ -27,12 +27,14 @@ fun MapOverlayExtend(
     destinationQuery: String = "",
     searchDestinationResult: List<RecommendItem<*>> = listOf(),
     onDestinationQueryChange: (String) -> Unit = {},
+    onSetDestination: (item: RecommendItem<*>) -> Unit = {},
     onCollapse: () -> Unit = { }
 ) {
     logArgs(
         TAG_COMPOSE, "MapOverlayExtend",
         "destinationQuery" to destinationQuery,
         "onDestinationQueryChange" to onDestinationQueryChange,
+        "onSetDestination" to onSetDestination,
         "onCollapse" to onCollapse
     )
 
@@ -53,7 +55,7 @@ fun MapOverlayExtend(
                         .background(Color.LightGray)
                 )
             }
-            MapRecommendedItem(item)
+            MapRecommendedItem(item, onSetDestination)
         }
     }
 }

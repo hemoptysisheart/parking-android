@@ -3,6 +3,7 @@ package com.github.hemoptysisheart.parking.app.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.github.hemoptysisheart.parking.app.ui.state.OverlayState.*
 import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel.Status.*
 import com.github.hemoptysisheart.parking.core.logging.logArgs
 import com.github.hemoptysisheart.parking.core.logging.logSet
@@ -58,6 +59,14 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    /**
+     * 오버레이 표시 상태.
+     */
+    val overlay = MutableStateFlow(COLLAPSE)
+
+    /**
+     * TODO 이건 없애고 싶다.
+     */
     val status = MutableStateFlow(INIT)
 
     /**
@@ -75,10 +84,13 @@ class MainViewModel @Inject constructor(
      */
     val destinationQuery = MutableStateFlow("")
 
-    val searchDestinationResult = MutableStateFlow(listOf<RecommendItem<*>>())
+    /**
+     * 목적지 검색 결과.
+     */
+    val destinationSearchResult = MutableStateFlow(listOf<RecommendItem<*>>())
 
-    private val searchDestinationJobLock = Any()
-    private var searchDestinationJob: Job? = null
+    private val destinationSearchJobLock = Any()
+    private var destinationSearchJob: Job? = null
 
     /**
      * UI에서 지도 중심을 받는다.
@@ -116,19 +128,19 @@ class MainViewModel @Inject constructor(
             this@MainViewModel.destinationQuery.emit(query)
         }
 
-        synchronized(searchDestinationJobLock) {
-            searchDestinationJob?.run {
-                Log.d(TAG, "#searchDestination cancel search job : searchDestinationJob=$searchDestinationJob")
+        synchronized(destinationSearchJobLock) {
+            destinationSearchJob?.run {
+                Log.d(TAG, "#searchDestination cancel search job : searchDestinationJob=$destinationSearchJob")
                 if (isActive) {
                     cancel()
                 }
-                searchDestinationJob = null
+                destinationSearchJob = null
             }
 
-            searchDestinationJob = viewModelScope.launch {
+            destinationSearchJob = viewModelScope.launch {
                 val result = placeModel.searchDestination(center!!.toGeoLocation(), query)
                 Log.d(TAG, "#searchDestination : result=$result")
-                searchDestinationResult.emit(result.places)
+                destinationSearchResult.emit(result.places)
             }
         }
     }
@@ -141,13 +153,37 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    fun onHideOverlay() {
+        viewModelScope.launch {
+            overlay.emit(HIDE)
+        }
+    }
+
+    fun onShowOverlay() {
+        viewModelScope.launch {
+            overlay.emit(COLLAPSE)
+        }
+    }
+
+    fun onCollapseOverlay() {
+        viewModelScope.launch {
+            overlay.emit(COLLAPSE)
+        }
+    }
+
+    fun onExtendOverlay() {
+        viewModelScope.launch {
+            overlay.emit(EXTEND)
+        }
+    }
+
     override fun onCleared() {
         Log.d(TAG, "#onCleared called.")
 
         locationModel.removeCallback(TAG)
     }
 
-    override fun toString() = "$TAG(status=${status.value}, here=${here.value}, " +
-            "destinationQuery=${destinationQuery.value}, searchDestinationResult=${searchDestinationResult.value}" +
+    override fun toString() = "$TAG(overlay=${overlay.value}, status=${status.value}, here=${here.value}, " +
+            "destinationQuery=${destinationQuery.value}, destinationSearchResult=${destinationSearchResult.value}" +
             "center=$center, zoom=$zoom)"
 }

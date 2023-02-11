@@ -17,7 +17,6 @@ import com.github.hemoptysisheart.parking.app.ui.component.MapOverlayExtend
 import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.DEFAULT_ZOOM_LEVEL
 import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.TAG_COMPOSE
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewViewModel.MAIN_VM
-import com.github.hemoptysisheart.parking.app.ui.state.MainScreenState
 import com.github.hemoptysisheart.parking.app.ui.state.OverlayState.*
 import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel.Status.*
@@ -37,15 +36,14 @@ fun MainScreen(
 ) {
     logArgs(TAG_COMPOSE, "MainScreen", "viewModel" to viewModel)
 
-    val state by remember { mutableStateOf(MainScreenState()) }
-
+    val overlay by viewModel.overlay.collectAsStateWithLifecycle()
     val status by viewModel.status.collectAsStateWithLifecycle()
     val here by viewModel.here.collectAsStateWithLifecycle()
     val destinationQuery by viewModel.destinationQuery.collectAsStateWithLifecycle()
-    val searchDestinationResult by viewModel.searchDestinationResult.collectAsStateWithLifecycle()
+    val searchDestinationResult by viewModel.destinationSearchResult.collectAsStateWithLifecycle()
     logVarsV(
         TAG_COMPOSE, "MainScreen",
-        "state" to state,
+        "overlay" to overlay,
         "status" to status,
         "here" to here,
         "destinationQuery" to destinationQuery,
@@ -68,10 +66,10 @@ fun MainScreen(
     // ----------------------------------------------------------------------------------------------------------------
 
     Box(modifier = Modifier.fillMaxSize()) {
-        when (state.overlayState) {
+        when (overlay) {
             COLLAPSE ->
                 MapOverlayCollapse(
-                    onExtend = { state.onExtend() }
+                    onExtend = { viewModel.onExtendOverlay() }
                 )
             EXTEND ->
                 MapOverlayExtend(
@@ -79,7 +77,7 @@ fun MainScreen(
                     searchDestinationResult = searchDestinationResult,
                     onDestinationQueryChange = { viewModel.searchDestination(it) },
                     onSetDestination = { viewModel.setDestination(it) },
-                    onCollapse = { state.onCollapse() }
+                    onCollapse = { viewModel.onCollapseOverlay() }
                 )
             else -> {}
         }
@@ -87,13 +85,13 @@ fun MainScreen(
         Map(
             cameraPositionState = cameraPositionState,
             onMapClick = {
-                when (state.overlayState) {
+                when (overlay) {
                     HIDE ->
-                        state.onShow()
+                        viewModel.onShowOverlay()
                     COLLAPSE ->
-                        state.onHide()
+                        viewModel.onHideOverlay()
                     else ->
-                        Log.e(TAG_COMPOSE, "#onMapClick illegal state : state=$state")
+                        Log.e(TAG_COMPOSE, "#onMapClick illegal overlay state : overlay=$overlay")
                 }
             }
         )

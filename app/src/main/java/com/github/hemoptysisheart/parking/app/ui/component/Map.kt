@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.TAG_COMPOSE
 import com.github.hemoptysisheart.parking.core.logging.logArgs
+import com.github.hemoptysisheart.parking.core.model.dto.toLatLng
 import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 import com.google.android.gms.maps.model.LatLng
@@ -55,7 +56,12 @@ fun Map(
         properties = properties,
         uiSettings = uiSettings,
         onMapClick = onMapClick
-    )
+    ) {
+        destination?.let {
+            val destinationMarkerState = rememberMarkerState(position = it.toLatLng())
+            Marker(state = destinationMarkerState, title = it.name)
+        }
+    }
 }
 
 @Composable

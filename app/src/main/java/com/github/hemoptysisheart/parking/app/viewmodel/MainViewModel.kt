@@ -4,7 +4,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.hemoptysisheart.parking.app.ui.state.OverlayState.*
-import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel.Status.*
+import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel.MapControl.GOTO_DESTINATION
+import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel.MapControl.GOTO_HERE
 import com.github.hemoptysisheart.parking.core.logging.logArgs
 import com.github.hemoptysisheart.parking.core.logging.logSet
 import com.github.hemoptysisheart.parking.core.model.LocationModel
@@ -26,26 +27,26 @@ class MainViewModel @Inject constructor(
 ) : ViewModel() {
     companion object {
         private val TAG = MainViewModel::class.simpleName!!
+
+        /**
+         * 지도 기본 확대 수준.
+         */
+        const val DEFAULT_ZOOM_LEVEL = 17.0F
     }
 
     /**
-     * UI - ViewModel 연동 상태.
+     * VM이 외부 라이브러리인 Compose의 지도 UI를 조작할 때 사용.
      */
-    enum class Status {
+    enum class MapControl {
         /**
-         * 초기 상태(인스턴스 생성 직후).
+         * 현재 위치로 지도 중심을 이동.
          */
-        INIT,
+        GOTO_HERE,
 
         /**
-         * 현재 위치 획득.
+         * 목적지로 지도 중심을 이동.
          */
-        LOCATION_READY,
-
-        /**
-         * 지도 UI 컴포넌트와 VM 연동 완료.
-         */
-        LINKED;
+        GOTO_DESTINATION
     }
 
     /**
@@ -53,8 +54,9 @@ class MainViewModel @Inject constructor(
      */
     private val locationCallback: (GeoLocation) -> Unit = {
         viewModelScope.launch {
-            if (INIT == status.value) {
-                status.emit(LOCATION_READY)
+            if (null == here.value) {
+                Log.e(TAG, "#locationCallback set GOTO_HERE : here=$it")
+                mapControl.emit(GOTO_HERE)
             }
             here.emit(it)
         }
@@ -66,14 +68,9 @@ class MainViewModel @Inject constructor(
     val overlay = MutableStateFlow(COLLAPSE)
 
     /**
-     * TODO 이건 없애고 싶다.
-     */
-    val status = MutableStateFlow(INIT)
-
-    /**
      * 위치가 바뀔 경우 갱신해서 UI에 반영한다.
      */
-    val here = MutableStateFlow(locationModel.location)
+    val here = MutableStateFlow<GeoLocation?>(null)
 
     /**
      * 목적지.
@@ -93,6 +90,8 @@ class MainViewModel @Inject constructor(
     private val destinationSearchJobLock = Any()
     private var destinationSearchJob: Job? = null
 
+    val mapControl = MutableStateFlow<MapControl?>(null)
+
     /**
      * UI에서 지도 중심을 받는다.
      */
@@ -105,7 +104,7 @@ class MainViewModel @Inject constructor(
     /**
      * UI에서 지도 확대 수준을 받는다.
      */
-    var zoom: Float? = null
+    var zoom: Float = DEFAULT_ZOOM_LEVEL
         set(value) {
             logSet(TAG, "zoom", value)
             field = value
@@ -113,13 +112,6 @@ class MainViewModel @Inject constructor(
 
     init {
         locationModel.addCallback(TAG, locationCallback)
-    }
-
-    /**
-     * UI가 VM과 연동됐음을 알릴 때 사용.
-     */
-    fun linked() = viewModelScope.launch {
-        status.emit(LINKED)
     }
 
     fun searchDestination(query: String) {
@@ -151,6 +143,7 @@ class MainViewModel @Inject constructor(
 
         viewModelScope.launch {
             destination.emit(location)
+            mapControl.emit(GOTO_DESTINATION)
             overlay.emit(COLLAPSE)
         }
     }
@@ -179,13 +172,22 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    fun done(control: MapControl) {
+        viewModelScope.launch {
+            if (control != mapControl.value) {
+                Log.w(TAG, "#done value does not match : control=$control, mapContorl=${mapControl.value}")
+            }
+            mapControl.emit(null)
+        }
+    }
+
     override fun onCleared() {
         Log.d(TAG, "#onCleared called.")
 
         locationModel.removeCallback(TAG)
     }
 
-    override fun toString() = "$TAG(overlay=${overlay.value}, status=${status.value}, here=${here.value}, " +
+    override fun toString() = "$TAG(overlay=${overlay.value}, here=${here.value}, " +
             "destinationQuery=${destinationQuery.value}, destinationSearchResult=${destinationSearchResult.value}" +
             "center=$center, zoom=$zoom)"
 }

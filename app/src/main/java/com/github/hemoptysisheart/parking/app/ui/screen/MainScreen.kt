@@ -14,12 +14,12 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.hemoptysisheart.parking.app.ui.component.Map
 import com.github.hemoptysisheart.parking.app.ui.component.MapOverlayCollapse
 import com.github.hemoptysisheart.parking.app.ui.component.MapOverlayExtend
-import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.DEFAULT_ZOOM_LEVEL
 import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.TAG_COMPOSE
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewViewModel.MAIN_VM
 import com.github.hemoptysisheart.parking.app.ui.state.OverlayState.*
 import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel
-import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel.Status.*
+import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel.MapControl.GOTO_DESTINATION
+import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel.MapControl.GOTO_HERE
 import com.github.hemoptysisheart.parking.app.viewmodel.toLatLng
 import com.github.hemoptysisheart.parking.core.logging.logArgs
 import com.github.hemoptysisheart.parking.core.logging.logVarsV
@@ -27,6 +27,7 @@ import com.github.hemoptysisheart.parking.core.model.dto.toLatLng
 import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.rememberCameraPositionState
 
 /**
@@ -39,7 +40,6 @@ fun MainScreen(
     logArgs(TAG_COMPOSE, "MainScreen", "viewModel" to viewModel)
 
     val overlay by viewModel.overlay.collectAsStateWithLifecycle()
-    val status by viewModel.status.collectAsStateWithLifecycle()
     val here by viewModel.here.collectAsStateWithLifecycle()
     val destination by viewModel.destination.collectAsStateWithLifecycle()
     val destinationQuery by viewModel.destinationQuery.collectAsStateWithLifecycle()
@@ -47,29 +47,34 @@ fun MainScreen(
     logVarsV(
         TAG_COMPOSE, "MainScreen",
         "overlay" to overlay,
-        "status" to status,
         "here" to here,
         "destination" to destination,
         "destinationQuery" to destinationQuery,
         "searchDestinationResult" to searchDestinationResult
     )
 
-    val cameraPositionState = rememberCameraPositionState()
-    when (status) {
-        INIT -> {}
-        LOCATION_READY -> {
-            cameraPositionState.position = CameraPosition.fromLatLngZoom(here.toLatLng(), DEFAULT_ZOOM_LEVEL)
-            viewModel.linked()
-        }
-        LINKED -> {
-            destination?.let {
-                cameraPositionState.position =
-                    CameraPosition.fromLatLngZoom(it.toLatLng(), cameraPositionState.position.zoom)
-            }
-            viewModel.center = cameraPositionState.position.target
-            viewModel.zoom = cameraPositionState.position.zoom
-        }
+    val mapControl by viewModel.mapControl.collectAsStateWithLifecycle()
+    val cameraPositionState = rememberCameraPositionState {
+        position = CameraPosition.fromLatLngZoom(LatLng(0.0, 0.0), MainViewModel.DEFAULT_ZOOM_LEVEL)
     }
+    Log.w(TAG_COMPOSE, "#MainScreen mapControl=$mapControl")
+
+    mapControl?.let {
+        @Suppress("REDUNDANT_ELSE_IN_WHEN")
+        when (it) {
+            GOTO_HERE ->
+                cameraPositionState.position =
+                    CameraPosition.fromLatLngZoom(here!!.toLatLng(), viewModel.zoom)
+            GOTO_DESTINATION ->
+                cameraPositionState.position =
+                    CameraPosition.fromLatLngZoom(destination!!.toLatLng(), viewModel.zoom)
+            else ->
+                Log.e(TAG_COMPOSE, "#MainScreen unsupported map control : mapControl=$mapControl")
+        }
+        viewModel.done(it)
+    }
+    viewModel.center = cameraPositionState.position.target
+    viewModel.zoom = cameraPositionState.position.zoom
 
     // ----------------------------------------------------------------------------------------------------------------
 

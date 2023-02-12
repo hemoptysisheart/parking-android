@@ -10,6 +10,7 @@ import com.github.hemoptysisheart.parking.core.logging.logSet
 import com.github.hemoptysisheart.parking.core.model.LocationModel
 import com.github.hemoptysisheart.parking.core.model.PlaceModel
 import com.github.hemoptysisheart.parking.domain.GeoLocation
+import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.domain.RecommendItem
 import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -77,7 +78,7 @@ class MainViewModel @Inject constructor(
     /**
      * 목적지.
      */
-    val destination = MutableStateFlow<RecommendItem<*>?>(null)
+    val destination = MutableStateFlow<Location?>(null)
 
     /**
      * 목적지 검색어.
@@ -145,11 +146,11 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun setDestination(item: RecommendItem<*>) {
-        Log.v(TAG, "#setDestination args : item=$item")
+    fun setDestination(location: Location) {
+        Log.v(TAG, "#setDestination args : location=$location")
 
         viewModelScope.launch {
-            destination.emit(item)
+            destination.emit(location)
             overlay.emit(COLLAPSE)
         }
     }

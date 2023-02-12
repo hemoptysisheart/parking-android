@@ -21,13 +21,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.TAG_COMPOSE
-import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.ITEM_株式会社ＡＡＡ
-import com.github.hemoptysisheart.parking.domain.RecommendItem
+import com.github.hemoptysisheart.parking.app.ui.preview.Locations.LOCATION_株式会社ＡＡＡ
+import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 
 @Composable
 fun MapOverlayCollapseHeader(
-    destination: RecommendItem<*>? = null,
+    destination: Location? = null,
     onExtend: () -> Unit = { }
 ) {
     Log.v(TAG_COMPOSE, "#MapOverlayPoi args : onExtend=$onExtend")
@@ -38,7 +38,7 @@ fun MapOverlayCollapseHeader(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = destination?.summary ?: "",
+            text = destination?.name ?: "",
             modifier = Modifier
                 .weight(1.0F)
                 .background(Color.White, RoundedCornerShape(20.dp))
@@ -80,6 +80,6 @@ fun preview_MapOverlayCollapseHeader_destinationNull() {
 @SuppressLint("ComposableNaming")
 fun preview_MapOverlayCollapseHeader_withDestination() {
     ParkingTheme {
-        MapOverlayCollapseHeader(ITEM_株式会社ＡＡＡ)
+        MapOverlayCollapseHeader(LOCATION_株式会社ＡＡＡ)
     }
 }

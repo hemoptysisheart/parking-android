@@ -23,6 +23,7 @@ import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel.Status.*
 import com.github.hemoptysisheart.parking.app.viewmodel.toLatLng
 import com.github.hemoptysisheart.parking.core.logging.logArgs
 import com.github.hemoptysisheart.parking.core.logging.logVarsV
+import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.maps.android.compose.rememberCameraPositionState
@@ -79,7 +80,19 @@ fun MainScreen(
                     destinationQuery = destinationQuery,
                     searchDestinationResult = searchDestinationResult,
                     onDestinationQueryChange = { viewModel.searchDestination(it) },
-                    onSetDestination = { viewModel.setDestination(it) },
+                    onSelectRecommend = {
+                        it.item.let { item ->
+                            when (item) {
+                                is Location ->
+                                    viewModel.setDestination(item)
+                                else ->
+                                    Log.e(
+                                        TAG_COMPOSE,
+                                        "#MainScreen unsupported recommended item type : recommended=$it"
+                                    )
+                            }
+                        }
+                    },
                     onCollapse = { viewModel.onCollapseOverlay() }
                 )
             else -> {}

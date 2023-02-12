@@ -18,13 +18,13 @@ import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 @Composable
 fun MapRecommendedItem(
     item: RecommendItem<*>,
-    onSetDestination: (item: RecommendItem<*>) -> Unit = {}
+    onSelectRecommend: (RecommendItem<*>) -> Unit = {}
 ) {
-    Log.v(TAG_COMPOSE, "#MapRecommendedItem args : item=$item, onSetDestination=$onSetDestination")
+    Log.v(TAG_COMPOSE, "#MapRecommendedItem args : item=$item, onSelectRecommend=$onSelectRecommend")
 
     Column(modifier = Modifier
         .fillMaxWidth()
-        .clickable { onSetDestination(item) }
+        .clickable { onSelectRecommend(item) }
         .padding(20.dp, 7.dp)
     ) {
         Text(text = item.summary)

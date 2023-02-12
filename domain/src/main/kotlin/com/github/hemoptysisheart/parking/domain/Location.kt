@@ -1,5 +1,7 @@
 package com.github.hemoptysisheart.parking.domain
 
+import com.github.hemoptysisheart.util.RegexValidator
+
 /**
  * 위치 정보.
  */
@@ -9,12 +11,14 @@ interface Location {
         /**
          * 유효한 [id] 형식.
          */
-        const val ID_PATTERN = "\\S+"
+        const val ID_PATTERN = "\\S+/\\S+"
 
         /**
          * 유효한 [id] 정규 표현식.
          */
         val ID_REGEX = ID_PATTERN.toRegex()
+
+        val ID_VALIDATOR = RegexValidator(ID_REGEX)
     }
 
     /**

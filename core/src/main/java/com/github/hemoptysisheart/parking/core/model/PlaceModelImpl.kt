@@ -7,8 +7,8 @@ import com.github.hemoptysisheart.parking.core.client.google.dto.RankBy
 import com.github.hemoptysisheart.parking.core.logging.logArgs
 import com.github.hemoptysisheart.parking.core.model.dto.LocationGmpPlace
 import com.github.hemoptysisheart.parking.core.model.dto.PlaceSearchResult
-import com.github.hemoptysisheart.parking.core.model.dto.RecommendItemGmpPlace
 import com.github.hemoptysisheart.parking.domain.GeoLocation
+import com.github.hemoptysisheart.parking.domain.RecommendItemLocation
 import com.github.hemoptysisheart.util.TimeProvider
 
 class PlaceModelImpl(
@@ -33,7 +33,7 @@ class PlaceModelImpl(
 
         val result = PlaceSearchResult(
             center, query,
-            apiResult.places.map { RecommendItemGmpPlace(LocationGmpPlace(it)) },
+            apiResult.places.map { RecommendItemLocation(LocationGmpPlace(it)) },
             apiResult.nextToken
         )
 

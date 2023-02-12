@@ -3,12 +3,15 @@ package com.github.hemoptysisheart.parking.app.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel.Status.*
+import com.github.hemoptysisheart.parking.app.ui.state.OverlayState.*
+import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel.MapControl.GOTO_DESTINATION
+import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel.MapControl.GOTO_HERE
 import com.github.hemoptysisheart.parking.core.logging.logArgs
 import com.github.hemoptysisheart.parking.core.logging.logSet
 import com.github.hemoptysisheart.parking.core.model.LocationModel
 import com.github.hemoptysisheart.parking.core.model.PlaceModel
 import com.github.hemoptysisheart.parking.domain.GeoLocation
+import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.domain.RecommendItem
 import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,26 +27,26 @@ class MainViewModel @Inject constructor(
 ) : ViewModel() {
     companion object {
         private val TAG = MainViewModel::class.simpleName!!
+
+        /**
+         * 지도 기본 확대 수준.
+         */
+        const val DEFAULT_ZOOM_LEVEL = 17.0F
     }
 
     /**
-     * UI - ViewModel 연동 상태.
+     * VM이 외부 라이브러리인 Compose의 지도 UI를 조작할 때 사용.
      */
-    enum class Status {
+    enum class MapControl {
         /**
-         * 초기 상태(인스턴스 생성 직후).
+         * 현재 위치로 지도 중심을 이동.
          */
-        INIT,
+        GOTO_HERE,
 
         /**
-         * 현재 위치 획득.
+         * 목적지로 지도 중심을 이동.
          */
-        LOCATION_READY,
-
-        /**
-         * 지도 UI 컴포넌트와 VM 연동 완료.
-         */
-        LINKED;
+        GOTO_DESTINATION
     }
 
     /**
@@ -51,29 +54,43 @@ class MainViewModel @Inject constructor(
      */
     private val locationCallback: (GeoLocation) -> Unit = {
         viewModelScope.launch {
-            if (INIT == status.value) {
-                status.emit(LOCATION_READY)
+            if (null == here.value) {
+                Log.e(TAG, "#locationCallback set GOTO_HERE : here=$it")
+                mapControl.emit(GOTO_HERE)
             }
             here.emit(it)
         }
     }
 
-    val status = MutableStateFlow(INIT)
+    /**
+     * 오버레이 표시 상태.
+     */
+    val overlay = MutableStateFlow(COLLAPSE)
 
     /**
      * 위치가 바뀔 경우 갱신해서 UI에 반영한다.
      */
-    val here = MutableStateFlow(locationModel.location)
+    val here = MutableStateFlow<GeoLocation?>(null)
+
+    /**
+     * 목적지.
+     */
+    val destination = MutableStateFlow<Location?>(null)
 
     /**
      * 목적지 검색어.
      */
-    val query = MutableStateFlow("")
+    val destinationQuery = MutableStateFlow("")
 
-    val recommended = MutableStateFlow(listOf<RecommendItem<*>>())
+    /**
+     * 목적지 검색 결과.
+     */
+    val destinationSearchResult = MutableStateFlow(listOf<RecommendItem<*>>())
 
-    private val searchJobLock = Any()
-    private var searchJob: Job? = null
+    private val destinationSearchJobLock = Any()
+    private var destinationSearchJob: Job? = null
+
+    val mapControl = MutableStateFlow<MapControl?>(null)
 
     /**
      * UI에서 지도 중심을 받는다.
@@ -87,7 +104,7 @@ class MainViewModel @Inject constructor(
     /**
      * UI에서 지도 확대 수준을 받는다.
      */
-    var zoom: Float? = null
+    var zoom: Float = DEFAULT_ZOOM_LEVEL
         set(value) {
             logSet(TAG, "zoom", value)
             field = value
@@ -97,34 +114,70 @@ class MainViewModel @Inject constructor(
         locationModel.addCallback(TAG, locationCallback)
     }
 
-    /**
-     * UI가 VM과 연동됐음을 알릴 때 사용.
-     */
-    fun linked() = viewModelScope.launch {
-        status.emit(LINKED)
-    }
-
-    fun search(query: String) {
+    fun searchDestination(query: String) {
         logArgs(TAG, "search", "query" to query)
 
         viewModelScope.launch {
-            this@MainViewModel.query.emit(query)
+            this@MainViewModel.destinationQuery.emit(query)
         }
 
-        synchronized(searchJobLock) {
-            searchJob?.run {
-                Log.d(TAG, "#search cancel search job : searchJob=$searchJob")
+        synchronized(destinationSearchJobLock) {
+            destinationSearchJob?.run {
+                Log.d(TAG, "#searchDestination cancel search job : searchDestinationJob=$destinationSearchJob")
                 if (isActive) {
                     cancel()
                 }
-                searchJob = null
+                destinationSearchJob = null
             }
 
-            searchJob = viewModelScope.launch {
-                val result = placeModel.search(center!!.toGeoLocation(), query)
-                Log.d(TAG, "#search : result=$result")
-                recommended.emit(result.places)
+            destinationSearchJob = viewModelScope.launch {
+                val result = placeModel.searchDestination(center!!.toGeoLocation(), query)
+                Log.d(TAG, "#searchDestination : result=$result")
+                destinationSearchResult.emit(result.places)
             }
+        }
+    }
+
+    fun setDestination(location: Location) {
+        Log.v(TAG, "#setDestination args : location=$location")
+
+        viewModelScope.launch {
+            destination.emit(location)
+            mapControl.emit(GOTO_DESTINATION)
+            overlay.emit(COLLAPSE)
+        }
+    }
+
+    fun onHideOverlay() {
+        viewModelScope.launch {
+            overlay.emit(HIDE)
+        }
+    }
+
+    fun onShowOverlay() {
+        viewModelScope.launch {
+            overlay.emit(COLLAPSE)
+        }
+    }
+
+    fun onCollapseOverlay() {
+        viewModelScope.launch {
+            overlay.emit(COLLAPSE)
+        }
+    }
+
+    fun onExtendOverlay() {
+        viewModelScope.launch {
+            overlay.emit(EXTEND)
+        }
+    }
+
+    fun done(control: MapControl) {
+        viewModelScope.launch {
+            if (control != mapControl.value) {
+                Log.w(TAG, "#done value does not match : control=$control, mapContorl=${mapControl.value}")
+            }
+            mapControl.emit(null)
         }
     }
 
@@ -134,6 +187,7 @@ class MainViewModel @Inject constructor(
         locationModel.removeCallback(TAG)
     }
 
-    override fun toString() = "$TAG(status=${status.value}, here=${here.value}, query=${query.value}, " +
+    override fun toString() = "$TAG(overlay=${overlay.value}, here=${here.value}, " +
+            "destinationQuery=${destinationQuery.value}, destinationSearchResult=${destinationSearchResult.value}" +
             "center=$center, zoom=$zoom)"
 }

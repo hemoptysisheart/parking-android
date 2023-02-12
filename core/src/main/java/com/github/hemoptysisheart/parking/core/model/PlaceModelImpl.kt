@@ -5,9 +5,10 @@ import com.github.hemoptysisheart.parking.core.client.google.PlacesClient
 import com.github.hemoptysisheart.parking.core.client.google.dto.NearbySearchParams
 import com.github.hemoptysisheart.parking.core.client.google.dto.RankBy
 import com.github.hemoptysisheart.parking.core.logging.logArgs
+import com.github.hemoptysisheart.parking.core.model.dto.LocationGmpPlace
 import com.github.hemoptysisheart.parking.core.model.dto.PlaceSearchResult
-import com.github.hemoptysisheart.parking.core.model.dto.RecommendItemGmpPlace
 import com.github.hemoptysisheart.parking.domain.GeoLocation
+import com.github.hemoptysisheart.parking.domain.RecommendItemLocation
 import com.github.hemoptysisheart.util.TimeProvider
 
 class PlaceModelImpl(
@@ -18,8 +19,8 @@ class PlaceModelImpl(
         private val TAG = PlaceModelImpl::class.simpleName!!
     }
 
-    override suspend fun search(center: GeoLocation, query: String): PlaceSearchResult {
-        logArgs(TAG, "search", "query" to query)
+    override suspend fun searchDestination(center: GeoLocation, query: String): PlaceSearchResult {
+        logArgs(TAG, "searchDestination", "query" to query)
 
         val now = timeProvider.instant()
         val params = NearbySearchParams(
@@ -32,13 +33,13 @@ class PlaceModelImpl(
 
         val result = PlaceSearchResult(
             center, query,
-            apiResult.places.map { RecommendItemGmpPlace(it) },
+            apiResult.places.map { RecommendItemLocation(LocationGmpPlace(it)) },
             apiResult.nextToken
         )
 
-        Log.v(TAG, "#search return : $result")
+        Log.v(TAG, "#searchDestination return : $result")
         return result
     }
 
-    override fun toString() = "$TAG(placesClient=$placesClient)"
+    override fun toString() = "$TAG(placesClient=$placesClient, timeProvider=$timeProvider)"
 }

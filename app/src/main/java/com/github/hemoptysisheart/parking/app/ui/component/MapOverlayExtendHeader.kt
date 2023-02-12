@@ -25,14 +25,14 @@ import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 
 @Composable
 fun MapOverlayExtendHeader(
-    query: String = "",
-    onQueryChange: (String) -> Unit = { },
+    destinationQuery: String = "",
+    onDestinationQueryChange: (String) -> Unit = { },
     onCollapse: () -> Unit = { }
 ) {
     logArgs(
         TAG_COMPOSE, "MapOverlayExtendHeader",
-        "query" to query,
-        "onQueryChange" to onQueryChange,
+        "destinationQuery" to destinationQuery,
+        "onDestinationQueryChange" to onDestinationQueryChange,
         "onCollapse" to onCollapse
     )
 
@@ -64,8 +64,8 @@ fun MapOverlayExtendHeader(
         Spacer(modifier = Modifier.width(10.dp))
 
         TextField(
-            value = query,
-            onValueChange = onQueryChange,
+            value = destinationQuery,
+            onValueChange = onDestinationQueryChange,
             modifier = Modifier
                 .border(1.dp, Color.LightGray, RoundedCornerShape(20.dp))
                 .background(Color.White, RoundedCornerShape(20.dp))

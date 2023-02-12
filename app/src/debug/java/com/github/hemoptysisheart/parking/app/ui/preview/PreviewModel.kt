@@ -15,7 +15,7 @@ object PreviewModel {
     }
 
     val PLACE_MODEL = object : PlaceModel {
-        override suspend fun search(center: GeoLocation, query: String): PlaceSearchResult {
+        override suspend fun searchDestination(center: GeoLocation, query: String): PlaceSearchResult {
             return PlaceSearchResult(center, query, listOf(), null)
         }
     }

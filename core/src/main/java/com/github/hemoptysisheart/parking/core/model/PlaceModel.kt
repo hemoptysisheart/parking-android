@@ -7,5 +7,5 @@ interface PlaceModel {
     /**
      * `center`를 중심으로 장소를 검색한다.
      */
-    suspend fun search(center: GeoLocation, query: String): PlaceSearchResult
+    suspend fun searchDestination(center: GeoLocation, query: String): PlaceSearchResult
 }

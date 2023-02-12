@@ -26,6 +26,7 @@ import com.github.hemoptysisheart.parking.core.logging.logVarsV
 import com.github.hemoptysisheart.parking.core.model.dto.toLatLng
 import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.maps.android.compose.rememberCameraPositionState
 
@@ -63,8 +64,14 @@ fun MainScreen(
         }
         LINKED -> {
             destination?.let {
-                cameraPositionState.position =
-                    CameraPosition.fromLatLngZoom(it.toLatLng(), cameraPositionState.position.zoom)
+                cameraPositionState.move(
+                    CameraUpdateFactory.newCameraPosition(
+                        CameraPosition.fromLatLngZoom(
+                            it.toLatLng(),
+                            cameraPositionState.position.zoom
+                        )
+                    )
+                )
             }
             viewModel.center = cameraPositionState.position.target
             viewModel.zoom = cameraPositionState.position.zoom

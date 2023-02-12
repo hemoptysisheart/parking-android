@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.github.hemoptysisheart.parking.app.ui.state.OverlayState.*
 import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel.Status.*
 import com.github.hemoptysisheart.parking.core.logging.logArgs
-import com.github.hemoptysisheart.parking.core.logging.logSet
 import com.github.hemoptysisheart.parking.core.model.LocationModel
 import com.github.hemoptysisheart.parking.core.model.PlaceModel
 import com.github.hemoptysisheart.parking.domain.GeoLocation
@@ -26,6 +25,11 @@ class MainViewModel @Inject constructor(
 ) : ViewModel() {
     companion object {
         private val TAG = MainViewModel::class.simpleName!!
+
+        /**
+         * 지도 기본 확대 수준.
+         */
+        const val DEFAULT_ZOOM_LEVEL = 17.0F
     }
 
     /**
@@ -96,20 +100,12 @@ class MainViewModel @Inject constructor(
     /**
      * UI에서 지도 중심을 받는다.
      */
-    var center: LatLng? = null
-        set(value) {
-            logSet(TAG, "center", value)
-            field = value
-        }
+    var center = MutableStateFlow(locationModel.location.toLatLng())
 
     /**
      * UI에서 지도 확대 수준을 받는다.
      */
-    var zoom: Float? = null
-        set(value) {
-            logSet(TAG, "zoom", value)
-            field = value
-        }
+    var zoom = MutableStateFlow(DEFAULT_ZOOM_LEVEL)
 
     init {
         locationModel.addCallback(TAG, locationCallback)
@@ -139,7 +135,7 @@ class MainViewModel @Inject constructor(
             }
 
             destinationSearchJob = viewModelScope.launch {
-                val result = placeModel.searchDestination(center!!.toGeoLocation(), query)
+                val result = placeModel.searchDestination(center.value!!.toGeoLocation(), query)
                 Log.d(TAG, "#searchDestination : result=$result")
                 destinationSearchResult.emit(result.places)
             }
@@ -177,6 +173,11 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             overlay.emit(EXTEND)
         }
+    }
+
+    suspend fun onMapCameraChanged(center: LatLng, zoom: Float) {
+        this.center.emit(center)
+        this.zoom.emit(zoom)
     }
 
     override fun onCleared() {

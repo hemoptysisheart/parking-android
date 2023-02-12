@@ -14,6 +14,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.hemoptysisheart.parking.app.ui.component.Map
 import com.github.hemoptysisheart.parking.app.ui.component.MapOverlayCollapse
 import com.github.hemoptysisheart.parking.app.ui.component.MapOverlayExtend
+import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.DEFAULT_ZOOM_LEVEL
 import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.TAG_COMPOSE
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewViewModel.MAIN_VM
 import com.github.hemoptysisheart.parking.app.ui.state.OverlayState.*
@@ -53,35 +54,21 @@ fun MainScreen(
         "searchDestinationResult" to searchDestinationResult
     )
 
-    val center by viewModel.center.collectAsStateWithLifecycle()
-    val zoom by viewModel.zoom.collectAsStateWithLifecycle()
     val cameraPositionState = rememberCameraPositionState()
     when (status) {
         INIT -> {}
         LOCATION_READY -> {
-            cameraPositionState.position = CameraPosition.fromLatLngZoom(here.toLatLng(), zoom)
+            cameraPositionState.position = CameraPosition.fromLatLngZoom(here.toLatLng(), DEFAULT_ZOOM_LEVEL)
             viewModel.linked()
         }
         LINKED -> {
-            if (null != destination) {
-                cameraPositionState.position = CameraPosition.fromLatLngZoom(destination!!.toLatLng(), zoom)
+            destination?.let {
+                cameraPositionState.position =
+                    CameraPosition.fromLatLngZoom(it.toLatLng(), cameraPositionState.position.zoom)
             }
+            viewModel.center = cameraPositionState.position.target
+            viewModel.zoom = cameraPositionState.position.zoom
         }
-    }
-
-    // ----------------------------------------------------------------------------------------------------------------
-
-    LaunchedEffect(center, zoom) {
-        snapshotFlow { center to zoom }
-            .collect {
-                cameraPositionState.position = CameraPosition.fromLatLngZoom(it.first, it.second)
-            }
-    }
-    LaunchedEffect(cameraPositionState.position) {
-        snapshotFlow { cameraPositionState.position }
-            .collect {
-                viewModel.onMapCameraChanged(it.target, it.zoom)
-            }
     }
 
     // ----------------------------------------------------------------------------------------------------------------

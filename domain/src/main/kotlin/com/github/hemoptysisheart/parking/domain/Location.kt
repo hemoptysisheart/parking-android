@@ -35,4 +35,8 @@ interface Location {
      * 설명. 기본 `null`.
      */
     val description: String?
+
+    val latitude: Double
+
+    val longitude: Double
 }

@@ -36,6 +36,9 @@ class LocationGmpPlace(
                 null
             }
         }
+    override val latitude = place.geometry!!.location.latitude
+
+    override val longitude = place.geometry!!.location.longitude
 
     override fun equals(other: Any?) = this === other ||
             null != other &&

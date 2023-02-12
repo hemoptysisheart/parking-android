@@ -10,6 +10,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.TAG_COMPOSE
+import com.github.hemoptysisheart.parking.core.logging.logArgs
+import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.*
@@ -21,10 +23,16 @@ import com.google.maps.android.compose.*
  */
 @Composable
 fun Map(
-    cameraPositionState: CameraPositionState,
+    destination: Location? = null,
+    cameraPositionState: CameraPositionState = rememberCameraPositionState(),
     onMapClick: (LatLng) -> Unit = { Log.v(TAG_COMPOSE, "#onMapClick called.") }
 ) {
-    Log.v(TAG_COMPOSE, "#Map args : cameraPositionState=$cameraPositionState, onMapClick=$onMapClick")
+    logArgs(
+        TAG_COMPOSE, "Map",
+        "destination" to destination,
+        "cameraPositionState" to cameraPositionState,
+        "onMapClick" to onMapClick
+    )
 
     val uiSettings by remember {
         mutableStateOf(
@@ -53,8 +61,8 @@ fun Map(
 @Composable
 @Preview(showBackground = true)
 @SuppressLint("ComposableNaming")
-fun preview_MapView() {
+fun preview_MapView_destinationNull() {
     ParkingTheme {
-        Map(rememberCameraPositionState())
+        Map()
     }
 }

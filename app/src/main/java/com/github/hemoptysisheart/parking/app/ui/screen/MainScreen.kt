@@ -23,6 +23,7 @@ import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel.Status.*
 import com.github.hemoptysisheart.parking.app.viewmodel.toLatLng
 import com.github.hemoptysisheart.parking.core.logging.logArgs
 import com.github.hemoptysisheart.parking.core.logging.logVarsV
+import com.github.hemoptysisheart.parking.core.model.dto.toLatLng
 import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 import com.google.android.gms.maps.model.CameraPosition
@@ -61,6 +62,10 @@ fun MainScreen(
             viewModel.linked()
         }
         LINKED -> {
+            destination?.let {
+                cameraPositionState.position =
+                    CameraPosition.fromLatLngZoom(it.toLatLng(), cameraPositionState.position.zoom)
+            }
             viewModel.center = cameraPositionState.position.target
             viewModel.zoom = cameraPositionState.position.zoom
         }
@@ -99,6 +104,7 @@ fun MainScreen(
         }
 
         Map(
+            destination = destination,
             cameraPositionState = cameraPositionState,
             onMapClick = {
                 when (overlay) {

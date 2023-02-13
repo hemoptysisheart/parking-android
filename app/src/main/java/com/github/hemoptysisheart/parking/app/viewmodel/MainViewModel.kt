@@ -13,6 +13,7 @@ import com.github.hemoptysisheart.parking.core.model.PlaceModel
 import com.github.hemoptysisheart.parking.domain.GeoLocation
 import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.domain.RecommendItem
+import com.github.hemoptysisheart.parking.domain.RecommendItemLocation
 import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -90,6 +91,8 @@ class MainViewModel @Inject constructor(
     private val destinationSearchJobLock = Any()
     private var destinationSearchJob: Job? = null
 
+    val parking = MutableStateFlow(listOf<RecommendItemLocation>())
+
     val mapControl = MutableStateFlow<MapControl?>(null)
 
     /**
@@ -148,7 +151,8 @@ class MainViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-            val parking = placeModel.searchParking(location)
+            val result = placeModel.searchParking(location)
+            parking.emit(result.places)
         }
     }
 

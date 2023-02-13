@@ -8,8 +8,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import com.github.hemoptysisheart.parking.R
 import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.TAG_COMPOSE
+import com.github.hemoptysisheart.parking.app.ui.support.bitmapDescriptor
 import com.github.hemoptysisheart.parking.core.logging.logArgs
 import com.github.hemoptysisheart.parking.core.model.dto.toLatLng
 import com.github.hemoptysisheart.parking.domain.Location
@@ -35,6 +38,7 @@ fun Map(
         "onMapClick" to onMapClick
     )
 
+    val context = LocalContext.current
     val uiSettings by remember {
         mutableStateOf(
             MapUiSettings(
@@ -59,7 +63,11 @@ fun Map(
     ) {
         destination?.let {
             val destinationMarkerState = rememberMarkerState(position = it.toLatLng())
-            Marker(state = destinationMarkerState, title = it.name)
+            Marker(
+                state = destinationMarkerState,
+                title = it.name,
+                icon = bitmapDescriptor(context, R.drawable.map_marker_destination)
+            )
         }
     }
 }

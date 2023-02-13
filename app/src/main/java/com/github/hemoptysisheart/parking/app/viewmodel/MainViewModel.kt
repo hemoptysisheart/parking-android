@@ -55,7 +55,7 @@ class MainViewModel @Inject constructor(
     private val locationCallback: (GeoLocation) -> Unit = {
         viewModelScope.launch {
             if (null == here.value) {
-                Log.e(TAG, "#locationCallback set GOTO_HERE : here=$it")
+                Log.v(TAG, "#locationCallback set GOTO_HERE : here=$it")
                 mapControl.emit(GOTO_HERE)
             }
             here.emit(it)

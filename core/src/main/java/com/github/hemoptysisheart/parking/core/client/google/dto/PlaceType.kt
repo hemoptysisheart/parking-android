@@ -16,6 +16,8 @@ sealed interface PlaceType {
 /**
  * 기본 장소 유형.
  * 검색할 때 조건으로 사용할 수 있음.
+ *
+ * [주소 유형 및 주소 구성요소 유형](https://developers.google.com/maps/documentation/geocoding/requests-geocoding?hl=ko#Types)
  */
 enum class PlaceTypes(
     override val code: String

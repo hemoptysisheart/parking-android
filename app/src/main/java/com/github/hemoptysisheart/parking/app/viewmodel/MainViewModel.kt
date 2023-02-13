@@ -146,6 +146,10 @@ class MainViewModel @Inject constructor(
             mapControl.emit(GOTO_DESTINATION)
             overlay.emit(COLLAPSE)
         }
+
+        viewModelScope.launch {
+            val parking = placeModel.searchParking(location)
+        }
     }
 
     fun onHideOverlay() {

@@ -20,7 +20,7 @@ package com.github.hemoptysisheart.parking.core.client.google.dto
  * reasonable precision. Given a maximum longitude of +/- 180 degrees to a precision of 5 decimal places (180.00000 to
  * -180.00000), this results in the need for a 32 bit signed binary integer value.
  */
-data class DirectionsPolylineDto(
+data class DirectionsPolyline(
     /**
      * A single string representation of the polyline.
      */

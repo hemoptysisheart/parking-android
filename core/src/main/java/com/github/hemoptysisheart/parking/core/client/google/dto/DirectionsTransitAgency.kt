@@ -3,7 +3,7 @@ package com.github.hemoptysisheart.parking.core.client.google.dto
 /**
  * [DirectionsTransitAgency](https://developers.google.com/maps/documentation/directions/get-directions#DirectionsTransitAgency)
  */
-data class DirectionsTransitAgencyDto(
+data class DirectionsTransitAgency(
     /**
      * The name of this transit agency.
      */

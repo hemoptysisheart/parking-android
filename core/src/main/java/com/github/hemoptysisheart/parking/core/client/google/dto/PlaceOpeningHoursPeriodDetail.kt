@@ -5,7 +5,7 @@ import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
-data class PlaceOpeningHoursPeriodDetailDto(
+data class PlaceOpeningHoursPeriodDetail(
     val day: DayOfWeek,
     val time: LocalTime,
     val date: LocalDate? = null,

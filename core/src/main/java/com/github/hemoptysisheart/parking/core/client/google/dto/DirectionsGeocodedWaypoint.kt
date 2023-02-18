@@ -3,7 +3,7 @@ package com.github.hemoptysisheart.parking.core.client.google.dto
 /**
  * [DirectionsGeocodedWaypoint](https://developers.google.com/maps/documentation/directions/get-directions?hl=ko#DirectionsGeocodedWaypoint)
  */
-data class DirectionsGeocodedWaypointDto(
+data class DirectionsGeocodedWaypoint(
     /**
      * Indicates the status code resulting from the geocoding operation. This field may contain the following values.
      *

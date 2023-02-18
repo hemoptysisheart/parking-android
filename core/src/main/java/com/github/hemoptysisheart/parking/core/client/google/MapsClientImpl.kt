@@ -61,7 +61,7 @@ class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
                 requestAt = requestAt,
                 responseAt = responseAt
             ),
-            places = response.results!!.map { DtoConverter.toPlaceDto(it) },
+            places = response.results!!.map { DtoConverter.toPlace(it) },
             nextToken = response.nextPageToken
         )
 

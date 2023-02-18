@@ -8,7 +8,7 @@ class NearbySearchResult(
     /**
      * 장소 목록.
      */
-    val places: List<PlaceDto>,
+    val places: List<Place>,
     /**
      * 다음 페이지 토큰.
      */

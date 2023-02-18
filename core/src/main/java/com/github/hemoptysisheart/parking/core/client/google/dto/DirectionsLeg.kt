@@ -5,7 +5,7 @@ import java.time.ZonedDateTime
 /**
  * [DirectionsLeg](https://developers.google.com/maps/documentation/directions/get-directions#DirectionsLeg)
  */
-data class DirectionsLegDto(
+data class DirectionsLeg(
     /**
      * Contains the human-readable address (typically a street address) from reverse geocoding the `end_location` of
      * this leg. This content is meant to be read as-is. Do not programmatically parse the formatted address.
@@ -17,7 +17,7 @@ data class DirectionsLegDto(
      * See [LatLngLiteral](https://developers.google.com/maps/documentation/directions/get-directions#LatLngLiteral)
      * for more information.
      */
-    val endLocation: LatLngDto,
+    val endLocation: LatLng,
     /**
      * Contains the human-readable address (typically a street address) resulting from reverse geocoding the
      * `start_location` of this leg. This content is meant to be read as-is. Do not programmatically parse the
@@ -33,21 +33,21 @@ data class DirectionsLegDto(
      * See [LatLngLiteral](https://developers.google.com/maps/documentation/directions/get-directions#LatLngLiteral)
      * for more information.
      */
-    val startLocation: LatLngDto,
+    val startLocation: LatLng,
     /**
      * An array of steps denoting information about each separate step of the leg of the journey.
      *
      * See [DirectionsStep](https://developers.google.com/maps/documentation/directions/get-directions#DirectionsStep)
      * for more information.
      */
-    val steps: List<DirectionsStepDto>,
+    val steps: List<DirectionsStep>,
     /**
      * The locations of via waypoints along this leg.
      *
      * See [DirectionsViaWaypoint](https://developers.google.com/maps/documentation/directions/get-directions#DirectionsViaWaypoint)
      * for more information.
      */
-    val viaWaypoint: List<DirectionsViaWaypointDto>,
+    val viaWaypoint: List<DirectionsViaWaypoint>,
     /**
      * Contains the estimated time of arrival for this leg. This property is only returned for transit directions.
      *
@@ -69,14 +69,14 @@ data class DirectionsLegDto(
      * See [TextValueObject](https://developers.google.com/maps/documentation/directions/get-directions#TextValueObject)
      * for more information.
      */
-    val distance: TextValueDto?,
+    val distance: LabeledNumber?,
     /**
      * The total duration of this leg.
      *
      * See [TextValueObject](https://developers.google.com/maps/documentation/directions/get-directions#TextValueObject)
      * for more information.
      */
-    val duration: TextValueDto?,
+    val duration: LabeledNumber?,
     /**
      * Indicates the total duration of this leg. This value is an estimate of the time in traffic based on current and
      * historical traffic conditions. See the `traffic_model` request parameter for the options you can use to request
@@ -92,5 +92,5 @@ data class DirectionsLegDto(
      * See [TextValueObject](https://developers.google.com/maps/documentation/directions/get-directions#TextValueObject)
      * for more information.
      */
-    val durationInTraffic: TextValueDto?
+    val durationInTraffic: LabeledNumber?
 )

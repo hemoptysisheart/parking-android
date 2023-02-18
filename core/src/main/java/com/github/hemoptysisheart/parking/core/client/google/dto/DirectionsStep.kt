@@ -17,7 +17,7 @@ package com.github.hemoptysisheart.parking.core.client.google.dto
  * walking directions for that route in the inner steps array, such as: "Head north-west", "Turn left onto Arelious
  * Walker", and "Turn left onto Innes Ave".
  */
-data class DirectionsStepDto(
+data class DirectionsStep(
     /**
      * Contains the typical time required to perform the step, until the next step. This field may be undefined if the
      * duration is unknown.
@@ -25,14 +25,14 @@ data class DirectionsStepDto(
      * See [TextValueObject](https://developers.google.com/maps/documentation/directions/get-directions#TextValueObject)
      * for more information.
      */
-    val duration: TextValueDto,
+    val duration: LabeledNumber,
     /**
      * Contains the location of the last point of this step.
      *
      * See [LatLngLiteral](https://developers.google.com/maps/documentation/directions/get-directions#LatLngLiteral)
      * for more information.
      */
-    val endLocation: LatLngDto,
+    val endLocation: LatLng,
     /**
      * Contains formatted instructions for this step, presented as an HTML text string. This content is meant to be
      * read as-is. Do not programmatically parse this display-only content.
@@ -45,14 +45,14 @@ data class DirectionsStepDto(
      * See [DirectionsPolyline](https://developers.google.com/maps/documentation/directions/get-directions#DirectionsPolyline)
      * for more information.
      */
-    val polyline: DirectionsPolylineDto,
+    val polyline: DirectionsPolyline,
     /**
      * Contains the location of the starting point of this step.
      *
      * See [LatLngLiteral](https://developers.google.com/maps/documentation/directions/get-directions#LatLngLiteral)
      * for more information.
      */
-    val startLocation: LatLngDto,
+    val startLocation: LatLng,
     /**
      * Contains the type of travel mode used.
      *
@@ -67,7 +67,7 @@ data class DirectionsStepDto(
      * See [TextValueObject](https://developers.google.com/maps/documentation/directions/get-directions#TextValueObject)
      * for more information.
      */
-    val distance: TextValueDto?,
+    val distance: LabeledNumber?,
     /**
      * Contains the action to take for the current step (turn left, merge, straight, etc.). Values are subject to
      * change, and new values may be introduced without prior notice.
@@ -84,5 +84,5 @@ data class DirectionsStepDto(
      * See [DirectionsTransitDetails](https://developers.google.com/maps/documentation/directions/get-directions#DirectionsTransitDetails)
      * for more information.
      */
-    val transitDetails: DirectionsTransitDetailsDto?
+    val transitDetails: DirectionsTransitDetails?
 )

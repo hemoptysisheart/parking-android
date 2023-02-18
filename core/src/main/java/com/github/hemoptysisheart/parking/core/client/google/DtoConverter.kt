@@ -9,33 +9,34 @@ import java.time.LocalDate
 import java.time.LocalTime
 import java.util.*
 
+@Suppress("MemberVisibilityCanBePrivate")
 internal object DtoConverter {
-    fun toPlaceDto(resp: PlaceResp) = PlaceDto(
-        resp.addressComponents?.map { toAddressComponentDto(it) },
+    fun toPlace(resp: PlaceResp) = Place(
+        resp.addressComponents?.map { toAddressComponent(it) },
         resp.adrAddress,
         resp.businessStatus?.let { BusinessStatus[it] },
         resp.curbsidePickup,
-        resp.currentOpeningHours?.let { toPlaceOpeningHoursDto(it) },
+        resp.currentOpeningHours?.let { toPlaceOpeningHours(it) },
         resp.delivery,
         resp.dineIn,
-        resp.editorialSummary?.let { toPlaceEditorialSummaryDto(it) },
+        resp.editorialSummary?.let { toPlaceEditorialSummary(it) },
         resp.formattedAddress,
         resp.formattedPhoneNumber,
-        resp.geometry?.let { toGeometryDto(it) },
+        resp.geometry?.let { toGeometry(it) },
         resp.icon?.let { URL(it) },
         resp.iconBackgroundColor,
         resp.iconMaskBaseUri?.let { URL(it) },
         resp.internationalPhoneNumber,
         resp.name,
-        resp.openingHours?.let { toPlaceOpeningHoursDto(it) },
-        resp.photos?.map { toPlacePhotoDto(it) },
+        resp.openingHours?.let { toPlaceOpeningHours(it) },
+        resp.photos?.map { toPlacePhoto(it) },
         resp.placeId,
-        resp.plusCode?.let { toPlusCodeDto(it) },
+        resp.plusCode?.let { toPlusCode(it) },
         resp.priceLv?.let { PriceLevel[it] },
         resp.rating,
         resp.reservable,
-        resp.reviews?.map { toPlaceReviewDto(it) },
-        resp.secondaryOpeningHours?.let { toPlaceOpeningHoursDto(it) },
+        resp.reviews?.map { toPlaceReview(it) },
+        resp.secondaryOpeningHours?.let { toPlaceOpeningHours(it) },
         resp.servesBeer,
         resp.servesBreakfast,
         resp.servesBrunch,
@@ -53,78 +54,78 @@ internal object DtoConverter {
         resp.wheelchairAccessibleEntrance
     )
 
-    fun toAddressComponentDto(resp: AddressComponentResp) = AddressComponentDto(
+    fun toAddressComponent(resp: AddressComponentResp) = AddressComponent(
         longName = resp.longName ?: throw IllegalArgumentException("longName is null."),
         shortName = resp.shortName ?: throw IllegalArgumentException("shortName is null."),
         types = resp.types?.map { PlaceType[it] }?.toSet() ?: throw IllegalArgumentException("types is null.")
     )
 
-    fun toPlaceOpeningHoursDto(resp: PlaceOpeningHoursResp) = PlaceOpeningHoursDto(
+    fun toPlaceOpeningHours(resp: PlaceOpeningHoursResp) = PlaceOpeningHours(
         open = resp.open,
-        periods = resp.periods?.map { toPlaceOpeningHoursPeriodDto(it) },
-        specialDays = resp.specialDays?.map { toPlaceSpecialDayDto(it) },
+        periods = resp.periods?.map { toPlaceOpeningHoursPeriod(it) },
+        specialDays = resp.specialDays?.map { toPlaceSpecialDay(it) },
         type = resp.type?.let { PlaceOpeningHoursType.valueOf(it) },
         weekdays = resp.weekdayText
     )
 
-    fun toPlaceOpeningHoursPeriodDto(resp: PlaceOpeningHoursPeriodResp) = PlaceOpeningHoursPeriodDto(
-        open = toPlaceOpeningHoursPeriodDetailDto(resp.open ?: throw IllegalArgumentException("open is null.")),
-        close = resp.close?.let { toPlaceOpeningHoursPeriodDetailDto(it) }
+    fun toPlaceOpeningHoursPeriod(resp: PlaceOpeningHoursPeriodResp) = PlaceOpeningHoursPeriod(
+        open = toPlaceOpeningHoursPeriodDetail(resp.open ?: throw IllegalArgumentException("open is null.")),
+        close = resp.close?.let { toPlaceOpeningHoursPeriodDetail(it) }
     )
 
-    fun toPlaceOpeningHoursPeriodDetailDto(resp: PlaceOpeningHoursPeriodDetailResp) = PlaceOpeningHoursPeriodDetailDto(
-        day = PlaceOpeningHoursPeriodDetailDto.codeToDayOfWeek(
+    fun toPlaceOpeningHoursPeriodDetail(resp: PlaceOpeningHoursPeriodDetailResp) = PlaceOpeningHoursPeriodDetail(
+        day = PlaceOpeningHoursPeriodDetail.codeToDayOfWeek(
             resp.day
                 ?: throw IllegalArgumentException("day is null.")
         ),
         time = LocalTime.parse(
             resp.time
                 ?: throw IllegalArgumentException("time is null."),
-            PlaceOpeningHoursPeriodDetailDto.TIME_FORMATTER
+            PlaceOpeningHoursPeriodDetail.TIME_FORMATTER
         ),
-        date = resp.date?.let { LocalDate.parse(it, PlaceOpeningHoursPeriodDetailDto.DATE_FORMATTER) },
+        date = resp.date?.let { LocalDate.parse(it, PlaceOpeningHoursPeriodDetail.DATE_FORMATTER) },
         truncated = resp.truncated ?: false
     )
 
-    fun toPlaceSpecialDayDto(resp: PlaceSpecialDayResp) = PlaceSpecialDayDto(
-        date = resp.date?.let { LocalDate.parse(it, PlaceSpecialDayDto.DATE_FORMATTER) },
+    fun toPlaceSpecialDay(resp: PlaceSpecialDayResp) = PlaceSpecialDay(
+        date = resp.date?.let { LocalDate.parse(it, PlaceSpecialDay.DATE_FORMATTER) },
         exceptionalHours = resp.exceptionalHours ?: false
     )
 
-    fun toPlaceEditorialSummaryDto(resp: PlaceEditorialSummaryResp) = PlaceEditorialSummaryDto(
+    fun toPlaceEditorialSummary(resp: PlaceEditorialSummaryResp) = PlaceEditorialSummary(
         language = resp.language?.let { Locale.forLanguageTag(it) },
         overview = resp.overview
     )
 
-    fun toGeometryDto(resp: GeometryResp) = GeometryDto(
-        location = toLatLngDto(resp.location ?: throw IllegalArgumentException("location is null.")),
-        viewport = toBoundsDto(resp.viewport ?: throw IllegalArgumentException("viewport is null."))
+    fun toGeometry(resp: GeometryResp) = Geometry(
+        location = toLatLng(resp.location ?: throw IllegalArgumentException("location is null.")),
+        viewport = toBounds(resp.viewport ?: throw IllegalArgumentException("viewport is null."))
     )
 
-    fun toLatLngDto(resp: LatLngLiteralResp) = LatLngDto(
+    fun toLatLng(resp: LatLngLiteralResp) = LatLng(
         latitude = resp.lat ?: throw IllegalArgumentException("lat is null."),
         longitude = resp.lng ?: throw IllegalArgumentException("lng is null.")
     )
 
-    fun toBoundsDto(resp: BoundsResp) = BoundsDto(
-        northEast = toLatLngDto(resp.northEast ?: throw IllegalArgumentException("northEast is null")),
-        southWest = toLatLngDto(resp.southWest ?: throw IllegalArgumentException("southWest is null."))
+    fun toBounds(resp: BoundsResp) = Bounds(
+        northEast = toLatLng(resp.northEast ?: throw IllegalArgumentException("northEast is null")),
+        southWest = toLatLng(resp.southWest ?: throw IllegalArgumentException("southWest is null."))
     )
 
-    fun toPlacePhotoDto(resp: PlacePhotoResp) =
-        PlacePhotoDto(
+    fun toPlacePhoto(resp: PlacePhotoResp) =
+        PlacePhoto(
             width = resp.width ?: throw IllegalArgumentException("width is null."),
             height = resp.height ?: throw IllegalArgumentException("height is null."),
             htmlAttributions = resp.htmlAttributions ?: throw IllegalArgumentException("htmlAttributions is null."),
             photoReference = resp.photoReference ?: throw IllegalArgumentException("photoReference is null.")
         )
 
-    fun toPlusCodeDto(resp: PlusCodeResp) = PlusCodeDto(
+    fun toPlusCode(resp: PlusCodeResp) = PlusCode(
         globalCode = resp.globalCode ?: throw IllegalArgumentException("globalCode is null."),
         compoundCode = resp.compoundCode ?: throw IllegalArgumentException("compoundCode is null.")
     )
 
-    private fun toPlaceReviewDto(resp: PlaceReviewResp) = PlaceReviewDto(
+    fun toPlaceReview(resp: PlaceReviewResp) = PlaceReview(
         authorName = resp.authorName ?: throw IllegalArgumentException("authorName is null"),
         rating = resp.rating ?: throw IllegalArgumentException("rating is null."),
         relativeTimeDescription = resp.relativeTimeDescription

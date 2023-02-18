@@ -3,14 +3,14 @@ package com.github.hemoptysisheart.parking.core.client.google.dto
 /**
  * [DirectionsResponse](https://developers.google.com/maps/documentation/directions/get-directions#DirectionsResponse)
  */
-data class DirectionsDto(
+data class Directions(
     /**
      * Contains an array of routes from the origin to the destination. Routes consist of nested Legs and Steps.
      *
      * See [DirectionsRoute](https://developers.google.com/maps/documentation/directions/get-directions#DirectionsRoute)
      * for more information.
      */
-    val routes: List<DirectionsRouteDto>,
+    val routes: List<DirectionsRoute>,
     /**
      * Contains the status of the request, and may contain debugging information to help you track down why the request failed.
      *
@@ -46,5 +46,5 @@ data class DirectionsDto(
      * See [DirectionsGeocodedWaypoint](https://developers.google.com/maps/documentation/directions/get-directions#DirectionsGeocodedWaypoint)
      * for more information.
      */
-    val geocodedWaypoints: List<DirectionsGeocodedWaypointDto>?
+    val geocodedWaypoints: List<DirectionsGeocodedWaypoint>?
 )

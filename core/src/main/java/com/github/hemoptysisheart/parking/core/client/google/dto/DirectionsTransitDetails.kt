@@ -7,14 +7,14 @@ import java.time.ZonedDateTime
  *
  * Additional information that is not relevant for other modes of transportation.
  */
-data class DirectionsTransitDetailsDto(
+data class DirectionsTransitDetails(
     /**
      * The arrival transit stop.
      *
      * See [DirectionsTransitStop](https://developers.google.com/maps/documentation/directions/get-directions#DirectionsTransitStop)
      * for more information.
      */
-    val arrivalStop: DirectionsTransitStopDto?,
+    val arrivalStop: DirectionsTransitStop?,
     /**
      * See [TimeZoneTextValueObject](https://developers.google.com/maps/documentation/directions/get-directions#TimeZoneTextValueObject)
      * for more information.
@@ -26,7 +26,7 @@ data class DirectionsTransitDetailsDto(
      * See [DirectionsTransitStop](https://developers.google.com/maps/documentation/directions/get-directions#DirectionsTransitStop)
      * for more information.
      */
-    val departureStop: DirectionsTransitStopDto?,
+    val departureStop: DirectionsTransitStop?,
     /**
      * See [TimeZoneTextValueObject](https://developers.google.com/maps/documentation/directions/get-directions#TimeZoneTextValueObject)
      * for more information.
@@ -48,7 +48,7 @@ data class DirectionsTransitDetailsDto(
      * See [DirectionsTransitLine](https://developers.google.com/maps/documentation/directions/get-directions#DirectionsTransitLine)
      * for more information.
      */
-    val line: DirectionsTransitLineDto?,
+    val line: DirectionsTransitLine?,
     /**
      * The number of stops from the departure to the arrival stop. This includes the arrival stop, but not the
      * departure stop. For example, if your directions involve leaving from Stop A, passing through stops B and C, and

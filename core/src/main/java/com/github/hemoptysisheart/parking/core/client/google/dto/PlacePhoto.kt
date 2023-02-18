@@ -1,6 +1,6 @@
 package com.github.hemoptysisheart.parking.core.client.google.dto
 
-data class PlacePhotoDto(
+data class PlacePhoto(
     val width: Int,
     val height: Int,
     val htmlAttributions: List<String>,

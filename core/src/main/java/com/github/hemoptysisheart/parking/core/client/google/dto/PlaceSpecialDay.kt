@@ -3,7 +3,7 @@ package com.github.hemoptysisheart.parking.core.client.google.dto
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-data class PlaceSpecialDayDto(
+data class PlaceSpecialDay(
     val date: LocalDate? = null,
     val exceptionalHours: Boolean = false
 ) {

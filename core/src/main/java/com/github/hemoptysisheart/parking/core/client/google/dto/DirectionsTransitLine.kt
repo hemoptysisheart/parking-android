@@ -5,14 +5,14 @@ import com.github.hemoptysisheart.parking.core.client.google.response.Directions
 /**
  * [DirectionsTransitLine](https://developers.google.com/maps/documentation/directions/get-directions#DirectionsTransitLine)
  */
-data class DirectionsTransitLineDto(
+data class DirectionsTransitLine(
     /**
      * The transit agency (or agencies) that operates this transit line.
      *
      * See [DirectionsTransitAgency](https://developers.google.com/maps/documentation/directions/get-directions#DirectionsTransitAgency)
      * for more information.
      */
-    val agencies: List<DirectionsTransitAgencyDto>,
+    val agencies: List<DirectionsTransitAgency>,
     /**
      * The full name of this transit line, e.g. "8 Avenue Local".
      */

@@ -1,6 +1,6 @@
 package com.github.hemoptysisheart.parking.core.client.google.dto
 
-data class LatLngDto(
+data class LatLng(
     val latitude: Double,
     val longitude: Double
 ) {

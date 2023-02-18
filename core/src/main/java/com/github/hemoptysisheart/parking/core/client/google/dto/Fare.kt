@@ -5,7 +5,7 @@ package com.github.hemoptysisheart.parking.core.client.google.dto
  *
  * The total fare for the route.
  */
-data class FareDto(
+data class Fare(
     /**
      * An [ISO 4217 currency code](https://en.wikipedia.org/wiki/ISO_4217) indicating the currency that the amount is
      * expressed in.

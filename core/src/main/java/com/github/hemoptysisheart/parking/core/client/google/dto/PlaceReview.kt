@@ -4,7 +4,7 @@ import java.net.URL
 import java.time.Instant
 import java.util.*
 
-data class PlaceReviewDto(
+data class PlaceReview(
     val authorName: String,
     val rating: Double,
     val relativeTimeDescription: String,

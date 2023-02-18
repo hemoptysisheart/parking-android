@@ -3,14 +3,14 @@ package com.github.hemoptysisheart.parking.core.client.google.dto
 /**
  * [DirectionsViaWaypoint](https://developers.google.com/maps/documentation/directions/get-directions?hl=ko#DirectionsViaWaypoint)
  */
-data class DirectionsViaWaypointDto(
+data class DirectionsViaWaypoint(
     /**
      * The location of the waypoint.
      *
      * See [LatLngLiteral](https://developers.google.com/maps/documentation/directions/get-directions#LatLngLiteral)
      * for more information.
      */
-    val location: LatLngDto?,
+    val location: LatLng?,
     /**
      * The index of the step containing the waypoint.
      */

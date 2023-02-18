@@ -31,7 +31,7 @@ data class DirectionsRouteDto(
      * See [DirectionsPolyline](https://developers.google.com/maps/documentation/directions/get-directions#DirectionsPolyline)
      * for more information.
      */
-    val overviewPolyline: List<DirectionsPolylineDto>,
+    val overviewPolyline: DirectionsPolylineDto,
     /**
      * Contains a short textual description for the route, suitable for naming and disambiguating the route from
      * alternatives.

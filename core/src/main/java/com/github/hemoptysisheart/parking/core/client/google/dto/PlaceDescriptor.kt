@@ -12,7 +12,7 @@ data class PlaceDescriptor(
 ) {
     init {
         when {
-            placeId.isNullOrEmpty() && null != geoLocation && address.isNullOrEmpty() ->
+            placeId.isNullOrEmpty() && null == geoLocation && address.isNullOrEmpty() ->
                 throw IllegalArgumentException("all properties are null or empty.")
         }
     }

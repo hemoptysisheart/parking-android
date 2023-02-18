@@ -37,7 +37,7 @@ data class DirectionsRouteResp(
      * for more information.
      */
     @SerializedName("overview_polyline")
-    var overviewPolyline: List<DirectionsPolylineResp>? = null,
+    var overviewPolyline: DirectionsPolylineResp? = null,
     /**
      * Contains a short textual description for the route, suitable for naming and disambiguating the route from
      * alternatives.

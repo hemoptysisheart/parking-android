@@ -87,9 +87,15 @@ class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
             params.transitRoutingPreference?.code,
             params.unit?.code,
         )
+        val responseAt = timeProvider.instant()
         logger.i("#directions : response=$response")
 
-        TODO("Not yet implemented")
+        val result = DirectionsSearchResult(
+            meta = ResultMeta(params, requestAt, responseAt)
+        )
+
+        logger.d { "#directions return : $result" }
+        return result
     }
 
     override fun toString() =

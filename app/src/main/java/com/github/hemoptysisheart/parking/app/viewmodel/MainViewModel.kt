@@ -166,9 +166,9 @@ class MainViewModel @Inject constructor(
      * @param destination 목적지.
      */
     private fun setNaviPath(here: GeoLocation, parking: List<Location>, destination: Location) {
-        parking.forEach { parking ->
-            val job = viewModelScope.launch {
-
+        val job = viewModelScope.launch {
+            parking.forEach { waypoint ->
+                geoSearchModel.searchPath(here, waypoint)
             }
         }
     }

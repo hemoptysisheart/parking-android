@@ -40,5 +40,9 @@ interface Location {
 
     val longitude: Double
 
-    fun toGeoLocation() = GeoLocation(latitude, longitude)
+    fun toGeoLocation() = if (this is GeoLocation) {
+        this
+    } else {
+        GeoLocation(latitude, longitude)
+    }
 }

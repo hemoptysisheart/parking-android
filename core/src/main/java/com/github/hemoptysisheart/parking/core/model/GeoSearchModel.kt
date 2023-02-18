@@ -1,5 +1,7 @@
 package com.github.hemoptysisheart.parking.core.model
 
+import com.github.hemoptysisheart.parking.core.client.google.dto.TransportationMode
+import com.github.hemoptysisheart.parking.core.client.google.dto.TransportationMode.DRIVING
 import com.github.hemoptysisheart.parking.core.model.dto.PlaceSearchResult
 import com.github.hemoptysisheart.parking.domain.GeoLocation
 import com.github.hemoptysisheart.parking.domain.Location
@@ -16,4 +18,13 @@ interface GeoSearchModel {
      * @param destination 목적지.
      */
     suspend fun searchParking(destination: Location): PlaceSearchResult
+
+    /**
+     * 출발지에서 목적지 까지의 경로를 검색한다.
+     *
+     * @param origin 출발지
+     * @param destination 목적지
+     * @param mode 이동 수단
+     */
+    suspend fun searchPath(origin: Location, destination: Location, mode: TransportationMode = DRIVING)
 }

@@ -1,4 +1,5 @@
 package com.github.hemoptysisheart.parking.core.client.google.dto
 
-class DirectionsSearchResult {
-}
+data class DirectionsSearchResult(
+    val meta: ResultMeta<DirectionsParams>
+)

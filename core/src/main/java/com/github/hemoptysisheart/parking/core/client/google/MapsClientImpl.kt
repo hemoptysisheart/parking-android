@@ -3,6 +3,7 @@ package com.github.hemoptysisheart.parking.core.client.google
 import com.github.hemoptysisheart.domain.d
 import com.github.hemoptysisheart.domain.i
 import com.github.hemoptysisheart.domain.logger
+import com.github.hemoptysisheart.parking.core.client.google.DtoConverter.toDirectionsGeocodedWaypoint
 import com.github.hemoptysisheart.parking.core.client.google.dto.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -91,7 +92,12 @@ class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
         logger.i("#directions : response=$response")
 
         val result = DirectionsSearchResult(
-            meta = ResultMeta(params, requestAt, responseAt)
+            meta = ResultMeta(params, requestAt, responseAt),
+            status = DirectionsStatus.valueOf(response.status!!),
+            availableTravelModes = response.availableTravelModes?.map { TravelMode.valueOf(it) },
+            routes = response.routes!!.map { DtoConverter.toDirectionsRoute(it) },
+            geocodedWaypoints = response.geocodedWaypoints.map { toDirectionsGeocodedWaypoint(it) },
+            errorMessage = response.errorMessage
         )
 
         logger.d { "#directions return : $result" }

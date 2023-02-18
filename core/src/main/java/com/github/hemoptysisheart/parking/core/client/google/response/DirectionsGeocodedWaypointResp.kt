@@ -1,6 +1,5 @@
 package com.github.hemoptysisheart.parking.core.client.google.response
 
-import com.github.hemoptysisheart.parking.core.client.google.dto.GeocoderStatus
 import com.google.gson.annotations.SerializedName
 
 /**
@@ -13,7 +12,7 @@ data class DirectionsGeocodedWaypointResp(
      * The allowed values include: OK, and ZERO_RESULTS
      */
     @SerializedName("geocoder_status")
-    var geocoderStatus: GeocoderStatus? = null,
+    var geocoderStatus: String? = null,
     /**
      * Indicates that the geocoder did not return an exact match for the original request, though it was able to match
      * part of the requested address. You may wish to examine the original request for misspellings and/or an

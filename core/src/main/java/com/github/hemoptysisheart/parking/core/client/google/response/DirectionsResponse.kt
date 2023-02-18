@@ -1,7 +1,5 @@
 package com.github.hemoptysisheart.parking.core.client.google.response
 
-import com.github.hemoptysisheart.parking.core.client.google.dto.DirectionsStatus
-import com.github.hemoptysisheart.parking.core.client.google.dto.TravelMode
 import com.google.gson.annotations.SerializedName
 
 /**
@@ -23,7 +21,7 @@ data class DirectionsResponse(
      * for more information.
      */
     @SerializedName("status")
-    var status: DirectionsStatus? = null,
+    var status: String? = null,
     /**
      * Contains an array of available travel modes. This field is returned when a request specifies a travel mode and
      * gets no results. The array contains the available travel modes in the countries of the given set of waypoints.
@@ -33,7 +31,7 @@ data class DirectionsResponse(
      * for more information.
      */
     @SerializedName("available_travel_modes")
-    var availableTravelModes: List<TravelMode>? = null,
+    var availableTravelModes: List<String>? = null,
     /**
      * When the service returns a status code other than OK, there may be an additional `error_message` field within
      * the response object. This field contains more detailed information about the reasons behind the given status code.

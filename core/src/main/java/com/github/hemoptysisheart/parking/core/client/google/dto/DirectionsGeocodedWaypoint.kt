@@ -30,5 +30,5 @@ data class DirectionsGeocodedWaypoint(
     /**
      * Indicates the address type of the geocoding result used for calculating directions.
      */
-    val types: List<String>?
+    val types: List<PlaceType>?
 )

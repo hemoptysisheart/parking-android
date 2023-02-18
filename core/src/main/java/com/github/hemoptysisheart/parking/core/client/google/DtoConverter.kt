@@ -3,10 +3,7 @@ package com.github.hemoptysisheart.parking.core.client.google
 import com.github.hemoptysisheart.parking.core.client.google.dto.*
 import com.github.hemoptysisheart.parking.core.client.google.response.*
 import java.net.URL
-import java.time.Duration
-import java.time.Instant
-import java.time.LocalDate
-import java.time.LocalTime
+import java.time.*
 import java.util.*
 
 @Suppress("MemberVisibilityCanBePrivate")
@@ -139,5 +136,63 @@ internal object DtoConverter {
         text = resp.text,
         translated = resp.translated ?: false
     )
+
+    fun toDirectionsRoute(resp: DirectionsRouteResp) = DirectionsRoute(
+        bounds = resp.bounds?.let {
+            Bounds(
+                toLatLng(it.northEast ?: throw IllegalArgumentException("northEast is null.")),
+                toLatLng(it.southWest ?: throw IllegalArgumentException("southWest is null."))
+            )
+        } ?: throw IllegalArgumentException("bounds is null."),
+        copyrights = resp.copyrights ?: throw IllegalArgumentException("copyrights is null."),
+        legs = resp.legs?.map { toDirectionsLeg(it) } ?: throw IllegalArgumentException("legs is null."),
+        overviewPolyline = toDirectionsPolyline(
+            resp.overviewPolyline ?: throw IllegalArgumentException("overviewPolyline is null.")
+        ),
+        summary = resp.summary ?: throw IllegalArgumentException("summary is null."),
+        warnings = resp.warnings ?: throw IllegalArgumentException("warnings is null."),
+        waypointOrder = resp.waypointOrder ?: throw IllegalArgumentException("waypointOrder is null."),
+        fare = resp.fare?.let { toFare(it) }
+    )
+
+    fun toDirectionsGeocodedWaypoint(resp: DirectionsGeocodedWaypointResp) = DirectionsGeocodedWaypoint(
+        geocoderStatus = GeocoderStatus.valueOf(
+            resp.geocoderStatus ?: throw IllegalArgumentException("geocoderStatus is null")
+        ),
+        partialMatch = resp.partialMatch,
+        placeId = resp.placeId,
+        types = resp.types?.map { PlaceType[it] }
+    )
+
+    fun toDirectionsLeg(resp: DirectionsLegResp) = DirectionsLeg(
+        endAddress = resp.endAddress ?: throw IllegalArgumentException("endAddress is null."),
+        endLocation = toLatLng(resp.endLocation ?: throw IllegalArgumentException("endLocation is null.")),
+        startAddress = resp.startAddress ?: throw IllegalArgumentException("startAddress is null."),
+        startLocation = toLatLng(resp.startLocation ?: throw IllegalArgumentException("startLocation is null.")),
+        steps = resp.steps?.map { toDirectionsStep(it) } ?: throw IllegalArgumentException("steps is null."),
+        viaWaypoint = resp.viaWaypoint?.map { toDirectionsViaWaypoint(it) }
+            ?: throw IllegalArgumentException("viaWaypoint is null."),
+        arrivalTime = resp.arrivalTime?.let { toZonedDateTime(it) },
+        departureTime = resp.departureTime?.let { toZonedDateTime(it) },
+        distance = resp.distance?.let { toLabeledNumber(it) } ?: throw IllegalArgumentException("distance is null."),
+        duration = resp.duration?.let { toLabeledNumber(it) } ?: throw IllegalArgumentException("duration is null."),
+        durationInTraffic = resp.durationInTraffic?.let { toLabeledNumber(it) }
+            ?: throw IllegalArgumentException("durationInTraffic is null.")
+    )
+
+    fun toFare(resp: FareResp) = Fare()
+
+    fun toDirectionsPolyline(resp: DirectionsPolylineResp) = DirectionsPolyline()
+
+    fun toDirectionsStep(resp: DirectionsStepResp) = DirectionsStep()
+
+    fun toDirectionsViaWaypoint(resp: DirectionsViaWaypointResp) = DirectionsViaWaypoint()
+
+    fun toZonedDateTime(resp: TimeZoneTextValueObjectResp): ZonedDateTime = ZonedDateTime.ofInstant(
+        Instant.ofEpochSecond(resp.value?.toLong() ?: throw IllegalArgumentException("value is null.")),
+        ZoneId.of(resp.timeZone)
+    )
+
+    fun toLabeledNumber(resp: TextValueObjectResp) = LabeledNumber(resp.text, resp.value)
 }
 

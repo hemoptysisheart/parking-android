@@ -8,8 +8,8 @@ import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel.MapControl
 import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel.MapControl.GOTO_HERE
 import com.github.hemoptysisheart.parking.core.logging.logArgs
 import com.github.hemoptysisheart.parking.core.logging.logSet
+import com.github.hemoptysisheart.parking.core.model.GeoSearchModel
 import com.github.hemoptysisheart.parking.core.model.LocationModel
-import com.github.hemoptysisheart.parking.core.model.PlaceModel
 import com.github.hemoptysisheart.parking.domain.GeoLocation
 import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.domain.RecommendItem
@@ -24,10 +24,10 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val locationModel: LocationModel,
-    private val placeModel: PlaceModel
+    private val geoSearchModel: GeoSearchModel
 ) : ViewModel() {
     companion object {
-        private val TAG = MainViewModel::class.simpleName!!
+        private const val TAG = "MainViewModel"
 
         /**
          * 지도 기본 확대 수준.
@@ -134,7 +134,7 @@ class MainViewModel @Inject constructor(
             }
 
             destinationSearchJob = viewModelScope.launch {
-                val result = placeModel.searchDestination(center!!.toGeoLocation(), query)
+                val result = geoSearchModel.searchDestination(center!!.toGeoLocation(), query)
                 Log.d(TAG, "#searchDestination : result=$result")
                 destinationSearchResult.emit(result.places)
             }
@@ -151,8 +151,25 @@ class MainViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-            val result = placeModel.searchParking(location)
+            val result = geoSearchModel.searchParking(location)
             parking.emit(result.places)
+
+            setNaviPath(here.value!!, result.places.map { it.item }, destination.value!!)
+        }
+    }
+
+    /**
+     * 주차장을 경유해서 목적지에 이르는 경로를 설정한다.
+     *
+     * @param here 현재 위치. 출발지.
+     * @param parking 주차장 목록. 경유지.
+     * @param destination 목적지.
+     */
+    private fun setNaviPath(here: GeoLocation, parking: List<Location>, destination: Location) {
+        parking.forEach { parking ->
+            val job = viewModelScope.launch {
+
+            }
         }
     }
 

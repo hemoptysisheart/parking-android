@@ -10,7 +10,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.time.Instant
 
-class PlacesClientImpl(config: PlacesClientConfig) : PlacesClient {
+class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
     private val key = config.key
     private val locale = config.locale
     private val useDefaultLocale = config.useDefaultLocale
@@ -93,5 +93,5 @@ class PlacesClientImpl(config: PlacesClientConfig) : PlacesClient {
     }
 
     override fun toString() =
-        "${PlacesClientImpl::class.simpleName}(key=[ PROTECTED ], locale=$locale, useDefaultLocale=$useDefaultLocale, timeProvider=$timeProvider, client=$client, api=$api)"
+        "${MapsClientImpl::class.simpleName}(key=[ PROTECTED ], locale=$locale, useDefaultLocale=$useDefaultLocale, timeProvider=$timeProvider, client=$client, api=$api)"
 }

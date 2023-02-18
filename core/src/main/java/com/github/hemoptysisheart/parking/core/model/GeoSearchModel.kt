@@ -4,14 +4,16 @@ import com.github.hemoptysisheart.parking.core.model.dto.PlaceSearchResult
 import com.github.hemoptysisheart.parking.domain.GeoLocation
 import com.github.hemoptysisheart.parking.domain.Location
 
-interface PlaceModel {
+interface GeoSearchModel {
     /**
      * `center`를 중심으로 장소를 검색한다.
      */
     suspend fun searchDestination(center: GeoLocation, query: String): PlaceSearchResult
 
     /**
-     * 해당 지역을 중심으로 주차장 찾기.
+     * 목적지 주변 주차장 찾기.
+     *
+     * @param destination 목적지.
      */
-    suspend fun searchParking(location: Location): PlaceSearchResult
+    suspend fun searchParking(destination: Location): PlaceSearchResult
 }

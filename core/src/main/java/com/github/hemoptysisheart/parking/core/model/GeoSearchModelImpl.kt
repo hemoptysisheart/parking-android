@@ -1,7 +1,7 @@
 package com.github.hemoptysisheart.parking.core.model
 
 import android.util.Log
-import com.github.hemoptysisheart.parking.core.client.google.PlacesClient
+import com.github.hemoptysisheart.parking.core.client.google.MapsClient
 import com.github.hemoptysisheart.parking.core.client.google.dto.NearbySearchParams
 import com.github.hemoptysisheart.parking.core.client.google.dto.PlaceTypes
 import com.github.hemoptysisheart.parking.core.client.google.dto.RankBy
@@ -13,12 +13,17 @@ import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.domain.RecommendItemLocation
 import com.github.hemoptysisheart.util.TimeProvider
 
-class PlaceModelImpl(
-    private val placesClient: PlacesClient,
+class GeoSearchModelImpl(
+    private val mapsClient: MapsClient,
     private val timeProvider: TimeProvider
-) : PlaceModel {
+) : GeoSearchModel {
     companion object {
-        private val TAG = PlaceModelImpl::class.simpleName!!
+        private const val TAG = "GeoSearchModelImpl"
+
+        /**
+         * 목적지 주변 주차장 검색 반경 기본값.
+         */
+        const val SEARCH_PARKING_RADIUS = 500
     }
 
     override suspend fun searchDestination(center: GeoLocation, query: String): PlaceSearchResult {
@@ -31,7 +36,7 @@ class PlaceModelImpl(
             keyword = query,
             rankBy = RankBy.DISTANCE
         )
-        val apiResult = placesClient.nearBy(params, now)
+        val apiResult = mapsClient.nearBy(params, now)
 
         val result = PlaceSearchResult(
             center, query,
@@ -43,29 +48,29 @@ class PlaceModelImpl(
         return result
     }
 
-    override suspend fun searchParking(location: Location): PlaceSearchResult {
-        logArgs(TAG, "searchParkingLot", "location" to location)
+    override suspend fun searchParking(destination: Location): PlaceSearchResult {
+        logArgs(TAG, "searchParking", "destination" to destination)
 
         val now = timeProvider.instant()
         val params = NearbySearchParams(
-            longitude = location.longitude,
-            latitude = location.latitude,
-            radius = 1_000,
+            longitude = destination.longitude,
+            latitude = destination.latitude,
+            radius = SEARCH_PARKING_RADIUS,
             type = PlaceTypes.PARKING
         )
-        val apiResult = placesClient.nearBy(params, now)
-        Log.v(TAG, "#searchParkingLot : apiResult=$apiResult")
+        val apiResult = mapsClient.nearBy(params, now)
+        Log.v(TAG, "#searchParking : apiResult=$apiResult")
 
         val result = PlaceSearchResult(
-            location.toGeoLocation(),
+            destination.toGeoLocation(),
             null,
             apiResult.places.map { RecommendItemLocation(LocationGmpPlace(it)) },
             apiResult.nextToken
         )
 
-        Log.v(TAG, "#searchParkingLot return : $result")
+        Log.v(TAG, "#searchParking return : $result")
         return result
     }
 
-    override fun toString() = "$TAG(placesClient=$placesClient, timeProvider=$timeProvider)"
+    override fun toString() = "$TAG(placesClient=$mapsClient, timeProvider=$timeProvider)"
 }

@@ -3,9 +3,7 @@ package com.github.hemoptysisheart.parking.core.client.google
 import com.github.hemoptysisheart.domain.d
 import com.github.hemoptysisheart.domain.i
 import com.github.hemoptysisheart.domain.logger
-import com.github.hemoptysisheart.parking.core.client.google.dto.NearbySearchParams
-import com.github.hemoptysisheart.parking.core.client.google.dto.NearbySearchResult
-import com.github.hemoptysisheart.parking.core.client.google.dto.ResultMeta
+import com.github.hemoptysisheart.parking.core.client.google.dto.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -69,6 +67,29 @@ class PlacesClientImpl(config: PlacesClientConfig) : PlacesClient {
 
         logger.d { "#nearBy return : $page" }
         return page
+    }
+
+    override suspend fun directions(params: DirectionsParams, requestAt: Instant): DirectionsSearchResult {
+        logger.d { "#directions args : params=$params, requestAt=$requestAt" }
+
+        val response = api.direction(
+            key,
+            params.origin.toString(),
+            params.destination.toString(),
+            params.alternatives,
+            params.arrivalTime?.epochSecond,
+            params.avoid?.joinToString("|"),
+            params.departureTime?.epochSecond,
+            params.locale?.language ?: locale.language,
+            params.transportationMode?.code,
+            params.region,
+            params.trafficModel?.code,
+            params.transitRoutingPreference?.code,
+            params.unit?.code,
+        )
+        logger.i("#directions : response=$response")
+
+        TODO("Not yet implemented")
     }
 
     override fun toString() =

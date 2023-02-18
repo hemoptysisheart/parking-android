@@ -27,5 +27,5 @@ data class GeoLocation(
         LONGITUDE_VALIDATOR.validate(longitude)
     }
 
-    override fun toSimpleString() = "($latitude,$longitude)"
+    override fun toSimpleString() = "$latitude,$longitude"
 }

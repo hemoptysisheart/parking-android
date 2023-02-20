@@ -1,8 +1,6 @@
 package com.github.hemoptysisheart.parking.core.model
 
 import android.util.Log
-import com.github.hemoptysisheart.parking.core.client.google.MapsClient
-import com.github.hemoptysisheart.parking.core.client.google.dto.*
 import com.github.hemoptysisheart.parking.core.logging.logArgs
 import com.github.hemoptysisheart.parking.core.model.dto.LocationGmpPlace
 import com.github.hemoptysisheart.parking.core.model.dto.PlaceSearchResult
@@ -10,10 +8,16 @@ import com.github.hemoptysisheart.parking.domain.GeoLocation
 import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.domain.RecommendItemLocation
 import com.github.hemoptysisheart.util.TimeProvider
-import java.time.Instant
+import com.google.maps.DirectionsApiRequest
+import com.google.maps.GeoApiContext
+import com.google.maps.NearbySearchRequest
+import com.google.maps.model.LatLng
+import com.google.maps.model.PlaceType
+import com.google.maps.model.RankBy
+import com.google.maps.model.TravelMode
 
 class GeoSearchModelImpl(
-    private val mapsClient: MapsClient,
+    private val gmpContext: GeoApiContext,
     private val timeProvider: TimeProvider
 ) : GeoSearchModel {
     companion object {
@@ -28,19 +32,16 @@ class GeoSearchModelImpl(
     override suspend fun searchDestination(center: GeoLocation, query: String): PlaceSearchResult {
         logArgs(TAG, "searchDestination", "query" to query)
 
-        val now = timeProvider.instant()
-        val params = NearbySearchParams(
-            longitude = center.longitude,
-            latitude = center.latitude,
-            keyword = query,
-            rankBy = RankBy.DISTANCE
-        )
-        val apiResult = mapsClient.nearBy(params, now)
+        val response = NearbySearchRequest(gmpContext)
+            .location(LatLng(center.latitude, center.longitude))
+            .keyword(query)
+            .rankby(RankBy.DISTANCE)
+            .await()
 
         val result = PlaceSearchResult(
             center, query,
-            apiResult.places.map { RecommendItemLocation(LocationGmpPlace(it)) },
-            apiResult.nextToken
+            response.results.map { RecommendItemLocation(LocationGmpPlace(it)) },
+            response.nextPageToken
         )
 
         Log.v(TAG, "#searchDestination return : $result")
@@ -50,42 +51,44 @@ class GeoSearchModelImpl(
     override suspend fun searchParking(destination: Location): PlaceSearchResult {
         logArgs(TAG, "searchParking", "destination" to destination)
 
-        val now = timeProvider.instant()
-        val params = NearbySearchParams(
-            longitude = destination.longitude,
-            latitude = destination.latitude,
-            radius = SEARCH_PARKING_RADIUS,
-            type = PlaceTypes.PARKING
-        )
-        val apiResult = mapsClient.nearBy(params, now)
-        Log.v(TAG, "#searchParking : apiResult=$apiResult")
+        val response = NearbySearchRequest(gmpContext)
+            .location(LatLng(destination.latitude, destination.longitude))
+            .radius(SEARCH_PARKING_RADIUS)
+            .type(PlaceType.PARKING)
+            .await()
 
         val result = PlaceSearchResult(
             destination.toGeoLocation(),
             null,
-            apiResult.places.map { RecommendItemLocation(LocationGmpPlace(it)) },
-            apiResult.nextToken
+            response.results.map { RecommendItemLocation(LocationGmpPlace(it)) },
+            response.nextPageToken
         )
+
 
         Log.v(TAG, "#searchParking return : $result")
         return result
     }
 
-    private fun Location.toPlaceDescriptor() = when (this) {
-        else -> PlaceDescriptor(geoLocation = toGeoLocation())
-    }
-
-    override suspend fun searchPath(origin: Location, destination: Location, mode: TransportationMode) {
+    override suspend fun searchPath(origin: Location, destination: Location, mode: TravelMode) {
         logArgs(TAG, "searchPath", "origin" to origin, "destination" to destination, "mode" to mode)
 
-        val now = Instant.now()
-        val params = DirectionsParams(
-            origin = origin.toPlaceDescriptor(),
-            destination = destination.toPlaceDescriptor(),
-            transportationMode = mode
-        )
-        val result = mapsClient.directions(params, now)
+        val request = DirectionsApiRequest(gmpContext)
+            .mode(mode)
+        when (origin) {
+            is LocationGmpPlace ->
+                request.originPlaceId(origin.place.placeId)
+            else ->
+                request.origin(LatLng(origin.latitude, origin.longitude))
+        }
+        when (destination) {
+            is LocationGmpPlace ->
+                request.destinationPlaceId(destination.place.placeId)
+            else ->
+                request.destination(LatLng(destination.latitude, destination.longitude))
+        }
+
+        val result = request.await()
     }
 
-    override fun toString() = "$TAG(placesClient=$mapsClient, timeProvider=$timeProvider)"
+    override fun toString() = "$TAG(gmpContext=$gmpContext, timeProvider=$timeProvider)"
 }

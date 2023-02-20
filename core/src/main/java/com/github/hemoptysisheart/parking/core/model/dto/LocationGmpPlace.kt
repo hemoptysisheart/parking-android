@@ -1,10 +1,10 @@
 package com.github.hemoptysisheart.parking.core.model.dto
 
-import com.github.hemoptysisheart.parking.core.client.google.dto.Place
 import com.github.hemoptysisheart.parking.domain.Location
+import com.google.maps.model.PlacesSearchResult
 
 class LocationGmpPlace(
-    val place: Place
+    val place: PlacesSearchResult
 ) : Location {
     companion object {
         private val TAG = LocationGmpPlace::class.simpleName!!
@@ -36,9 +36,10 @@ class LocationGmpPlace(
                 null
             }
         }
-    override val latitude = place.geometry!!.location.latitude
 
-    override val longitude = place.geometry!!.location.longitude
+    override val latitude = place.geometry.location.lat
+
+    override val longitude = place.geometry.location.lng
 
     override fun equals(other: Any?) = this === other ||
             null != other &&

@@ -6,9 +6,6 @@ import android.util.Log
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.github.hemoptysisheart.parking.BuildConfig
-import com.github.hemoptysisheart.parking.core.client.google.MapsClient
-import com.github.hemoptysisheart.parking.core.client.google.MapsClientImpl
-import com.github.hemoptysisheart.parking.core.client.google.PlacesClientConfig
 import com.github.hemoptysisheart.parking.core.model.GeoSearchModel
 import com.github.hemoptysisheart.parking.core.model.GeoSearchModelImpl
 import com.github.hemoptysisheart.parking.core.model.LocationModel
@@ -16,6 +13,8 @@ import com.github.hemoptysisheart.parking.core.model.LocationModelImpl
 import com.github.hemoptysisheart.util.TimeProvider
 import com.github.hemoptysisheart.util.TruncatedTimeProvider
 import com.google.android.gms.location.LocationServices
+import com.google.maps.GeoApiContext
+import com.google.maps.metrics.OpenCensusRequestMetricsReporter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -57,21 +56,6 @@ class AppModuleConfig {
 
     @Provides
     @Singleton
-    fun provideMapsClient(timeProvider: TimeProvider): MapsClient {
-        val config = PlacesClientConfig(
-            key = BuildConfig.GOOGLE_MAPS_PLATFORM_API_KEY,
-            timeProvider = timeProvider,
-            useDefaultLocale = true,
-            debug = BuildConfig.DEBUG
-        )
-        val client = MapsClientImpl(config)
-
-        Log.i(TAG, "#provideMapsClient return : $client")
-        return client
-    }
-
-    @Provides
-    @Singleton
     fun provideLocationModel(@ApplicationContext context: Context): LocationModel {
         val client = LocationServices.getFusedLocationProviderClient(context)
         val model = LocationModelImpl(client)
@@ -82,8 +66,12 @@ class AppModuleConfig {
 
     @Provides
     @Singleton
-    fun provideGeoSearchModel(mapsClient: MapsClient, timeProvider: TimeProvider): GeoSearchModel {
-        val model = GeoSearchModelImpl(mapsClient, timeProvider)
+    fun provideGeoSearchModel(timeProvider: TimeProvider): GeoSearchModel {
+        val gmpContext = GeoApiContext.Builder()
+            .apiKey(BuildConfig.GOOGLE_MAPS_PLATFORM_API_KEY)
+            .requestMetricsReporter(OpenCensusRequestMetricsReporter())
+
+        val model = GeoSearchModelImpl(gmpContext.build(), timeProvider)
         Log.i(TAG, "#provideGeoSearchModel return : $model")
         return model
     }

@@ -13,11 +13,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.TAG_COMPOSE
-import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.ITEM_AAA_ANNEX_GALLERY
-import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.ITEM_AAA_NIHON_株式会社
-import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.ITEM_AAA_TOHO_TRADING
-import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.ITEM_GOOBNE_CHICKEN_曙橋店
-import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.ITEM_株式会社ＡＡＡ
+import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.AAA_ANNEX_GALLERY
+import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.AAA_NIHON_株式会社
+import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.AAA_TOHO_TRADING
+import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.GOOBNE_CHICKEN_曙橋店
+import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.株式会社ＡＡＡ
 import com.github.hemoptysisheart.parking.core.logging.logArgs
 import com.github.hemoptysisheart.parking.domain.RecommendItem
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
@@ -77,26 +77,26 @@ fun preview_MapOverlayExtend_recommended() {
         MapOverlayExtend(
             destinationQuery = "AAA",
             searchDestinationResult = listOf(
-                ITEM_AAA_TOHO_TRADING,
-                ITEM_株式会社ＡＡＡ,
-                ITEM_AAA_ANNEX_GALLERY,
-                ITEM_AAA_NIHON_株式会社,
-                ITEM_GOOBNE_CHICKEN_曙橋店,
-                ITEM_AAA_TOHO_TRADING,
-                ITEM_株式会社ＡＡＡ,
-                ITEM_AAA_ANNEX_GALLERY,
-                ITEM_AAA_NIHON_株式会社,
-                ITEM_GOOBNE_CHICKEN_曙橋店,
-                ITEM_AAA_TOHO_TRADING,
-                ITEM_株式会社ＡＡＡ,
-                ITEM_AAA_ANNEX_GALLERY,
-                ITEM_AAA_NIHON_株式会社,
-                ITEM_GOOBNE_CHICKEN_曙橋店,
-                ITEM_AAA_TOHO_TRADING,
-                ITEM_株式会社ＡＡＡ,
-                ITEM_AAA_ANNEX_GALLERY,
-                ITEM_AAA_NIHON_株式会社,
-                ITEM_GOOBNE_CHICKEN_曙橋店
+                AAA_TOHO_TRADING,
+                株式会社ＡＡＡ,
+                AAA_ANNEX_GALLERY,
+                AAA_NIHON_株式会社,
+                GOOBNE_CHICKEN_曙橋店,
+                AAA_TOHO_TRADING,
+                株式会社ＡＡＡ,
+                AAA_ANNEX_GALLERY,
+                AAA_NIHON_株式会社,
+                GOOBNE_CHICKEN_曙橋店,
+                AAA_TOHO_TRADING,
+                株式会社ＡＡＡ,
+                AAA_ANNEX_GALLERY,
+                AAA_NIHON_株式会社,
+                GOOBNE_CHICKEN_曙橋店,
+                AAA_TOHO_TRADING,
+                株式会社ＡＡＡ,
+                AAA_ANNEX_GALLERY,
+                AAA_NIHON_株式会社,
+                GOOBNE_CHICKEN_曙橋店
             )
         )
     }

@@ -19,12 +19,13 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val locationModel: LocationModel,
-    private val geoSearchModel: GeoSearchModel
+    private val locationModel: LocationModel, private val geoSearchModel: GeoSearchModel
 ) : ViewModel() {
     companion object {
         private const val TAG = "MainViewModel"
@@ -49,6 +50,17 @@ class MainViewModel @Inject constructor(
          */
         GOTO_DESTINATION
     }
+
+    /**
+     * 전체 이동 경로.
+     */
+    data class Navigation(
+        val origin: Location,
+        val destination: Location,
+        val parking: Location,
+        val drive: List<Location>,
+        val walk: List<Location>
+    )
 
     /**
      * 위치정보 갱신 콜백.
@@ -92,6 +104,9 @@ class MainViewModel @Inject constructor(
     private var destinationSearchJob: Job? = null
 
     val parking = MutableStateFlow(listOf<RecommendItemLocation>())
+
+    private val navigationLock = Mutex()
+    val navigation = MutableStateFlow(mapOf<Location, Navigation>())
 
     val mapControl = MutableStateFlow<MapControl?>(null)
 
@@ -162,13 +177,21 @@ class MainViewModel @Inject constructor(
      * 주차장을 경유해서 목적지에 이르는 경로를 설정한다.
      *
      * @param here 현재 위치. 출발지.
-     * @param parking 주차장 목록. 경유지.
+     * @param parkings 주차장 목록. 경유지.
      * @param destination 목적지.
      */
-    private fun setNaviPath(here: GeoLocation, parking: List<Location>, destination: Location) {
-        val job = viewModelScope.launch {
-            parking.forEach { waypoint ->
-                geoSearchModel.searchPath(here, waypoint)
+    private fun setNaviPath(here: GeoLocation, parkings: List<Location>, destination: Location) {
+        val jobs = parkings.map { parking ->
+            viewModelScope.launch {
+                val walk = geoSearchModel.searchPath(parking, destination)
+                val drive = geoSearchModel.searchPath(here, parking)
+                val nav = Navigation(here, destination, parking, drive, walk)
+
+                navigationLock.withLock {
+                    val new = navigation.value.toMutableMap()
+                    new[parking] = nav
+                    navigation.emit(new)
+                }
             }
         }
     }
@@ -212,7 +235,6 @@ class MainViewModel @Inject constructor(
         locationModel.removeCallback(TAG)
     }
 
-    override fun toString() = "$TAG(overlay=${overlay.value}, here=${here.value}, " +
-            "destinationQuery=${destinationQuery.value}, destinationSearchResult=${destinationSearchResult.value}" +
-            "center=$center, zoom=$zoom)"
+    override fun toString() =
+        "$TAG(overlay=${overlay.value}, here=${here.value}, " + "destinationQuery=${destinationQuery.value}, destinationSearchResult=${destinationSearchResult.value}" + "center=$center, zoom=$zoom)"
 }

@@ -13,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.github.hemoptysisheart.parking.R
 import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.TAG_COMPOSE
 import com.github.hemoptysisheart.parking.app.ui.support.bitmapDescriptor
+import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel
 import com.github.hemoptysisheart.parking.core.logging.logArgs
 import com.github.hemoptysisheart.parking.core.model.dto.toLatLng
 import com.github.hemoptysisheart.parking.domain.Location
@@ -30,12 +31,16 @@ import com.google.maps.android.compose.*
 fun Map(
     destination: Location? = null,
     parking: List<RecommendItemLocation> = listOf(),
+    navigation: Map<Location, MainViewModel.Navigation> = mapOf(),
     cameraPositionState: CameraPositionState = rememberCameraPositionState(),
     onMapClick: (LatLng) -> Unit = { Log.v(TAG_COMPOSE, "#onMapClick called.") }
 ) {
     logArgs(
-        TAG_COMPOSE, "Map",
+        TAG_COMPOSE,
+        "Map",
         "destination" to destination,
+        "parking" to parking,
+        "navigation" to navigation,
         "cameraPositionState" to cameraPositionState,
         "onMapClick" to onMapClick
     )
@@ -56,8 +61,7 @@ fun Map(
     }
 
     GoogleMap(
-        modifier = Modifier
-            .fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
         cameraPositionState = cameraPositionState,
         properties = properties,
         uiSettings = uiSettings,
@@ -78,6 +82,12 @@ fun Map(
                 title = it.item.name,
                 icon = bitmapDescriptor(context, R.drawable.map_marker_parking)
             )
+
+            for (e in navigation.entries) {
+                Polyline(points = e.value.drive.map { dp ->
+                    LatLng(dp.latitude, dp.longitude)
+                })
+            }
         }
     }
 }

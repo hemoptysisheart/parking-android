@@ -3,6 +3,7 @@ package com.github.hemoptysisheart.parking.core.model
 import android.util.Log
 import com.github.hemoptysisheart.parking.core.logging.logArgs
 import com.github.hemoptysisheart.parking.core.model.dto.LocationGmpPlace
+import com.github.hemoptysisheart.parking.core.model.dto.LocationMapsLatLng
 import com.github.hemoptysisheart.parking.core.model.dto.PlaceSearchResult
 import com.github.hemoptysisheart.parking.domain.GeoLocation
 import com.github.hemoptysisheart.parking.domain.Location
@@ -69,7 +70,7 @@ class GeoSearchModelImpl(
         return result
     }
 
-    override suspend fun searchPath(origin: Location, destination: Location, mode: TravelMode) {
+    override suspend fun searchPath(origin: Location, destination: Location, mode: TravelMode): List<Location> {
         logArgs(TAG, "searchPath", "origin" to origin, "destination" to destination, "mode" to mode)
 
         val request = DirectionsApiRequest(gmpContext)
@@ -87,7 +88,14 @@ class GeoSearchModelImpl(
                 request.destination(LatLng(destination.latitude, destination.longitude))
         }
 
-        val result = request.await()
+        val path = request.await()
+            .routes[0]
+            .overviewPolyline
+            .decodePath()
+            .map { LocationMapsLatLng(it) }
+
+        Log.v(TAG, "#searchPath return : $path")
+        return path
     }
 
     override fun toString() = "$TAG(gmpContext=$gmpContext, timeProvider=$timeProvider)"

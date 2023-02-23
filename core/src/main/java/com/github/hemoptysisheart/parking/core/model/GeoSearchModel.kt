@@ -26,5 +26,5 @@ interface GeoSearchModel {
      * @param destination 목적지
      * @param mode 이동 수단
      */
-    suspend fun searchPath(origin: Location, destination: Location, mode: TravelMode = DRIVING)
+    suspend fun searchPath(origin: Location, destination: Location, mode: TravelMode = DRIVING): List<Location>
 }

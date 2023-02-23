@@ -45,6 +45,8 @@ fun MainScreen(
     val destinationQuery by viewModel.destinationQuery.collectAsStateWithLifecycle()
     val searchDestinationResult by viewModel.destinationSearchResult.collectAsStateWithLifecycle()
     val parking by viewModel.parking.collectAsStateWithLifecycle()
+    val navigation by viewModel.navigation.collectAsStateWithLifecycle()
+
     logVarsV(
         TAG_COMPOSE, "MainScreen",
         "overlay" to overlay,
@@ -52,7 +54,8 @@ fun MainScreen(
         "destination" to destination,
         "destinationQuery" to destinationQuery,
         "searchDestinationResult" to searchDestinationResult,
-        "parking" to parking
+        "parking" to parking,
+        "navigation" to navigation
     )
 
     val mapControl by viewModel.mapControl.collectAsStateWithLifecycle()
@@ -113,6 +116,7 @@ fun MainScreen(
         Map(
             destination = destination,
             parking = parking,
+            navigation = navigation,
             cameraPositionState = cameraPositionState
         ) {
             when (overlay) {

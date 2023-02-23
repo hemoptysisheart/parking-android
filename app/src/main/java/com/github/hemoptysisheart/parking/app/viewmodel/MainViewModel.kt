@@ -6,6 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.github.hemoptysisheart.parking.app.ui.state.OverlayState.*
 import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel.MapControl.GOTO_DESTINATION
 import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel.MapControl.GOTO_HERE
+import com.github.hemoptysisheart.parking.core.client.google.dto.TransportationMode.DRIVING
+import com.github.hemoptysisheart.parking.core.client.google.dto.TransportationMode.WALKING
 import com.github.hemoptysisheart.parking.core.logging.logArgs
 import com.github.hemoptysisheart.parking.core.logging.logSet
 import com.github.hemoptysisheart.parking.core.model.GeoSearchModel
@@ -20,7 +22,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
 import javax.inject.Inject
 
 @HiltViewModel
@@ -183,15 +184,8 @@ class MainViewModel @Inject constructor(
     private fun setNaviPath(here: GeoLocation, parkings: List<Location>, destination: Location) {
         val jobs = parkings.map { parking ->
             viewModelScope.launch {
-                val walk = geoSearchModel.searchPath(parking, destination)
-                val drive = geoSearchModel.searchPath(here, parking)
-                val nav = Navigation(here, destination, parking, drive, walk)
-
-                navigationLock.withLock {
-                    val new = navigation.value.toMutableMap()
-                    new[parking] = nav
-                    navigation.emit(new)
-                }
+                geoSearchModel.searchPath(parking, destination, WALKING)
+                geoSearchModel.searchPath(here, parking, DRIVING)
             }
         }
     }

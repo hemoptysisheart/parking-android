@@ -1,5 +1,7 @@
 package com.github.hemoptysisheart.parking.core.client.google.dto
 
+import android.net.Uri
+
 /**
  * [DirectionsTransitAgency](https://developers.google.com/maps/documentation/directions/get-directions#DirectionsTransitAgency)
  */
@@ -15,5 +17,5 @@ data class DirectionsTransitAgency(
     /**
      * The transit agency's URL.
      */
-    val url: String?
+    val url: Uri?
 )

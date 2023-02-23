@@ -1,7 +1,5 @@
 package com.github.hemoptysisheart.parking.core.client.google.response
 
-import com.github.hemoptysisheart.parking.core.client.google.dto.Maneuver
-import com.github.hemoptysisheart.parking.core.client.google.dto.TravelMode
 import com.google.gson.annotations.SerializedName
 
 /**
@@ -69,7 +67,7 @@ data class DirectionsStepResp(
      * for more information.
      */
     @SerializedName("travel_mode")
-    var travelMode: TravelMode? = null,
+    var travelMode: String? = null,
     /**
      * Contains the distance covered by this step until the next step. This field may be undefined if the distance is
      * unknown.
@@ -84,7 +82,7 @@ data class DirectionsStepResp(
      * change, and new values may be introduced without prior notice.
      */
     @SerializedName("maneuver")
-    var maneuver: Maneuver? = null,
+    var maneuver: String? = null,
     /**
      * Contains detailed directions for walking or driving steps in transit directions. Substeps are only available
      * when `travel_mode` is set to "transit". The inner steps array is of the same type as steps.

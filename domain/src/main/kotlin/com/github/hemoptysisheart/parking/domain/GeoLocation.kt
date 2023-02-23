@@ -34,4 +34,6 @@ data class GeoLocation(
     override val description: String? = null
 
     override fun toSimpleString() = "$latitude,$longitude"
+
+    override fun toString() = "($latitude, $longitude)"
 }

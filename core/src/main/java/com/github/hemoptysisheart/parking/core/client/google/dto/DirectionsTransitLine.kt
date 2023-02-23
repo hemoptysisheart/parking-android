@@ -1,6 +1,6 @@
 package com.github.hemoptysisheart.parking.core.client.google.dto
 
-import com.github.hemoptysisheart.parking.core.client.google.response.DirectionsTransitVehicleResp
+import android.net.Uri
 
 /**
  * [DirectionsTransitLine](https://developers.google.com/maps/documentation/directions/get-directions#DirectionsTransitLine)
@@ -24,7 +24,7 @@ data class DirectionsTransitLine(
     /**
      * Contains the URL for the icon associated with this line.
      */
-    val icon: String? = null,
+    val icon: Uri? = null,
     /**
      * The short name of this transit line. This will normally be a line number, such as "M7" or "355".
      */
@@ -36,12 +36,12 @@ data class DirectionsTransitLine(
     /**
      * Contains the URL for this transit line as provided by the transit agency.
      */
-    val url: String? = null,
+    val url: Uri? = null,
     /**
      *The type of vehicle that operates on this transit line.
      *
      * See [DirectionsTransitVehicle](https://developers.google.com/maps/documentation/directions/get-directions#DirectionsTransitVehicle)
      * for more information.
      */
-    val vehicle: DirectionsTransitVehicleResp? = null
+    val vehicle: DirectionsTransitVehicle? = null
 )

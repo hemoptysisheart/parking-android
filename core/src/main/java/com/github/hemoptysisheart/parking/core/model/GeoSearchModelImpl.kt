@@ -72,6 +72,7 @@ class GeoSearchModelImpl(
     }
 
     private fun Location.toPlaceDescriptor() = when (this) {
+        is LocationGmpPlace -> PlaceDescriptor(placeId = place.placeId)
         else -> PlaceDescriptor(geoLocation = toGeoLocation())
     }
 
@@ -85,6 +86,7 @@ class GeoSearchModelImpl(
             transportationMode = mode
         )
         val result = mapsClient.directions(params, now)
+        Log.d(TAG, "#searchPath : result=$result")
     }
 
     override fun toString() = "$TAG(placesClient=$mapsClient, timeProvider=$timeProvider)"

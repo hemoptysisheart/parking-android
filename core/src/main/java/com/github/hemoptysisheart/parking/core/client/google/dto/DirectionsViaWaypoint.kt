@@ -1,5 +1,7 @@
 package com.github.hemoptysisheart.parking.core.client.google.dto
 
+import com.github.hemoptysisheart.parking.domain.GeoLocation
+
 /**
  * [DirectionsViaWaypoint](https://developers.google.com/maps/documentation/directions/get-directions?hl=ko#DirectionsViaWaypoint)
  */
@@ -10,7 +12,7 @@ data class DirectionsViaWaypoint(
      * See [LatLngLiteral](https://developers.google.com/maps/documentation/directions/get-directions#LatLngLiteral)
      * for more information.
      */
-    val location: LatLng?,
+    val location: GeoLocation?,
     /**
      * The index of the step containing the waypoint.
      */

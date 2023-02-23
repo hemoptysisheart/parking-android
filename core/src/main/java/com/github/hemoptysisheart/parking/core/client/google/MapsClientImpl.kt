@@ -96,7 +96,7 @@ class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
             status = DirectionsStatus.valueOf(response.status!!),
             availableTravelModes = response.availableTravelModes?.map { TravelMode.valueOf(it) },
             routes = response.routes!!.map { DtoConverter.toDirectionsRoute(it) },
-            geocodedWaypoints = response.geocodedWaypoints.map { toDirectionsGeocodedWaypoint(it) },
+            geocodedWaypoints = response.geocodedWaypoints?.map { toDirectionsGeocodedWaypoint(it) },
             errorMessage = response.errorMessage
         )
 

@@ -1,5 +1,7 @@
 package com.github.hemoptysisheart.parking.core.client.google.dto
 
+import android.icu.util.Currency
+
 /**
  * [Fare](https://developers.google.com/maps/documentation/directions/get-directions#Fare)
  *
@@ -10,7 +12,7 @@ data class Fare(
      * An [ISO 4217 currency code](https://en.wikipedia.org/wiki/ISO_4217) indicating the currency that the amount is
      * expressed in.
      */
-    val currency: String,
+    val currency: Currency,
     /**
      * The total fare amount, formatted in the requested language.
      */

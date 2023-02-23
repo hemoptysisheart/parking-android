@@ -11,6 +11,7 @@
 5. [`DTO`와 `Resp`](dto%20and%20resp.md)
 6. [Jetpack Compose 호이스팅](Jetpack%20Compose%20hoisting.md)
 7. [`@Preview` as a Unit Test](Preview%20as%20a%20Unit%20Test.md)
+8. [Google Maps API Client](Google%20Maps%20API%20Client.md)
 
 ## 참고
 

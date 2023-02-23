@@ -1,11 +1,11 @@
 package com.github.hemoptysisheart.parking.app.ui.preview
 
+import com.github.hemoptysisheart.parking.core.client.google.dto.TransportationMode
 import com.github.hemoptysisheart.parking.core.model.GeoSearchModel
 import com.github.hemoptysisheart.parking.core.model.LocationModel
 import com.github.hemoptysisheart.parking.core.model.dto.PlaceSearchResult
 import com.github.hemoptysisheart.parking.domain.GeoLocation
 import com.github.hemoptysisheart.parking.domain.Location
-import com.google.maps.model.TravelMode
 
 object PreviewModel {
     val LOCATION_MODEL = object : LocationModel {
@@ -25,7 +25,7 @@ object PreviewModel {
             return PlaceSearchResult(destination.toGeoLocation(), null, listOf(), null)
         }
 
-        override suspend fun searchPath(origin: Location, destination: Location, mode: TravelMode) {
+        override suspend fun searchPath(origin: Location, destination: Location, mode: TransportationMode) {
         }
     }
 }

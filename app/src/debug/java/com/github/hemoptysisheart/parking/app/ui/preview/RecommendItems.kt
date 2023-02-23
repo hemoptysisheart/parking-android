@@ -1,16 +1,21 @@
 package com.github.hemoptysisheart.parking.app.ui.preview
 
+import com.github.hemoptysisheart.parking.app.ui.preview.Locations.LOCATION_AAA_ANNEX_GALLERY
+import com.github.hemoptysisheart.parking.app.ui.preview.Locations.LOCATION_AAA_NIHON_株式会社
+import com.github.hemoptysisheart.parking.app.ui.preview.Locations.LOCATION_AAA_TOHO_TRADING
+import com.github.hemoptysisheart.parking.app.ui.preview.Locations.LOCATION_GOOBNE_CHICKEN_曙橋店
+import com.github.hemoptysisheart.parking.app.ui.preview.Locations.LOCATION_株式会社ＡＡＡ
 import com.github.hemoptysisheart.parking.domain.RecommendItemLocation
 
 @Suppress("NonAsciiCharacters")
 object RecommendItems {
-    val AAA_TOHO_TRADING = RecommendItemLocation(Locations.AAA_TOHO_TRADING)
+    val ITEM_AAA_TOHO_TRADING = RecommendItemLocation(LOCATION_AAA_TOHO_TRADING)
 
-    val 株式会社ＡＡＡ = RecommendItemLocation(Locations.株式会社ＡＡＡ)
+    val ITEM_株式会社ＡＡＡ = RecommendItemLocation(LOCATION_株式会社ＡＡＡ)
 
-    val AAA_ANNEX_GALLERY = RecommendItemLocation(Locations.AAA_ANNEX_GALLERY)
+    val ITEM_AAA_ANNEX_GALLERY = RecommendItemLocation(LOCATION_AAA_ANNEX_GALLERY)
 
-    val AAA_NIHON_株式会社 = RecommendItemLocation(Locations.AAA_NIHON_株式会社)
+    val ITEM_AAA_NIHON_株式会社 = RecommendItemLocation(LOCATION_AAA_NIHON_株式会社)
 
-    val GOOBNE_CHICKEN_曙橋店 = RecommendItemLocation(Locations.GOOBNE_CHICKEN_曙橋店)
+    val ITEM_GOOBNE_CHICKEN_曙橋店 = RecommendItemLocation(LOCATION_GOOBNE_CHICKEN_曙橋店)
 }

@@ -21,7 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.TAG_COMPOSE
-import com.github.hemoptysisheart.parking.app.ui.preview.Locations.株式会社ＡＡＡ
+import com.github.hemoptysisheart.parking.app.ui.preview.Locations.LOCATION_株式会社ＡＡＡ
 import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 
@@ -80,6 +80,6 @@ fun preview_MapOverlayCollapseHeader_destinationNull() {
 @SuppressLint("ComposableNaming")
 fun preview_MapOverlayCollapseHeader_withDestination() {
     ParkingTheme {
-        MapOverlayCollapseHeader(株式会社ＡＡＡ)
+        MapOverlayCollapseHeader(LOCATION_株式会社ＡＡＡ)
     }
 }

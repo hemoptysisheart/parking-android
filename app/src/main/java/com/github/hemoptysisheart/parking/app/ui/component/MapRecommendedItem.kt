@@ -11,7 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.TAG_COMPOSE
-import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.株式会社ＡＡＡ
+import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.ITEM_株式会社ＡＡＡ
 import com.github.hemoptysisheart.parking.domain.RecommendItem
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 
@@ -40,6 +40,6 @@ fun MapRecommendedItem(
 @SuppressLint("ComposableNaming")
 fun preview_MapRecommendedItem_GmpPlace() {
     ParkingTheme {
-        MapRecommendedItem(株式会社ＡＡＡ)
+        MapRecommendedItem(ITEM_株式会社ＡＡＡ)
     }
 }

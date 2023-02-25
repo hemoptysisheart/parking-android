@@ -19,6 +19,7 @@ import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.ITEM_AAA
 import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.ITEM_GOOBNE_CHICKEN_曙橋店
 import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.ITEM_株式会社ＡＡＡ
 import com.github.hemoptysisheart.parking.core.logging.logArgs
+import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.domain.RecommendItem
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 
@@ -26,6 +27,7 @@ import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 fun MapOverlayExtend(
     destinationQuery: String = "",
     searchDestinationResult: List<RecommendItem<*>> = listOf(),
+    distanceCalculator: (Location) -> Double = { 12345.6 },
     onDestinationQueryChange: (String) -> Unit = {},
     onSelectRecommend: (RecommendItem<*>) -> Unit = {},
     onCollapse: () -> Unit = { }
@@ -55,7 +57,7 @@ fun MapOverlayExtend(
                         .background(Color.LightGray)
                 )
             }
-            MapRecommendedItem(item, onSelectRecommend)
+            MapRecommendedItem(item,distanceCalculator, onSelectRecommend)
         }
     }
 }

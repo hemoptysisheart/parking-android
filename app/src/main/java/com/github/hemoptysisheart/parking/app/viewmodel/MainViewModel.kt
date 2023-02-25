@@ -105,7 +105,8 @@ class MainViewModel @Inject constructor(
 
     val parkingList = MutableStateFlow(listOf<RecommendItemLocation>())
 
-    val routeList = combineTransform(here, parkingList, destination) { here, parkingList, destination ->
+    val routeList = combineTransform(parkingList, destination) { parkingList, destination ->
+        val here = this@MainViewModel.here.value
         if (null == here || null == destination) {
             emit(listOf())
         } else {

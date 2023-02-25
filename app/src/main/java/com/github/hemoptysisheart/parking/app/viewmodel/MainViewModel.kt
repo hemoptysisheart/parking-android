@@ -12,16 +12,15 @@ import com.github.hemoptysisheart.parking.core.logging.logArgs
 import com.github.hemoptysisheart.parking.core.logging.logSet
 import com.github.hemoptysisheart.parking.core.model.GeoSearchModel
 import com.github.hemoptysisheart.parking.core.model.LocationModel
-import com.github.hemoptysisheart.parking.domain.GeoLocation
-import com.github.hemoptysisheart.parking.domain.Location
-import com.github.hemoptysisheart.parking.domain.RecommendItem
-import com.github.hemoptysisheart.parking.domain.RecommendItemLocation
+import com.github.hemoptysisheart.parking.domain.*
 import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.combineTransform
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.sync.Mutex
 import javax.inject.Inject
 
 @HiltViewModel
@@ -104,10 +103,15 @@ class MainViewModel @Inject constructor(
     private val destinationSearchJobLock = Any()
     private var destinationSearchJob: Job? = null
 
-    val parking = MutableStateFlow(listOf<RecommendItemLocation>())
+    val parkingList = MutableStateFlow(listOf<RecommendItemLocation>())
 
-    private val navigationLock = Mutex()
-    val navigation = MutableStateFlow(mapOf<Location, Navigation>())
+    val routeList = combineTransform(here, parkingList, destination) { here, parkingList, destination ->
+        if (null == here || null == destination) {
+            emit(listOf())
+        } else {
+            emit(parkingList.map { parking -> searchRoute(here, parking.item, destination) })
+        }
+    }.stateIn(viewModelScope, SharingStarted.Lazily, listOf())
 
     val mapControl = MutableStateFlow<MapControl?>(null)
 
@@ -168,26 +172,20 @@ class MainViewModel @Inject constructor(
 
         viewModelScope.launch {
             val result = geoSearchModel.searchParking(location)
-            parking.emit(result.places)
-
-            setNaviPath(here.value!!, result.places.map { it.item }, destination.value!!)
+            parkingList.emit(result.places)
         }
     }
 
-    /**
-     * 주차장을 경유해서 목적지에 이르는 경로를 설정한다.
-     *
-     * @param here 현재 위치. 출발지.
-     * @param parkings 주차장 목록. 경유지.
-     * @param destination 목적지.
-     */
-    private fun setNaviPath(here: GeoLocation, parkings: List<Location>, destination: Location) {
-        val jobs = parkings.map { parking ->
-            viewModelScope.launch {
-                geoSearchModel.searchPath(parking, destination, WALKING)
-                geoSearchModel.searchPath(here, parking, DRIVING)
-            }
-        }
+    private suspend fun searchRoute(here: GeoLocation, parking: Location, destination: Location): Route {
+        Log.v(TAG, "#searchRoute args : here=$here, parking=$parking, destination=$destination")
+
+        val route = Route(here, parking, destination)
+
+        geoSearchModel.searchPath(here, parking, DRIVING)
+        geoSearchModel.searchPath(parking, destination, WALKING)
+
+        Log.v(TAG, "#searchRoute return : $route")
+        return route
     }
 
     fun onHideOverlay() {

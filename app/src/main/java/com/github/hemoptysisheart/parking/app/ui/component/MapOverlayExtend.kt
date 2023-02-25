@@ -28,8 +28,8 @@ fun MapOverlayExtend(
     destinationQuery: String = "",
     searchDestinationResult: List<RecommendItem<*>> = listOf(),
     distanceCalculator: (Location) -> Double = { 12345.6 },
-    onDestinationQueryChange: (String) -> Unit = {},
-    onSelectRecommend: (RecommendItem<*>) -> Unit = {},
+    onDestinationQueryChange: (String) -> Unit = { },
+    onSelectRecommend: (RecommendItem<*>) -> Unit = { },
     onCollapse: () -> Unit = { }
 ) {
     logArgs(
@@ -57,7 +57,7 @@ fun MapOverlayExtend(
                         .background(Color.LightGray)
                 )
             }
-            MapRecommendedItem(item,distanceCalculator, onSelectRecommend)
+            MapRecommendedItem(item, distanceCalculator, onSelectRecommend)
         }
     }
 }

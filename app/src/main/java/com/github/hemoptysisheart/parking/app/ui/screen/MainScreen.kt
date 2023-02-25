@@ -32,6 +32,9 @@ import com.google.maps.android.compose.rememberCameraPositionState
 
 /**
  * 메인 화면 UI.
+ *
+ * 1. 주요 레이아웃 정리.
+ * 2. UI 상태 호이스팅.
  */
 @Composable
 fun MainScreen(
@@ -44,7 +47,8 @@ fun MainScreen(
     val destination by viewModel.destination.collectAsStateWithLifecycle()
     val destinationQuery by viewModel.destinationQuery.collectAsStateWithLifecycle()
     val searchDestinationResult by viewModel.destinationSearchResult.collectAsStateWithLifecycle()
-    val parking by viewModel.parkingList.collectAsStateWithLifecycle()
+    val parkingList by viewModel.parkingList.collectAsStateWithLifecycle()
+    val routeList by viewModel.routeList.collectAsStateWithLifecycle()
 
     logVarsV(
         TAG_COMPOSE,
@@ -54,7 +58,8 @@ fun MainScreen(
         "destination" to destination,
         "destinationQuery" to destinationQuery,
         "searchDestinationResult" to searchDestinationResult,
-        "parking" to parking
+        "parkingList" to parkingList,
+        "routeList" to routeList
     )
 
     val mapControl by viewModel.mapControl.collectAsStateWithLifecycle()
@@ -114,7 +119,7 @@ fun MainScreen(
         }
 
         Map(
-            destination = destination, parking = parking, cameraPositionState = cameraPositionState
+            destination = destination, parkingList = parkingList, cameraPositionState = cameraPositionState
         ) {
             when (overlay) {
                 HIDE ->

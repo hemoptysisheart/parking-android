@@ -61,14 +61,16 @@ fun MainScreen(
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(LatLng(0.0, 0.0), MainViewModel.DEFAULT_ZOOM_LEVEL)
     }
-    Log.w(TAG_COMPOSE, "#MainScreen mapControl=$mapControl")
 
     mapControl?.let {
-        @Suppress("REDUNDANT_ELSE_IN_WHEN") when (it) {
-            GOTO_HERE -> cameraPositionState.position = CameraPosition.fromLatLngZoom(here!!.toLatLng(), viewModel.zoom)
-            GOTO_DESTINATION -> cameraPositionState.position =
-                CameraPosition.fromLatLngZoom(destination!!.toLatLng(), viewModel.zoom)
-            else -> Log.e(TAG_COMPOSE, "#MainScreen unsupported map control : mapControl=$mapControl")
+        @Suppress("REDUNDANT_ELSE_IN_WHEN")
+        when (it) {
+            GOTO_HERE ->
+                cameraPositionState.position = CameraPosition.fromLatLngZoom(here!!.toLatLng(), viewModel.zoom)
+            GOTO_DESTINATION ->
+                cameraPositionState.position = CameraPosition.fromLatLngZoom(destination!!.toLatLng(), viewModel.zoom)
+            else ->
+                Log.e(TAG_COMPOSE, "#MainScreen unsupported map control : mapControl=$mapControl")
         }
         viewModel.done(it)
     }
@@ -79,31 +81,35 @@ fun MainScreen(
 
     Box(modifier = Modifier.fillMaxSize()) {
         when (overlay) {
-            COLLAPSE -> MapOverlayCollapse(destination = destination, onExtend = { viewModel.onExtendOverlay() })
-            EXTEND -> MapOverlayExtend(destinationQuery = destinationQuery,
-                searchDestinationResult = searchDestinationResult,
-                distanceCalculator = {
-                    Log.d(TAG_COMPOSE, "#distanceCalculator args : location=$it")
-                    here?.run {
-                        val result = FloatArray(3)
-                        android.location.Location.distanceBetween(
-                            latitude, longitude, it.latitude, it.longitude, result
-                        )
-                        result[0].toDouble()
-                    } ?: 0.0
-                },
-                onDestinationQueryChange = { viewModel.searchDestination(it) },
-                onSelectRecommend = {
-                    it.item.let { item ->
-                        when (item) {
-                            is Location -> viewModel.setDestination(item)
-                            else -> Log.e(
-                                TAG_COMPOSE, "#MainScreen unsupported recommended item type : recommended=$it"
+            COLLAPSE ->
+                MapOverlayCollapse(destination = destination, onExtend = { viewModel.onExtendOverlay() })
+            EXTEND ->
+                MapOverlayExtend(
+                    destinationQuery = destinationQuery,
+                    searchDestinationResult = searchDestinationResult,
+                    distanceCalculator = {
+                        Log.d(TAG_COMPOSE, "#distanceCalculator args : location=$it")
+                        here?.run {
+                            val result = FloatArray(3)
+                            android.location.Location.distanceBetween(
+                                latitude, longitude, it.latitude, it.longitude, result
                             )
+                            result[0].toDouble()
+                        } ?: 0.0
+                    },
+                    onDestinationQueryChange = { viewModel.searchDestination(it) },
+                    onSelectRecommend = {
+                        it.item.let { item ->
+                            when (item) {
+                                is Location ->
+                                    viewModel.setDestination(item)
+                                else ->
+                                    Log.e(TAG_COMPOSE, "#MainScreen unsupported item type : recommended=$it")
+                            }
                         }
-                    }
-                },
-                onCollapse = { viewModel.onCollapseOverlay() })
+                    },
+                    onCollapse = { viewModel.onCollapseOverlay() }
+                )
             else -> {}
         }
 
@@ -111,9 +117,12 @@ fun MainScreen(
             destination = destination, parking = parking, cameraPositionState = cameraPositionState
         ) {
             when (overlay) {
-                HIDE -> viewModel.onShowOverlay()
-                COLLAPSE -> viewModel.onHideOverlay()
-                else -> Log.e(TAG_COMPOSE, "#onMapClick illegal overlay state : overlay=$overlay")
+                HIDE ->
+                    viewModel.onShowOverlay()
+                COLLAPSE ->
+                    viewModel.onHideOverlay()
+                else ->
+                    Log.e(TAG_COMPOSE, "#onMapClick illegal overlay state : overlay=$overlay")
             }
         }
     }

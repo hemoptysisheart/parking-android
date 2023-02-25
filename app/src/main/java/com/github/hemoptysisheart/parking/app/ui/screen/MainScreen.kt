@@ -44,13 +44,15 @@ fun MainScreen(
     val destination by viewModel.destination.collectAsStateWithLifecycle()
     val destinationQuery by viewModel.destinationQuery.collectAsStateWithLifecycle()
     val searchDestinationResult by viewModel.destinationSearchResult.collectAsStateWithLifecycle()
+    val parking by viewModel.parking.collectAsStateWithLifecycle()
     logVarsV(
         TAG_COMPOSE, "MainScreen",
         "overlay" to overlay,
         "here" to here,
         "destination" to destination,
         "destinationQuery" to destinationQuery,
-        "searchDestinationResult" to searchDestinationResult
+        "searchDestinationResult" to searchDestinationResult,
+        "parking" to parking
     )
 
     val mapControl by viewModel.mapControl.collectAsStateWithLifecycle()
@@ -110,18 +112,18 @@ fun MainScreen(
 
         Map(
             destination = destination,
-            cameraPositionState = cameraPositionState,
-            onMapClick = {
-                when (overlay) {
-                    HIDE ->
-                        viewModel.onShowOverlay()
-                    COLLAPSE ->
-                        viewModel.onHideOverlay()
-                    else ->
-                        Log.e(TAG_COMPOSE, "#onMapClick illegal overlay state : overlay=$overlay")
-                }
+            parking = parking,
+            cameraPositionState = cameraPositionState
+        ) {
+            when (overlay) {
+                HIDE ->
+                    viewModel.onShowOverlay()
+                COLLAPSE ->
+                    viewModel.onHideOverlay()
+                else ->
+                    Log.e(TAG_COMPOSE, "#onMapClick illegal overlay state : overlay=$overlay")
             }
-        )
+        }
     }
 }
 

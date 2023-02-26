@@ -11,6 +11,7 @@ import com.github.hemoptysisheart.parking.core.client.google.dto.TransportationM
 import com.github.hemoptysisheart.parking.core.logging.logArgs
 import com.github.hemoptysisheart.parking.core.model.dto.LocationGmpPlace
 import com.github.hemoptysisheart.parking.core.model.dto.PlaceSearchResult
+import com.github.hemoptysisheart.parking.core.model.dto.RouteSearchResult
 import com.github.hemoptysisheart.parking.domain.GeoLocation
 import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.domain.RecommendItemLocation
@@ -81,8 +82,12 @@ class GeoSearchModelImpl(
         else -> PlaceDescriptor(geoLocation = toGeoLocation())
     }
 
-    override suspend fun searchPath(origin: Location, destination: Location, mode: TransportationMode) {
-        logArgs(TAG, "searchPath", "origin" to origin, "destination" to destination, "mode" to mode)
+    override suspend fun searchRoute(
+        origin: Location,
+        destination: Location,
+        mode: TransportationMode
+    ): RouteSearchResult {
+        logArgs(TAG, "searchRoute", "origin" to origin, "destination" to destination, "mode" to mode)
 
         val now = Instant.now()
         val params = DirectionsParams(
@@ -91,7 +96,13 @@ class GeoSearchModelImpl(
             transportationMode = mode
         )
         val result = mapsClient.directions(params, now)
-        Log.d(TAG, "#searchPath : result=$result")
+
+        val route = RouteSearchResult(
+            origin, destination, mode,
+            result.routes[0]
+        )
+        Log.v(TAG, "#searchRoute return : $route")
+        return route
     }
 
     override fun toString() = "$TAG(placesClient=$mapsClient, timeProvider=$timeProvider)"

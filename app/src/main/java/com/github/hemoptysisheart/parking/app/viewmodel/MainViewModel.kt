@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.github.hemoptysisheart.parking.app.ui.state.OverlayState.*
 import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel.MapControl.GOTO_DESTINATION
 import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel.MapControl.GOTO_HERE
+import com.github.hemoptysisheart.parking.core.client.google.dto.DirectionsRoute
 import com.github.hemoptysisheart.parking.core.client.google.dto.TransportationMode.DRIVING
 import com.github.hemoptysisheart.parking.core.client.google.dto.TransportationMode.WALKING
 import com.github.hemoptysisheart.parking.core.logging.logArgs
@@ -110,7 +111,7 @@ class MainViewModel @Inject constructor(
         if (null == here || null == destination) {
             emit(listOf())
         } else {
-            emit(parkingList.map { parking -> searchRoute(here, parking.item, destination) })
+            emit(parkingList.mapNotNull { parking -> searchRoute(here, parking.item, destination) })
         }
     }.stateIn(viewModelScope, SharingStarted.Lazily, listOf())
 
@@ -177,13 +178,27 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    private suspend fun searchRoute(here: GeoLocation, parking: Location, destination: Location): Route {
+    private suspend fun searchRoute(
+        here: GeoLocation,
+        parking: Location,
+        destination: Location
+    ): Route<DirectionsRoute>? {
         Log.v(TAG, "#searchRoute args : here=$here, parking=$parking, destination=$destination")
 
-        val route = Route(here, parking, destination)
-
-        geoSearchModel.searchPath(here, parking, DRIVING)
-        geoSearchModel.searchPath(parking, destination, WALKING)
+        val driving = geoSearchModel.searchRoute(here, parking, DRIVING).route
+        val walking = geoSearchModel.searchRoute(parking, destination, WALKING).route
+        val route = if (null == driving || null == walking) {
+            Log.w(
+                TAG, "#searchRoute route does not exist : " +
+                        "here=$here, parking=$parking, destination=$destination, driving=$driving, walking=$walking"
+            )
+            null
+        } else {
+            object : Route<DirectionsRoute>(here, parking, destination) {
+                override var driving: DirectionsRoute = driving
+                override var walking: DirectionsRoute = walking
+            }
+        }
 
         Log.v(TAG, "#searchRoute return : $route")
         return route

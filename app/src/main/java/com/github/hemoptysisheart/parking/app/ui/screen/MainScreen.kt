@@ -119,7 +119,10 @@ fun MainScreen(
         }
 
         Map(
-            destination = destination, parkingList = parkingList, cameraPositionState = cameraPositionState
+            destination = destination,
+            parkingList = parkingList,
+            routeList = routeList,
+            cameraPositionState = cameraPositionState
         ) {
             when (overlay) {
                 HIDE ->

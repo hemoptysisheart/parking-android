@@ -1,8 +1,13 @@
 package com.github.hemoptysisheart.parking.core.model
 
 import android.util.Log
+import com.github.hemoptysisheart.parking.core.client.google.DirectionsParams
 import com.github.hemoptysisheart.parking.core.client.google.MapsClient
-import com.github.hemoptysisheart.parking.core.client.google.dto.*
+import com.github.hemoptysisheart.parking.core.client.google.NearbySearchParams
+import com.github.hemoptysisheart.parking.core.client.google.dto.PlaceDescriptor
+import com.github.hemoptysisheart.parking.core.client.google.dto.PlaceTypes
+import com.github.hemoptysisheart.parking.core.client.google.dto.RankBy
+import com.github.hemoptysisheart.parking.core.client.google.dto.TransportationMode
 import com.github.hemoptysisheart.parking.core.logging.logArgs
 import com.github.hemoptysisheart.parking.core.model.dto.LocationGmpPlace
 import com.github.hemoptysisheart.parking.core.model.dto.PlaceSearchResult

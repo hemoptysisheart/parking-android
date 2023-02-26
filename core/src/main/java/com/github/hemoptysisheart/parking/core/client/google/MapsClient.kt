@@ -1,9 +1,5 @@
 package com.github.hemoptysisheart.parking.core.client.google
 
-import com.github.hemoptysisheart.parking.core.client.google.dto.DirectionsParams
-import com.github.hemoptysisheart.parking.core.client.google.dto.DirectionsSearchResult
-import com.github.hemoptysisheart.parking.core.client.google.dto.NearbySearchParams
-import com.github.hemoptysisheart.parking.core.client.google.dto.NearbySearchResult
 import java.time.Instant
 
 /**

@@ -1,4 +1,7 @@
-package com.github.hemoptysisheart.parking.core.client.google.dto
+package com.github.hemoptysisheart.parking.core.client.google
+
+import com.github.hemoptysisheart.parking.core.client.google.dto.Place
+import com.github.hemoptysisheart.parking.core.client.google.dto.ResultMeta
 
 /**
  * 장소 페이지.

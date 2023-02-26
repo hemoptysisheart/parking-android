@@ -4,7 +4,9 @@ import com.github.hemoptysisheart.domain.d
 import com.github.hemoptysisheart.domain.i
 import com.github.hemoptysisheart.domain.logger
 import com.github.hemoptysisheart.parking.core.client.google.DtoConverter.toDirectionsGeocodedWaypoint
-import com.github.hemoptysisheart.parking.core.client.google.dto.*
+import com.github.hemoptysisheart.parking.core.client.google.dto.DirectionsStatus
+import com.github.hemoptysisheart.parking.core.client.google.dto.ResultMeta
+import com.github.hemoptysisheart.parking.core.client.google.dto.TravelMode
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

@@ -1,4 +1,6 @@
-package com.github.hemoptysisheart.parking.core.client.google.dto
+package com.github.hemoptysisheart.parking.core.client.google
+
+import com.github.hemoptysisheart.parking.core.client.google.dto.*
 
 /**
  * [DirectionsResponse](https://developers.google.com/maps/documentation/directions/get-directions#DirectionsResponse)

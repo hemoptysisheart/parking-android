@@ -26,9 +26,9 @@ class GeoSearchModelImpl(
         private const val TAG = "GeoSearchModelImpl"
 
         /**
-         * 목적지 주변 주차장 검색 반경 기본값.
+         * 목적지 주변 주차장 검색 반경 기본값. meter 단위.
          */
-        const val SEARCH_PARKING_RADIUS = 500
+        const val SEARCH_PARKING_RADIUS = 200
     }
 
     override suspend fun searchDestination(center: GeoLocation, query: String): PlaceSearchResult {

@@ -58,7 +58,7 @@ fun Map(
         )
     }
     val properties by remember {
-        mutableStateOf(MapProperties(isBuildingEnabled = true, isMyLocationEnabled = true, isTrafficEnabled = true))
+        mutableStateOf(MapProperties(isBuildingEnabled = true, isMyLocationEnabled = true))
     }
 
     GoogleMap(

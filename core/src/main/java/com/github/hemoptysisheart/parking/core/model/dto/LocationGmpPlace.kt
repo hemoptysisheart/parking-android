@@ -1,10 +1,10 @@
 package com.github.hemoptysisheart.parking.core.model.dto
 
-import com.github.hemoptysisheart.parking.core.client.google.dto.PlaceDto
+import com.github.hemoptysisheart.parking.core.client.google.dto.Place
 import com.github.hemoptysisheart.parking.domain.Location
 
 class LocationGmpPlace(
-    val place: PlaceDto
+    val place: Place
 ) : Location {
     companion object {
         private val TAG = LocationGmpPlace::class.simpleName!!

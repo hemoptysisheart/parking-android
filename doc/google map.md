@@ -27,7 +27,17 @@
        ![Places API 사용자 인증 정보](asset/gcp/places%20api%20credential%201.png)
        ![Places API 사용자 인증 정보 - 키 종류](asset/gcp/places%20api%20credential%202.png)
        ![Places API 사용자 인증 정보 - 결과](asset/gcp/places%20api%20credential%203.png)
-5. 애플리케이션 설정.
+5. Directions API 설정.
+    1. [Directions API](https://console.cloud.google.com/apis/library/directions-backend.googleapis.com) -> `사용` 클릭.
+       ![Directions API](asset/gcp/gcp%20directions%20api.png)
+    2. [API list](https://console.cloud.google.com/google/maps-apis/api-list)에서 확인.
+       ![Directions API 활성화](asset/gcp/api%20list%20-%20directions%20api%20enabled.png)
+    3. API 키 활성화.
+       ![API 키 연결 - 1](asset/gcp/link%20key%20with%20directions%20api%20-%201.png)
+       ![API 키 연결 - 2](asset/gcp/link%20key%20with%20directions%20api%20-%202.png)
+       ![API 키 연결 - 3](asset/gcp/link%20key%20with%20directions%20api%20-%203.png)
+       ![API 키 연결 - 4](asset/gcp/link%20key%20with%20directions%20api%20-%204.png)
+6. 애플리케이션 설정.
     1. 의존성 추가
         - 플러그인 : `com.google.android.libraries.mapsplatform.secrets-gradle-plugin`
         - 라이브러리 :
@@ -36,6 +46,7 @@
        <?xml version="1.0" encoding="utf-8"?>
        <manifest xmlns:android="http://schemas.android.com/apk/res/android">
        
+           <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
            <uses-permission android:name="android.permission.INTERNET" />
@@ -43,8 +54,7 @@
            <application>
                <meta-data
                    android:name="com.google.android.geo.API_KEY"
-                   android:value="${GOOGLE_MAPS_API_KEY}" />
-               <!-- ... -->
+                   android:value="${GOOGLE_MAPS_PLATFORM_API_KEY}" />
            </application>
        </manifest>
        ```
@@ -53,7 +63,7 @@
         - 키 추가 : `<meta-data android:name="com.google.android.geo.API_KEY" android:value="${GOOGLE_MAPS_API_KEY}" />`
     3. 키 설정 추가 : [`sample-local.properties`](../sample-local.properties) 파일을 복사해서 `local.properties` 파일을 만들고, 설정을 변경.
        ![로컬 키 설정](asset/gcp/maps%20local%20config.png)
-6. 지도 표시
+7. 지도 표시
     1. 의존성 추가 : `com.google.maps.android:maps-compose`, `com.google.android.gms:play-services-maps`
     2. UI 추가 : [`MapLayout()`](../app/src/main/java/com/github/hemoptysisheart/parking/app/activity/MapActivity.kt)
 

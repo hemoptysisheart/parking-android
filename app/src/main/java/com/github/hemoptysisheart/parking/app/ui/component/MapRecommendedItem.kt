@@ -12,25 +12,36 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.TAG_COMPOSE
 import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.ITEM_株式会社ＡＡＡ
+import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.domain.RecommendItem
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
+import java.text.NumberFormat.getNumberInstance
 
 @Composable
 fun MapRecommendedItem(
     item: RecommendItem<*>,
+    distanceCalculator: (Location) -> Double = { 12345.0 },
     onSelectRecommend: (RecommendItem<*>) -> Unit = {}
 ) {
     Log.v(TAG_COMPOSE, "#MapRecommendedItem args : item=$item, onSelectRecommend=$onSelectRecommend")
 
-    Column(modifier = Modifier
-        .fillMaxWidth()
-        .clickable { onSelectRecommend(item) }
-        .padding(20.dp, 7.dp)
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onSelectRecommend(item) }
+            .padding(20.dp, 7.dp)
     ) {
         Text(text = item.summary)
         item.detail?.let { detail ->
             Spacer(modifier = Modifier.height(2.dp))
             Text(text = detail, color = Color.Gray)
+
+            item.item?.apply {
+                when (this) {
+                    is Location ->
+                        Text(text = "${getNumberInstance().format(distanceCalculator(this) / 1000.0)} Km")
+                }
+            }
         }
     }
 }

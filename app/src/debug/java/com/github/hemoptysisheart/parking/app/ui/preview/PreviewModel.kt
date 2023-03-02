@@ -1,8 +1,10 @@
 package com.github.hemoptysisheart.parking.app.ui.preview
 
+import com.github.hemoptysisheart.parking.core.client.google.dto.TransportationMode
+import com.github.hemoptysisheart.parking.core.model.GeoSearchModel
 import com.github.hemoptysisheart.parking.core.model.LocationModel
-import com.github.hemoptysisheart.parking.core.model.PlaceModel
 import com.github.hemoptysisheart.parking.core.model.dto.PlaceSearchResult
+import com.github.hemoptysisheart.parking.core.model.dto.RouteSearchResult
 import com.github.hemoptysisheart.parking.domain.GeoLocation
 import com.github.hemoptysisheart.parking.domain.Location
 
@@ -15,13 +17,21 @@ object PreviewModel {
         override fun removeCallback(key: String) {}
     }
 
-    val PLACE_MODEL = object : PlaceModel {
+    val PLACE_MODEL = object : GeoSearchModel {
         override suspend fun searchDestination(center: GeoLocation, query: String): PlaceSearchResult {
             return PlaceSearchResult(center, query, listOf(), null)
         }
 
-        override suspend fun searchParking(location: Location): PlaceSearchResult {
-            return PlaceSearchResult(location.toGeoLocation(), null, listOf(), null)
+        override suspend fun searchParking(destination: Location): PlaceSearchResult {
+            return PlaceSearchResult(destination.toGeoLocation(), null, listOf(), null)
+        }
+
+        override suspend fun searchRoute(
+            origin: Location,
+            destination: Location,
+            mode: TransportationMode
+        ): RouteSearchResult {
+            return RouteSearchResult(origin, destination, mode, null)
         }
     }
 }

@@ -1,0 +1,47 @@
+package com.github.hemoptysisheart.parking.core.client.google.dto
+
+import java.net.URL
+import java.time.Duration
+
+data class Place(
+    val addressComponents: List<AddressComponent>? = null,
+    val adrAddress: String? = null,
+    val businessStatus: BusinessStatus? = null,
+    val curbsidePickup: Boolean? = null,
+    val currentOpeningHours: PlaceOpeningHours? = null,
+    val delivery: Boolean? = null,
+    val dineIn: Boolean? = null,
+    val editorialSummary: PlaceEditorialSummary? = null,
+    val formattedAddress: String? = null,
+    val formattedPhoneNumber: String? = null,
+    val geometry: Geometry? = null,
+    val icon: URL? = null,
+    val iconBackgroundColor: String? = null,
+    val iconMaskBase: URL? = null,
+    val internationalPhoneNumber: String? = null,
+    val name: String? = null,
+    val openingHours: PlaceOpeningHours? = null,
+    val photos: List<PlacePhoto>? = null,
+    val placeId: String? = null,
+    val plusCode: PlusCode? = null,
+    val priceLv: PriceLevel? = null,
+    val rating: Double? = null,
+    val reservable: Boolean? = null,
+    val reviews: List<PlaceReview>? = null,
+    val secondaryOpeningHours: PlaceOpeningHours? = null,
+    val beer: Boolean? = null,
+    val breakfast: Boolean? = null,
+    val brunch: Boolean? = null,
+    val dinner: Boolean? = null,
+    val lunch: Boolean? = null,
+    val vegetarianFood: Boolean? = null,
+    val wine: Boolean? = null,
+    val takeout: Boolean? = null,
+    val types: Set<PlaceType>? = null,
+    val url: URL? = null,
+    val userRatingsTotal: Int? = null,
+    val utcOffset: Duration? = null,
+    val vicinity: String? = null,
+    val website: URL? = null,
+    val wheelchairAccessibleEntrance: Boolean? = null
+)

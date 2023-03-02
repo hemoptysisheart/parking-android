@@ -32,6 +32,9 @@ import com.google.maps.android.compose.rememberCameraPositionState
 
 /**
  * 메인 화면 UI.
+ *
+ * 1. 주요 레이아웃 정리.
+ * 2. UI 상태 호이스팅.
  */
 @Composable
 fun MainScreen(
@@ -44,32 +47,33 @@ fun MainScreen(
     val destination by viewModel.destination.collectAsStateWithLifecycle()
     val destinationQuery by viewModel.destinationQuery.collectAsStateWithLifecycle()
     val searchDestinationResult by viewModel.destinationSearchResult.collectAsStateWithLifecycle()
-    val parking by viewModel.parking.collectAsStateWithLifecycle()
+    val parkingList by viewModel.parkingList.collectAsStateWithLifecycle()
+    val routeList by viewModel.routeList.collectAsStateWithLifecycle()
+
     logVarsV(
-        TAG_COMPOSE, "MainScreen",
+        TAG_COMPOSE,
+        "MainScreen",
         "overlay" to overlay,
         "here" to here,
         "destination" to destination,
         "destinationQuery" to destinationQuery,
         "searchDestinationResult" to searchDestinationResult,
-        "parking" to parking
+        "parkingList" to parkingList,
+        "routeList" to routeList
     )
 
     val mapControl by viewModel.mapControl.collectAsStateWithLifecycle()
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(LatLng(0.0, 0.0), MainViewModel.DEFAULT_ZOOM_LEVEL)
     }
-    Log.w(TAG_COMPOSE, "#MainScreen mapControl=$mapControl")
 
     mapControl?.let {
         @Suppress("REDUNDANT_ELSE_IN_WHEN")
         when (it) {
             GOTO_HERE ->
-                cameraPositionState.position =
-                    CameraPosition.fromLatLngZoom(here!!.toLatLng(), viewModel.zoom)
+                cameraPositionState.position = CameraPosition.fromLatLngZoom(here!!.toLatLng(), viewModel.zoom)
             GOTO_DESTINATION ->
-                cameraPositionState.position =
-                    CameraPosition.fromLatLngZoom(destination!!.toLatLng(), viewModel.zoom)
+                cameraPositionState.position = CameraPosition.fromLatLngZoom(destination!!.toLatLng(), viewModel.zoom)
             else ->
                 Log.e(TAG_COMPOSE, "#MainScreen unsupported map control : mapControl=$mapControl")
         }
@@ -83,14 +87,21 @@ fun MainScreen(
     Box(modifier = Modifier.fillMaxSize()) {
         when (overlay) {
             COLLAPSE ->
-                MapOverlayCollapse(
-                    destination = destination,
-                    onExtend = { viewModel.onExtendOverlay() }
-                )
+                MapOverlayCollapse(destination = destination, onExtend = { viewModel.onExtendOverlay() })
             EXTEND ->
                 MapOverlayExtend(
                     destinationQuery = destinationQuery,
                     searchDestinationResult = searchDestinationResult,
+                    distanceCalculator = {
+                        Log.d(TAG_COMPOSE, "#distanceCalculator args : location=$it")
+                        here?.run {
+                            val result = FloatArray(3)
+                            android.location.Location.distanceBetween(
+                                latitude, longitude, it.latitude, it.longitude, result
+                            )
+                            result[0].toDouble()
+                        } ?: 0.0
+                    },
                     onDestinationQueryChange = { viewModel.searchDestination(it) },
                     onSelectRecommend = {
                         it.item.let { item ->
@@ -98,10 +109,7 @@ fun MainScreen(
                                 is Location ->
                                     viewModel.setDestination(item)
                                 else ->
-                                    Log.e(
-                                        TAG_COMPOSE,
-                                        "#MainScreen unsupported recommended item type : recommended=$it"
-                                    )
+                                    Log.e(TAG_COMPOSE, "#MainScreen unsupported item type : recommended=$it")
                             }
                         }
                     },
@@ -112,7 +120,8 @@ fun MainScreen(
 
         Map(
             destination = destination,
-            parking = parking,
+            parkingList = parkingList,
+            routeList = routeList,
             cameraPositionState = cameraPositionState
         ) {
             when (overlay) {

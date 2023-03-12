@@ -2,10 +2,10 @@ package com.github.hemoptysisheart.parking.app
 
 import android.app.Activity
 import android.app.Application
-import android.os.Bundle
 import android.util.Log
 import com.github.hemoptysisheart.parking.app.activity.LauncherActivity
 import com.github.hemoptysisheart.parking.app.activity.MainActivity
+import com.github.hemoptysisheart.parking.app.support.ActivityLifecycleCallbacksAdapter
 import com.github.hemoptysisheart.parking.core.logging.AndroidLoggingHandler
 import com.github.hemoptysisheart.parking.core.model.PreferencesModel.ExecutionPreferencesModel
 import com.github.hemoptysisheart.parking.domain.ExecutionPreferences
@@ -24,7 +24,7 @@ class ParkingApplication : Application() {
         private val TAG = ParkingApplication::class.simpleName
     }
 
-    private val activityCallbacks = object : ActivityLifecycleCallbacks {
+    private val activityLifecycleCallbacks = object : ActivityLifecycleCallbacksAdapter() {
         private val countLock = Any()
         private var count = 0
         private var countDecreasedAt: Instant = Instant.MIN
@@ -34,10 +34,6 @@ class ParkingApplication : Application() {
          * 포어그라운드 실행이 2번으로 계산된다. 그래서 [count]가 `0`인 상태를 100ms 이상인 경우만 포어그라운드로 돌아온 것으로 간주한다.
          */
         private val minBackgroundDuration = Duration.ofMillis(100L)
-
-        override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {}
-
-        override fun onActivityStarted(activity: Activity) {}
 
         override fun onActivityResumed(activity: Activity) {
             Log.v(TAG, "#activityCallbacks.onActivityResumed args : activity=$activity")
@@ -60,12 +56,6 @@ class ParkingApplication : Application() {
                 Log.i(TAG, "#activityCallbacks.onActivityPaused : count=$count")
             }
         }
-
-        override fun onActivityStopped(activity: Activity) {}
-
-        override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
-
-        override fun onActivityDestroyed(activity: Activity) {}
     }
 
     @Inject
@@ -81,7 +71,7 @@ class ParkingApplication : Application() {
         Log.i(TAG, "#onCreate called.")
         super.onCreate()
 
-        registerActivityLifecycleCallbacks(activityCallbacks)
+        registerActivityLifecycleCallbacks(activityLifecycleCallbacks)
 
         if (!installPreferences.initialized) {
             installPreferences.initialize()

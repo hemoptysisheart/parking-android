@@ -20,4 +20,14 @@ interface ExecutionPreferences {
      * 마지막 프로세스 시작 시각.
      */
     val lastColdStartAt: Instant
+
+    /**
+     * 앱이 전면에 나온 횟수.
+     */
+    val foregroundCount: Long
+
+    /**
+     * 마지막으로 앱이 전면에 나온 시각.
+     */
+    val lastForegroundAt: Instant
 }

@@ -39,10 +39,4 @@ interface Location {
     val latitude: Double
 
     val longitude: Double
-
-    fun toGeoLocation() = if (this is GeoLocation) {
-        this
-    } else {
-        GeoLocation(latitude, longitude)
-    }
 }

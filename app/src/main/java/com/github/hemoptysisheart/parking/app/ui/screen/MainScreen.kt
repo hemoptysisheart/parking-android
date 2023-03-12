@@ -20,10 +20,9 @@ import com.github.hemoptysisheart.parking.app.ui.state.OverlayState.*
 import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel.MapControl.GOTO_DESTINATION
 import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel.MapControl.GOTO_HERE
-import com.github.hemoptysisheart.parking.app.viewmodel.toLatLng
+import com.github.hemoptysisheart.parking.core.extension.latLng
 import com.github.hemoptysisheart.parking.core.logging.logArgs
 import com.github.hemoptysisheart.parking.core.logging.logVarsV
-import com.github.hemoptysisheart.parking.core.model.extension.latLng
 import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 import com.google.android.gms.maps.model.CameraPosition
@@ -71,7 +70,7 @@ fun MainScreen(
         @Suppress("REDUNDANT_ELSE_IN_WHEN")
         when (it) {
             GOTO_HERE ->
-                cameraPositionState.position = CameraPosition.fromLatLngZoom(here!!.toLatLng(), viewModel.zoom)
+                cameraPositionState.position = CameraPosition.fromLatLngZoom(here!!.latLng, viewModel.zoom)
             GOTO_DESTINATION ->
                 cameraPositionState.position = CameraPosition.fromLatLngZoom(destination!!.latLng, viewModel.zoom)
             else ->

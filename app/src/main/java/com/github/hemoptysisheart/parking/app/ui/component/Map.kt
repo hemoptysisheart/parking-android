@@ -14,9 +14,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.github.hemoptysisheart.parking.R
 import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.TAG_COMPOSE
 import com.github.hemoptysisheart.parking.app.ui.support.bitmapDescriptor
-import com.github.hemoptysisheart.parking.core.client.google.dto.DirectionsRoute
+import com.github.hemoptysisheart.parking.core.extension.latLng
+import com.github.hemoptysisheart.parking.core.extension.points
 import com.github.hemoptysisheart.parking.core.logging.logArgs
-import com.github.hemoptysisheart.parking.core.model.extension.latLng
 import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.domain.RecommendItemLocation
 import com.github.hemoptysisheart.parking.domain.Route
@@ -33,7 +33,7 @@ import com.google.maps.android.compose.*
 fun Map(
     destination: Location? = null,
     parkingList: List<RecommendItemLocation> = listOf(),
-    routeList: List<Route<DirectionsRoute>> = listOf(),
+    routeList: List<Route> = listOf(),
     cameraPositionState: CameraPositionState = rememberCameraPositionState(),
     onMapClick: (LatLng) -> Unit = { Log.v(TAG_COMPOSE, "#onMapClick called.") }
 ) {
@@ -85,8 +85,8 @@ fun Map(
             )
 
             for (route in routeList) {
-                Polyline(points = route.driving.overviewPolyline.points.map { p -> p.latLng }, color = Color.Blue)
-                Polyline(points = route.walking.overviewPolyline.points.map { p -> p.latLng }, color = Color.Gray)
+                Polyline(points = route.driving.overview.points, color = Color.Blue)
+                Polyline(points = route.walking.overview.points, color = Color.Gray)
             }
         }
     }

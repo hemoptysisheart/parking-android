@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.parking.core.model.extension
+package com.github.hemoptysisheart.parking.core.extension
 
 import com.github.hemoptysisheart.parking.domain.Location
 import com.google.android.gms.maps.model.LatLng

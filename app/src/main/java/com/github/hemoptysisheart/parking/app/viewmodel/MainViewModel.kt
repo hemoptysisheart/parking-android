@@ -6,9 +6,9 @@ import androidx.lifecycle.viewModelScope
 import com.github.hemoptysisheart.parking.app.ui.state.OverlayState.*
 import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel.MapControl.GOTO_DESTINATION
 import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel.MapControl.GOTO_HERE
-import com.github.hemoptysisheart.parking.core.client.google.dto.DirectionsRoute
 import com.github.hemoptysisheart.parking.core.client.google.dto.TransportationMode.DRIVING
 import com.github.hemoptysisheart.parking.core.client.google.dto.TransportationMode.WALKING
+import com.github.hemoptysisheart.parking.core.extension.location
 import com.github.hemoptysisheart.parking.core.logging.logArgs
 import com.github.hemoptysisheart.parking.core.logging.logSet
 import com.github.hemoptysisheart.parking.core.model.GeoSearchModel
@@ -156,7 +156,7 @@ class MainViewModel @Inject constructor(
             }
 
             destinationSearchJob = viewModelScope.launch {
-                val result = geoSearchModel.searchDestination(center!!.toGeoLocation(), query)
+                val result = geoSearchModel.searchDestination(center!!.location, query)
                 Log.d(TAG, "#searchDestination : result=$result")
                 destinationSearchResult.emit(result.places)
             }
@@ -182,23 +182,14 @@ class MainViewModel @Inject constructor(
         here: GeoLocation,
         parking: Location,
         destination: Location
-    ): Route<DirectionsRoute>? {
+    ): Route {
         Log.v(TAG, "#searchRoute args : here=$here, parking=$parking, destination=$destination")
 
-        val driving = geoSearchModel.searchRoute(here, parking, DRIVING).route
-        val walking = geoSearchModel.searchRoute(parking, destination, WALKING).route
-        val route = if (null == driving || null == walking) {
-            Log.w(
-                TAG, "#searchRoute route does not exist : " +
-                        "here=$here, parking=$parking, destination=$destination, driving=$driving, walking=$walking"
-            )
-            null
-        } else {
-            object : Route<DirectionsRoute>(here, parking, destination) {
-                override var driving: DirectionsRoute = driving
-                override var walking: DirectionsRoute = walking
-            }
-        }
+        val route = Route(
+            here, parking, destination,
+            driving = SubRoute(geoSearchModel.searchRoute(here, parking, DRIVING).overview),
+            walking = SubRoute(geoSearchModel.searchRoute(parking, destination, WALKING).overview)
+        )
 
         Log.v(TAG, "#searchRoute return : $route")
         return route

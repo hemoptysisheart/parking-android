@@ -183,9 +183,9 @@ internal object DtoConverter {
     /**
      * See [`PolylineEncoding`](https://github.com/googlemaps/google-maps-services-java/blob/main/src/main/java/com/google/maps/internal/PolylineEncoding.java).
      */
-    fun decodePolyline(encodedPolyline: String): List<GeoLocation> {
+    fun decodePolyline(encodedPolyline: String): List<LatLng> {
         val len = encodedPolyline.length
-        val path = mutableListOf<GeoLocation>()
+        val path = mutableListOf<LatLng>()
 
         var index = 0
         var lat = 0.0
@@ -209,7 +209,7 @@ internal object DtoConverter {
                 shift += 5
             } while (b >= 0x1f)
             lng += if (result and 1 != 0) (result shr 1).inv() else result shr 1
-            path.add(GeoLocation(lat * 1e-5, lng * 1e-5))
+            path.add(LatLng(lat * 1e-5, lng * 1e-5))
         }
 
         return path

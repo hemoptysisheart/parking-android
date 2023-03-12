@@ -23,7 +23,7 @@ import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel.MapControl
 import com.github.hemoptysisheart.parking.app.viewmodel.toLatLng
 import com.github.hemoptysisheart.parking.core.logging.logArgs
 import com.github.hemoptysisheart.parking.core.logging.logVarsV
-import com.github.hemoptysisheart.parking.core.model.dto.toLatLng
+import com.github.hemoptysisheart.parking.core.model.extension.latLng
 import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 import com.google.android.gms.maps.model.CameraPosition
@@ -73,7 +73,7 @@ fun MainScreen(
             GOTO_HERE ->
                 cameraPositionState.position = CameraPosition.fromLatLngZoom(here!!.toLatLng(), viewModel.zoom)
             GOTO_DESTINATION ->
-                cameraPositionState.position = CameraPosition.fromLatLngZoom(destination!!.toLatLng(), viewModel.zoom)
+                cameraPositionState.position = CameraPosition.fromLatLngZoom(destination!!.latLng, viewModel.zoom)
             else ->
                 Log.e(TAG_COMPOSE, "#MainScreen unsupported map control : mapControl=$mapControl")
         }

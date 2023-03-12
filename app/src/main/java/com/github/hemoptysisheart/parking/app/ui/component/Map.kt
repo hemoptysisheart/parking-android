@@ -16,7 +16,7 @@ import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.TAG_COMP
 import com.github.hemoptysisheart.parking.app.ui.support.bitmapDescriptor
 import com.github.hemoptysisheart.parking.core.client.google.dto.DirectionsRoute
 import com.github.hemoptysisheart.parking.core.logging.logArgs
-import com.github.hemoptysisheart.parking.core.model.dto.toLatLng
+import com.github.hemoptysisheart.parking.core.model.extension.latLng
 import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.domain.RecommendItemLocation
 import com.github.hemoptysisheart.parking.domain.Route
@@ -33,7 +33,7 @@ import com.google.maps.android.compose.*
 fun Map(
     destination: Location? = null,
     parkingList: List<RecommendItemLocation> = listOf(),
-    routeList:List<Route<DirectionsRoute>> = listOf(),
+    routeList: List<Route<DirectionsRoute>> = listOf(),
     cameraPositionState: CameraPositionState = rememberCameraPositionState(),
     onMapClick: (LatLng) -> Unit = { Log.v(TAG_COMPOSE, "#onMapClick called.") }
 ) {
@@ -69,7 +69,7 @@ fun Map(
         onMapClick = onMapClick
     ) {
         destination?.let {
-            val destinationMarkerState = rememberMarkerState(key = it.id, position = it.toLatLng())
+            val destinationMarkerState = rememberMarkerState(key = it.id, position = it.latLng)
             Marker(
                 state = destinationMarkerState,
                 title = it.name,
@@ -79,14 +79,14 @@ fun Map(
 
         parkingList.forEach {
             Marker(
-                state = rememberMarkerState(key = it.id, position = it.item.toLatLng()),
+                state = rememberMarkerState(key = it.id, position = it.item.latLng),
                 title = it.item.name,
                 icon = bitmapDescriptor(context, R.drawable.map_marker_parking)
             )
 
-            for(route in routeList){
-                Polyline(points = route.driving.overviewPolyline.points.map { it.toLatLng() }, color = Color.Blue)
-                Polyline(points = route.walking.overviewPolyline.points.map { it.toLatLng() }, color = Color.Gray)
+            for (route in routeList) {
+                Polyline(points = route.driving.overviewPolyline.points.map { p -> p.latLng }, color = Color.Blue)
+                Polyline(points = route.walking.overviewPolyline.points.map { p -> p.latLng }, color = Color.Gray)
             }
         }
     }

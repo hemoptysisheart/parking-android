@@ -7,6 +7,7 @@ import android.util.Log
 import com.github.hemoptysisheart.parking.core.logging.AndroidLoggingHandler
 import com.github.hemoptysisheart.parking.core.model.PreferencesModel.ExecutionPreferencesModel
 import com.github.hemoptysisheart.parking.domain.ExecutionPreferences
+import com.github.hemoptysisheart.parking.domain.InstallPreferences
 import com.github.hemoptysisheart.util.TimeProvider
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.MainScope
@@ -55,6 +56,9 @@ class ParkingApplication : Application() {
     lateinit var timeProvider: TimeProvider
 
     @Inject
+    lateinit var installPreferences: InstallPreferences
+
+    @Inject
     lateinit var executionPreferences: ExecutionPreferences
 
     override fun onCreate() {
@@ -63,8 +67,11 @@ class ParkingApplication : Application() {
 
         registerActivityLifecycleCallbacks(activityCallbacks)
 
+        if (!installPreferences.initialized) {
+            installPreferences.initialize()
+        }
         (executionPreferences as ExecutionPreferencesModel).increaseColdStart(timeProvider.instant())
-        Log.i(TAG, "#onCreate : executionPreferences=$executionPreferences")
+        Log.i(TAG, "#onCreate : installPreferences=$installPreferences, executionPreferences=$executionPreferences")
 
         AndroidLoggingHandler.setup()
         MainScope().launch {

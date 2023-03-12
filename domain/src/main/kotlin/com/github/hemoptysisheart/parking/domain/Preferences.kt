@@ -5,6 +5,11 @@ package com.github.hemoptysisheart.parking.domain
  */
 interface Preferences {
     /**
+     * 앱 설치에 관한 정보.
+     */
+    val install: InstallPreferences
+
+    /**
      * 실행 설정.
      */
     val execution: ExecutionPreferences

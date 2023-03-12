@@ -3,12 +3,47 @@ package com.github.hemoptysisheart.parking.core.model
 import android.content.SharedPreferences
 import android.util.Log
 import com.github.hemoptysisheart.parking.domain.ExecutionPreferences
+import com.github.hemoptysisheart.parking.domain.InstallPreferences
 import com.github.hemoptysisheart.parking.domain.Preferences
 import java.time.Instant
+import java.util.*
 
 class PreferencesModel(
     sharedPreferences: SharedPreferences
 ) : Preferences {
+    class InstallPreferencesModel internal constructor(
+        private val sharedPreferences: SharedPreferences
+    ) : InstallPreferences {
+        companion object {
+            private const val TAG = "InstallPreferences"
+
+            const val INSTALL_ID = "$TAG.InstallPreferences"
+        }
+
+        override var installId = sharedPreferences.getString(INSTALL_ID, null)?.run {
+            UUID.fromString(this)
+        }
+            private set(value) {
+                Log.v(TAG, "#installId set : $value")
+                sharedPreferences.edit()
+                    .putString(INSTALL_ID, "$value")
+                    .apply()
+                field = value
+            }
+
+        override val initialized: Boolean = null != installId
+
+        override fun initialize(params: Nothing?) {
+            if (initialized) {
+                throw IllegalStateException("already initialized.")
+            }
+
+            installId = UUID.randomUUID()
+        }
+
+        override fun toString() = "$TAG(installId=$installId)"
+    }
+
     class ExecutionPreferencesModel internal constructor(
         private val sharedPreferences: SharedPreferences
     ) : ExecutionPreferences {
@@ -85,7 +120,9 @@ class PreferencesModel(
         private const val TAG = "PreferencesModel"
     }
 
+    override val install = InstallPreferencesModel(sharedPreferences)
+
     override val execution = ExecutionPreferencesModel(sharedPreferences)
 
-    override fun toString() = "$TAG(execution=$execution)"
+    override fun toString() = "$TAG(install=$install, execution=$execution)"
 }

@@ -9,10 +9,9 @@ import com.github.hemoptysisheart.parking.BuildConfig
 import com.github.hemoptysisheart.parking.core.client.google.MapsClient
 import com.github.hemoptysisheart.parking.core.client.google.MapsClientImpl
 import com.github.hemoptysisheart.parking.core.client.google.PlacesClientConfig
-import com.github.hemoptysisheart.parking.core.model.GeoSearchModel
-import com.github.hemoptysisheart.parking.core.model.GeoSearchModelImpl
-import com.github.hemoptysisheart.parking.core.model.LocationModel
-import com.github.hemoptysisheart.parking.core.model.LocationModelImpl
+import com.github.hemoptysisheart.parking.core.model.*
+import com.github.hemoptysisheart.parking.domain.ExecutionPreferences
+import com.github.hemoptysisheart.parking.domain.Preferences
 import com.github.hemoptysisheart.util.TimeProvider
 import com.github.hemoptysisheart.util.TruncatedTimeProvider
 import com.google.android.gms.location.LocationServices
@@ -45,9 +44,7 @@ class AppModuleConfig {
         val sharedPreferences = EncryptedSharedPreferences.create(
             context,
             "com.github.hemoptysisheart.parking.encryptedSharedPreferences",
-            MasterKey.Builder(context)
-                .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
-                .build(),
+            MasterKey.Builder(context).setKeyScheme(MasterKey.KeyScheme.AES256_GCM).build(),
             EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         )
@@ -69,6 +66,19 @@ class AppModuleConfig {
         Log.i(TAG, "#provideMapsClient return : $client")
         return client
     }
+
+    @Provides
+    @Singleton
+    fun providePreferencesModel(sharedPreferences: SharedPreferences): Preferences {
+        val model = PreferencesModel(sharedPreferences)
+        Log.i(TAG, "#providePreferencesModel return : $model")
+        return model
+    }
+
+    @Provides
+    @Singleton
+    fun bindExecutionPreferencesModel(preferences: Preferences): ExecutionPreferences =
+        preferences.execution
 
     @Provides
     @Singleton

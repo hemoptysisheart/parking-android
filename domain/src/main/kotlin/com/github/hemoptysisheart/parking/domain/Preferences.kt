@@ -1,0 +1,11 @@
+package com.github.hemoptysisheart.parking.domain
+
+/**
+ * 앱 설정 정보.
+ */
+interface Preferences {
+    /**
+     * 실행 설정.
+     */
+    val execution: ExecutionPreferences
+}

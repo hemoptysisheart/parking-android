@@ -12,9 +12,7 @@ import com.github.hemoptysisheart.parking.core.logging.logArgs
 import com.github.hemoptysisheart.parking.core.model.dto.LocationGmpPlace
 import com.github.hemoptysisheart.parking.core.model.dto.PlaceSearchResult
 import com.github.hemoptysisheart.parking.core.model.dto.RouteSearchResult
-import com.github.hemoptysisheart.parking.domain.GeoLocation
-import com.github.hemoptysisheart.parking.domain.Location
-import com.github.hemoptysisheart.parking.domain.RecommendItemLocation
+import com.github.hemoptysisheart.parking.domain.*
 import com.github.hemoptysisheart.util.TimeProvider
 import java.time.Instant
 
@@ -29,6 +27,13 @@ class GeoSearchModelImpl(
          * 목적지 주변 주차장 검색 반경 기본값. meter 단위.
          */
         const val SEARCH_PARKING_RADIUS = 200
+
+        val TRANSPORTATION_MODE_MAP = mapOf(
+            TransportationMode.WALKING to Transport.WALK,
+            TransportationMode.DRIVING to Transport.DRIVE,
+            TransportationMode.BICYCLING to Transport.BICYCLE,
+            TransportationMode.TRANSIT to Transport.TRANSIT
+        )
     }
 
     override suspend fun searchDestination(center: GeoLocation, query: String): PlaceSearchResult {
@@ -67,7 +72,7 @@ class GeoSearchModelImpl(
         Log.v(TAG, "#searchParking : apiResult=$apiResult")
 
         val result = PlaceSearchResult(
-            destination.toGeoLocation(),
+            GeoLocation(destination.latitude, destination.longitude),
             null,
             apiResult.places.map { RecommendItemLocation(LocationGmpPlace(it)) },
             apiResult.nextToken
@@ -79,7 +84,7 @@ class GeoSearchModelImpl(
 
     private fun Location.toPlaceDescriptor() = when (this) {
         is LocationGmpPlace -> PlaceDescriptor(placeId = place.placeId)
-        else -> PlaceDescriptor(geoLocation = toGeoLocation())
+        else -> PlaceDescriptor(geoLocation = GeoLocation(latitude, longitude))
     }
 
     override suspend fun searchRoute(
@@ -98,8 +103,12 @@ class GeoSearchModelImpl(
         val result = mapsClient.directions(params, now)
 
         val route = RouteSearchResult(
-            origin, destination, mode,
-            result.routes[0]
+            origin = origin,
+            destination = destination,
+            transport = TRANSPORTATION_MODE_MAP[mode]!!,
+            overview = result.routes[0].overviewPolyline.run {
+                Overview(points.map { GeoLocation(it.latitude, it.longitude) })
+            }
         )
         Log.v(TAG, "#searchRoute return : $route")
         return route

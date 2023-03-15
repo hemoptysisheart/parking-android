@@ -5,10 +5,10 @@ class RegexValidator(
 ) : Validator<String> {
     constructor(pattern: String) : this(pattern.toRegex())
 
-    override fun validate(text: String) = if (!regex.matches(text)) {
-        throw ValidationFailException("text does not match : text='$text', regex=$regex")
+    override fun validate(value: String) = if (!regex.matches(value)) {
+        throw ValidationFailException("text does not match : value='$value', regex=$regex")
     } else {
-        text
+        value
     }
 
     override fun toString() = "${RegexValidator::class.simpleName}(regex=$regex)"

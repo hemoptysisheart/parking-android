@@ -1,7 +1,5 @@
 package com.github.hemoptysisheart.parking.core.client.google.dto
 
-import com.github.hemoptysisheart.parking.domain.GeoLocation
-
 /**
  * [DirectionsPolyline](https://developers.google.com/maps/documentation/directions/get-directions#DirectionsPolyline)
  *
@@ -26,5 +24,5 @@ data class DirectionsPolyline(
     /**
      * A single string representation of the polyline.
      */
-    val points: List<GeoLocation>
+    val points: List<LatLng>
 )

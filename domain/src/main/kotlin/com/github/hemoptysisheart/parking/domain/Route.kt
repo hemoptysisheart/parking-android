@@ -21,12 +21,12 @@ class Route(
     /**
      * 출발지에서 주차장까지 운전경로.
      */
-    val driving: SubRoute,
+    val driving: PartialRoute,
 
     /**
      * 주차장에서 목적지까지 걷는 경로.
      */
-    val walking: SubRoute
+    val walking: PartialRoute
 ) {
     companion object {
         private const val TAG = "Route"

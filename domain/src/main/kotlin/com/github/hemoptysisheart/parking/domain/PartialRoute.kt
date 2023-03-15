@@ -1,5 +1,5 @@
 package com.github.hemoptysisheart.parking.domain
 
-data class SubRoute(
+data class PartialRoute(
     val overview: Overview
 )

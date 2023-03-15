@@ -187,8 +187,8 @@ class MainViewModel @Inject constructor(
 
         val route = Route(
             here, parking, destination,
-            driving = SubRoute(geoSearchModel.searchRoute(here, parking, DRIVING).overview),
-            walking = SubRoute(geoSearchModel.searchRoute(parking, destination, WALKING).overview)
+            driving = PartialRoute(geoSearchModel.searchRoute(here, parking, DRIVING).overview),
+            walking = PartialRoute(geoSearchModel.searchRoute(parking, destination, WALKING).overview)
         )
 
         Log.v(TAG, "#searchRoute return : $route")

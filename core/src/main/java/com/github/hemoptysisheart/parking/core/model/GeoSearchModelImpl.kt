@@ -26,7 +26,7 @@ class GeoSearchModelImpl(
         /**
          * 목적지 주변 주차장 검색 반경 기본값. meter 단위.
          */
-        const val SEARCH_PARKING_RADIUS = 200
+        const val SEARCH_PARKING_RADIUS = 100
 
         val TRANSPORTATION_MODE_MAP = mapOf(
             TransportationMode.WALKING to Transport.WALK,
@@ -35,6 +35,13 @@ class GeoSearchModelImpl(
             TransportationMode.TRANSIT to Transport.TRANSIT
         )
     }
+
+    /**
+     * `Map<location_id, place>`
+     */
+    private val locationCache = mutableMapOf<String, Location>()
+
+    override suspend fun read(id: String): Location? = locationCache[id]
 
     override suspend fun searchDestination(center: GeoLocation, query: String): PlaceSearchResult {
         logArgs(TAG, "searchDestination", "query" to query)
@@ -50,7 +57,11 @@ class GeoSearchModelImpl(
 
         val result = PlaceSearchResult(
             center, query,
-            apiResult.places.map { RecommendItemLocation(LocationGmpPlace(it)) },
+            apiResult.places.map { p ->
+                val location = LocationGmpPlace(p)
+                locationCache[location.id] = location
+                RecommendItemLocation(location)
+            },
             apiResult.nextToken
         )
 

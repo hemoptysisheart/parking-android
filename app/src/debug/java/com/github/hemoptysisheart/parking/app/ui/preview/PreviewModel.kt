@@ -24,6 +24,8 @@ object PreviewModel {
             return PlaceSearchResult(center, query, listOf(), null)
         }
 
+        override suspend fun read(id: String): Location? = null
+
         override suspend fun searchParking(destination: Location): PlaceSearchResult {
             return PlaceSearchResult(GeoLocation(destination.latitude, destination.longitude), null, listOf(), null)
         }

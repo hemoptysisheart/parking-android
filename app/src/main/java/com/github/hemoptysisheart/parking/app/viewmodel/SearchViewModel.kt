@@ -48,8 +48,4 @@ class SearchViewModel @Inject constructor(
             )
         }
     }
-
-    fun select(item: RecommendItem<*>) {
-        LOGGER.d("#select args : item=$item")
-    }
 }

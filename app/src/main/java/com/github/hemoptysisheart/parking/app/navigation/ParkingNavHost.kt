@@ -6,6 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.github.hemoptysisheart.parking.app.ui.page.MainPage
 import com.github.hemoptysisheart.parking.app.ui.page.SearchPage
+import com.github.hemoptysisheart.parking.app.ui.page.SelectRoutePage
 
 @Composable
 fun ParkingNavHost() {
@@ -20,6 +21,13 @@ fun ParkingNavHost() {
 
         composable(SearchPageNavigation.NAME) {
             SearchPage(search)
+        }
+
+        composable(SelectRoutePageNavigation.ROUTE, SelectRoutePageNavigation.ARGUMENTS) {
+            SelectRoutePage(
+                id = it.arguments?.getString(SelectRoutePageNavigation.PARAM_ID)
+                    ?: throw java.lang.IllegalArgumentException("id required.")
+            )
         }
     }
 }

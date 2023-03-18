@@ -13,6 +13,11 @@ interface GeoSearchModel {
     suspend fun searchDestination(center: GeoLocation, query: String): PlaceSearchResult
 
     /**
+     * @return 없으면 `null`.
+     */
+    suspend fun read(id: String): Location?
+
+    /**
      * 목적지 주변 주차장 찾기.
      *
      * @param destination 목적지.

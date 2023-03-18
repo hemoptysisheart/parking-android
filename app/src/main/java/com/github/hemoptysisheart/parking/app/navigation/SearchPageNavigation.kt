@@ -12,5 +12,6 @@ class SearchPageNavigation(
 
     val selectRoute: (RecommendItem<*>) -> Unit = {
         LOGGER.d("#selectRoute args : item=$it")
+        navController.navigate("${SelectRoutePageNavigation.NAME}/${it.id}")
     }
 }

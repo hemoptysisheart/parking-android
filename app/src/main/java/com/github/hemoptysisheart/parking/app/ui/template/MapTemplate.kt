@@ -16,15 +16,20 @@ import com.github.hemoptysisheart.parking.app.configuration.LOGGER_COMPOSE as LO
 
 @Composable
 fun MapTemplate(
-    center: LatLng? = null,
+    cameraGoto: CameraPosition? = null,
+    onCameraPositionChange: (CameraPosition) -> Unit = {},
     onMapClick: (LatLng) -> Unit = {}
 ) {
-    LOGGER.v("#HeaderTemplate args : center=$center")
+    LOGGER.v("#HeaderTemplate")
 
     val cameraPositionState = rememberCameraPositionState()
-    center?.also {
-        cameraPositionState.position = CameraPosition.fromLatLngZoom(it, 17f)
+    if (null != cameraGoto) {
+        cameraPositionState.position = cameraGoto
     }
+    if (cameraPositionState.isMoving) {
+        onCameraPositionChange(cameraPositionState.position)
+    }
+
     GoogleMap(
         modifier = Modifier
             .fillMaxSize()

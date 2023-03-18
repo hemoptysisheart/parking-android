@@ -24,13 +24,18 @@ fun MainPage(
     LOGGER.v("#MainPage args : viewModel=$viewModel")
 
     val showHeader by viewModel.showHeader.collectAsStateWithLifecycle()
-    val center by viewModel.center.collectAsStateWithLifecycle()
+    val cameraGoto by viewModel.cameraGoto.collectAsStateWithLifecycle()
 
     Box(modifier = Modifier.fillMaxSize()) {
         if (showHeader) {
             HeaderTemplate { navigation.search() }
         }
-        MapTemplate(center, viewModel.onMapClick)
+
+        MapTemplate(
+            cameraGoto,
+            viewModel.onCameraPositionChange,
+            viewModel.onMapClick
+        )
     }
 }
 

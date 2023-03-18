@@ -20,7 +20,7 @@ class LocationModelImpl(
         val INIT_LOCATION = GeoLocation(0.0, 0.0)
     }
 
-    private val callbacks = mutableMapOf<String, (GeoLocation) -> Unit>()
+    private val callbacks = mutableMapOf<Any, (GeoLocation) -> Unit>()
 
     /**
      * `lateinit var`로 설정 하거나 `null`로 설정 할 수 없으니 초기 좌표로 설정한다.
@@ -51,13 +51,13 @@ class LocationModelImpl(
         )
     }
 
-    override fun addCallback(key: String, callback: (GeoLocation) -> Unit) {
+    override fun addCallback(key: Any, callback: (GeoLocation) -> Unit) {
         logArgs(TAG, "addCallback", "key" to key, "callback" to callback)
 
         callbacks[key] = callback
     }
 
-    override fun removeCallback(key: String) {
+    override fun removeCallback(key: Any) {
         logArgs(TAG, "removeCallback", "key" to key)
 
         callbacks.remove(key)

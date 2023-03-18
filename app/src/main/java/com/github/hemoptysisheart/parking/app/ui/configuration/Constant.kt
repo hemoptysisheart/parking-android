@@ -1,5 +1,9 @@
 package com.github.hemoptysisheart.parking.app.ui.configuration
 
+@Deprecated(
+    "use TAG_COMPOSE",
+    replaceWith = ReplaceWith("com.github.hemoptysisheart.parking.app.configuration.ConstantsKt.TAG_COMPOSE")
+)
 object Constant {
     /**
      * `@Composable` 함수용 태그.

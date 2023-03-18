@@ -14,10 +14,10 @@ interface LocationModel {
     /**
      * 위치가 바뀔 경우 콜백 등록.
      */
-    fun addCallback(key: String, callback: (GeoLocation) -> Unit)
+    fun addCallback(key: Any, callback: (GeoLocation) -> Unit)
 
     /**
      * 콜백 제거.
      */
-    fun removeCallback(key: String)
+    fun removeCallback(key: Any)
 }

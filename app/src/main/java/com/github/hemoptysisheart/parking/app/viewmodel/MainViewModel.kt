@@ -26,7 +26,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val locationModel: LocationModel, private val geoSearchModel: GeoSearchModel
+    private val locationModel: LocationModel,
+    private val geoSearchModel: GeoSearchModel
 ) : ViewModel() {
     companion object {
         private const val TAG = "MainViewModel"
@@ -106,12 +107,21 @@ class MainViewModel @Inject constructor(
 
     val parkingList = MutableStateFlow(listOf<RecommendItemLocation>())
 
+    val focusedRoute = MutableStateFlow<Route?>(null)
+
     val routeList = combineTransform(parkingList, destination) { parkingList, destination ->
         val here = this@MainViewModel.here.value
         if (null == here || null == destination) {
             emit(listOf())
         } else {
-            emit(parkingList.mapNotNull { parking -> searchRoute(here, parking.item, destination) })
+            val list = parkingList.map { parking -> searchRoute(here, parking.item, destination) }
+            Log.v(TAG, "#routeList : list=$list")
+            if (list.isNotEmpty()) {
+                focusedRoute.emit(list[0])
+            } else {
+                focusedRoute.emit(null)
+            }
+            emit(list)
         }
     }.stateIn(viewModelScope, SharingStarted.Lazily, listOf())
 

@@ -1,29 +1,35 @@
 package com.github.hemoptysisheart.parking.app.ui.page
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.rememberNavController
 import com.github.hemoptysisheart.parking.app.navigation.SearchPageNavigation
+import com.github.hemoptysisheart.parking.app.ui.preview.PreviewViewModel.SEARCH_VM
+import com.github.hemoptysisheart.parking.app.ui.template.SearchHeaderTemplate
+import com.github.hemoptysisheart.parking.app.viewmodel.SearchViewModel
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
+import com.github.hemoptysisheart.parking.app.configuration.LOGGER_COMPOSE as LOGGER
 
 @Composable
 fun SearchPage(
-    navigation: SearchPageNavigation = SearchPageNavigation(rememberNavController())
+    navigation: SearchPageNavigation = SearchPageNavigation(rememberNavController()),
+    viewModel: SearchViewModel = hiltViewModel()
 ) {
-    LazyColumn(
+    LOGGER.v("#SearchPage args : navigation=$navigation, viewModel=$viewModel")
+
+    val query by viewModel.query.collectAsStateWithLifecycle()
+
+    Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Gray)
     ) {
-        item {
-            Text(text = "search")
-        }
+        SearchHeaderTemplate(query, viewModel.onQueryChange, navigation.onBack)
     }
 }
 
@@ -31,6 +37,6 @@ fun SearchPage(
 @Preview(showSystemUi = true)
 fun Preview_SearchPage() {
     ParkingTheme {
-        SearchPage()
+        SearchPage(viewModel = SEARCH_VM)
     }
 }

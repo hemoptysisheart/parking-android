@@ -10,6 +10,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.rememberNavController
 import com.github.hemoptysisheart.parking.app.navigation.MainPageNavigation
+import com.github.hemoptysisheart.parking.app.ui.preview.PreviewViewModel.MAIN_VM
 import com.github.hemoptysisheart.parking.app.ui.template.HeaderTemplate
 import com.github.hemoptysisheart.parking.app.ui.template.MapTemplate
 import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel
@@ -43,6 +44,6 @@ fun MainPage(
 @Preview(showSystemUi = true, showBackground = true)
 fun Preview_MainPage() {
     ParkingTheme {
-        MainPage()
+        MainPage(viewModel = MAIN_VM)
     }
 }

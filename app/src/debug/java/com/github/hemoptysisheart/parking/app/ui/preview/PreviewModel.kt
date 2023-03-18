@@ -19,7 +19,7 @@ object PreviewModel {
         override fun removeCallback(key: Any) {}
     }
 
-    val PLACE_MODEL = object : GeoSearchModel {
+    val GEO_SEARCH_MODEL = object : GeoSearchModel {
         override suspend fun searchDestination(center: GeoLocation, query: String): PlaceSearchResult {
             return PlaceSearchResult(center, query, listOf(), null)
         }

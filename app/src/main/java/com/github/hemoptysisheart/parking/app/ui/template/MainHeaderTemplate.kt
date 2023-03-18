@@ -39,7 +39,7 @@ fun HeaderTemplate(
 }
 
 @Composable
-@Preview
+@Preview(showBackground = true)
 fun Preview_HeaderTemplate() {
     ParkingTheme {
         HeaderTemplate()

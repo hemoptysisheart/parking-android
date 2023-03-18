@@ -11,5 +11,7 @@ abstract class AbstractPageNavigation(
         val LOGGER = Logger(TAG)
     }
 
-    fun back() = navController.popBackStack()
+    val onBack: () -> Unit = {
+        navController.popBackStack()
+    }
 }

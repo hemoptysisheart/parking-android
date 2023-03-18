@@ -47,7 +47,7 @@ fun MapTemplate(
 }
 
 @Composable
-@Preview
+@Preview(showBackground = true)
 fun Preview_MapTemplate() {
     ParkingTheme {
         MapTemplate()

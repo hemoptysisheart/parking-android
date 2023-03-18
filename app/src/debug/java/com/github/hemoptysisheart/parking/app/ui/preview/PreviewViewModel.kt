@@ -7,5 +7,5 @@ import com.github.hemoptysisheart.parking.app.viewmodel.SearchViewModel
 
 object PreviewViewModel {
     val MAIN_VM = MainViewModel(LOCATION_MODEL)
-    val SEARCH_VM = SearchViewModel(GEO_SEARCH_MODEL)
+    val SEARCH_VM = SearchViewModel(LOCATION_MODEL, GEO_SEARCH_MODEL)
 }

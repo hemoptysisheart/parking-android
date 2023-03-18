@@ -12,6 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import com.github.hemoptysisheart.parking.app.navigation.SearchPageNavigation
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewViewModel.SEARCH_VM
 import com.github.hemoptysisheart.parking.app.ui.template.SearchHeaderTemplate
+import com.github.hemoptysisheart.parking.app.ui.template.SearchResultTemplate
 import com.github.hemoptysisheart.parking.app.viewmodel.SearchViewModel
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 import com.github.hemoptysisheart.parking.app.configuration.LOGGER_COMPOSE as LOGGER
@@ -24,17 +25,19 @@ fun SearchPage(
     LOGGER.v("#SearchPage args : navigation=$navigation, viewModel=$viewModel")
 
     val query by viewModel.query.collectAsStateWithLifecycle()
+    val resultList by viewModel.resultList.collectAsStateWithLifecycle()
 
     Column(
         modifier = Modifier
             .fillMaxSize()
     ) {
         SearchHeaderTemplate(query, viewModel.onQueryChange, navigation.onBack)
+        SearchResultTemplate(resultList)
     }
 }
 
 @Composable
-@Preview(showSystemUi = true)
+@Preview(showSystemUi = true, showBackground = true)
 fun Preview_SearchPage() {
     ParkingTheme {
         SearchPage(viewModel = SEARCH_VM)

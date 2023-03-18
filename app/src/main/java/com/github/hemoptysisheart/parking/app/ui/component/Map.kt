@@ -88,11 +88,19 @@ fun Map(
         }
 
         parkingList.forEach {
-            Marker(
-                state = rememberMarkerState(key = it.id, position = it.item.latLng),
-                title = it.item.name,
-                icon = bitmapDescriptor(context, R.drawable.map_marker_parking)
-            )
+            if (focusedRoute?.parking == it.item) {
+                Marker(
+                    state = rememberMarkerState(key = it.id, position = it.item.latLng),
+                    title = it.item.name,
+                    icon = bitmapDescriptor(context, R.drawable.map_marker_parking_focused)
+                )
+            } else {
+                Marker(
+                    state = rememberMarkerState(key = it.id, position = it.item.latLng),
+                    title = it.item.name,
+                    icon = bitmapDescriptor(context, R.drawable.map_marker_parking)
+                )
+            }
         }
         focusedRoute?.run {
             Polyline(points = driving.overview.points, color = Blue, width = 15f, zIndex = 1f)

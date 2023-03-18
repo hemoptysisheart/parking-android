@@ -57,7 +57,7 @@ fun MapOverlayExtend(
                         .background(Color.LightGray)
                 )
             }
-            MapRecommendedItem(item, distanceCalculator, onSelectRecommend)
+            MapRecommendedItem(item, onSelect = onSelectRecommend)
         }
     }
 }

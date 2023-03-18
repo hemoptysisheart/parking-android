@@ -18,11 +18,17 @@ import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.ITEM_AAA
 import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.ITEM_AAA_TOHO_TRADING
 import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.ITEM_GOOBNE_CHICKEN_曙橋店
 import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.ITEM_株式会社ＡＡＡ
+import com.github.hemoptysisheart.parking.domain.GeoLocation
+import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.domain.RecommendItem
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 
 @Composable
-fun SearchResultTemplate(resultList: List<RecommendItem<*>> = listOf()) {
+fun SearchResultTemplate(
+    here:Location = GeoLocation(0.0,0.0),
+    resultList: List<RecommendItem<*>> = listOf(),
+    onSelect: (RecommendItem<*>) -> Unit = {}
+) {
     LazyColumn(Modifier.fillMaxWidth()) {
         itemsIndexed(resultList) { index, item ->
             if (0 < index) {
@@ -34,7 +40,7 @@ fun SearchResultTemplate(resultList: List<RecommendItem<*>> = listOf()) {
                         .background(Color.LightGray)
                 )
             }
-            MapRecommendedItem(item = item)
+            MapRecommendedItem(item = item, here = here, onSelect = onSelect)
         }
     }
 }
@@ -54,7 +60,7 @@ fun Preview_SearchResultTemplate_결과_없음() {
 fun Preview_SearchResultTemplate_결과_있음() {
     ParkingTheme {
         SearchResultTemplate(
-            listOf(
+            resultList = listOf(
                 ITEM_AAA_TOHO_TRADING,
                 ITEM_株式会社ＡＡＡ,
                 ITEM_AAA_ANNEX_GALLERY,

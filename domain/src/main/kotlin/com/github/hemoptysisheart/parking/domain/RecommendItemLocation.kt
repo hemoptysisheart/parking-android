@@ -9,6 +9,9 @@ class RecommendItemLocation(
 
     override val detail = item.description
 
+    var distance = 0.0
+        private set
+
     override fun equals(other: Any?) = this === other ||
             other is RecommendItemLocation &&
             id == other.id

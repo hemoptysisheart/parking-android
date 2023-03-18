@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.github.hemoptysisheart.parking.core.model.GeoSearchModel
 import com.github.hemoptysisheart.parking.core.model.LocationModel
 import com.github.hemoptysisheart.parking.core.util.Logger
+import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.domain.RecommendItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -21,6 +22,10 @@ class SearchViewModel @Inject constructor(
         private const val TAG = "SearchViewModel"
         private val LOGGER = Logger(TAG)
     }
+
+    var here: Location = locationModel.location
+        get() = locationModel.location
+        private set
 
     private var searchJob: Job? = null
 
@@ -42,5 +47,9 @@ class SearchViewModel @Inject constructor(
                     .places
             )
         }
+    }
+
+    fun select(item: RecommendItem<*>) {
+        LOGGER.d("#select args : item=$item")
     }
 }

@@ -24,10 +24,7 @@ fun ParkingNavHost() {
         }
 
         composable(SelectRoutePageNavigation.ROUTE, SelectRoutePageNavigation.ARGUMENTS) {
-            SelectRoutePage(
-                id = it.arguments?.getString(SelectRoutePageNavigation.PARAM_ID)
-                    ?: throw java.lang.IllegalArgumentException("id required.")
-            )
+            SelectRoutePage()
         }
     }
 }

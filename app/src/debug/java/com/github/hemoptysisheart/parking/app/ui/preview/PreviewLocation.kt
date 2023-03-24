@@ -1,14 +1,14 @@
 package com.github.hemoptysisheart.parking.app.ui.preview
 
-import com.github.hemoptysisheart.parking.app.ui.preview.PlaceDtos.PLACE_AAA_ANNEX_GALLERY
-import com.github.hemoptysisheart.parking.app.ui.preview.PlaceDtos.PLACE_AAA_NIHON_株式会社
-import com.github.hemoptysisheart.parking.app.ui.preview.PlaceDtos.PLACE_AAA_TOHO_TRADING
-import com.github.hemoptysisheart.parking.app.ui.preview.PlaceDtos.PLACE_GOOBNE_CHICKEN_曙橋店
-import com.github.hemoptysisheart.parking.app.ui.preview.PlaceDtos.PLACE_株式会社ＡＡＡ
+import com.github.hemoptysisheart.parking.app.ui.preview.PreviewPlaceDtos.PLACE_AAA_ANNEX_GALLERY
+import com.github.hemoptysisheart.parking.app.ui.preview.PreviewPlaceDtos.PLACE_AAA_NIHON_株式会社
+import com.github.hemoptysisheart.parking.app.ui.preview.PreviewPlaceDtos.PLACE_AAA_TOHO_TRADING
+import com.github.hemoptysisheart.parking.app.ui.preview.PreviewPlaceDtos.PLACE_GOOBNE_CHICKEN_曙橋店
+import com.github.hemoptysisheart.parking.app.ui.preview.PreviewPlaceDtos.PLACE_株式会社ＡＡＡ
 import com.github.hemoptysisheart.parking.core.model.dto.LocationGmpPlace
 
 @Suppress("ObjectPropertyName", "NonAsciiCharacters")
-object Locations {
+object PreviewLocation {
     val LOCATION_AAA_TOHO_TRADING = LocationGmpPlace(PLACE_AAA_TOHO_TRADING)
 
     val LOCATION_株式会社ＡＡＡ = LocationGmpPlace(PLACE_株式会社ＡＡＡ)

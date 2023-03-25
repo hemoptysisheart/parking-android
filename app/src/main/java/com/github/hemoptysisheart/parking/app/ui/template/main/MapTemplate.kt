@@ -12,7 +12,7 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.rememberCameraPositionState
-import com.github.hemoptysisheart.parking.app.configuration.LOGGER_COMPOSE as LOGGER
+import com.github.hemoptysisheart.parking.app.ui.support.LOGGER_COMPOSE as LOGGER
 
 @Composable
 fun MapTemplate(

@@ -2,7 +2,6 @@ package com.github.hemoptysisheart.parking.app.configuration
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.github.hemoptysisheart.parking.BuildConfig
@@ -10,6 +9,7 @@ import com.github.hemoptysisheart.parking.core.client.google.MapsClient
 import com.github.hemoptysisheart.parking.core.client.google.MapsClientImpl
 import com.github.hemoptysisheart.parking.core.client.google.PlacesClientConfig
 import com.github.hemoptysisheart.parking.core.model.*
+import com.github.hemoptysisheart.parking.core.util.Logger
 import com.github.hemoptysisheart.parking.domain.ExecutionPreferences
 import com.github.hemoptysisheart.parking.domain.InstallPreferences
 import com.github.hemoptysisheart.parking.domain.Preferences
@@ -28,20 +28,21 @@ import javax.inject.Singleton
 class AppModuleConfig {
     companion object {
         private const val TAG = "AppModuleConfig"
+        private val LOGGER = Logger(TAG)
     }
 
     @Provides
     @Singleton
     fun provideTimeProvider(): TimeProvider {
         val provider = TruncatedTimeProvider()
-        Log.i(TAG, "#provideTimeProvider return : $provider")
+        LOGGER.i("#provideTimeProvider return : $provider")
         return provider
     }
 
     @Provides
     @Singleton
     fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
-        Log.i(TAG, "#provideSharedPreferences args : context=$context")
+        LOGGER.i("#provideSharedPreferences args : context=$context")
         val sharedPreferences = EncryptedSharedPreferences.create(
             context,
             "com.github.hemoptysisheart.parking.encryptedSharedPreferences",
@@ -49,7 +50,7 @@ class AppModuleConfig {
             EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         )
-        Log.i(TAG, "#provideSharedPreferences return : $sharedPreferences")
+        LOGGER.i("#provideSharedPreferences return : $sharedPreferences")
         return sharedPreferences
     }
 
@@ -64,7 +65,7 @@ class AppModuleConfig {
         )
         val client = MapsClientImpl(config)
 
-        Log.i(TAG, "#provideMapsClient return : $client")
+        LOGGER.i("#provideMapsClient return : $client")
         return client
     }
 
@@ -72,7 +73,7 @@ class AppModuleConfig {
     @Singleton
     fun providePreferencesModel(sharedPreferences: SharedPreferences): Preferences {
         val model = PreferencesModel(sharedPreferences)
-        Log.i(TAG, "#providePreferencesModel return : $model")
+        LOGGER.i("#providePreferencesModel return : $model")
         return model
     }
 
@@ -86,19 +87,19 @@ class AppModuleConfig {
 
     @Provides
     @Singleton
-    fun provideLocationModel(@ApplicationContext context: Context): LocationModel {
+    fun provideSensorModel(@ApplicationContext context: Context): SensorModel {
         val client = LocationServices.getFusedLocationProviderClient(context)
-        val model = LocationModelImpl(client)
+        val model = SensorModelImpl(client)
 
-        Log.i(TAG, "#provideLocationModel return : $model")
+        LOGGER.i("#provideSensorModel return : $model")
         return model
     }
 
     @Provides
     @Singleton
-    fun provideGeoSearchModel(mapsClient: MapsClient, timeProvider: TimeProvider): GeoSearchModel {
-        val model = GeoSearchModelImpl(mapsClient, timeProvider)
-        Log.i(TAG, "#provideGeoSearchModel return : $model")
+    fun provideLocationModel(mapsClient: MapsClient, timeProvider: TimeProvider): LocationModel {
+        val model = LocationModelImpl(mapsClient, timeProvider)
+        LOGGER.i("#provideLocationModel return : $model")
         return model
     }
 }

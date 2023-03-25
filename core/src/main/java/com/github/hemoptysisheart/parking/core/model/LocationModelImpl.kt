@@ -1,67 +1,134 @@
 package com.github.hemoptysisheart.parking.core.model
 
-import android.annotation.SuppressLint
-import android.os.Looper
-import com.github.hemoptysisheart.parking.core.logging.logArgs
-import com.github.hemoptysisheart.parking.domain.GeoLocation
-import com.google.android.gms.location.*
-import com.google.android.gms.location.Priority.PRIORITY_HIGH_ACCURACY
+import android.util.Log
+import com.github.hemoptysisheart.parking.core.client.google.DirectionsParams
+import com.github.hemoptysisheart.parking.core.client.google.MapsClient
+import com.github.hemoptysisheart.parking.core.client.google.NearbySearchParams
+import com.github.hemoptysisheart.parking.core.client.google.dto.PlaceDescriptor
+import com.github.hemoptysisheart.parking.core.client.google.dto.PlaceTypes
+import com.github.hemoptysisheart.parking.core.client.google.dto.RankBy
+import com.github.hemoptysisheart.parking.core.client.google.dto.TransportationMode
+import com.github.hemoptysisheart.parking.core.model.dto.LocationGmpPlace
+import com.github.hemoptysisheart.parking.core.model.dto.PlaceSearchResult
+import com.github.hemoptysisheart.parking.core.model.dto.RouteSearchResult
+import com.github.hemoptysisheart.parking.core.util.Logger
+import com.github.hemoptysisheart.parking.domain.*
+import com.github.hemoptysisheart.util.TimeProvider
+import java.time.Instant
 
-@SuppressLint("MissingPermission")  // TODO 권한 확인 추가 하고 삭제.
 class LocationModelImpl(
-    private val client: FusedLocationProviderClient
+    private val mapsClient: MapsClient,
+    private val timeProvider: TimeProvider
 ) : LocationModel {
     companion object {
-        private val TAG = LocationModelImpl::class.simpleName!!
+        private const val TAG = "GeoSearchModelImpl"
+        private val LOGGER = Logger(TAG)
 
         /**
-         * 초기 좌표.
+         * 목적지 주변 주차장 검색 반경 기본값. meter 단위.
          */
-        val INIT_LOCATION = GeoLocation(0.0, 0.0)
-    }
+        const val SEARCH_PARKING_RADIUS = 100
 
-    private val callbacks = mutableMapOf<Any, (GeoLocation) -> Unit>()
-
-    /**
-     * `lateinit var`로 설정 하거나 `null`로 설정 할 수 없으니 초기 좌표로 설정한다.
-     */
-    override var location: GeoLocation = INIT_LOCATION
-        private set(value) {
-            for (callback in callbacks.values) {
-                callback(value)
-            }
-            field = value
-        }
-
-    /**
-     * TODO `LauncherActivity`에서 권한을 확인 한 후에 쓸 수 있도록 메서드로 변경.
-     */
-    init {
-        client.lastLocation.addOnSuccessListener {
-            // 앱 실행시 위치 정보 설정하기.
-            location = GeoLocation(it.latitude, it.longitude)
-        }
-
-        client.requestLocationUpdates(
-            LocationRequest.Builder(PRIORITY_HIGH_ACCURACY, 5_000L)
-                .setMinUpdateIntervalMillis(1_000L)
-                .build(),
-            { this.location = GeoLocation(it.latitude, it.longitude) },
-            Looper.getMainLooper()
+        val TRANSPORTATION_MODE_MAP = mapOf(
+            TransportationMode.WALKING to Transport.WALK,
+            TransportationMode.DRIVING to Transport.DRIVE,
+            TransportationMode.BICYCLING to Transport.BICYCLE,
+            TransportationMode.TRANSIT to Transport.TRANSIT
         )
     }
 
-    override fun addCallback(key: Any, callback: (GeoLocation) -> Unit) {
-        logArgs(TAG, "addCallback", "key" to key, "callback" to callback)
+    /**
+     * `Map<location_id, place>`
+     */
+    private val locationCache = mutableMapOf<String, Location>()
 
-        callbacks[key] = callback
+    /**
+     * TODO ID가 좌표이면 즉시 인스턴스 생성해서 반환하기.
+     * TODO ID가 플레이스 ID이면 API에서 읽어서 캐시하고 반환하기.
+     */
+    override suspend fun read(id: String): Location? = locationCache[id]
+
+    override suspend fun searchDestination(center: GeoLocation, query: String): PlaceSearchResult {
+        LOGGER.v("#searchDestination args : query=#query")
+
+        val now = timeProvider.instant()
+        val params = NearbySearchParams(
+            longitude = center.longitude,
+            latitude = center.latitude,
+            keyword = query,
+            rankBy = RankBy.DISTANCE
+        )
+        val apiResult = mapsClient.nearBy(params, now)
+
+        val result = PlaceSearchResult(
+            center, query,
+            apiResult.places.map { p ->
+                val location = LocationGmpPlace(p)
+                locationCache[location.id] = location
+                RecommendItemLocation(location)
+            },
+            apiResult.nextToken
+        )
+
+        LOGGER.v("#searchDestination return : $result")
+        return result
     }
 
-    override fun removeCallback(key: Any) {
-        logArgs(TAG, "removeCallback", "key" to key)
+    override suspend fun searchParking(destination: Location): PlaceSearchResult {
+        LOGGER.v("#searchParking args : destination=$destination")
 
-        callbacks.remove(key)
+        val now = timeProvider.instant()
+        val params = NearbySearchParams(
+            longitude = destination.longitude,
+            latitude = destination.latitude,
+            radius = SEARCH_PARKING_RADIUS,
+            type = PlaceTypes.PARKING
+        )
+        val apiResult = mapsClient.nearBy(params, now)
+        Log.v(TAG, "#searchParking : apiResult=$apiResult")
+
+        val result = PlaceSearchResult(
+            GeoLocation(destination.latitude, destination.longitude),
+            null,
+            apiResult.places.map { RecommendItemLocation(LocationGmpPlace(it)) },
+            apiResult.nextToken
+        )
+
+        LOGGER.v("#searchParking return : $result")
+        return result
     }
 
-    override fun toString() = "$TAG(here=$location)"
+    private fun Location.toPlaceDescriptor() = when (this) {
+        is LocationGmpPlace -> PlaceDescriptor(placeId = place.placeId)
+        else -> PlaceDescriptor(geoLocation = GeoLocation(latitude, longitude))
+    }
+
+    override suspend fun searchRoute(
+        origin: Location,
+        destination: Location,
+        mode: TransportationMode
+    ): RouteSearchResult {
+        LOGGER.v("#searchRoute args : origin=$origin, destination=$destination, mode=$mode")
+
+        val now = Instant.now()
+        val params = DirectionsParams(
+            origin = origin.toPlaceDescriptor(),
+            destination = destination.toPlaceDescriptor(),
+            transportationMode = mode
+        )
+        val result = mapsClient.directions(params, now)
+
+        val route = RouteSearchResult(
+            origin = origin,
+            destination = destination,
+            transport = TRANSPORTATION_MODE_MAP[mode]!!,
+            overview = result.routes[0].overviewPolyline.run {
+                Overview(points.map { GeoLocation(it.latitude, it.longitude) })
+            }
+        )
+        LOGGER.v("#searchRoute return : $route")
+        return route
+    }
+
+    override fun toString() = "$TAG(placesClient=$mapsClient, timeProvider=$timeProvider)"
 }

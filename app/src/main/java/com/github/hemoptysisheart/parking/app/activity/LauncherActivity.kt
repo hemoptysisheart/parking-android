@@ -7,8 +7,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
-import com.github.hemoptysisheart.parking.app.ui.screen.LauncherScreen
-import com.github.hemoptysisheart.parking.core.logging.logArgsD
+import com.github.hemoptysisheart.parking.app.ui.page.LauncherPage
+import com.github.hemoptysisheart.parking.core.util.Logger
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,17 +18,18 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class LauncherActivity : ComponentActivity() {
     companion object {
-        private val TAG = LauncherActivity::class.simpleName!!
+        private const val TAG = "LauncherActivity"
+        private val LOGGER = Logger(TAG)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        logArgsD(TAG, "onCreate", "savedInstanceState" to savedInstanceState)
+        LOGGER.v("#onCreate args : savedInstanceState=$savedInstanceState")
         super.onCreate(savedInstanceState)
 
         setContent {
             ParkingTheme {
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
-                    LauncherScreen()
+                    LauncherPage()
                 }
             }
         }

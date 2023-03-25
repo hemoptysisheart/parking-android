@@ -3,7 +3,7 @@ package com.github.hemoptysisheart.parking.app.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.hemoptysisheart.parking.core.extension.latLng
-import com.github.hemoptysisheart.parking.core.model.LocationModel
+import com.github.hemoptysisheart.parking.core.model.SensorModel
 import com.github.hemoptysisheart.parking.core.util.Logger
 import com.github.hemoptysisheart.parking.domain.GeoLocation
 import com.google.android.gms.maps.model.CameraPosition
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val locationModel: LocationModel
+    private val sensorModel: SensorModel
 ) : ViewModel() {
     companion object {
         private const val TAG = "MainViewModel"
@@ -59,13 +59,13 @@ class MainViewModel @Inject constructor(
     }
 
     init {
-        locationModel.addCallback(this, locationCallback)
+        sensorModel.addLocationCallback(this, locationCallback)
     }
 
     override fun onCleared() {
-        locationModel.removeCallback(this)
+        sensorModel.removeLocationCallback(this)
     }
 
     override fun toString() =
-        "$TAG(initialized=$initialized, showHeader=${showHeader.value}, cameraPosition=${cameraGoto}"
+        "$TAG(initialized=$initialized, showHeader=${showHeader.value}, cameraGoto=${cameraGoto.value}"
 }

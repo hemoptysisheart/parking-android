@@ -1,6 +1,5 @@
-package com.github.hemoptysisheart.parking.app.ui.screen
+package com.github.hemoptysisheart.parking.app.ui.page
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -23,7 +22,7 @@ import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 import kotlinx.coroutines.delay
 
 @Composable
-fun LauncherScreen() {
+fun LauncherPage() {
     val context = LocalContext.current
 
     Column(
@@ -47,9 +46,8 @@ fun LauncherScreen() {
 
 @Composable
 @Preview(showSystemUi = true, showBackground = true)
-@SuppressLint("ComposableNaming")
-fun preview_LauncherLayout() {
+fun Preview_LauncherPage() {
     ParkingTheme {
-        LauncherScreen()
+        LauncherPage()
     }
 }

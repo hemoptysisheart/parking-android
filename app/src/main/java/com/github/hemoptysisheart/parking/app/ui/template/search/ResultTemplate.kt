@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.hemoptysisheart.parking.app.ui.component.MapRecommendedItem
+import com.github.hemoptysisheart.parking.app.ui.molecule.search.RecommendedItem
 import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.ITEM_AAA_ANNEX_GALLERY
 import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.ITEM_AAA_NIHON_株式会社
 import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.ITEM_AAA_TOHO_TRADING
@@ -25,7 +25,7 @@ import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 
 @Composable
 fun SearchResultTemplate(
-    here:Location = GeoLocation(0.0,0.0),
+    here: Location = GeoLocation(0.0, 0.0),
     resultList: List<RecommendItem<*>> = listOf(),
     onSelect: (RecommendItem<*>) -> Unit = {}
 ) {
@@ -40,7 +40,7 @@ fun SearchResultTemplate(
                         .background(Color.LightGray)
                 )
             }
-            MapRecommendedItem(item = item, here = here, onSelect = onSelect)
+            RecommendedItem(item = item, here = here, onSelect = onSelect)
         }
     }
 }

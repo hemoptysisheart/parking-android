@@ -7,8 +7,8 @@ import com.github.hemoptysisheart.parking.app.domain.RouteImpl
 import com.github.hemoptysisheart.parking.app.navigation.SelectRoutePageNavigation.Companion.PARAM_DESTINATION_ID
 import com.github.hemoptysisheart.parking.core.client.google.dto.TransportationMode.DRIVING
 import com.github.hemoptysisheart.parking.core.client.google.dto.TransportationMode.WALKING
-import com.github.hemoptysisheart.parking.core.model.GeoSearchModel
 import com.github.hemoptysisheart.parking.core.model.LocationModel
+import com.github.hemoptysisheart.parking.core.model.SensorModel
 import com.github.hemoptysisheart.parking.core.util.Logger
 import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.domain.PartialRoute
@@ -21,8 +21,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SelectRouteViewModel @Inject constructor(
     state: SavedStateHandle,
-    private val locationModel: LocationModel,
-    private val geoSearchModel: GeoSearchModel
+    private val sensorModel: SensorModel,
+    private val locationModel: LocationModel
 ) : ViewModel() {
     companion object {
         private const val TAG = "SelectRouteViewModel"
@@ -40,7 +40,7 @@ class SelectRouteViewModel @Inject constructor(
     /**
      * TODO `state`로 넘겨받을 수 있는 방식으로 변경.
      */
-    val origin = locationModel.location
+    val origin = sensorModel.location
 
     val destination = MutableStateFlow<Location?>(null)
 
@@ -50,17 +50,20 @@ class SelectRouteViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            val destination = geoSearchModel.read(state.destinationId)
+            val destination = locationModel.read(state.destinationId)
                 ?: throw IllegalArgumentException("location does not exist : id=${state.destinationId}")
             this@SelectRouteViewModel.destination.emit(destination)
 
-            val routeMap = geoSearchModel.searchParking(destination).places.map {
+            val routeMap = locationModel.searchParking(destination).places.map {
                 RouteImpl(origin, it.item, destination)
             }.associateBy { it.parking }
             this@SelectRouteViewModel.routeMap.emit(routeMap)
 
             if (routeMap.isNotEmpty()) {
-                this@SelectRouteViewModel.routeMap.emit(routeMap.values.map { fill(it) }.associateBy { it.parking })
+                this@SelectRouteViewModel.routeMap.emit(
+                    routeMap.values.map { fill(it) }
+                        .associateBy { it.parking }
+                )
                 focusedRoute.emit(this@SelectRouteViewModel.routeMap.value.values.toList()[0])
             }
         }
@@ -68,8 +71,12 @@ class SelectRouteViewModel @Inject constructor(
 
     private suspend fun fill(src: Route): Route {
         val route = RouteImpl(src.origin, src.parking, src.destination)
-        route.driving = PartialRoute(geoSearchModel.searchRoute(origin, src.parking, DRIVING).overview)
-        route.walking = PartialRoute(geoSearchModel.searchRoute(src.parking, src.destination, WALKING).overview)
+        route.driving = PartialRoute(locationModel.searchRoute(origin, src.parking, DRIVING).overview)
+        route.walking = PartialRoute(locationModel.searchRoute(src.parking, src.destination, WALKING).overview)
         return route
     }
+
+    override fun toString() = "$TAG(sensorModel=$sensorModel, locationModel=$locationModel, " +
+            "origin=$origin, destination=${destination.value}, " +
+            "focusedRoute=${focusedRoute.value}, routeMap=${routeMap.value})"
 }

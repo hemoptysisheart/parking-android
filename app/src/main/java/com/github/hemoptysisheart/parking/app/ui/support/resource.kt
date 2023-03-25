@@ -6,9 +6,9 @@ import android.graphics.Canvas
 import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
-import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.TAG_SUPPORT
 import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.github.hemoptysisheart.parking.app.ui.support.LOGGER_SUPPORT as LOGGER
 
 /**
  * 이미지 리소스를 구글 맵에서 쓸 수 있는 [BitmapDescriptor]로 변환한다.
@@ -29,6 +29,6 @@ fun bitmapDescriptor(context: Context, @DrawableRes drawableId: Int): BitmapDesc
     }
     val descriptor = BitmapDescriptorFactory.fromBitmap(bitmap)
 
-    Log.v(TAG_SUPPORT, "#bitmapDescriptor return : $descriptor")
+    LOGGER.v("#bitmapDescriptor return : $descriptor")
     return descriptor
 }

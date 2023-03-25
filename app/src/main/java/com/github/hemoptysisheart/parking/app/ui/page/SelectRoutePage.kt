@@ -15,7 +15,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.rememberNavController
 import com.github.hemoptysisheart.parking.app.navigation.SelectRoutePageNavigation
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewViewModel.SELECT_ROUTE_VM
-import com.github.hemoptysisheart.parking.app.ui.template.SelectRouteHeader
+import com.github.hemoptysisheart.parking.app.ui.template.select.SelectRouteHeader
 import com.github.hemoptysisheart.parking.app.viewmodel.SelectRouteViewModel
 import com.github.hemoptysisheart.parking.core.extension.latLng
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme

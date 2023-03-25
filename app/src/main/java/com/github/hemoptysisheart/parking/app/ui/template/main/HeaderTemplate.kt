@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.parking.app.ui.template
+package com.github.hemoptysisheart.parking.app.ui.template.main
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

@@ -11,8 +11,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.rememberNavController
 import com.github.hemoptysisheart.parking.app.navigation.MainPageNavigation
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewViewModel.MAIN_VM
-import com.github.hemoptysisheart.parking.app.ui.template.HeaderTemplate
-import com.github.hemoptysisheart.parking.app.ui.template.MapTemplate
+import com.github.hemoptysisheart.parking.app.ui.template.main.HeaderTemplate
+import com.github.hemoptysisheart.parking.app.ui.template.main.MapTemplate
 import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 import com.github.hemoptysisheart.parking.app.configuration.LOGGER_COMPOSE as LOGGER

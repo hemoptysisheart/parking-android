@@ -17,7 +17,7 @@ object PreviewViewModel {
     val SELECT_ROUTE_VM = SelectRouteViewModel(
         SavedStateHandle(
             mapOf(
-                SelectRoutePageNavigation.PARAM_ID to LOCATION_株式会社ＡＡＡ.id
+                SelectRoutePageNavigation.PARAM_DESTINATION_ID to LOCATION_株式会社ＡＡＡ.id
             )
         ),
         LOCATION_MODEL,

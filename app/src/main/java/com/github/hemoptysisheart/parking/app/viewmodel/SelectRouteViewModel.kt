@@ -4,7 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.hemoptysisheart.parking.app.domain.RouteImpl
-import com.github.hemoptysisheart.parking.app.navigation.SelectRoutePageNavigation.Companion.PARAM_ID
+import com.github.hemoptysisheart.parking.app.navigation.SelectRoutePageNavigation.Companion.PARAM_DESTINATION_ID
 import com.github.hemoptysisheart.parking.core.client.google.dto.TransportationMode.DRIVING
 import com.github.hemoptysisheart.parking.core.client.google.dto.TransportationMode.WALKING
 import com.github.hemoptysisheart.parking.core.model.GeoSearchModel
@@ -29,11 +29,11 @@ class SelectRouteViewModel @Inject constructor(
         private val LOGGER = Logger(TAG)
     }
 
-    private val SavedStateHandle.id: String
+    private val SavedStateHandle.destinationId: String
         get() {
-            val id = get<String>(PARAM_ID)
-                ?: throw IllegalStateException("$PARAM_ID is not exist.")
-            LOGGER.v("#state.id : $id")
+            val id = get<String>(PARAM_DESTINATION_ID)
+                ?: throw IllegalStateException("$PARAM_DESTINATION_ID is not exist.")
+            LOGGER.v("#state.destinationId : $id")
             return id
         }
 
@@ -49,26 +49,19 @@ class SelectRouteViewModel @Inject constructor(
     val routeMap = MutableStateFlow<Map<Location, Route>>(mapOf())
 
     init {
-        val job = viewModelScope.launch {
-            val destination = geoSearchModel.read(state.id)
-                ?: throw IllegalArgumentException("location does not exist : id=${state.id}")
+        viewModelScope.launch {
+            val destination = geoSearchModel.read(state.destinationId)
+                ?: throw IllegalArgumentException("location does not exist : id=${state.destinationId}")
             this@SelectRouteViewModel.destination.emit(destination)
 
             val routeMap = geoSearchModel.searchParking(destination).places.map {
                 RouteImpl(origin, it.item, destination)
             }.associateBy { it.parking }
             this@SelectRouteViewModel.routeMap.emit(routeMap)
-        }
 
-        viewModelScope.launch {
-            job.join()
-            if (routeMap.value.isNotEmpty()) {
-                focusedRoute.emit(routeMap.value.entries.toList()[0].value)
-
-                this@SelectRouteViewModel.routeMap.emit(
-                    routeMap.value.values.map { fill(it) }
-                        .associateBy { it.parking }
-                )
+            if (routeMap.isNotEmpty()) {
+                this@SelectRouteViewModel.routeMap.emit(routeMap.values.map { fill(it) }.associateBy { it.parking })
+                focusedRoute.emit(this@SelectRouteViewModel.routeMap.value.values.toList()[0])
             }
         }
     }

@@ -6,14 +6,14 @@ import androidx.navigation.navArgument
 
 class SelectRoutePageNavigation(navController: NavController) : AbstractPageNavigation(navController) {
     companion object {
-        const val PARAM_ID = "id"
+        const val PARAM_DESTINATION_ID = "destinationId"
 
         const val NAME = "SelectRoute"
 
-        const val ROUTE = "$NAME/{$PARAM_ID}"
+        const val ROUTE = "$NAME/{$PARAM_DESTINATION_ID}"
 
         val ARGUMENTS = listOf(
-            navArgument(PARAM_ID) { type = NavType.StringType }
+            navArgument(PARAM_DESTINATION_ID) { type = NavType.StringType }
         )
     }
 }

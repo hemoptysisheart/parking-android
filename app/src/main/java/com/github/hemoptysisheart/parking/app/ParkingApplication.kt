@@ -2,12 +2,12 @@ package com.github.hemoptysisheart.parking.app
 
 import android.app.Activity
 import android.app.Application
-import android.util.Log
 import com.github.hemoptysisheart.parking.app.activity.LauncherActivity
 import com.github.hemoptysisheart.parking.app.activity.MainActivity
 import com.github.hemoptysisheart.parking.app.support.ActivityLifecycleCallbacksAdapter
 import com.github.hemoptysisheart.parking.core.logging.AndroidLoggingHandler
 import com.github.hemoptysisheart.parking.core.model.PreferencesModel.ExecutionPreferencesModel
+import com.github.hemoptysisheart.parking.core.util.Logger
 import com.github.hemoptysisheart.parking.domain.ExecutionPreferences
 import com.github.hemoptysisheart.parking.domain.InstallPreferences
 import com.github.hemoptysisheart.util.TimeProvider
@@ -21,7 +21,8 @@ import javax.inject.Inject
 @HiltAndroidApp
 class ParkingApplication : Application() {
     companion object {
-        private val TAG = ParkingApplication::class.simpleName
+        private const val TAG = "ParkingApplication"
+        private val LOGGER = Logger(TAG)
     }
 
     private val activityLifecycleCallbacks = object : ActivityLifecycleCallbacksAdapter() {
@@ -36,11 +37,11 @@ class ParkingApplication : Application() {
         private val minBackgroundDuration = Duration.ofMillis(100L)
 
         override fun onActivityResumed(activity: Activity) {
-            Log.v(TAG, "#activityCallbacks.onActivityResumed args : activity=$activity")
+            LOGGER.v("#activityCallbacks.onActivityResumed args : activity=$activity")
 
             synchronized(countLock) {
                 count++
-                Log.i(TAG, "#activityCallbacks.onActivityResumed : count=$count")
+                LOGGER.i("#activityCallbacks.onActivityResumed : count=$count")
                 if (1 == count && minBackgroundDuration < Duration.between(countDecreasedAt, timeProvider.instant())) {
                     (executionPreferences as ExecutionPreferencesModel).increaseForeground(timeProvider.instant())
                 }
@@ -48,12 +49,12 @@ class ParkingApplication : Application() {
         }
 
         override fun onActivityPaused(activity: Activity) {
-            Log.v(TAG, "#activityCallbacks.onActivityPaused args : activity=$activity")
+            LOGGER.v("#activityCallbacks.onActivityPaused args : activity=$activity")
 
             synchronized(countLock) {
                 count--
                 countDecreasedAt = timeProvider.instant()
-                Log.i(TAG, "#activityCallbacks.onActivityPaused : count=$count")
+                LOGGER.i("#activityCallbacks.onActivityPaused : count=$count")
             }
         }
     }
@@ -68,7 +69,7 @@ class ParkingApplication : Application() {
     lateinit var executionPreferences: ExecutionPreferences
 
     override fun onCreate() {
-        Log.i(TAG, "#onCreate called.")
+        LOGGER.i("#onCreate called.")
         super.onCreate()
 
         registerActivityLifecycleCallbacks(activityLifecycleCallbacks)
@@ -77,7 +78,7 @@ class ParkingApplication : Application() {
             installPreferences.initialize()
         }
         (executionPreferences as ExecutionPreferencesModel).increaseColdStart(timeProvider.instant())
-        Log.i(TAG, "#onCreate : installPreferences=$installPreferences, executionPreferences=$executionPreferences")
+        LOGGER.i("#onCreate : installPreferences=$installPreferences, executionPreferences=$executionPreferences")
 
         AndroidLoggingHandler.setup()
         MainScope().launch {

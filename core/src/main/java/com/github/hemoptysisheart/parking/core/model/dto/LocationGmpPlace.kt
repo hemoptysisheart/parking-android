@@ -21,7 +21,7 @@ class LocationGmpPlace(
         place.geometry?.location.toString()
     )
 
-    override val id = Location.ID_VALIDATOR.validate("$TAG/${place.placeId}")
+    override val id = Location.ID_VALIDATOR.validate("$TAG:${place.placeId}")
 
     override val name: String = contents.firstOrNull()
         ?: id

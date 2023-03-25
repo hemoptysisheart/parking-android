@@ -1,84 +1,66 @@
-package com.github.hemoptysisheart.parking.app.ui.component
+package com.github.hemoptysisheart.parking.app.ui.template.search
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.zIndex
-import com.github.hemoptysisheart.parking.app.ui.configuration.Constant.TAG_COMPOSE
+import com.github.hemoptysisheart.parking.app.ui.molecule.search.RecommendedItem
 import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.ITEM_AAA_ANNEX_GALLERY
 import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.ITEM_AAA_NIHON_株式会社
 import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.ITEM_AAA_TOHO_TRADING
 import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.ITEM_GOOBNE_CHICKEN_曙橋店
 import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.ITEM_株式会社ＡＡＡ
-import com.github.hemoptysisheart.parking.core.logging.logArgs
+import com.github.hemoptysisheart.parking.domain.GeoLocation
 import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.domain.RecommendItem
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 
 @Composable
-fun MapOverlayExtend(
-    destinationQuery: String = "",
-    searchDestinationResult: List<RecommendItem<*>> = listOf(),
-    distanceCalculator: (Location) -> Double = { 12345.6 },
-    onDestinationQueryChange: (String) -> Unit = { },
-    onSelectRecommend: (RecommendItem<*>) -> Unit = { },
-    onCollapse: () -> Unit = { }
+fun SearchResultTemplate(
+    here: Location = GeoLocation(0.0, 0.0),
+    resultList: List<RecommendItem<*>> = listOf(),
+    onSelect: (RecommendItem<*>) -> Unit = {}
 ) {
-    logArgs(
-        TAG_COMPOSE, "MapOverlayExtend",
-        "destinationQuery" to destinationQuery,
-        "onDestinationQueryChange" to onDestinationQueryChange,
-        "onSelectRecommend" to onSelectRecommend,
-        "onCollapse" to onCollapse
-    )
-
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White)
-            .zIndex(1.0F)
-    ) {
-        item { MapOverlayExtendHeader(destinationQuery, onDestinationQueryChange, onCollapse) }
-        itemsIndexed(searchDestinationResult) { index, item ->
+    LazyColumn(Modifier.fillMaxWidth()) {
+        itemsIndexed(resultList) { index, item ->
             if (0 < index) {
                 Box(
-                    modifier = Modifier
+                    Modifier
                         .fillMaxWidth()
                         .padding(30.dp, 3.dp)
                         .height(1.dp)
                         .background(Color.LightGray)
                 )
             }
-            MapRecommendedItem(item, distanceCalculator, onSelectRecommend)
+            RecommendedItem(item = item, here = here, onSelect = onSelect)
         }
     }
 }
 
 @Composable
 @Preview(showBackground = true)
-@SuppressLint("ComposableNaming")
-fun preview_MapOverlayExtend_recommendedEmpty() {
+@Suppress("NonAsciiCharacters")
+fun Preview_SearchResultTemplate_결과_없음() {
     ParkingTheme {
-        MapOverlayExtend()
+        SearchResultTemplate()
     }
 }
 
 @Composable
 @Preview(showBackground = true)
-@SuppressLint("ComposableNaming")
-fun preview_MapOverlayExtend_recommended() {
+@Suppress("NonAsciiCharacters")
+fun Preview_SearchResultTemplate_결과_있음() {
     ParkingTheme {
-        MapOverlayExtend(
-            destinationQuery = "AAA",
-            searchDestinationResult = listOf(
+        SearchResultTemplate(
+            resultList = listOf(
                 ITEM_AAA_TOHO_TRADING,
                 ITEM_株式会社ＡＡＡ,
                 ITEM_AAA_ANNEX_GALLERY,

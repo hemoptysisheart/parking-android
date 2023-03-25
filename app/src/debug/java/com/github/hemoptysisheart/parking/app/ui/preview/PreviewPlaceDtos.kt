@@ -2,13 +2,12 @@ package com.github.hemoptysisheart.parking.app.ui.preview
 
 import com.github.hemoptysisheart.parking.core.client.google.dto.*
 import com.github.hemoptysisheart.parking.core.client.google.dto.BusinessStatus.OPERATIONAL
-import com.github.hemoptysisheart.parking.core.client.google.dto.PlaceTypeResultOnly.ESTABLISHMENT
-import com.github.hemoptysisheart.parking.core.client.google.dto.PlaceTypeResultOnly.POINT_OF_INTEREST
+import com.github.hemoptysisheart.parking.core.client.google.dto.PlaceTypeResultOnly.*
 import com.github.hemoptysisheart.parking.core.client.google.dto.PlaceTypes.*
 import java.net.URL
 
 @Suppress("NonAsciiCharacters")
-object PlaceDtos {
+object PreviewPlaceDtos {
     val PLACE_AAA_TOHO_TRADING = Place(
         businessStatus = OPERATIONAL,
         geometry = Geometry(
@@ -150,8 +149,25 @@ object PlaceDtos {
         placeId = "ChIJHR3d64mNGGARMNiJ9_jF6rI",
         plusCode = PlusCode(globalCode = "8Q7XMPW9+8W", compoundCode = "MPW9+8W 신주쿠구 도쿄도"),
         rating = 4.4,
-        types = setOf(RESTAURANT, PlaceTypeResultOnly.FOOD, POINT_OF_INTEREST, ESTABLISHMENT),
+        types = setOf(RESTAURANT, FOOD, POINT_OF_INTEREST, ESTABLISHMENT),
         userRatingsTotal = 47,
         vicinity = "Shinjuku City, Kawadacho, 3−8 THE DENS 1階"
+    )
+
+    val PARKING_시부야역_주변_주차장 = Place(
+        geometry = Geometry(
+            location = LatLng(35.657978, 139.7006704),
+            viewport = Bounds(
+                northEast = LatLng(35.65939225915965, 139.7020545328841),
+                southWest = LatLng(35.65669429857665, 139.6993565723011)
+            )
+        ),
+        icon = URL("https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/parking-71.png"),
+        iconBackgroundColor = "#7B9EB0",
+        iconMaskBase = URL("https://maps.gstatic.com/mapfiles/place_api/icons/v2/parking_pinlet"),
+        name = "Parking lot",
+        placeId = "ChIJOdUdkFeLGGARW-FfQi0C9uo",
+        types = setOf(PREMISE, PARKING, POINT_OF_INTEREST, ESTABLISHMENT),
+        vicinity = "1"
     )
 }

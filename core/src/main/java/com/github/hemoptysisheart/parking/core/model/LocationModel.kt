@@ -1,23 +1,40 @@
 package com.github.hemoptysisheart.parking.core.model
 
+import com.github.hemoptysisheart.parking.core.client.google.dto.TransportationMode
+import com.github.hemoptysisheart.parking.core.model.dto.PlaceSearchResult
+import com.github.hemoptysisheart.parking.core.model.dto.RouteSearchResult
 import com.github.hemoptysisheart.parking.domain.GeoLocation
+import com.github.hemoptysisheart.parking.domain.Location
+import com.github.hemoptysisheart.parking.domain.RecommendItemLocation
 
-/**
- * 위치 정보 제공.
- */
 interface LocationModel {
     /**
-     * 최신 현재 위치.
+     * `center`를 중심으로 장소를 검색한다.
+     *
+     * TODO 검색 결과는 [Location]을 사용하도록 변경. [RecommendItemLocation]는 UI 레이어에서 처리하도록 변경.
      */
-    val location: GeoLocation
+    suspend fun searchDestination(center: GeoLocation, query: String): PlaceSearchResult
 
     /**
-     * 위치가 바뀔 경우 콜백 등록.
+     * @return 없으면 `null`.
      */
-    fun addCallback(key: String, callback: (GeoLocation) -> Unit)
+    suspend fun read(id: String): Location?
 
     /**
-     * 콜백 제거.
+     * 목적지 주변 주차장 찾기.
+     *
+     * TODO 검색 결과는 [Location]을 사용하도록 변경. [RecommendItemLocation]는 UI 레이어에서 처리하도록 변경.
+     *
+     * @param destination 목적지.
      */
-    fun removeCallback(key: String)
+    suspend fun searchParking(destination: Location): PlaceSearchResult
+
+    /**
+     * 출발지에서 목적지 까지의 경로를 검색한다.
+     *
+     * @param origin 출발지
+     * @param destination 목적지
+     * @param mode 이동 수단
+     */
+    suspend fun searchRoute(origin: Location, destination: Location, mode: TransportationMode): RouteSearchResult
 }

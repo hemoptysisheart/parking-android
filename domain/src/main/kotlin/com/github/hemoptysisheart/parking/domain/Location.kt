@@ -11,7 +11,7 @@ interface Location {
         /**
          * 유효한 [id] 형식.
          */
-        const val ID_PATTERN = "\\S+/\\S+"
+        const val ID_PATTERN = "\\S+:\\S+"
 
         /**
          * 유효한 [id] 정규 표현식.

@@ -17,30 +17,6 @@ data class RouteImpl(
 
     override lateinit var walking: PartialRoute
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as RouteImpl
-
-        if (origin != other.origin) return false
-        if (parking != other.parking) return false
-        if (destination != other.destination) return false
-        if (driving != other.driving) return false
-        if (walking != other.walking) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = origin.hashCode()
-        result = 31 * result + parking.hashCode()
-        result = 31 * result + destination.hashCode()
-        result = 31 * result + driving.hashCode()
-        result = 31 * result + walking.hashCode()
-        return result
-    }
-
     @Suppress("IMPLICIT_CAST_TO_ANY")
     override fun toString() = "RouteImpl(origin=$origin, parking=$parking, destination=$destination, " +
             "driving=${if (this::driving.isInitialized) driving else "[ not initialized ]"}, " +

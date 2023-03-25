@@ -15,7 +15,6 @@ import com.github.hemoptysisheart.parking.domain.PartialRoute
 import com.github.hemoptysisheart.parking.domain.Route
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -50,7 +49,7 @@ class SelectRouteViewModel @Inject constructor(
     val routeMap = MutableStateFlow<Map<Location, Route>>(mapOf())
 
     init {
-        val searchJob = viewModelScope.launch {
+        val job = viewModelScope.launch {
             val destination = geoSearchModel.read(state.id)
                 ?: throw IllegalArgumentException("location does not exist : id=${state.id}")
             this@SelectRouteViewModel.destination.emit(destination)
@@ -59,25 +58,25 @@ class SelectRouteViewModel @Inject constructor(
                 RouteImpl(origin, it.item, destination)
             }.associateBy { it.parking }
             this@SelectRouteViewModel.routeMap.emit(routeMap)
-
-            if (routeMap.isNotEmpty()) {
-                focusedRoute.emit(routeMap.entries.toList()[0].value)
-
-                routeMap.values.map { route ->
-                    launch {
-                        route.driving =
-                            PartialRoute(geoSearchModel.searchRoute(origin, route.parking, DRIVING).overview)
-                        route.walking =
-                            PartialRoute(geoSearchModel.searchRoute(route.parking, route.destination, WALKING).overview)
-                    }
-                }.joinAll()
-            }
         }
 
         viewModelScope.launch {
-            searchJob.join()
-            this@SelectRouteViewModel.routeMap.emit(
-                this@SelectRouteViewModel.routeMap.value.values.associateBy { it.parking })
+            job.join()
+            if (routeMap.value.isNotEmpty()) {
+                focusedRoute.emit(routeMap.value.entries.toList()[0].value)
+
+                this@SelectRouteViewModel.routeMap.emit(
+                    routeMap.value.values.map { fill(it) }
+                        .associateBy { it.parking }
+                )
+            }
         }
+    }
+
+    private suspend fun fill(src: Route): Route {
+        val route = RouteImpl(src.origin, src.parking, src.destination)
+        route.driving = PartialRoute(geoSearchModel.searchRoute(origin, src.parking, DRIVING).overview)
+        route.walking = PartialRoute(geoSearchModel.searchRoute(src.parking, src.destination, WALKING).overview)
+        return route
     }
 }

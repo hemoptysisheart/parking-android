@@ -18,13 +18,14 @@ import com.google.maps.android.compose.rememberMarkerState
 fun DestinationMarker(context: Context, destination: Location) {
     Marker(
         state = rememberMarkerState(destination.id, destination.latLng),
-        icon = bitmapDescriptor(context, R.drawable.map_marker_destination)
+        icon = bitmapDescriptor(context, R.drawable.map_marker_destination),
+        zIndex = 10f
     )
 }
 
 @Composable
 @Preview
-fun Preview_DestinationMarker_icon() {
+fun Preview_DestinationMarker_Icon() {
     ParkingTheme {
         Image(
             painterResource(id = R.drawable.map_marker_destination),

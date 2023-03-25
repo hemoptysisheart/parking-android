@@ -19,7 +19,7 @@ import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 
 @Composable
 fun SelectRouteHeader(
-    destination: Location,
+    destination: Location? = null,
     onBack: () -> Unit = {}
 ) {
     Row(
@@ -31,7 +31,7 @@ fun SelectRouteHeader(
         verticalAlignment = Alignment.CenterVertically
     ) {
         GoBackButton(onBack)
-        Text(text = destination.name, modifier = Modifier.padding(5.dp))
+        Text(text = destination?.name ?: "", modifier = Modifier.padding(5.dp))
     }
 }
 

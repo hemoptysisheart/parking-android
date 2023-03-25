@@ -20,6 +20,7 @@ object PreviewViewModel {
                 SelectRoutePageNavigation.PARAM_ID to LOCATION_株式会社ＡＡＡ.id
             )
         ),
+        LOCATION_MODEL,
         GEO_SEARCH_MODEL
     )
 }

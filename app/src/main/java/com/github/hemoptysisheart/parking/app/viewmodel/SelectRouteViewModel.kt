@@ -3,20 +3,26 @@ package com.github.hemoptysisheart.parking.app.viewmodel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.github.hemoptysisheart.parking.app.domain.RouteImpl
 import com.github.hemoptysisheart.parking.app.navigation.SelectRoutePageNavigation.Companion.PARAM_ID
+import com.github.hemoptysisheart.parking.core.client.google.dto.TransportationMode.DRIVING
+import com.github.hemoptysisheart.parking.core.client.google.dto.TransportationMode.WALKING
 import com.github.hemoptysisheart.parking.core.model.GeoSearchModel
+import com.github.hemoptysisheart.parking.core.model.LocationModel
 import com.github.hemoptysisheart.parking.core.util.Logger
 import com.github.hemoptysisheart.parking.domain.Location
-import com.github.hemoptysisheart.parking.domain.RecommendItemLocation
+import com.github.hemoptysisheart.parking.domain.PartialRoute
+import com.github.hemoptysisheart.parking.domain.Route
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SelectRouteViewModel @Inject constructor(
     state: SavedStateHandle,
+    private val locationModel: LocationModel,
     private val geoSearchModel: GeoSearchModel
 ) : ViewModel() {
     companion object {
@@ -32,24 +38,46 @@ class SelectRouteViewModel @Inject constructor(
             return id
         }
 
-    lateinit var destination: MutableStateFlow<Location>
-        private set
+    /**
+     * TODO `state`로 넘겨받을 수 있는 방식으로 변경.
+     */
+    val origin = locationModel.location
 
-    val parkingList = MutableStateFlow(listOf<RecommendItemLocation>())
+    val destination = MutableStateFlow<Location?>(null)
+
+    val focusedRoute = MutableStateFlow<Route?>(null)
+
+    val routeMap = MutableStateFlow<Map<Location, Route>>(mapOf())
 
     init {
-        viewModelScope.launch {
-            destination = geoSearchModel.read(state.id)?.let {
-                LOGGER.d("#init : location=$it")
-                MutableStateFlow(it)
-            } ?: throw IllegalArgumentException("location does not exist : id=${state.id}")
+        val searchJob = viewModelScope.launch {
+            val destination = geoSearchModel.read(state.id)
+                ?: throw IllegalArgumentException("location does not exist : id=${state.id}")
+            this@SelectRouteViewModel.destination.emit(destination)
 
-            coroutineScope {
-                launch {
-                    val result = geoSearchModel.searchParking(destination.value)
-                    parkingList.emit(result.places)
-                }
+            val routeMap = geoSearchModel.searchParking(destination).places.map {
+                RouteImpl(origin, it.item, destination)
+            }.associateBy { it.parking }
+            this@SelectRouteViewModel.routeMap.emit(routeMap)
+
+            if (routeMap.isNotEmpty()) {
+                focusedRoute.emit(routeMap.entries.toList()[0].value)
+
+                routeMap.values.map { route ->
+                    launch {
+                        route.driving =
+                            PartialRoute(geoSearchModel.searchRoute(origin, route.parking, DRIVING).overview)
+                        route.walking =
+                            PartialRoute(geoSearchModel.searchRoute(route.parking, route.destination, WALKING).overview)
+                    }
+                }.joinAll()
             }
+        }
+
+        viewModelScope.launch {
+            searchJob.join()
+            this@SelectRouteViewModel.routeMap.emit(
+                this@SelectRouteViewModel.routeMap.value.values.associateBy { it.parking })
         }
     }
 }

@@ -20,13 +20,15 @@ fun ParkingMarker(context: Context, parking: Location, focused: Boolean) {
         Marker(
             state = rememberMarkerState(key = parking.id, position = parking.latLng),
             title = parking.name,
-            icon = bitmapDescriptor(context, R.drawable.map_marker_parking_focused)
+            icon = bitmapDescriptor(context, R.drawable.map_marker_parking_focused),
+            zIndex = 9f
         )
     } else {
         Marker(
             state = rememberMarkerState(key = parking.id, position = parking.latLng),
             title = parking.name,
-            icon = bitmapDescriptor(context, R.drawable.map_marker_parking)
+            icon = bitmapDescriptor(context, R.drawable.map_marker_parking),
+            zIndex = 8f
         )
     }
 }

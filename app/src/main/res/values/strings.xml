@@ -10,6 +10,8 @@
     <string name="label_welcome_message">운전 하면\n%s</string>
 
     <string name="select_route_destination_marker_description">목적지</string>
+    <string name="select_route_parking_marker_focused_description">선택한 주차장</string>
+    <string name="select_route_parking_marker_description">주차장</string>
 
     <!--  ========================================================================================================  -->
 

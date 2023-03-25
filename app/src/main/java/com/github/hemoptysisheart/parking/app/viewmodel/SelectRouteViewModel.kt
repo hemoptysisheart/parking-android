@@ -7,7 +7,9 @@ import com.github.hemoptysisheart.parking.app.navigation.SelectRoutePageNavigati
 import com.github.hemoptysisheart.parking.core.model.GeoSearchModel
 import com.github.hemoptysisheart.parking.core.util.Logger
 import com.github.hemoptysisheart.parking.domain.Location
+import com.github.hemoptysisheart.parking.domain.RecommendItemLocation
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -33,12 +35,21 @@ class SelectRouteViewModel @Inject constructor(
     lateinit var destination: MutableStateFlow<Location>
         private set
 
+    val parkingList = MutableStateFlow(listOf<RecommendItemLocation>())
+
     init {
         viewModelScope.launch {
             destination = geoSearchModel.read(state.id)?.let {
                 LOGGER.d("#init : location=$it")
                 MutableStateFlow(it)
             } ?: throw IllegalArgumentException("location does not exist : id=${state.id}")
+
+            coroutineScope {
+                launch {
+                    val result = geoSearchModel.searchParking(destination.value)
+                    parkingList.emit(result.places)
+                }
+            }
         }
     }
 }

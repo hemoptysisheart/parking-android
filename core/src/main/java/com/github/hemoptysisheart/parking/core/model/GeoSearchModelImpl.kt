@@ -41,6 +41,10 @@ class GeoSearchModelImpl(
      */
     private val locationCache = mutableMapOf<String, Location>()
 
+    /**
+     * TODO ID가 좌표이면 즉시 인스턴스 생성해서 반환하기.
+     * TODO ID가 플레이스 ID이면 API에서 읽어서 캐시하고 반환하기.
+     */
     override suspend fun read(id: String): Location? = locationCache[id]
 
     override suspend fun searchDestination(center: GeoLocation, query: String): PlaceSearchResult {

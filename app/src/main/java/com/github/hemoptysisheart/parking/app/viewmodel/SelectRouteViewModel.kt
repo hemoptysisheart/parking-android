@@ -30,12 +30,12 @@ class SelectRouteViewModel @Inject constructor(
             return id
         }
 
-    lateinit var location: MutableStateFlow<Location>
+    lateinit var destination: MutableStateFlow<Location>
         private set
 
     init {
         viewModelScope.launch {
-            location = geoSearchModel.read(state.id)?.let {
+            destination = geoSearchModel.read(state.id)?.let {
                 LOGGER.d("#init : location=$it")
                 MutableStateFlow(it)
             } ?: throw IllegalArgumentException("location does not exist : id=${state.id}")

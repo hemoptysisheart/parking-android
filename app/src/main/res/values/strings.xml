@@ -2,7 +2,7 @@
     <string name="launcher_label">Parking</string>
     <string name="app_name">Parking</string>
 
-    <string name="label_move_back">돌아가기</string>
+    <string name="label_go_back_button_description">돌아가기</string>
 
     <string name="unit_meter">%s m</string>
     <string name="unit_kilo_meter">%s Km</string>

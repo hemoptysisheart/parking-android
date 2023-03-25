@@ -10,7 +10,7 @@ class SelectRoutePageNavigation(navController: NavController) : AbstractPageNavi
 
         const val NAME = "SelectRoute"
 
-        const val ROUTE = "${Companion.NAME}/{$PARAM_ID}"
+        const val ROUTE = "$NAME/{$PARAM_ID}"
 
         val ARGUMENTS = listOf(
             navArgument(PARAM_ID) { type = NavType.StringType }

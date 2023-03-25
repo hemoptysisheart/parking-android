@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.parking.app.ui.molecule
+package com.github.hemoptysisheart.parking.app.ui.molecule.common
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
@@ -18,7 +18,7 @@ fun GoBackButton(onClick: () -> Unit = {}) {
     IconButton(onClick = onClick) {
         Icon(
             imageVector = Icons.Default.ArrowBack,
-            contentDescription = stringResource(R.string.label_go_back_button_description),
+            contentDescription = stringResource(R.string.go_back_button_description),
             modifier = Modifier.padding(15.dp)
         )
     }

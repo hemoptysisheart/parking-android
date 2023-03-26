@@ -4,6 +4,7 @@ plugins {
     id 'com.google.dagger.hilt.android'
     id 'kotlin-kapt'
     id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.plugin.allopen'
 }
 
 android {
@@ -101,4 +102,8 @@ dependencies {
 
 secrets {
     defaultPropertiesFileName 'local.properties'
+}
+
+allOpen {
+    annotation 'dagger.hilt.android.lifecycle.HiltViewModel'
 }

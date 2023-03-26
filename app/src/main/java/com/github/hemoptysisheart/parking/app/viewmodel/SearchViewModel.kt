@@ -31,7 +31,7 @@ class SearchViewModel @Inject constructor(
 
     private var searchJob: Job? = null
 
-    var here: Location = sensorModel.location
+    final var here: Location = sensorModel.location
         get() = sensorModel.location
         private set
 

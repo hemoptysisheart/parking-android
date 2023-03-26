@@ -12,9 +12,5 @@
     <string name="select_route_destination_marker_description">목적지</string>
     <string name="select_route_parking_marker_focused_description">선택한 주차장</string>
     <string name="select_route_parking_marker_description">주차장</string>
-
-    <!--  ========================================================================================================  -->
-
-    <string name="map_overlay_collapse_button_description">오버레이 닫기</string>
-    <string name="map_overlay_query_placeholder">목적지를 검색하세요.</string>
+    <string name="select_route_start_navigation_button_label">안내</string>
 </resources>

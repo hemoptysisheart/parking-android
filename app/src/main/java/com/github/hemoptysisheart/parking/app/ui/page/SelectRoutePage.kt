@@ -26,9 +26,7 @@ fun SelectRoutePage(
     navigation: SelectRoutePageNavigation = SelectRoutePageNavigation(rememberNavController()),
     viewModel: SelectRouteViewModel = hiltViewModel()
 ) {
-    var showControl by rememberSaveable {
-        mutableStateOf(true)
-    }
+    var showControl by rememberSaveable { mutableStateOf(true) }
     val destination by viewModel.destination.collectAsStateWithLifecycle()
     val routeList by viewModel.routeList.collectAsStateWithLifecycle()
     val focusedRoute by viewModel.focusedRoute.collectAsStateWithLifecycle()
@@ -38,16 +36,16 @@ fun SelectRoutePage(
             SelectRouteHeader(destination = destination, navigation.onBack)
         }
         Column(Modifier.fillMaxSize()) {
-                MapTemplate(
-                    destination = destination,
-                    routeList = routeList,
-                    focusedRoute = focusedRoute,
-                    modifier = Modifier.weight(2f),
-                    onClick = { showControl = !showControl },
-                    onSelectRoute = { viewModel.focus(it) }
-                )
-            focusedRoute?.let {
-                    RouteDetailTemplate(it, Modifier.weight(1f))
+            MapTemplate(
+                destination = destination,
+                routeList = routeList,
+                focusedRoute = focusedRoute,
+                modifier = Modifier.weight(2f),
+                onClick = { showControl = !showControl },
+                onSelectRoute = { viewModel.focus(it) }
+            )
+            if (showControl) {
+                focusedRoute?.let { RouteDetailTemplate(it, Modifier.weight(1f)) }
             }
         }
     }

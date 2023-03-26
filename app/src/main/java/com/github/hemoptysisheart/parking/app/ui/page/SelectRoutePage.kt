@@ -1,6 +1,7 @@
 package com.github.hemoptysisheart.parking.app.ui.page
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -15,6 +16,7 @@ import androidx.navigation.compose.rememberNavController
 import com.github.hemoptysisheart.parking.app.navigation.SelectRoutePageNavigation
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewViewModel.SELECT_ROUTE_VM
 import com.github.hemoptysisheart.parking.app.ui.template.select.MapTemplate
+import com.github.hemoptysisheart.parking.app.ui.template.select.RouteDetailTemplate
 import com.github.hemoptysisheart.parking.app.ui.template.select.SelectRouteHeader
 import com.github.hemoptysisheart.parking.app.viewmodel.SelectRouteViewModel
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
@@ -35,13 +37,19 @@ fun SelectRoutePage(
         if (showControl) {
             SelectRouteHeader(destination = destination, navigation.onBack)
         }
-        MapTemplate(
-            destination = destination,
-            routeList = routeList,
-            focusedRoute = focusedRoute,
-            onClick = { showControl = !showControl },
-            onSelectRoute = { viewModel.focus(it) }
-        )
+        Column(Modifier.fillMaxSize()) {
+                MapTemplate(
+                    destination = destination,
+                    routeList = routeList,
+                    focusedRoute = focusedRoute,
+                    modifier = Modifier.weight(2f),
+                    onClick = { showControl = !showControl },
+                    onSelectRoute = { viewModel.focus(it) }
+                )
+            focusedRoute?.let {
+                    RouteDetailTemplate(it, Modifier.weight(1f))
+            }
+        }
     }
 }
 

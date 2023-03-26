@@ -25,6 +25,7 @@ fun MapTemplate(
     destination: Location? = null,
     routeList: List< Route> = listOf(),
     focusedRoute: Route? = null,
+    modifier: Modifier = Modifier,
     onClick: (LatLng) -> Unit = {},
     onSelectRoute: (Route) -> Unit = {}
 ) {
@@ -36,7 +37,7 @@ fun MapTemplate(
     }
 
     GoogleMap(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .zIndex(1f),
         cameraPositionState = cameraPositionState,

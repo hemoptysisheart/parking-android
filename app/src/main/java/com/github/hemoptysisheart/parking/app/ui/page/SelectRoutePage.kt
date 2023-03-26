@@ -39,7 +39,8 @@ fun SelectRoutePage(
             destination = destination,
             routeMap = routeMap,
             focusedRoute = focusedRoute,
-            onClick = { showControl = !showControl }
+            onClick = { showControl = !showControl },
+            onSelectRoute = { viewModel.focus(it) }
         )
     }
 }

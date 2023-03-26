@@ -25,7 +25,8 @@ fun MapTemplate(
     destination: Location? = null,
     routeMap: Map<Location, Route> = mapOf(),
     focusedRoute: Route? = null,
-    onClick: (LatLng) -> Unit = {}
+    onClick: (LatLng) -> Unit = {},
+    onSelectRoute: (Route) -> Unit = {}
 ) {
     val context = LocalContext.current
 
@@ -53,7 +54,7 @@ fun MapTemplate(
         }
 
         routeMap.entries.forEach {
-            ParkingMarker(context, it.key, focusedRoute === it.value)
+            ParkingMarker(context, it.value, focusedRoute === it.value, onSelectRoute)
             RouteOverview(it.value, focusedRoute === it.value)
         }
     }

@@ -55,15 +55,18 @@ class SelectRouteViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
+            // 목적지 표시.
             val destination = locationModel.read(state.destinationId)
                 ?: throw IllegalArgumentException("location does not exist : id=${state.destinationId}")
             this@SelectRouteViewModel.destination.emit(destination)
 
+            // 주차장 우선 표시.
             val routeMap = locationModel.searchParking(destination).places.map {
                 RouteImpl(origin, it.item, destination)
             }.associateBy { it.parking }
             this@SelectRouteViewModel.routeMap.emit(routeMap)
 
+            // 경로 채워넣기.
             if (routeMap.isNotEmpty()) {
                 this@SelectRouteViewModel.routeMap.emit(
                     routeMap.values.map { fill(it) }
@@ -79,6 +82,13 @@ class SelectRouteViewModel @Inject constructor(
         route.driving = PartialRoute(locationModel.searchRoute(origin, src.parking, DRIVING).overview)
         route.walking = PartialRoute(locationModel.searchRoute(src.parking, src.destination, WALKING).overview)
         return route
+    }
+
+    fun focus(route: Route) {
+        LOGGER.d("#focus args : route=$route")
+        viewModelScope.launch {
+            focusedRoute.emit(route)
+        }
     }
 
     override fun toString() = "$TAG(sensorModel=$sensorModel, locationModel=$locationModel, " +

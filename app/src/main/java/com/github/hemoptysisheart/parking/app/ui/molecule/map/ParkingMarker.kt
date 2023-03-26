@@ -9,7 +9,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.github.hemoptysisheart.parking.R
 import com.github.hemoptysisheart.parking.app.ui.support.*
 import com.github.hemoptysisheart.parking.core.extension.latLng
-import com.github.hemoptysisheart.parking.domain.Location
+import com.github.hemoptysisheart.parking.domain.Route
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.rememberMarkerState
@@ -18,30 +18,30 @@ import com.github.hemoptysisheart.parking.app.ui.support.LOGGER_COMPOSE as LOGGE
 @Composable
 fun ParkingMarker(
     context: Context,
-    parking: Location,
+    route: Route,
     focused: Boolean,
-    onSelect: (Location) -> Unit = { LOGGER.v("#onSelect args : location=$it") }
+    onSelect: (Route) -> Unit = { LOGGER.v("#onSelect args : route=$it") }
 ) {
-    LOGGER.v("#ParkingMarker args : context=$context, parking=$parking, focused=$focused, onSelect=$onSelect")
+    LOGGER.v("#ParkingMarker args : context=$context, route=$route, focused=$focused, onSelect=$onSelect")
     if (focused) {
         Marker(
-            state = rememberMarkerState(key = parking.id, position = parking.latLng),
-            alpha=MAP_MARKER_FOCUSED_ALPHA,
+            state = rememberMarkerState(key = route.parking.id, position = route.parking.latLng),
+            alpha = MAP_MARKER_FOCUSED_ALPHA,
             icon = bitmapDescriptor(context, R.drawable.map_marker_parking_focused),
-            tag = parking,
-            title = parking.name,
+            tag = route,
+            title = route.parking.name,
             zIndex = MAP_MARKER_FOCUSED_Z_INDEX
         )
     } else {
         Marker(
-            state = rememberMarkerState(key = parking.id, position = parking.latLng),
-            alpha =MAP_MARKER_ALPHA,
+            state = rememberMarkerState(key = route.parking.id, position = route.parking.latLng),
+            alpha = MAP_MARKER_ALPHA,
             icon = bitmapDescriptor(context, R.drawable.map_marker_parking),
-            tag = parking,
-            title = parking.name,
+            tag = route,
+            title = route.parking.name,
             zIndex = MAP_MARKER_Z_INDEX,
             onClick = {
-                onSelect(it.tag as Location)
+                onSelect(it.tag as Route)
                 false
             }
         )

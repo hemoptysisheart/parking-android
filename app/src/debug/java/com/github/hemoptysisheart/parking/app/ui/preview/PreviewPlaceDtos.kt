@@ -170,4 +170,53 @@ object PreviewPlaceDtos {
         types = setOf(PREMISE, PARKING, POINT_OF_INTEREST, ESTABLISHMENT),
         vicinity = "1"
     )
+
+    val PLACE_패밀리마트_카부키쵸키타점 = Place(
+        businessStatus = OPERATIONAL,
+        geometry = Geometry(
+            location = LatLng(35.697963, 139.7027484),
+            viewport = Bounds(
+                northEast = LatLng(35.69934972989272, 139.7040417298927),
+                southWest = LatLng(35.69665007010727, 139.7013420701073)
+            )
+        ),
+        icon = URL("https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png"),
+        iconBackgroundColor = "#4B96F3",
+        iconMaskBase = URL("https://maps.gstatic.com/mapfiles/place_api/icons/v2/convenience_pinlet"),
+        name = "패밀리마트 카부키쵸키타점",
+        openingHours = PlaceOpeningHours(open = true),
+        photos = listOf(
+            PlacePhoto(
+                width = 4895,
+                height = 3268,
+                htmlAttributions = listOf("<a href=\"https://maps.google.com/maps/contrib/110807531686252733131\">Masahiko Motono</a>"),
+                photoReference = "AUjq9jmIgt0vs5f-Fqw7BL2GeU5U92OHi3raao9-tJqb1oKxHYH4zbGpEkAMcfKOrqPodcPFZimWcl8Brd12cNwSzww9-vOuvAWfuzJIepcDqM2BXDpVWJevb7mvPmEOPfuampfgZWLEFgUtIHV7pKgGBi9E_P_DJEOdwPZe03Yq6tKDdPZV"
+            )
+        ),
+        placeId = "ChIJN2hXkieNGGARWPSysdlRajE",
+        plusCode = PlusCode(globalCode = "8Q7XMPX3+53", compoundCode = "MPX3+53 신주쿠구 도쿄도"),
+        rating = 3.8,
+        types = setOf(CONVENIENCE_STORE, POINT_OF_INTEREST, FOOD, STORE, ESTABLISHMENT),
+        userRatingsTotal = 20,
+        vicinity = "2 Chome-32-7 Kabukicho, Shinjuku City"
+    )
+
+    val PLACE_ECOLO_PARK_KABUKICHO_29 = Place(
+        businessStatus = OPERATIONAL,
+        geometry = Geometry(
+            location = LatLng(35.6978697, 139.7031539),
+            viewport = Bounds(
+                northEast = LatLng(35.6992126302915, 139.7045446302915),
+                southWest = LatLng(35.6965146697085, 139.7018466697085)
+            )
+        ),
+        icon = URL("https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/parking-71.png"),
+        iconBackgroundColor = "#7B9EB0",
+        iconMaskBase = URL("https://maps.gstatic.com/mapfiles/place_api/icons/v2/parking_pinlet"),
+        name = "Ecolo Park Kabukicho #29",
+        placeId = "ChIJX13CrEaNGGARP7TB4u26SMk",
+        plusCode = PlusCode(globalCode = "8Q7XMPX3+47", compoundCode = "MPX3+47 일본 도쿄도 신주쿠구"),
+        types = setOf(PARKING, POINT_OF_INTEREST, ESTABLISHMENT),
+        vicinity = "2-chōme-32-13 Kabukichō, Shinjuku City"
+    )
 }

@@ -12,7 +12,6 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.rememberCameraPositionState
-import com.github.hemoptysisheart.parking.app.ui.support.LOGGER_COMPOSE as LOGGER
 
 @Composable
 fun MapTemplate(
@@ -20,8 +19,6 @@ fun MapTemplate(
     onCameraPositionChange: (CameraPosition) -> Unit = {},
     onMapClick: (LatLng) -> Unit = {}
 ) {
-    LOGGER.v("#HeaderTemplate")
-
     val cameraPositionState = rememberCameraPositionState()
     if (null != cameraGoto) {
         cameraPositionState.position = cameraGoto

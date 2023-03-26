@@ -7,50 +7,67 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.github.hemoptysisheart.parking.R
-import com.github.hemoptysisheart.parking.app.ui.support.bitmapDescriptor
+import com.github.hemoptysisheart.parking.app.ui.support.*
 import com.github.hemoptysisheart.parking.core.extension.latLng
 import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.rememberMarkerState
+import com.github.hemoptysisheart.parking.app.ui.support.LOGGER_COMPOSE as LOGGER
 
 @Composable
-fun ParkingMarker(context: Context, parking: Location, focused: Boolean) {
+fun ParkingMarker(
+    context: Context,
+    parking: Location,
+    focused: Boolean,
+    onSelect: (Location) -> Unit = { LOGGER.v("#onSelect args : location=$it") }
+) {
+    LOGGER.v("#ParkingMarker args : context=$context, parking=$parking, focused=$focused, onSelect=$onSelect")
     if (focused) {
         Marker(
             state = rememberMarkerState(key = parking.id, position = parking.latLng),
-            title = parking.name,
+            alpha=MAP_MARKER_FOCUSED_ALPHA,
             icon = bitmapDescriptor(context, R.drawable.map_marker_parking_focused),
-            zIndex = 9f
+            tag = parking,
+            title = parking.name,
+            zIndex = MAP_MARKER_FOCUSED_Z_INDEX
         )
     } else {
         Marker(
             state = rememberMarkerState(key = parking.id, position = parking.latLng),
-            title = parking.name,
+            alpha =MAP_MARKER_ALPHA,
             icon = bitmapDescriptor(context, R.drawable.map_marker_parking),
-            zIndex = 8f
+            tag = parking,
+            title = parking.name,
+            zIndex = MAP_MARKER_Z_INDEX,
+            onClick = {
+                onSelect(it.tag as Location)
+                false
+            }
         )
     }
 }
 
 @Composable
-@Preview
+@Preview(showBackground = true)
 fun Preview_ParkingMarker_FocusedIcon() {
     ParkingTheme {
         Image(
-            painterResource(R.drawable.map_marker_parking_focused),
-            stringResource(R.string.select_route_parking_marker_focused_description)
+            painter = painterResource(R.drawable.map_marker_parking_focused),
+            contentDescription = stringResource(R.string.select_route_parking_marker_focused_description),
+            alpha = MAP_MARKER_FOCUSED_ALPHA
         )
     }
 }
 
 @Composable
-@Preview
+@Preview(showBackground = true)
 fun Preview_ParkingMarker_Icon() {
     ParkingTheme {
         Image(
-            painterResource(R.drawable.map_marker_parking),
-            stringResource(R.string.select_route_parking_marker_description)
+            painter = painterResource(R.drawable.map_marker_parking),
+            contentDescription = stringResource(R.string.select_route_parking_marker_description),
+            alpha = MAP_MARKER_ALPHA
         )
     }
 }

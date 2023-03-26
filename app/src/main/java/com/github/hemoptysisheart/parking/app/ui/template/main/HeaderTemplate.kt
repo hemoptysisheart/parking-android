@@ -14,13 +14,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
-import com.github.hemoptysisheart.parking.app.ui.support.LOGGER_COMPOSE as LOGGER
 
 @Composable
 fun HeaderTemplate(
     gotoSearch: () -> Unit = {}
 ) {
-    LOGGER.v("#HeaderTemplate")
     Row(
         modifier = Modifier
             .fillMaxWidth()

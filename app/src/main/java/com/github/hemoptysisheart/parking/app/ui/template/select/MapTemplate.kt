@@ -23,7 +23,7 @@ import com.google.maps.android.compose.rememberCameraPositionState
 @Composable
 fun MapTemplate(
     destination: Location? = null,
-    routeMap: Map<Location, Route> = mapOf(),
+    routeList: List< Route> = listOf(),
     focusedRoute: Route? = null,
     onClick: (LatLng) -> Unit = {},
     onSelectRoute: (Route) -> Unit = {}
@@ -53,9 +53,9 @@ fun MapTemplate(
             DestinationMarker(context, destination)
         }
 
-        routeMap.entries.forEach {
-            ParkingMarker(context, it.value, focusedRoute === it.value, onSelectRoute)
-            RouteOverview(it.value, focusedRoute === it.value)
+        routeList.forEach {
+            ParkingMarker(context, it, focusedRoute === it, onSelectRoute)
+            RouteOverview(it, focusedRoute === it)
         }
     }
 }

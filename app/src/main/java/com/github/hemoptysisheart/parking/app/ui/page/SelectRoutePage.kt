@@ -28,7 +28,7 @@ fun SelectRoutePage(
         mutableStateOf(true)
     }
     val destination by viewModel.destination.collectAsStateWithLifecycle()
-    val routeMap by viewModel.routeMap.collectAsStateWithLifecycle()
+    val routeList by viewModel.routeList.collectAsStateWithLifecycle()
     val focusedRoute by viewModel.focusedRoute.collectAsStateWithLifecycle()
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -37,7 +37,7 @@ fun SelectRoutePage(
         }
         MapTemplate(
             destination = destination,
-            routeMap = routeMap,
+            routeList = routeList,
             focusedRoute = focusedRoute,
             onClick = { showControl = !showControl },
             onSelectRoute = { viewModel.focus(it) }

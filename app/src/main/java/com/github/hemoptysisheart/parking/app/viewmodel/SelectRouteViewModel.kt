@@ -51,7 +51,7 @@ class SelectRouteViewModel @Inject constructor(
 
     val focusedRoute = MutableStateFlow<Route?>(null)
 
-    val routeMap = MutableStateFlow<Map<Location, Route>>(mapOf())
+    val routeList = MutableStateFlow<List<Route>>(listOf())
 
     init {
         viewModelScope.launch {
@@ -61,18 +61,17 @@ class SelectRouteViewModel @Inject constructor(
             this@SelectRouteViewModel.destination.emit(destination)
 
             // 주차장 우선 표시.
-            val routeMap = locationModel.searchParking(destination).places.map {
+            val routeList = locationModel.searchParking(destination).places.map {
                 RouteImpl(origin, it.item, destination)
-            }.associateBy { it.parking }
-            this@SelectRouteViewModel.routeMap.emit(routeMap)
+            }
+            this@SelectRouteViewModel.routeList.emit(routeList)
 
             // 경로 채워넣기.
-            if (routeMap.isNotEmpty()) {
-                this@SelectRouteViewModel.routeMap.emit(
-                    routeMap.values.map { fill(it) }
-                        .associateBy { it.parking }
+            if (routeList.isNotEmpty()) {
+                this@SelectRouteViewModel.routeList.emit(
+                    routeList.map { fill(it) }
                 )
-                focusedRoute.emit(this@SelectRouteViewModel.routeMap.value.values.toList()[0])
+                focusedRoute.emit(this@SelectRouteViewModel.routeList.value[0])
             }
         }
     }
@@ -93,5 +92,5 @@ class SelectRouteViewModel @Inject constructor(
 
     override fun toString() = "$TAG(sensorModel=$sensorModel, locationModel=$locationModel, " +
             "origin=$origin, destination=${destination.value}, " +
-            "focusedRoute=${focusedRoute.value}, routeMap=${routeMap.value})"
+            "focusedRoute=${focusedRoute.value}, routeList=${routeList.value})"
 }

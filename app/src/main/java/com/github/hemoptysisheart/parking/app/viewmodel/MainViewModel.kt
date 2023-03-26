@@ -13,6 +13,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * 앱을 실행했을 때 나오는 초기 화면.
+ * 지도를 출력하며 다음 행동을 유도한다.
+ *
+ * TODO 헤더에 안내문구 추가. 초기화면 헤더는 안내를 포함해 다용도로 쓸 수 있는 공간이다. 활용법을 찾아야 한다.
+ * TODO 즐겨찾기 기능 추가 후 화면에 표시하기.
+ */
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val sensorModel: SensorModel

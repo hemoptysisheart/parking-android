@@ -13,6 +13,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * 목적지 검색 화면.
+ *
+ * TODO 검색어 입력 전에 추천 검색어 및 결과에서 선택한 했던 항목 등 추천 항목 보이기.
+ * TODO 검색 결과가 없을 때 화면.
+ */
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val sensorModel: SensorModel,

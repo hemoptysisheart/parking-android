@@ -1,13 +1,13 @@
 package com.github.hemoptysisheart.parking.app.ui.preview
 
-import com.github.hemoptysisheart.parking.app.ui.preview.PreviewPlaceDtos.PARKING_시부야역_주변_주차장
-import com.github.hemoptysisheart.parking.app.ui.preview.PreviewPlaceDtos.PLACE_AAA_ANNEX_GALLERY
-import com.github.hemoptysisheart.parking.app.ui.preview.PreviewPlaceDtos.PLACE_AAA_NIHON_株式会社
-import com.github.hemoptysisheart.parking.app.ui.preview.PreviewPlaceDtos.PLACE_AAA_TOHO_TRADING
-import com.github.hemoptysisheart.parking.app.ui.preview.PreviewPlaceDtos.PLACE_ECOLO_PARK_KABUKICHO_29
-import com.github.hemoptysisheart.parking.app.ui.preview.PreviewPlaceDtos.PLACE_GOOBNE_CHICKEN_曙橋店
-import com.github.hemoptysisheart.parking.app.ui.preview.PreviewPlaceDtos.PLACE_株式会社ＡＡＡ
-import com.github.hemoptysisheart.parking.app.ui.preview.PreviewPlaceDtos.PLACE_패밀리마트_카부키쵸키타점
+import com.github.hemoptysisheart.parking.app.ui.preview.PreviewPlace.PARKING_시부야역_주변_주차장
+import com.github.hemoptysisheart.parking.app.ui.preview.PreviewPlace.PLACE_AAA_ANNEX_GALLERY
+import com.github.hemoptysisheart.parking.app.ui.preview.PreviewPlace.PLACE_AAA_NIHON_株式会社
+import com.github.hemoptysisheart.parking.app.ui.preview.PreviewPlace.PLACE_AAA_TOHO_TRADING
+import com.github.hemoptysisheart.parking.app.ui.preview.PreviewPlace.PLACE_ECOLO_PARK_KABUKICHO_29
+import com.github.hemoptysisheart.parking.app.ui.preview.PreviewPlace.PLACE_GOOBNE_CHICKEN_曙橋店
+import com.github.hemoptysisheart.parking.app.ui.preview.PreviewPlace.PLACE_株式会社ＡＡＡ
+import com.github.hemoptysisheart.parking.app.ui.preview.PreviewPlace.PLACE_패밀리마트_카부키쵸키타점
 import com.github.hemoptysisheart.parking.core.model.dto.LocationGmpPlace
 import com.github.hemoptysisheart.parking.domain.GeoLocation
 

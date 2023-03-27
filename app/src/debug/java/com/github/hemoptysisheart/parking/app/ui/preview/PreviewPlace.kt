@@ -7,7 +7,7 @@ import com.github.hemoptysisheart.parking.core.client.google.dto.PlaceTypes.*
 import java.net.URL
 
 @Suppress("NonAsciiCharacters")
-object PreviewPlaceDtos {
+object PreviewPlace {
     val PLACE_AAA_TOHO_TRADING = Place(
         businessStatus = OPERATIONAL,
         geometry = Geometry(

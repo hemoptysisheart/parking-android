@@ -10,7 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.hemoptysisheart.parking.app.domain.distance
 import com.github.hemoptysisheart.parking.app.ui.atom.Distance
-import com.github.hemoptysisheart.parking.app.ui.preview.RecommendItems.ITEM_株式会社ＡＡＡ
+import com.github.hemoptysisheart.parking.app.ui.preview.PreviewRecommendItem.ITEM_株式会社ＡＡＡ
 import com.github.hemoptysisheart.parking.domain.GeoLocation
 import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.domain.RecommendItem

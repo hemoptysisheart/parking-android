@@ -6,9 +6,10 @@ import com.github.hemoptysisheart.parking.core.model.LocationModelImpl
 import com.github.hemoptysisheart.parking.core.model.SensorModel
 import com.github.hemoptysisheart.parking.core.model.dto.PlaceSearchResult
 import com.github.hemoptysisheart.parking.core.model.dto.RouteSearchResult
+import com.github.hemoptysisheart.parking.domain.GeoBounds
 import com.github.hemoptysisheart.parking.domain.GeoLocation
 import com.github.hemoptysisheart.parking.domain.Location
-import com.github.hemoptysisheart.parking.domain.Overview
+import com.github.hemoptysisheart.parking.domain.PartialRoute
 
 object PreviewModel {
     val LOCATION_MODEL = object : SensorModel {
@@ -39,7 +40,17 @@ object PreviewModel {
                 origin,
                 destination,
                 LocationModelImpl.TRANSPORTATION_MODE_MAP[mode]!!,
-                Overview(listOf())
+                listOf(
+                    PartialRoute(
+                        "preview data",
+                        GeoBounds(
+                            northEast = GeoLocation(35.6982605, 139.7074366),
+                            southWest = GeoLocation(35.6896586, 139.7028543)
+                        ),
+                        listOf(),   // TODO 내용 채우기.
+                        listOf()    // TODO 내용 채우기.
+                    )
+                )
             )
         }
     }

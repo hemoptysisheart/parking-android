@@ -5,11 +5,15 @@ import com.github.hemoptysisheart.parking.core.client.google.DirectionsParams
 import com.github.hemoptysisheart.parking.core.client.google.MapsClient
 import com.github.hemoptysisheart.parking.core.client.google.NearbySearchParams
 import com.github.hemoptysisheart.parking.core.client.google.dto.*
+import com.github.hemoptysisheart.parking.core.extension.toPartialRoute
 import com.github.hemoptysisheart.parking.core.model.dto.LocationGmpPlace
 import com.github.hemoptysisheart.parking.core.model.dto.PlaceSearchResult
 import com.github.hemoptysisheart.parking.core.model.dto.RouteSearchResult
 import com.github.hemoptysisheart.parking.core.util.Logger
-import com.github.hemoptysisheart.parking.domain.*
+import com.github.hemoptysisheart.parking.domain.GeoLocation
+import com.github.hemoptysisheart.parking.domain.Location
+import com.github.hemoptysisheart.parking.domain.RecommendItemLocation
+import com.github.hemoptysisheart.parking.domain.Transport
 import com.github.hemoptysisheart.util.TimeProvider
 import java.time.Instant
 
@@ -120,9 +124,7 @@ class LocationModelImpl(
             origin = origin,
             destination = destination,
             transport = TRANSPORTATION_MODE_MAP[mode]!!,
-            overview = result.routes[0].overviewPolyline.run {
-                Overview(points.map { GeoLocation(it.latitude, it.longitude) })
-            }
+            partialRouteList = result.routes.map { it.toPartialRoute() }
         )
         LOGGER.v("#searchRoute return : $route")
         return route

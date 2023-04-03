@@ -3,15 +3,14 @@ package com.github.hemoptysisheart.parking.app.viewmodel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.hemoptysisheart.parking.app.domain.RouteImpl
 import com.github.hemoptysisheart.parking.app.navigation.SelectRoutePageNavigation.Companion.PARAM_DESTINATION_ID
 import com.github.hemoptysisheart.parking.core.client.google.dto.TransportationMode.DRIVING
 import com.github.hemoptysisheart.parking.core.client.google.dto.TransportationMode.WALKING
 import com.github.hemoptysisheart.parking.core.model.LocationModel
 import com.github.hemoptysisheart.parking.core.model.SensorModel
+import com.github.hemoptysisheart.parking.core.model.dto.RouteImpl
 import com.github.hemoptysisheart.parking.core.util.Logger
 import com.github.hemoptysisheart.parking.domain.Location
-import com.github.hemoptysisheart.parking.domain.PartialRoute
 import com.github.hemoptysisheart.parking.domain.Route
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -78,8 +77,8 @@ class SelectRouteViewModel @Inject constructor(
 
     private suspend fun fill(src: Route): Route {
         val route = RouteImpl(src.origin, src.parking, src.destination)
-        route.driving = PartialRoute(locationModel.searchRoute(origin, src.parking, DRIVING).overview)
-        route.walking = PartialRoute(locationModel.searchRoute(src.parking, src.destination, WALKING).overview)
+        route.driving = locationModel.searchRoute(origin, src.parking, DRIVING).partialRouteList[0]
+        route.walking = locationModel.searchRoute(src.parking, src.destination, WALKING).partialRouteList[0]
         return route
     }
 

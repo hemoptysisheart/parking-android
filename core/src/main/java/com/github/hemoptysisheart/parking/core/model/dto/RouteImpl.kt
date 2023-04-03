@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.parking.app.domain
+package com.github.hemoptysisheart.parking.core.model.dto
 
 import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.domain.PartialRoute

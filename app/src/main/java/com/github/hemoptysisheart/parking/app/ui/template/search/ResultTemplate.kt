@@ -18,10 +18,10 @@ import com.github.hemoptysisheart.parking.app.ui.preview.PreviewRecommendItem.IT
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewRecommendItem.ITEM_AAA_TOHO_TRADING
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewRecommendItem.ITEM_GOOBNE_CHICKEN_曙橋店
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewRecommendItem.ITEM_株式会社ＡＡＡ
+import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 import com.github.hemoptysisheart.parking.domain.GeoLocation
 import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.domain.RecommendItem
-import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 
 @Composable
 fun SearchResultTemplate(

@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.parking.ui.theme
+package com.github.hemoptysisheart.parking.app.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

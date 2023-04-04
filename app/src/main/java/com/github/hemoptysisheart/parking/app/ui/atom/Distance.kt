@@ -6,7 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.github.hemoptysisheart.parking.R
-import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
+import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 import java.text.NumberFormat
 
 @Composable

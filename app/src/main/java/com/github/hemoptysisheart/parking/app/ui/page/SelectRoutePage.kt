@@ -18,8 +18,8 @@ import com.github.hemoptysisheart.parking.app.ui.preview.PreviewViewModel.SELECT
 import com.github.hemoptysisheart.parking.app.ui.template.select.MapTemplate
 import com.github.hemoptysisheart.parking.app.ui.template.select.RouteDetailTemplate
 import com.github.hemoptysisheart.parking.app.ui.template.select.SelectRouteHeader
+import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 import com.github.hemoptysisheart.parking.app.viewmodel.SelectRouteViewModel
-import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 
 @Composable
 fun SelectRoutePage(

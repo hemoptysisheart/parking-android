@@ -8,9 +8,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.github.hemoptysisheart.parking.R
 import com.github.hemoptysisheart.parking.app.ui.support.*
+import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 import com.github.hemoptysisheart.parking.core.extension.latLng
 import com.github.hemoptysisheart.parking.domain.Route
-import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.rememberMarkerState
 import com.github.hemoptysisheart.parking.app.ui.support.LOGGER_COMPOSE as LOGGER

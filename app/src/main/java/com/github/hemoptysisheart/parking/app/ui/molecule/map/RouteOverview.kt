@@ -6,10 +6,10 @@ import com.github.hemoptysisheart.parking.app.ui.support.MAP_ROUTE_OVERVIEW_DRIV
 import com.github.hemoptysisheart.parking.app.ui.support.MAP_ROUTE_OVERVIEW_DRIVING_Z_INDEX
 import com.github.hemoptysisheart.parking.app.ui.support.MAP_ROUTE_OVERVIEW_WALKING_FOCUSED_Z_INDEX
 import com.github.hemoptysisheart.parking.app.ui.support.MAP_ROUTE_OVERVIEW_WALKING_Z_INDEX
+import com.github.hemoptysisheart.parking.app.ui.theme.LightSkyBlue
 import com.github.hemoptysisheart.parking.core.extension.latLng
 import com.github.hemoptysisheart.parking.core.model.dto.RouteImpl
 import com.github.hemoptysisheart.parking.domain.Route
-import com.github.hemoptysisheart.parking.ui.theme.LightSkyBlue
 import com.google.maps.android.compose.Polyline
 
 @Composable

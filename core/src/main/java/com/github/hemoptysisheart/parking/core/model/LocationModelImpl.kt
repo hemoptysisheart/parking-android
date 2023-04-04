@@ -116,6 +116,7 @@ class LocationModelImpl(
         val params = DirectionsParams(
             origin = origin.toPlaceDescriptor(),
             destination = destination.toPlaceDescriptor(),
+            alternatives = false,
             transportationMode = mode
         )
         val result = mapsClient.directions(params, now)

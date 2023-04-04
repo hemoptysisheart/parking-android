@@ -8,3 +8,6 @@ val Purple700 = Color(0xFF3700B3)
 val Teal200 = Color(0xFF03DAC5)
 
 val LightSkyBlue = Color(0xFF87CEFA)
+
+val TextDefault = Color.Unspecified
+val TextNull = Color.LightGray

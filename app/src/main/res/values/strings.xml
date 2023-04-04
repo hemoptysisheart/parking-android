@@ -2,6 +2,13 @@
     <string name="launcher_label">Parking</string>
     <string name="app_name">Parking</string>
 
+    <string name="domain_route_origin">출발지</string>
+    <string name="domain_route_parking">주차장</string>
+    <string name="domain_route_destination">목적지</string>
+    <string name="domain_route_driving">운전</string>
+    <string name="domain_route_walking">도보</string>
+    <string name="domain_route_distance">거리</string>
+
     <string name="go_back_button_description">돌아가기</string>
 
     <string name="unit_meter">%s m</string>

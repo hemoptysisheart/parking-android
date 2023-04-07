@@ -37,7 +37,9 @@ fun bitmapDescriptor(context: Context, @DrawableRes drawableId: Int): BitmapDesc
 }
 
 @Composable
-fun formatDistance(distance: Double) = when {
+fun formatDistance(distance: Double?) = when {
+    null == distance ->
+        stringResource(R.string.unit_distance_known)
     1000.0 > distance ->
         stringResource(R.string.unit_meter, distance)
     else ->

@@ -6,5 +6,6 @@ import com.github.hemoptysisheart.parking.domain.NaviLeg
 fun DirectionsLeg.toNaviLeg() = NaviLeg(
     start = startLocation.location,
     end = endLocation.location,
+    distance = distance?.number,
     stepList = steps.map { it.toNaviStep() }
 )

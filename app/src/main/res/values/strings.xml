@@ -13,6 +13,7 @@
 
     <string name="unit_meter">%s m</string>
     <string name="unit_kilo_meter">%s Km</string>
+    <string name="unit_distance_known">\?</string>
 
     <string name="label_welcome_message">운전 하면\n%s</string>
 

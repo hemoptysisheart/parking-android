@@ -16,6 +16,15 @@ data class RouteImpl(
     override lateinit var driving: PartialRoute
 
     override lateinit var walking: PartialRoute
+
+    override var distance: Double? = null
+        get() = if (initialized && null != driving.distance && null != walking.distance) {
+            driving.distance!! + walking.distance!!
+        } else {
+            null
+        }
+        private set
+
     override fun equals(other: Any?) = this === other ||
             javaClass == other?.javaClass &&
             other is RouteImpl &&

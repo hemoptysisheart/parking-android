@@ -8,7 +8,6 @@ import com.github.hemoptysisheart.parking.core.client.google.dto.TransportationM
 import com.github.hemoptysisheart.parking.core.client.google.dto.TransportationMode.WALKING
 import com.github.hemoptysisheart.parking.core.model.LocationModel
 import com.github.hemoptysisheart.parking.core.model.SensorModel
-import com.github.hemoptysisheart.parking.core.model.dto.RouteImpl
 import com.github.hemoptysisheart.parking.core.util.Logger
 import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.domain.Route
@@ -61,7 +60,7 @@ class SelectRouteViewModel @Inject constructor(
 
             // 주차장 우선 표시.
             val routeList = locationModel.searchParking(destination).places.map {
-                RouteImpl(origin, it.item, destination)
+                Route(origin, it.item, destination)
             }
             this@SelectRouteViewModel.routeList.emit(routeList)
 
@@ -75,10 +74,9 @@ class SelectRouteViewModel @Inject constructor(
         }
     }
 
-    private suspend fun fill(src: Route): Route {
-        val route = RouteImpl(src.origin, src.parking, src.destination)
-        route.driving = locationModel.searchRoute(origin, src.parking, DRIVING).partialRouteList[0]
-        route.walking = locationModel.searchRoute(src.parking, src.destination, WALKING).partialRouteList[0]
+    private suspend fun fill(route: Route): Route {
+        route.driving = locationModel.searchRoute(origin, route.parking, DRIVING).partialRouteList[0]
+        route.walking = locationModel.searchRoute(route.parking, route.destination, WALKING).partialRouteList[0]
         return route
     }
 

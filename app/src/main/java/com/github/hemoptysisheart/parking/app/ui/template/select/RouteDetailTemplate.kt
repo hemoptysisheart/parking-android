@@ -28,8 +28,14 @@ fun RouteDetailTemplate(route: Route, modifier: Modifier = Modifier) {
     ) {
         RouteDetailHeader(route)
 
-        RoutePropertyRow(name = stringResource(R.string.domain_route_driving), value = formatDistance(route.driving.distance))
-        RoutePropertyRow(name = stringResource(R.string.domain_route_walking), value = formatDistance(route.walking.distance))
+        RoutePropertyRow(
+            name = stringResource(R.string.domain_route_driving),
+            value = formatDistance(route.driving?.distance)
+        )
+        RoutePropertyRow(
+            name = stringResource(R.string.domain_route_walking),
+            value = formatDistance(route.walking?.distance)
+        )
         RoutePropertyRow(name = stringResource(R.string.domain_route_distance), value = formatDistance(route.distance))
     }
 }

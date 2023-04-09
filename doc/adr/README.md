@@ -12,6 +12,7 @@
 6. [Jetpack Compose 호이스팅](Jetpack%20Compose%20hoisting.md)
 7. [`@Preview` as a Unit Test](Preview%20as%20a%20Unit%20Test.md)
 8. [Google Maps API Client](Google%20Maps%20API%20Client.md)
+9. [인프라스트럭처 캡슐화](Capsulate%20Infrastructure%20Mechanism.md)
 
 ## 참고
 

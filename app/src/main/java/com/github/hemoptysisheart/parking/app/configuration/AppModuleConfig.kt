@@ -55,7 +55,7 @@ class AppModuleConfig {
 
     @Provides
     @Singleton
-    fun providePreferencesModel(@ApplicationContext context: Context): Preferences {
+    fun providePreferencesModel(@ApplicationContext context: Context, timeProvider: TimeProvider): Preferences {
         val sharedPreferences = EncryptedSharedPreferences.create(
             context,
             "com.github.hemoptysisheart.parking.sharedPreferences",
@@ -64,7 +64,7 @@ class AppModuleConfig {
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         )
 
-        val model = PreferencesModel(sharedPreferences)
+        val model = PreferencesModel(sharedPreferences, timeProvider)
         LOGGER.i("#providePreferencesModel return : $model")
         return model
     }

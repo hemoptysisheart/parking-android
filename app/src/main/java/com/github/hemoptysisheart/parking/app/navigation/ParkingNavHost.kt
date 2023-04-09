@@ -15,6 +15,7 @@ fun ParkingNavHost() {
     val main = remember { MainPageNavigation(navController) }
     val search = remember { SearchPageNavigation(navController) }
     val select = remember { SelectRoutePageNavigation(navController) }
+    val navigation = remember { NavigationPageNavigation(navController) }
 
     NavHost(navController = navController, startDestination = MainPageNavigation.NAME) {
         composable(MainPageNavigation.NAME) {
@@ -27,6 +28,9 @@ fun ParkingNavHost() {
 
         composable(route = SelectRoutePageNavigation.ROUTE, arguments = SelectRoutePageNavigation.ARGUMENTS) {
             SelectRoutePage(select)
+        }
+
+        composable(route = NavigationPageNavigation.ROUTE, arguments = NavigationPageNavigation.ARGUMENTS) {
         }
     }
 }

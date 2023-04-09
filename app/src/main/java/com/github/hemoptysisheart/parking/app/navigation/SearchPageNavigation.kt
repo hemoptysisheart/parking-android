@@ -10,8 +10,8 @@ class SearchPageNavigation(
         const val NAME = "SearchPage"
     }
 
-    val selectRoute: (RecommendItem<*>) -> Unit = {
-        LOGGER.d("#selectRoute args : item=$it")
+    val gotoSelectRoute: (RecommendItem<*>) -> Unit = {
+        LOGGER.d("#gotoSelectRoute args : item=$it")
         navController.navigate("${SelectRoutePageNavigation.NAME}/${it.id}")
     }
 }

@@ -32,7 +32,7 @@ fun SearchPage(
             .fillMaxSize()
     ) {
         SearchHeaderTemplate(query, viewModel.onQueryChange, navigation.onBack)
-        SearchResultTemplate(viewModel.here, resultList, navigation.selectRoute)
+        SearchResultTemplate(viewModel.here, resultList, navigation.gotoSelectRoute)
     }
 }
 

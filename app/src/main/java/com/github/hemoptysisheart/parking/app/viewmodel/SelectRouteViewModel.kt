@@ -3,7 +3,7 @@ package com.github.hemoptysisheart.parking.app.viewmodel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.hemoptysisheart.parking.app.navigation.SelectRoutePageNavigation.Companion.PARAM_DESTINATION_ID
+import com.github.hemoptysisheart.parking.app.navigation.SelectRoutePageNavigation.Companion.ARG_DESTINATION_ID
 import com.github.hemoptysisheart.parking.core.client.google.dto.TransportationMode.DRIVING
 import com.github.hemoptysisheart.parking.core.client.google.dto.TransportationMode.WALKING
 import com.github.hemoptysisheart.parking.core.model.LocationModel
@@ -35,8 +35,8 @@ class SelectRouteViewModel @Inject constructor(
 
     private val SavedStateHandle.destinationId: String
         get() {
-            val id = get<String>(PARAM_DESTINATION_ID)
-                ?: throw IllegalStateException("$PARAM_DESTINATION_ID is not exist.")
+            val id = get<String>(ARG_DESTINATION_ID)
+                ?: throw IllegalStateException("$ARG_DESTINATION_ID is not exist.")
             LOGGER.v("#state.destinationId : $id")
             return id
         }

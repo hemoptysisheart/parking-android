@@ -9,7 +9,7 @@ import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import com.github.hemoptysisheart.parking.app.ui.page.LauncherPage
 import com.github.hemoptysisheart.parking.core.util.Logger
-import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
+import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 /**

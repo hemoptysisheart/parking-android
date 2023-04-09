@@ -2,19 +2,23 @@
     <string name="launcher_label">Parking</string>
     <string name="app_name">Parking</string>
 
+    <string name="domain_route_origin">출발지</string>
+    <string name="domain_route_parking">주차장</string>
+    <string name="domain_route_destination">목적지</string>
+    <string name="domain_route_driving">운전</string>
+    <string name="domain_route_walking">도보</string>
+    <string name="domain_route_distance">거리</string>
+
     <string name="go_back_button_description">돌아가기</string>
 
     <string name="unit_meter">%s m</string>
     <string name="unit_kilo_meter">%s Km</string>
+    <string name="unit_distance_known">\?</string>
 
     <string name="label_welcome_message">운전 하면\n%s</string>
 
     <string name="select_route_destination_marker_description">목적지</string>
     <string name="select_route_parking_marker_focused_description">선택한 주차장</string>
     <string name="select_route_parking_marker_description">주차장</string>
-
-    <!--  ========================================================================================================  -->
-
-    <string name="map_overlay_collapse_button_description">오버레이 닫기</string>
-    <string name="map_overlay_query_placeholder">목적지를 검색하세요.</string>
+    <string name="select_route_start_navigation_button_label">안내</string>
 </resources>

@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.github.hemoptysisheart.parking.app.navigation.ParkingNavHost
 import com.github.hemoptysisheart.parking.core.logging.logArgsD
-import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
+import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

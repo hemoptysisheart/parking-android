@@ -13,8 +13,8 @@ import com.github.hemoptysisheart.parking.app.navigation.MainPageNavigation
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewViewModel.MAIN_VM
 import com.github.hemoptysisheart.parking.app.ui.template.main.HeaderTemplate
 import com.github.hemoptysisheart.parking.app.ui.template.main.MapTemplate
+import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel
-import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 import com.github.hemoptysisheart.parking.app.ui.support.LOGGER_COMPOSE as LOGGER
 
 @Composable

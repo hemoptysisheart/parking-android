@@ -1,6 +1,7 @@
 package com.github.hemoptysisheart.parking.app.ui.page
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -15,32 +16,38 @@ import androidx.navigation.compose.rememberNavController
 import com.github.hemoptysisheart.parking.app.navigation.SelectRoutePageNavigation
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewViewModel.SELECT_ROUTE_VM
 import com.github.hemoptysisheart.parking.app.ui.template.select.MapTemplate
+import com.github.hemoptysisheart.parking.app.ui.template.select.RouteDetailTemplate
 import com.github.hemoptysisheart.parking.app.ui.template.select.SelectRouteHeader
+import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 import com.github.hemoptysisheart.parking.app.viewmodel.SelectRouteViewModel
-import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
 
 @Composable
 fun SelectRoutePage(
     navigation: SelectRoutePageNavigation = SelectRoutePageNavigation(rememberNavController()),
     viewModel: SelectRouteViewModel = hiltViewModel()
 ) {
-    var showControl by rememberSaveable {
-        mutableStateOf(true)
-    }
+    var showControl by rememberSaveable { mutableStateOf(true) }
     val destination by viewModel.destination.collectAsStateWithLifecycle()
-    val routeMap by viewModel.routeMap.collectAsStateWithLifecycle()
+    val routeList by viewModel.routeList.collectAsStateWithLifecycle()
     val focusedRoute by viewModel.focusedRoute.collectAsStateWithLifecycle()
 
     Box(modifier = Modifier.fillMaxSize()) {
         if (showControl) {
             SelectRouteHeader(destination = destination, navigation.onBack)
         }
-        MapTemplate(
-            destination = destination,
-            routeMap = routeMap,
-            focusedRoute = focusedRoute,
-            onClick = { showControl = !showControl }
-        )
+        Column(Modifier.fillMaxSize()) {
+            MapTemplate(
+                destination = destination,
+                routeList = routeList,
+                focusedRoute = focusedRoute,
+                modifier = Modifier.weight(2f),
+                onClick = { showControl = !showControl },
+                onSelectRoute = { viewModel.focus(it) }
+            )
+            if (showControl) {
+                focusedRoute?.let { RouteDetailTemplate(it, Modifier.weight(1f)) }
+            }
+        }
     }
 }
 

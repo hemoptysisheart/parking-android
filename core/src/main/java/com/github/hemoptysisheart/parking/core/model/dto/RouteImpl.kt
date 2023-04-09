@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.parking.app.domain
+package com.github.hemoptysisheart.parking.core.model.dto
 
 import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.domain.PartialRoute
@@ -16,6 +16,15 @@ data class RouteImpl(
     override lateinit var driving: PartialRoute
 
     override lateinit var walking: PartialRoute
+
+    override var distance: Double? = null
+        get() = if (initialized && null != driving.distance && null != walking.distance) {
+            driving.distance!! + walking.distance!!
+        } else {
+            null
+        }
+        private set
+
     override fun equals(other: Any?) = this === other ||
             javaClass == other?.javaClass &&
             other is RouteImpl &&

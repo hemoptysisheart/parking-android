@@ -8,7 +8,7 @@ import com.github.hemoptysisheart.parking.app.ui.preview.PreviewLocation.LOCATIO
 import com.github.hemoptysisheart.parking.domain.RecommendItemLocation
 
 @Suppress("NonAsciiCharacters")
-object RecommendItems {
+object PreviewRecommendItem {
     val ITEM_AAA_TOHO_TRADING = RecommendItemLocation(LOCATION_AAA_TOHO_TRADING)
 
     val ITEM_株式会社ＡＡＡ = RecommendItemLocation(LOCATION_株式会社ＡＡＡ)

@@ -30,4 +30,6 @@ interface Route {
      * 주차장에서 목적지까지 걷는 경로.
      */
     val walking: PartialRoute
+
+    val distance: Double?
 }

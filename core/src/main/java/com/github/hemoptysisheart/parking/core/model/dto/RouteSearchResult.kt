@@ -1,7 +1,7 @@
 package com.github.hemoptysisheart.parking.core.model.dto
 
 import com.github.hemoptysisheart.parking.domain.Location
-import com.github.hemoptysisheart.parking.domain.Overview
+import com.github.hemoptysisheart.parking.domain.PartialRoute
 import com.github.hemoptysisheart.parking.domain.Transport
 
 /**
@@ -21,7 +21,7 @@ data class RouteSearchResult(
      */
     val transport: Transport,
     /**
-     * 대략적인 경로.
+     * 가능한 이동 경로.
      */
-    val overview: Overview
+    val partialRouteList: List<PartialRoute>
 )

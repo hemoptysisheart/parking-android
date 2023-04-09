@@ -95,7 +95,7 @@ class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
 
         val result = DirectionsSearchResult(
             meta = ResultMeta(params, requestAt, responseAt),
-            status = DirectionsStatus.valueOf(response.status!!),
+            status = DirectionsStatus.valueOf(response.status ?: throw IllegalArgumentException("status is null.")),
             availableTravelModes = response.availableTravelModes?.map { TravelMode.valueOf(it) },
             routes = response.routes!!.map { DtoConverter.toDirectionsRoute(it) },
             geocodedWaypoints = response.geocodedWaypoints?.map { toDirectionsGeocodedWaypoint(it) },

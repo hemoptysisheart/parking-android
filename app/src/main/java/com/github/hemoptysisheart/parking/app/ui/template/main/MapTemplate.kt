@@ -5,14 +5,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.zIndex
-import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
+import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.rememberCameraPositionState
-import com.github.hemoptysisheart.parking.app.ui.support.LOGGER_COMPOSE as LOGGER
 
 @Composable
 fun MapTemplate(
@@ -20,8 +19,6 @@ fun MapTemplate(
     onCameraPositionChange: (CameraPosition) -> Unit = {},
     onMapClick: (LatLng) -> Unit = {}
 ) {
-    LOGGER.v("#HeaderTemplate")
-
     val cameraPositionState = rememberCameraPositionState()
     if (null != cameraGoto) {
         cameraPositionState.position = cameraGoto

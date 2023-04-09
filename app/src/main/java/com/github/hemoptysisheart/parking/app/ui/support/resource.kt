@@ -5,7 +5,10 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.util.Log
 import androidx.annotation.DrawableRes
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import androidx.core.content.ContextCompat
+import com.github.hemoptysisheart.parking.R
 import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.github.hemoptysisheart.parking.app.ui.support.LOGGER_SUPPORT as LOGGER
@@ -31,4 +34,14 @@ fun bitmapDescriptor(context: Context, @DrawableRes drawableId: Int): BitmapDesc
 
     LOGGER.v("#bitmapDescriptor return : $descriptor")
     return descriptor
+}
+
+@Composable
+fun formatDistance(distance: Double?) = when {
+    null == distance ->
+        stringResource(R.string.unit_distance_known)
+    1000.0 > distance ->
+        stringResource(R.string.unit_meter, distance)
+    else ->
+        stringResource(R.string.unit_kilo_meter, distance)
 }

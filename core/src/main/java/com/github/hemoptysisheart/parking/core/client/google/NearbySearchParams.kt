@@ -1,7 +1,6 @@
 package com.github.hemoptysisheart.parking.core.client.google
 
 import com.github.hemoptysisheart.parking.core.client.google.dto.PlaceType
-import com.github.hemoptysisheart.parking.core.client.google.dto.PlaceTypes
 import com.github.hemoptysisheart.parking.core.client.google.dto.RankBy
 import java.util.*
 
@@ -71,10 +70,6 @@ data class NearbySearchParams(
                 it > PRICE_MAX -> throw IllegalArgumentException("maxPrice is greater than max : maxPrice=$it, min=$PRICE_MAX")
                 null != minPrice && it < minPrice -> throw IllegalArgumentException("maxPrice is less than minPrice : maxPrice=$maxPrice, minPrice=$minPrice")
             }
-        }
-
-        if (type !is PlaceTypes?) {
-            throw IllegalArgumentException("illegal type : type=$type")
         }
     }
 }

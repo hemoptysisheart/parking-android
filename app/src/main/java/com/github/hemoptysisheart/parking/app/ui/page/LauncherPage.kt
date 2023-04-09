@@ -18,7 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.github.hemoptysisheart.parking.R
 import com.github.hemoptysisheart.parking.app.activity.MainActivity
-import com.github.hemoptysisheart.parking.ui.theme.ParkingTheme
+import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 import kotlinx.coroutines.delay
 
 @Composable

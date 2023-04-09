@@ -1,7 +1,6 @@
 package com.github.hemoptysisheart.parking.app.configuration
 
 import android.content.Context
-import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.github.hemoptysisheart.parking.BuildConfig
@@ -41,21 +40,6 @@ class AppModuleConfig {
 
     @Provides
     @Singleton
-    fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
-        LOGGER.i("#provideSharedPreferences args : context=$context")
-        val sharedPreferences = EncryptedSharedPreferences.create(
-            context,
-            "com.github.hemoptysisheart.parking.encryptedSharedPreferences",
-            MasterKey.Builder(context).setKeyScheme(MasterKey.KeyScheme.AES256_GCM).build(),
-            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-        )
-        LOGGER.i("#provideSharedPreferences return : $sharedPreferences")
-        return sharedPreferences
-    }
-
-    @Provides
-    @Singleton
     fun provideMapsClient(timeProvider: TimeProvider): MapsClient {
         val config = PlacesClientConfig(
             key = BuildConfig.GOOGLE_MAPS_PLATFORM_API_KEY,
@@ -71,8 +55,16 @@ class AppModuleConfig {
 
     @Provides
     @Singleton
-    fun providePreferencesModel(sharedPreferences: SharedPreferences): Preferences {
-        val model = PreferencesModel(sharedPreferences)
+    fun providePreferencesModel(@ApplicationContext context: Context, timeProvider: TimeProvider): Preferences {
+        val sharedPreferences = EncryptedSharedPreferences.create(
+            context,
+            "com.github.hemoptysisheart.parking.sharedPreferences",
+            MasterKey.Builder(context).setKeyScheme(MasterKey.KeyScheme.AES256_GCM).build(),
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        )
+
+        val model = PreferencesModel(sharedPreferences, timeProvider)
         LOGGER.i("#providePreferencesModel return : $model")
         return model
     }

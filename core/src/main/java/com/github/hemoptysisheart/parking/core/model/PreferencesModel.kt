@@ -1,54 +1,59 @@
 package com.github.hemoptysisheart.parking.core.model
 
 import android.content.SharedPreferences
-import android.util.Log
+import com.github.hemoptysisheart.parking.core.util.Logger
 import com.github.hemoptysisheart.parking.domain.ExecutionPreferences
 import com.github.hemoptysisheart.parking.domain.InstallPreferences
 import com.github.hemoptysisheart.parking.domain.Preferences
+import com.github.hemoptysisheart.util.TimeProvider
 import java.time.Instant
 import java.util.*
 
 class PreferencesModel(
-    sharedPreferences: SharedPreferences
+    sharedPreferences: SharedPreferences,
+    timeProvider: TimeProvider
 ) : Preferences {
+    companion object {
+        private const val TAG = "PreferencesModel"
+    }
+
     class InstallPreferencesModel internal constructor(
-        private val sharedPreferences: SharedPreferences
+        sharedPreferences: SharedPreferences,
+        private val editor: SharedPreferences.Editor
     ) : InstallPreferences {
         companion object {
-            private const val TAG = "InstallPreferences"
+            private const val TAG = "${PreferencesModel.TAG}.InstallPreferences"
+            private val LOGGER = Logger(TAG)
 
-            const val INSTALL_ID = "$TAG.InstallPreferences"
+            const val INSTALL_ID = "$TAG.installId"
         }
 
-        override var installId = sharedPreferences.getString(INSTALL_ID, null)?.run {
-            UUID.fromString(this)
-        }
-            private set(value) {
-                Log.v(TAG, "#installId set : $value")
-                sharedPreferences.edit()
-                    .putString(INSTALL_ID, "$value")
-                    .apply()
-                field = value
+        override val installId: UUID
+
+        init {
+            installId = sharedPreferences.getString(INSTALL_ID, null).let {
+                if (null == it) {
+                    val id = UUID.randomUUID()
+                    editor.putString(INSTALL_ID, "$id")
+                    id
+                } else {
+                    UUID.fromString(it)
+                }
             }
-
-        override val initialized: Boolean = null != installId
-
-        override fun initialize(params: Nothing?) {
-            if (initialized) {
-                throw IllegalStateException("already initialized.")
-            }
-
-            installId = UUID.randomUUID()
+            LOGGER.v("#init complete : $this")
         }
 
-        override fun toString() = "$TAG(installId=$installId)"
+        override fun toString() = "(installId=$installId)"
     }
 
     class ExecutionPreferencesModel internal constructor(
-        private val sharedPreferences: SharedPreferences
+        sharedPreferences: SharedPreferences,
+        timeProvider: TimeProvider,
+        private val editor: SharedPreferences.Editor
     ) : ExecutionPreferences {
         companion object {
-            private const val TAG = "ExecutionPreferencesModel"
+            private const val TAG = "${PreferencesModel.TAG}.ExecutionPreferences"
+            private val LOGGER = Logger(TAG)
 
             const val INIT_START_AT = "$TAG.initStartAt"
             const val COLD_START_COUNT = "$TAG.coldStartCount"
@@ -57,72 +62,78 @@ class PreferencesModel(
             const val LAST_FOREGROUND_AT = "$TAG.lastForegroundAt"
         }
 
-        override var initStartAt: Instant = sharedPreferences.getLong(INIT_START_AT, 0L).run {
-            Instant.ofEpochMilli(this)
-        }
-            private set(value) {
-                Log.v(TAG, "#initStartAt set : $value")
-                sharedPreferences.edit().putLong(INIT_START_AT, value.toEpochMilli()).apply()
-                field = value
-            }
+        override val initStartAt: Instant
 
         override var coldStartCount: Long = sharedPreferences.getLong(COLD_START_COUNT, 0L)
             private set(value) {
-                Log.v(TAG, "#coldStartCount set : $value")
-                sharedPreferences.edit().putLong(COLD_START_COUNT, value).apply()
+                LOGGER.v("#coldStartCount set : $value")
+                editor.putLong(COLD_START_COUNT, value)
+                    .apply()
                 field = value
             }
 
-        override var lastColdStartAt: Instant = sharedPreferences.getLong(LAST_COLD_START_AT, 0L).run {
+        override var lastColdStartAt: Instant = sharedPreferences.getLong(LAST_COLD_START_AT, Long.MIN_VALUE).run {
             Instant.ofEpochMilli(this)
         }
             private set(value) {
-                Log.v(TAG, "#lastColdStartAt set : $value")
-                sharedPreferences.edit().putLong(LAST_COLD_START_AT, value.toEpochMilli()).apply()
+                LOGGER.v("#lastColdStartAt set : $value")
+                editor.putLong(LAST_COLD_START_AT, value.toEpochMilli())
+                    .apply()
                 field = value
             }
 
         override var foregroundCount: Long = sharedPreferences.getLong(FOREGROUND_COUNT, 0L)
             private set(value) {
-                Log.v(TAG, "#foregroundCount set : $value")
-                sharedPreferences.edit().putLong(FOREGROUND_COUNT, value).apply()
+                LOGGER.v("#foregroundCount set : $value")
+                editor.putLong(FOREGROUND_COUNT, value)
+                    .apply()
                 field = value
             }
 
-        override var lastForegroundAt: Instant = sharedPreferences.getLong(LAST_FOREGROUND_AT, 0L).run {
+        override var lastForegroundAt: Instant = sharedPreferences.getLong(LAST_FOREGROUND_AT, Long.MIN_VALUE).run {
             Instant.ofEpochMilli(this)
         }
             private set(value) {
-                Log.v(TAG, "#lastForegroundAt set : $value")
-                sharedPreferences.edit().putLong(LAST_FOREGROUND_AT, value.toEpochMilli()).apply()
+                LOGGER.v("#lastForegroundAt set : $value")
+                editor.putLong(LAST_FOREGROUND_AT, value.toEpochMilli())
+                    .apply()
                 field = value
             }
 
-        fun increaseColdStart(timestamp: Instant) {
-            if (0L == coldStartCount) {
-                initStartAt = timestamp
+        init {
+            val now = timeProvider.instant()
+            initStartAt = sharedPreferences.getLong(INIT_START_AT, Long.MIN_VALUE).run {
+                if (Long.MIN_VALUE == this) {
+                    editor.putLong(INIT_START_AT, now.toEpochMilli())
+                    now
+                } else {
+                    Instant.ofEpochMilli(this)
+                }
             }
             coldStartCount++
-            lastColdStartAt = timestamp
+            lastColdStartAt = now
         }
 
         fun increaseForeground(timestamp: Instant) {
+            LOGGER.v("#increaseForeground args : timestamp=$timestamp")
             foregroundCount++
             lastForegroundAt = timestamp
         }
 
-        override fun toString() = "$TAG(initStartAt=$initStartAt, " +
+        override fun toString() = "(initStartAt=$initStartAt, " +
                 "coldStartCount=$coldStartCount, lastColdStartAt=$lastColdStartAt, " +
                 "foregroundCount=$foregroundCount, lastForegroundAt=$lastForegroundAt)"
     }
 
-    companion object {
-        private const val TAG = "PreferencesModel"
+    private val editor = sharedPreferences.edit()
+
+    override val install = InstallPreferencesModel(sharedPreferences, editor)
+
+    override val execution = ExecutionPreferencesModel(sharedPreferences, timeProvider, editor)
+
+    init {
+        editor.commit()
     }
-
-    override val install = InstallPreferencesModel(sharedPreferences)
-
-    override val execution = ExecutionPreferencesModel(sharedPreferences)
 
     override fun toString() = "$TAG(install=$install, execution=$execution)"
 }

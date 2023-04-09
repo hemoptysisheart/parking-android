@@ -74,10 +74,6 @@ class ParkingApplication : Application() {
 
         registerActivityLifecycleCallbacks(activityLifecycleCallbacks)
 
-        if (!installPreferences.initialized) {
-            installPreferences.initialize()
-        }
-        (executionPreferences as ExecutionPreferencesModel).increaseColdStart(timeProvider.instant())
         LOGGER.i("#onCreate : installPreferences=$installPreferences, executionPreferences=$executionPreferences")
 
         AndroidLoggingHandler.setup()

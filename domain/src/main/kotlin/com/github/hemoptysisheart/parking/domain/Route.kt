@@ -1,11 +1,14 @@
 package com.github.hemoptysisheart.parking.domain
 
+import java.util.*
+
 /**
  * 목적지까지 경로.
  *
  * TODO 경로 타입 정리.
  */
 data class Route(
+    val id: UUID,
     /**
      * 출발지(현재위치).
      */
@@ -43,21 +46,10 @@ data class Route(
     override fun equals(other: Any?) = this === other ||
             javaClass == other?.javaClass &&
             other is Route &&
-            origin == other.origin &&
-            parking == other.parking &&
-            destination == other.destination &&
-            driving == other.driving &&
-            walking == other.walking
+            id == other.id
 
-    override fun hashCode(): Int {
-        var result = origin.hashCode()
-        result = 31 * result + parking.hashCode()
-        result = 31 * result + destination.hashCode()
-        result = 31 * result + driving.hashCode()
-        result = 31 * result + walking.hashCode()
-        return result
-    }
+    override fun hashCode() = id.hashCode()
 
     override fun toString() =
-        "Route(origin=$origin, parking=$parking, destination=$destination, driving=$driving, walking=$walking)"
+        "Route(id=$id, origin=$origin, parking=$parking, destination=$destination, driving=$driving, walking=$walking, distance=$distance)"
 }

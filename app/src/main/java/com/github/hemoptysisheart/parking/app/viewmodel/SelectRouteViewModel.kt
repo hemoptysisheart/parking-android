@@ -4,8 +4,6 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.hemoptysisheart.parking.app.navigation.SelectRoutePageNavigation.Companion.ARG_DESTINATION_ID
-import com.github.hemoptysisheart.parking.core.client.google.dto.TransportationMode.DRIVING
-import com.github.hemoptysisheart.parking.core.client.google.dto.TransportationMode.WALKING
 import com.github.hemoptysisheart.parking.core.model.LocationModel
 import com.github.hemoptysisheart.parking.core.model.SensorModel
 import com.github.hemoptysisheart.parking.core.util.Logger
@@ -59,25 +57,15 @@ class SelectRouteViewModel @Inject constructor(
             this@SelectRouteViewModel.destination.emit(destination)
 
             // 주차장 우선 표시.
-            val routeList = locationModel.searchParking(destination).places.map {
-                Route(origin, it.item, destination)
-            }
+            val routeList = locationModel.searchRoute(origin, destination)
             this@SelectRouteViewModel.routeList.emit(routeList)
 
             // 경로 채워넣기.
             if (routeList.isNotEmpty()) {
-                this@SelectRouteViewModel.routeList.emit(
-                    routeList.map { fill(it) }
-                )
+                this@SelectRouteViewModel.routeList.emit(routeList.mapNotNull { locationModel.read(it.id) })
                 focusedRoute.emit(this@SelectRouteViewModel.routeList.value[0])
             }
         }
-    }
-
-    private suspend fun fill(route: Route): Route {
-        route.driving = locationModel.searchRoute(origin, route.parking, DRIVING).partialRouteList[0]
-        route.walking = locationModel.searchRoute(route.parking, route.destination, WALKING).partialRouteList[0]
-        return route
     }
 
     fun focus(route: Route) {

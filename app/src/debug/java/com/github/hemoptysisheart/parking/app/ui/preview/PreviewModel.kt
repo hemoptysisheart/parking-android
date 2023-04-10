@@ -6,10 +6,8 @@ import com.github.hemoptysisheart.parking.core.model.LocationModelImpl
 import com.github.hemoptysisheart.parking.core.model.SensorModel
 import com.github.hemoptysisheart.parking.core.model.dto.PlaceSearchResult
 import com.github.hemoptysisheart.parking.core.model.dto.RouteSearchResult
-import com.github.hemoptysisheart.parking.domain.GeoBounds
-import com.github.hemoptysisheart.parking.domain.GeoLocation
-import com.github.hemoptysisheart.parking.domain.Location
-import com.github.hemoptysisheart.parking.domain.PartialRoute
+import com.github.hemoptysisheart.parking.domain.*
+import java.util.*
 
 object PreviewModel {
     val LOCATION_MODEL = object : SensorModel {
@@ -52,6 +50,14 @@ object PreviewModel {
                     )
                 )
             )
+        }
+
+        override suspend fun searchRoute(origin: Location, destination: Location): List<Route> {
+            TODO("Not yet implemented")
+        }
+
+        override suspend fun read(id: UUID): Route? {
+            TODO("Not yet implemented")
         }
     }
 }

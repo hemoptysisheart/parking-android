@@ -9,10 +9,12 @@ import com.github.hemoptysisheart.parking.domain.GeoBounds
 import com.github.hemoptysisheart.parking.domain.GeoLocation
 import com.github.hemoptysisheart.parking.domain.PartialRoute
 import com.github.hemoptysisheart.parking.domain.Route
+import java.util.*
 
 @Suppress("NonAsciiCharacters")
 object PreviewRoute {
     val ROUTE_新宿駅_패밀리마트_카부키쵸키타점 = Route(
+        UUID.randomUUID(),
         LOCATION_신주쿠역,
         LOCATION_ECOLO_PARK_KABUKICHO_29,
         LOCATION_패밀리마트_카부키쵸키타점

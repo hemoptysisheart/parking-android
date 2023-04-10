@@ -10,12 +10,10 @@ import com.github.hemoptysisheart.parking.core.model.dto.LocationGmpPlace
 import com.github.hemoptysisheart.parking.core.model.dto.PlaceSearchResult
 import com.github.hemoptysisheart.parking.core.model.dto.RouteSearchResult
 import com.github.hemoptysisheart.parking.core.util.Logger
-import com.github.hemoptysisheart.parking.domain.GeoLocation
-import com.github.hemoptysisheart.parking.domain.Location
-import com.github.hemoptysisheart.parking.domain.RecommendItemLocation
-import com.github.hemoptysisheart.parking.domain.Transport
+import com.github.hemoptysisheart.parking.domain.*
 import com.github.hemoptysisheart.util.TimeProvider
 import java.time.Instant
+import java.util.*
 
 class LocationModelImpl(
     private val mapsClient: MapsClient,
@@ -42,6 +40,8 @@ class LocationModelImpl(
      * `Map<location_id, place>`
      */
     private val locationCache = mutableMapOf<String, Location>()
+
+    private val routeCache = mutableMapOf<UUID, Route>()
 
     /**
      * TODO ID가 좌표이면 즉시 인스턴스 생성해서 반환하기.
@@ -127,6 +127,32 @@ class LocationModelImpl(
             transport = TRANSPORTATION_MODE_MAP[mode]!!,
             partialRouteList = result.routes.map { it.toPartialRoute() }
         )
+        LOGGER.v("#searchRoute return : $route")
+        return route
+    }
+
+    override suspend fun searchRoute(origin: Location, destination: Location): List<Route> {
+        LOGGER.v("#searchRoute args : origin=$origin, destination=$destination")
+        val routeList = searchParking(destination).places.map {
+            val route = Route(UUID.randomUUID(), origin, it.item, destination)
+            routeCache[route.id] = route
+            route
+        }
+
+        LOGGER.v("#searchRoute return : $routeList")
+        return routeList
+    }
+
+    override suspend fun read(id: UUID): Route? {
+        LOGGER.v("#searchRoute args : id=$id")
+
+        val route = routeCache[id]
+            ?: return null
+        route.driving = searchRoute(route.origin, route.parking, TransportationMode.DRIVING)
+            .partialRouteList[0]
+        route.walking = searchRoute(route.parking, route.destination, TransportationMode.WALKING)
+            .partialRouteList[0]
+
         LOGGER.v("#searchRoute return : $route")
         return route
     }

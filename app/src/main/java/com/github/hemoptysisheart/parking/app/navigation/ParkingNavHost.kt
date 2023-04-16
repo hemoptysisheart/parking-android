@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.github.hemoptysisheart.parking.app.ui.page.MainPage
+import com.github.hemoptysisheart.parking.app.ui.page.NavigationPage
 import com.github.hemoptysisheart.parking.app.ui.page.SearchPage
 import com.github.hemoptysisheart.parking.app.ui.page.SelectRoutePage
 
@@ -31,6 +32,7 @@ fun ParkingNavHost() {
         }
 
         composable(route = NavigationPageNavigation.ROUTE, arguments = NavigationPageNavigation.ARGUMENTS) {
+            NavigationPage(navigation)
         }
     }
 }

@@ -36,10 +36,10 @@ data class Route(
     var walking: PartialRoute? = null
 
     var distance: Double? = null
-        get() = if (null == driving && null == walking) {
-            null
-        } else {
+        get() = if (null != driving && null != walking) {
             driving!!.distance!! + walking!!.distance!!
+        } else {
+            null
         }
         private set
 

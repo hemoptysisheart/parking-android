@@ -20,14 +20,14 @@ import com.github.hemoptysisheart.parking.domain.Route
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun RouteDetailTemplate(route: Route, modifier: Modifier = Modifier) {
+fun RouteDetailTemplate(route: Route, modifier: Modifier = Modifier, gotoNavigation: (Route) -> Unit = {}) {
     LazyColumn(
         modifier
             .fillMaxWidth()
             .background(Color.White)
             .padding(5.dp, 10.dp, 5.dp, 0.dp)
     ) {
-        stickyHeader { RouteDetailHeader(route) }
+        stickyHeader { RouteDetailHeader(route, gotoNavigation) }
 
         item { RoutePropertyRow(stringResource(string.domain_route_driving), formatDistance(route.driving?.distance)) }
         item { RoutePropertyRow(stringResource(string.domain_route_walking), formatDistance(route.walking?.distance)) }

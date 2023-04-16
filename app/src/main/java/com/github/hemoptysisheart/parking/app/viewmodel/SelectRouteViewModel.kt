@@ -3,7 +3,7 @@ package com.github.hemoptysisheart.parking.app.viewmodel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.hemoptysisheart.parking.app.navigation.SelectRoutePageNavigation.Companion.ARG_DESTINATION_ID
+import com.github.hemoptysisheart.parking.app.navigation.SelectRoutePageNavigation
 import com.github.hemoptysisheart.parking.core.model.LocationModel
 import com.github.hemoptysisheart.parking.core.model.SensorModel
 import com.github.hemoptysisheart.parking.core.util.Logger
@@ -30,13 +30,7 @@ class SelectRouteViewModel @Inject constructor(
         private val LOGGER = Logger(TAG)
     }
 
-    private val SavedStateHandle.destinationId: String
-        get() {
-            val id = get<String>(ARG_DESTINATION_ID)
-                ?: throw IllegalStateException("$ARG_DESTINATION_ID is not exist.")
-            LOGGER.v("#state.destinationId : $id")
-            return id
-        }
+    val destinationId = SelectRoutePageNavigation.arguments(state)
 
     /**
      * TODO `state`로 넘겨받을 수 있는 방식으로 변경.
@@ -52,8 +46,8 @@ class SelectRouteViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             // 목적지 표시.
-            val destination = locationModel.read(state.destinationId)
-                ?: throw IllegalArgumentException("location does not exist : id=${state.destinationId}")
+            val destination = locationModel.read(destinationId)
+                ?: throw IllegalArgumentException("location does not exist : destinationId=$destinationId")
             this@SelectRouteViewModel.destination.emit(destination)
 
             // 주차장 우선 표시.
@@ -75,7 +69,10 @@ class SelectRouteViewModel @Inject constructor(
         }
     }
 
-    override fun toString() = "$TAG(sensorModel=$sensorModel, locationModel=$locationModel, " +
+    override fun toString() = "$TAG(" +
+            "sensorModel=$sensorModel, locationModel=$locationModel, " +
+            "destinationId=$destinationId, " +
             "origin=$origin, destination=${destination.value}, " +
-            "focusedRoute=${focusedRoute.value}, routeList=${routeList.value})"
+            "focusedRoute=${focusedRoute.value}, routeList=${routeList.value}" +
+            ")"
 }

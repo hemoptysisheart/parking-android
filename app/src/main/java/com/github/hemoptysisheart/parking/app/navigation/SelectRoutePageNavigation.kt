@@ -1,5 +1,6 @@
 package com.github.hemoptysisheart.parking.app.navigation
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
@@ -16,10 +17,17 @@ class SelectRoutePageNavigation(navController: NavController) : AbstractPageNavi
         val ARGUMENTS = listOf(
             navArgument(ARG_DESTINATION_ID) { type = NavType.StringType }
         )
+
+        fun arguments(state: SavedStateHandle): String {
+            val id = state.get<String>(ARG_DESTINATION_ID)
+                ?: throw IllegalStateException("$ARG_DESTINATION_ID is not exist.")
+            LOGGER.v("#arguments : $id")
+            return id
+        }
     }
 
     val gotoNavigation: (Route) -> Unit = {
         LOGGER.d("#gotoNavigation args : route=$it")
-        navController.navigate("${NavigationPageNavigation.NAME}/$it") // TODO route.id 추가.
+        navController.navigate("${NavigationPageNavigation.NAME}/${it.id}")
     }
 }

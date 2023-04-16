@@ -148,10 +148,17 @@ class LocationModelImpl(
 
         val route = routeCache[id]
             ?: return null
-        route.driving = searchRoute(route.origin, route.parking, TransportationMode.DRIVING)
-            .partialRouteList[0]
-        route.walking = searchRoute(route.parking, route.destination, TransportationMode.WALKING)
-            .partialRouteList[0]
+
+        if (null == route.driving) {
+            LOGGER.w("#searchRoute route.driving is null : route=$route")
+            route.driving = searchRoute(route.origin, route.parking, TransportationMode.DRIVING)
+                .partialRouteList[0]
+        }
+        if (null == route.walking) {
+            LOGGER.w("#searchRoute route.walking is null : route=$route")
+            route.walking = searchRoute(route.parking, route.destination, TransportationMode.WALKING)
+                .partialRouteList[0]
+        }
 
         LOGGER.v("#searchRoute return : $route")
         return route

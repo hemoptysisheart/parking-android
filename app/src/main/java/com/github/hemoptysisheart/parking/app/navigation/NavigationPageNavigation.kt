@@ -13,9 +13,9 @@ class NavigationPageNavigation(
     companion object {
         const val NAME = "Navigation"
 
-        const val ARG_ROUTE_ID = "id"
+        const val ARG_ROUTE_ID = "routeId"
 
-        const val ROUTE = "$NAME/$ARG_ROUTE_ID"
+        const val ROUTE = "$NAME/{$ARG_ROUTE_ID}"
 
         val ARGUMENTS = listOf(
             navArgument(ARG_ROUTE_ID) { type = NavType.StringType }

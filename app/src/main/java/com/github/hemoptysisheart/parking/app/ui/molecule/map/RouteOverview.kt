@@ -8,13 +8,17 @@ import com.github.hemoptysisheart.parking.app.ui.support.MAP_ROUTE_OVERVIEW_WALK
 import com.github.hemoptysisheart.parking.app.ui.support.MAP_ROUTE_OVERVIEW_WALKING_Z_INDEX
 import com.github.hemoptysisheart.parking.app.ui.theme.LightSkyBlue
 import com.github.hemoptysisheart.parking.core.extension.latLng
+import com.github.hemoptysisheart.parking.domain.PartialRoute
 import com.github.hemoptysisheart.parking.domain.Route
 import com.google.maps.android.compose.Polyline
+import com.github.hemoptysisheart.parking.app.ui.support.LOGGER_COMPOSE as LOGGER
 
 @Composable
-fun RouteOverview(route: Route, focused: Boolean) {
+fun RouteOverview(driving:PartialRoute?, walking:PartialRoute?, focused: Boolean) {
+    LOGGER.v("#RouteOverview args : driving=$driving, walking=$walking, focused=$focused")
+
     if (focused) {
-        route.driving?.run {
+        driving?.run {
             Polyline(
                 points = overview.map { it.latLng },
                 color = Color.Blue,
@@ -22,7 +26,7 @@ fun RouteOverview(route: Route, focused: Boolean) {
                 zIndex = MAP_ROUTE_OVERVIEW_DRIVING_FOCUSED_Z_INDEX
             )
         }
-        route.walking?.run {
+        walking?.run {
             Polyline(
                 points = overview.map { it.latLng },
                 color = Color.Gray,
@@ -31,14 +35,14 @@ fun RouteOverview(route: Route, focused: Boolean) {
             )
         }
     } else {
-        route.driving?.run {
+        driving?.run {
             Polyline(
                 points = overview.map { it.latLng },
                 color = LightSkyBlue,
                 zIndex = MAP_ROUTE_OVERVIEW_DRIVING_Z_INDEX
             )
         }
-        route.walking?.run {
+        walking?.run {
             Polyline(
                 points = overview.map { it.latLng },
                 color = Color.LightGray,
@@ -47,3 +51,9 @@ fun RouteOverview(route: Route, focused: Boolean) {
         }
     }
 }
+
+@Composable
+fun RouteOverview(route: Route, focused: Boolean) {
+    RouteOverview(driving = route.driving, walking = route.walking, focused = focused)
+}
+

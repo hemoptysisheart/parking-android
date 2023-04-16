@@ -50,7 +50,7 @@ fun MapTemplate(
         ) {
             DestinationMarker(context = LocalContext.current, destination = route.destination)
             ParkingMarker(context = LocalContext.current, route = route, focused = true)
-            RouteOverview(route = route, focused = true)
+            RouteOverview(driving = route.driving, walking = route.walking, focused = true)
         }
 
         NavigationDetailTemplate(here, route, Modifier.weight(1f))

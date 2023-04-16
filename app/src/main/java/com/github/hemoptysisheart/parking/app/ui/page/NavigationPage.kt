@@ -19,8 +19,16 @@ import com.github.hemoptysisheart.parking.app.ui.support.LOGGER_COMPOSE as LOGGE
 
 @Composable
 fun NavigationPage(
-    navigation: NavigationPageNavigation = NavigationPageNavigation(rememberNavController()),
+    navigation: NavigationPageNavigation,
     viewModel: NavigationViewModel = hiltViewModel()
 ) {
     LOGGER.v("#NavigationPage args : navigation=$navigation, viewModel=$viewModel")
+}
+
+@Composable
+@Preview
+fun Preview_NavigationPage() {
+    ParkingTheme {
+        NavigationPage(NavigationPageNavigation(rememberNavController()))
+    }
 }

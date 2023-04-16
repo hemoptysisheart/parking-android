@@ -19,7 +19,7 @@ import com.github.hemoptysisheart.parking.app.ui.support.LOGGER_COMPOSE as LOGGE
 
 @Composable
 fun SearchPage(
-    navigation: SearchPageNavigation = SearchPageNavigation(rememberNavController()),
+    navigation: SearchPageNavigation,
     viewModel: SearchViewModel = hiltViewModel()
 ) {
     LOGGER.v("#SearchPage args : navigation=$navigation, viewModel=$viewModel")
@@ -40,6 +40,6 @@ fun SearchPage(
 @Preview(showSystemUi = true, showBackground = true)
 fun Preview_SearchPage() {
     ParkingTheme {
-        SearchPage(viewModel = SEARCH_VM)
+        SearchPage(SearchPageNavigation(rememberNavController()), SEARCH_VM)
     }
 }

@@ -19,7 +19,7 @@ import com.github.hemoptysisheart.parking.app.viewmodel.SelectRouteViewModel
 
 @Composable
 fun SelectRoutePage(
-    navigation: SelectRoutePageNavigation = SelectRoutePageNavigation(rememberNavController()),
+    navigation: SelectRoutePageNavigation,
     viewModel: SelectRouteViewModel = hiltViewModel()
 ) {
     var showControl by remember { mutableStateOf(true) }
@@ -53,6 +53,6 @@ fun SelectRoutePage(
 @Preview
 fun Preview_SelectRoutePage() {
     ParkingTheme {
-        SelectRoutePage(viewModel = SELECT_ROUTE_VM)
+        SelectRoutePage(SelectRoutePageNavigation(rememberNavController()), SELECT_ROUTE_VM)
     }
 }

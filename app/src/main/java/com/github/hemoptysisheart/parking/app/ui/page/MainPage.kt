@@ -19,7 +19,7 @@ import com.github.hemoptysisheart.parking.app.ui.support.LOGGER_COMPOSE as LOGGE
 
 @Composable
 fun MainPage(
-    navigation: MainPageNavigation = MainPageNavigation(rememberNavController()),
+    navigation: MainPageNavigation,
     viewModel: MainViewModel = hiltViewModel()
 ) {
     LOGGER.v("#MainPage args : viewModel=$viewModel")
@@ -44,6 +44,6 @@ fun MainPage(
 @Preview(showSystemUi = true, showBackground = true)
 fun Preview_MainPage() {
     ParkingTheme {
-        MainPage(viewModel = MAIN_VM)
+        MainPage(MainPageNavigation(rememberNavController()), MAIN_VM)
     }
 }

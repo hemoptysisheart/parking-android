@@ -1,7 +1,6 @@
 package com.github.hemoptysisheart.parking.app.ui.molecule.navigation
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -12,16 +11,25 @@ import com.github.hemoptysisheart.parking.app.ui.preview.PreviewRoute
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.domain.NaviLeg
+import com.ireward.htmlcompose.HtmlText
+import com.github.hemoptysisheart.parking.app.ui.support.LOGGER_COMPOSE as LOGGER
 
 @Composable
 fun NaviLegMolecule(
     here: Location,
     leg: NaviLeg
 ) {
-    Column(Modifier.padding(5.dp, 10.dp)) {
+    LOGGER.v("#NaviLegMolecule args : here=$here, leg=$leg")
+
+    Column(Modifier.padding(5.dp)) {
         Text(text = "${leg.start} -> ${leg.end}")
         leg.stepList.forEach {
-            Text(text = "${it.guideText}", modifier = Modifier.padding(10.dp, 3.dp, 3.dp, 3.dp))
+            it.guideText?.let { txt ->
+                Row {
+                    Spacer(Modifier.width(10.dp))
+                    HtmlText(txt)
+                }
+            }
         }
     }
 }

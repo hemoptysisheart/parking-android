@@ -43,6 +43,11 @@ data class Route(
         }
         private set
 
+    fun contains(here: Location): Boolean {
+        // TODO 현재 위치가 경로에 포함되는지 아닌지 검사하기.
+        return true
+    }
+
     override fun equals(other: Any?) = this === other ||
             javaClass == other?.javaClass &&
             other is Route &&

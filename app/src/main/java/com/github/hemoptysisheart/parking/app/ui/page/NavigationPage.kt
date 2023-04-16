@@ -23,6 +23,30 @@ fun NavigationPage(
     viewModel: NavigationViewModel = hiltViewModel()
 ) {
     LOGGER.v("#NavigationPage args : navigation=$navigation, viewModel=$viewModel")
+
+    val here by viewModel.here.collectAsStateWithLifecycle()
+    val route by viewModel.route.collectAsStateWithLifecycle()
+    LOGGER.v("#NavigationPage args : here=$here, route=$route")
+    when {
+        null == route -> {
+            LOGGER.e("#NavigationPage route is null.")
+        }
+        true != route?.contains(here) -> {
+            throw IllegalArgumentException("route does not contains here : here=$here, route=$route")
+        }
+    }
+
+    route?.let {
+        Box(modifier = Modifier.fillMaxSize()) {
+            HeaderTemplate(
+                route = it,
+                onBack = navigation.onBack,
+                modifier = Modifier
+                    .zIndex(10f)
+            )
+            MapTemplate(here, it)
+        }
+    }
 }
 
 @Composable

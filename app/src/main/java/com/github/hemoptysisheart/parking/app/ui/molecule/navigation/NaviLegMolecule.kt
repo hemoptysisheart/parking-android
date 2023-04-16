@@ -27,7 +27,9 @@ fun NaviLegMolecule(
             it.guideText?.let { txt ->
                 Row {
                     Spacer(Modifier.width(10.dp))
-                    HtmlText(txt)
+                    Column {
+                        HtmlText(txt)
+                    }
                 }
             }
         }

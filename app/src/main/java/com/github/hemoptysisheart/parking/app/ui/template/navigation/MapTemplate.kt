@@ -5,7 +5,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import com.github.hemoptysisheart.parking.app.ui.molecule.map.DestinationMarker
+import com.github.hemoptysisheart.parking.app.ui.molecule.map.ParkingMarker
+import com.github.hemoptysisheart.parking.app.ui.molecule.map.RouteOverview
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewLocation
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewRoute
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
@@ -43,7 +47,11 @@ fun MapTemplate(
                 myLocationButtonEnabled = false,
                 zoomControlsEnabled = false
             )
-        )
+        ) {
+            DestinationMarker(context = LocalContext.current, destination = route.destination)
+            ParkingMarker(context = LocalContext.current, route = route, focused = true)
+            RouteOverview(route = route, focused = true)
+        }
 
         NavigationDetailTemplate(here, route, Modifier.weight(1f))
     }

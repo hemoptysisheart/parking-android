@@ -11,7 +11,7 @@ import com.github.hemoptysisheart.parking.app.ui.page.SearchPage
 import com.github.hemoptysisheart.parking.app.ui.page.SelectRoutePage
 
 @Composable
-fun ParkingNavHost() {
+fun NavigationGraph() {
     val navController = rememberNavController()
 
     val main = remember { MainPageNavigation(navController) }
@@ -20,11 +20,11 @@ fun ParkingNavHost() {
     val navigation = remember { NavigationPageNavigation(navController) }
 
     NavHost(navController = navController, startDestination = MainPageNavigation.NAME) {
-        composable(MainPageNavigation.NAME) {
+        composable(MainPageNavigation.ROUTE) {
             MainPage(main)
         }
 
-        composable(route = SearchPageNavigation.NAME) {
+        composable(route = SearchPageNavigation.ROUTE) {
             SearchPage(search)
         }
 

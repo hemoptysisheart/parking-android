@@ -3,9 +3,9 @@ package com.github.hemoptysisheart.parking.app.activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.github.hemoptysisheart.parking.app.navigation.ParkingNavHost
-import com.github.hemoptysisheart.parking.core.logging.logArgsD
+import com.github.hemoptysisheart.parking.app.navigation.NavigationGraph
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
+import com.github.hemoptysisheart.parking.core.logging.logArgsD
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             ParkingTheme {
-                ParkingNavHost()
+                NavigationGraph()
             }
         }
     }

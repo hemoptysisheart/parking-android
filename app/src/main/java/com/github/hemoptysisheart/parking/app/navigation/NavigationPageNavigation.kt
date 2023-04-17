@@ -1,10 +1,10 @@
 package com.github.hemoptysisheart.parking.app.navigation
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import java.util.*
+import java.util.Objects.requireNonNull
 
 class NavigationPageNavigation(
     navController: NavController
@@ -21,13 +21,10 @@ class NavigationPageNavigation(
             navArgument(ARG_ROUTE_ID) { type = NavType.StringType }
         )
 
-        fun arguments(handle: SavedStateHandle): UUID {
-            val id = UUID.fromString(
-                handle[ARG_ROUTE_ID]
-                    ?: throw IllegalArgumentException("$ARG_ROUTE_ID does not exist.")
-            )
-            LOGGER.i("#arguments return : $id")
-            return id
+        val navArgs = NavArgs<UUID> {
+            val id = UUID.fromString(requireNonNull(it[ARG_ROUTE_ID], "$ARG_ROUTE_ID does not exist."))
+            LOGGER.i("#navArgs return : $id")
+            id
         }
     }
 

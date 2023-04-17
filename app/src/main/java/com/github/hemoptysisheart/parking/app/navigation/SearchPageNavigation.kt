@@ -8,6 +8,7 @@ class SearchPageNavigation(
 ) : AbstractPageNavigation(navController) {
     companion object {
         const val NAME = "SearchPage"
+        const val ROUTE = NAME
     }
 
     val gotoSelectRoute: (RecommendItem<*>) -> Unit = {

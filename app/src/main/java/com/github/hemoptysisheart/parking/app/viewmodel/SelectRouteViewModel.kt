@@ -21,7 +21,7 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class SelectRouteViewModel @Inject constructor(
-    state: SavedStateHandle,
+    handle: SavedStateHandle,
     private val sensorModel: SensorModel,
     private val locationModel: LocationModel
 ) : ViewModel() {
@@ -30,7 +30,7 @@ class SelectRouteViewModel @Inject constructor(
         private val LOGGER = Logger(TAG)
     }
 
-    val destinationId = SelectRoutePageNavigation.arguments(state)
+    val destinationId = SelectRoutePageNavigation.navArgs(handle)
 
     /**
      * TODO `state`로 넘겨받을 수 있는 방식으로 변경.

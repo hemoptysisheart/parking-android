@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NavigationViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
+    handle: SavedStateHandle,
     private val sensorModel: SensorModel,
     private val locationModel: LocationModel
 ) : ViewModel() {
@@ -31,7 +31,7 @@ class NavigationViewModel @Inject constructor(
         }
     }
 
-    val routeId = NavigationPageNavigation.arguments(savedStateHandle)
+    val routeId = NavigationPageNavigation.navArgs(handle)
 
     val here = MutableStateFlow(sensorModel.location)
     val route = MutableStateFlow<Route?>(null)

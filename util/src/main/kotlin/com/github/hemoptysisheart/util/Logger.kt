@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.domain
+package com.github.hemoptysisheart.util
 
 import java.util.logging.Level.*
 import java.util.logging.Logger

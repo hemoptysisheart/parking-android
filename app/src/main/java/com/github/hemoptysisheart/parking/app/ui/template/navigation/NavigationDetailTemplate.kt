@@ -40,7 +40,13 @@ fun NavigationDetailTemplate(
 
     LazyColumn(modifier = modifier.fillMaxWidth()) {
         stickyHeader {
-            Row(Modifier.fillMaxWidth().background(Color.LightGray).padding(5.dp)) {
+            // TODO 헤더 UI 분리하기.
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .background(Color.LightGray)
+                    .padding(5.dp)
+            ) {
                 Drive()
                 Spacer(Modifier.width(10.dp))
                 Text(text = stringResource(R.string.domain_partial_route_drive))
@@ -51,7 +57,12 @@ fun NavigationDetailTemplate(
         }
 
         stickyHeader {
-            Row(Modifier.fillMaxWidth().background(Color.LightGray).padding(5.dp)) {
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .background(Color.LightGray)
+                    .padding(5.dp)
+            ) {
                 Walk()
                 Spacer(Modifier.width(10.dp))
                 Text(text = stringResource(R.string.domain_partial_route_walk))

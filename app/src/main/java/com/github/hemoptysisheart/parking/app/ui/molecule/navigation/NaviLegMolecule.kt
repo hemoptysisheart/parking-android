@@ -25,6 +25,7 @@ fun NaviLegMolecule(
     Column(Modifier.padding(5.dp)) {
         leg.stepList.forEachIndexed { _, step ->
             step.guideText?.let { txt ->
+                // TODO NaviStep UI 분리하기.
                 Row(
                     modifier = Modifier.padding(10.dp, 3.dp, 3.dp, 0.dp),
                     verticalAlignment = Alignment.CenterVertically

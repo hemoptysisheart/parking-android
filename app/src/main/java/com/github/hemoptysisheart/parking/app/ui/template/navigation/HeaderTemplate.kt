@@ -11,13 +11,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.hemoptysisheart.parking.app.ui.molecule.common.GoBackButton
+import com.github.hemoptysisheart.parking.app.ui.molecule.common.BackButton
+import com.github.hemoptysisheart.parking.app.ui.molecule.common.CloseButton
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewRoute
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 import com.github.hemoptysisheart.parking.domain.Route
 
 @Composable
-fun HeaderTemplate(route: Route, onBack: () -> Unit = {}, modifier: Modifier=Modifier) {
+fun HeaderTemplate(
+    route: Route,
+    onBack: () -> Unit = {},
+    onClose: () -> Unit = {},
+    modifier: Modifier = Modifier
+) {
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -25,8 +31,9 @@ fun HeaderTemplate(route: Route, onBack: () -> Unit = {}, modifier: Modifier=Mod
             .padding(5.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        GoBackButton(onBack)
+        BackButton(onBack)
         Text(text = route.destination.name, modifier = Modifier.weight(1f))
+        CloseButton(onClose)
     }
 }
 

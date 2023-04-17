@@ -41,6 +41,7 @@ fun NavigationPage(
             HeaderTemplate(
                 route = it,
                 onBack = navigation.onBack,
+                onClose = navigation.onClose,
                 modifier = Modifier
                     .zIndex(10f)
             )

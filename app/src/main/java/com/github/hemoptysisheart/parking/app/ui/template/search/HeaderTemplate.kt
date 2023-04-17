@@ -9,7 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.hemoptysisheart.parking.app.ui.molecule.common.GoBackButton
+import com.github.hemoptysisheart.parking.app.ui.molecule.common.BackButton
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 
 @Composable
@@ -24,7 +24,7 @@ fun SearchHeaderTemplate(
             .padding(5.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        GoBackButton(onBack)
+        BackButton(onBack)
         TextField(value = query, onValueChange = onQueryChange, modifier = Modifier.weight(1f))
     }
 }

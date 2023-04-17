@@ -33,7 +33,8 @@
     <string name="domain_route_walking">도보</string>
     <string name="domain_route_distance">거리</string>
 
-    <string name="go_back_button_description">돌아가기</string>
+    <string name="navi_back_button_description">돌아가기</string>
+    <string name="navi_close_button_description">닫기</string>
 
     <string name="unit_meter">%s m</string>
     <string name="unit_kilo_meter">%s Km</string>

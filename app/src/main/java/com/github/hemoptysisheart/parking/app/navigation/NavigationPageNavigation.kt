@@ -30,4 +30,14 @@ class NavigationPageNavigation(
             return id
         }
     }
+
+    /**
+     * 안내를 끝내고 초기 화면으로 돌아간다.
+     */
+    val onClose: () -> Unit = {
+        navController.navigate(MainPageNavigation.ROUTE) {
+            popUpTo(MainPageNavigation.ROUTE)
+            launchSingleTop = true
+        }
+    }
 }

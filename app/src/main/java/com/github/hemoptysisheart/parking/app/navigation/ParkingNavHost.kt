@@ -13,6 +13,7 @@ import com.github.hemoptysisheart.parking.app.ui.page.SelectRoutePage
 @Composable
 fun ParkingNavHost() {
     val navController = rememberNavController()
+
     val main = remember { MainPageNavigation(navController) }
     val search = remember { SearchPageNavigation(navController) }
     val select = remember { SelectRoutePageNavigation(navController) }

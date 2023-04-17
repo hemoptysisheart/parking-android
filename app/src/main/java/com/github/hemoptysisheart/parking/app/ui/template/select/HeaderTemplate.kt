@@ -12,7 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import com.github.hemoptysisheart.parking.app.ui.molecule.common.GoBackButton
+import com.github.hemoptysisheart.parking.app.ui.molecule.common.BackButton
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewLocation.LOCATION_株式会社ＡＡＡ
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 import com.github.hemoptysisheart.parking.domain.Location
@@ -30,7 +30,7 @@ fun SelectRouteHeader(
             .zIndex(10f),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        GoBackButton(onBack)
+        BackButton(onBack)
         Text(text = destination?.name ?: "", modifier = Modifier.padding(5.dp))
     }
 }

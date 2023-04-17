@@ -2,6 +2,27 @@
     <string name="launcher_label">Parking</string>
     <string name="app_name">Parking</string>
 
+    <string name="domain_maneuver_turn_slight_left">약간 좌회전</string>
+    <string name="domain_maneuver_turn_sharp_left">급한 좌회전</string>
+    <string name="domain_maneuver_turn_left">좌회전</string>
+    <string name="domain_maneuver_turn_slight_right">약간 우회전</string>
+    <string name="domain_maneuver_turn_sharp_right">급한 우회전</string>
+    <string name="domain_maneuver_keep_right">오른쪽 유지</string>
+    <string name="domain_maneuver_keep_left">왼쪽 유지</string>
+    <string name="domain_maneuver_uturn_left">왼쪽으로 유턴</string>
+    <string name="domain_maneuver_uturn_right">오른쪽으로 유턴</string>
+    <string name="domain_maneuver_turn_right">우회전</string>
+    <string name="domain_maneuver_straight">직진</string>
+    <string name="domain_maneuver_ramp_left">왼쪽으로 올라가는 램프</string>
+    <string name="domain_maneuver_ramp_right">오른쪽으로 올라가는 램프</string>
+    <string name="domain_maneuver_merge">차로 합쳐짐</string>
+    <string name="domain_maneuver_fork_left">왼쪽으로 갈라지는 길</string>
+    <string name="domain_maneuver_fork_right">오른쪽으로 갈라지는 길</string>
+    <string name="domain_maneuver_ferry">배로 이동</string>
+    <string name="domain_maneuver_ferry_train">배 혹은 기차로 이동</string>
+    <string name="domain_maneuver_roundabout_left">왼쪽으로 돌아가는 다리</string>
+    <string name="domain_maneuver_roundabout_right">오른쪽으로 돌아가는 다리</string>
+
     <string name="domain_route_origin">출발지</string>
     <string name="domain_route_parking">주차장</string>
     <string name="domain_route_destination">목적지</string>

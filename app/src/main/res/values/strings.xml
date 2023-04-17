@@ -23,6 +23,9 @@
     <string name="domain_maneuver_roundabout_left">왼쪽으로 돌아가는 다리</string>
     <string name="domain_maneuver_roundabout_right">오른쪽으로 돌아가는 다리</string>
 
+    <string name="domain_partial_route_drive">운전</string>
+    <string name="domain_partial_route_walk">도보</string>
+
     <string name="domain_route_origin">출발지</string>
     <string name="domain_route_parking">주차장</string>
     <string name="domain_route_destination">목적지</string>

@@ -14,11 +14,11 @@ import com.github.hemoptysisheart.parking.R
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 
 @Composable
-fun GoBackButton(onClick: () -> Unit = {}) {
+fun BackButton(onClick: () -> Unit) {
     IconButton(onClick = onClick) {
         Icon(
             imageVector = Icons.Default.ArrowBack,
-            contentDescription = stringResource(R.string.go_back_button_description),
+            contentDescription = stringResource(R.string.navi_back_button_description),
             modifier = Modifier.padding(15.dp)
         )
     }
@@ -26,8 +26,8 @@ fun GoBackButton(onClick: () -> Unit = {}) {
 
 @Composable
 @Preview
-fun Preview_GoBackButton() {
+fun Preview_BackButton() {
     ParkingTheme {
-        GoBackButton()
+        BackButton(onClick = {})
     }
 }

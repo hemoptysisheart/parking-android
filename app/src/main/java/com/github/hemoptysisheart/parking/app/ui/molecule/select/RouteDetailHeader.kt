@@ -19,7 +19,7 @@ import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 import com.github.hemoptysisheart.parking.domain.Route
 
 @Composable
-fun RouteDetailHeader(route: Route) {
+fun RouteDetailHeader(route: Route, gotoNavigation: (Route) -> Unit = {}) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -34,7 +34,7 @@ fun RouteDetailHeader(route: Route) {
             fontWeight = FontWeight.Bold
         )
         Spacer(Modifier.width(10.dp))
-        Button(onClick = { /*TODO*/ }) {
+        Button(onClick = { gotoNavigation(route) }) {
             Text(text = stringResource(R.string.select_route_start_navigation_button_label))
         }
     }

@@ -3,11 +3,7 @@ package com.github.hemoptysisheart.parking.app.ui.page
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -23,10 +19,10 @@ import com.github.hemoptysisheart.parking.app.viewmodel.SelectRouteViewModel
 
 @Composable
 fun SelectRoutePage(
-    navigation: SelectRoutePageNavigation = SelectRoutePageNavigation(rememberNavController()),
+    navigation: SelectRoutePageNavigation,
     viewModel: SelectRouteViewModel = hiltViewModel()
 ) {
-    var showControl by rememberSaveable { mutableStateOf(true) }
+    var showControl by remember { mutableStateOf(true) }
     val destination by viewModel.destination.collectAsStateWithLifecycle()
     val routeList by viewModel.routeList.collectAsStateWithLifecycle()
     val focusedRoute by viewModel.focusedRoute.collectAsStateWithLifecycle()
@@ -44,8 +40,10 @@ fun SelectRoutePage(
                 onClick = { showControl = !showControl },
                 onSelectRoute = { viewModel.focus(it) }
             )
-            if (showControl) {
-                focusedRoute?.let { RouteDetailTemplate(it, Modifier.weight(1f)) }
+            focusedRoute?.let {
+                if (showControl) {
+                    RouteDetailTemplate(it, Modifier.weight(1f), navigation.gotoNavigation)
+                }
             }
         }
     }
@@ -55,6 +53,6 @@ fun SelectRoutePage(
 @Preview
 fun Preview_SelectRoutePage() {
     ParkingTheme {
-        SelectRoutePage(viewModel = SELECT_ROUTE_VM)
+        SelectRoutePage(SelectRoutePageNavigation(rememberNavController()), SELECT_ROUTE_VM)
     }
 }

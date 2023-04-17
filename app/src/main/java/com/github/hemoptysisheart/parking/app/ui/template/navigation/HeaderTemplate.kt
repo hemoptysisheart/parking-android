@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.parking.app.ui.template.select
+package com.github.hemoptysisheart.parking.app.ui.template.navigation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
@@ -11,34 +11,36 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.zIndex
 import com.github.hemoptysisheart.parking.app.ui.molecule.common.BackButton
-import com.github.hemoptysisheart.parking.app.ui.preview.PreviewLocation.LOCATION_株式会社ＡＡＡ
+import com.github.hemoptysisheart.parking.app.ui.molecule.common.CloseButton
+import com.github.hemoptysisheart.parking.app.ui.preview.PreviewRoute
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
-import com.github.hemoptysisheart.parking.domain.Location
+import com.github.hemoptysisheart.parking.domain.Route
 
 @Composable
-fun SelectRouteHeader(
-    destination: Location? = null,
-    onBack: () -> Unit = {}
+fun HeaderTemplate(
+    route: Route,
+    onBack: () -> Unit = {},
+    onClose: () -> Unit = {},
+    modifier: Modifier = Modifier
 ) {
     Row(
-        modifier = Modifier
-            .background(Color.White)
+        modifier = modifier
             .fillMaxWidth()
-            .padding(10.dp, 5.dp)
-            .zIndex(10f),
+            .background(Color.White)
+            .padding(5.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         BackButton(onBack)
-        Text(text = destination?.name ?: "", modifier = Modifier.padding(5.dp))
+        Text(text = route.destination.name, modifier = Modifier.weight(1f))
+        CloseButton(onClose)
     }
 }
 
 @Composable
-@Preview
-fun Preview_SelectRouteHeader() {
+@Preview(showBackground = true)
+fun Preview_HeaderTemplate() {
     ParkingTheme {
-        SelectRouteHeader(LOCATION_株式会社ＡＡＡ)
+        HeaderTemplate(PreviewRoute.ROUTE_新宿駅_패밀리마트_카부키쵸키타점)
     }
 }

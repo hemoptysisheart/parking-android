@@ -7,6 +7,8 @@ class MainPageNavigation(
 ) : AbstractPageNavigation(navController) {
     companion object {
         const val NAME = "MainPage"
+
+        const val ROUTE = NAME
     }
 
     fun search() = navController.navigate(SearchPageNavigation.NAME)

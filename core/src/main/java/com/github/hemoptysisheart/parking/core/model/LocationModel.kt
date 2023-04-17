@@ -6,6 +6,8 @@ import com.github.hemoptysisheart.parking.core.model.dto.RouteSearchResult
 import com.github.hemoptysisheart.parking.domain.GeoLocation
 import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.domain.RecommendItemLocation
+import com.github.hemoptysisheart.parking.domain.Route
+import java.util.*
 
 interface LocationModel {
     /**
@@ -37,4 +39,8 @@ interface LocationModel {
      * @param mode 이동 수단
      */
     suspend fun searchRoute(origin: Location, destination: Location, mode: TransportationMode): RouteSearchResult
+
+    suspend fun searchRoute(origin: Location, destination: Location): List<Route>
+
+    suspend fun read(id: UUID): Route?
 }

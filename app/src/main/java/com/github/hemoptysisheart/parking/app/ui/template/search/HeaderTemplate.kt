@@ -25,7 +25,7 @@ fun SearchHeaderTemplate(
         verticalAlignment = Alignment.CenterVertically
     ) {
         BackButton(onBack)
-        TextField(value = query, onValueChange = onQueryChange, modifier = Modifier.weight(1f))
+        TextField(value = query, onValueChange = onQueryChange, modifier = Modifier.weight(1f), singleLine = true)
     }
 }
 

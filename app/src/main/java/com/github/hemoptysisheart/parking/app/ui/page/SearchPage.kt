@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -18,6 +19,7 @@ import com.github.hemoptysisheart.parking.app.viewmodel.SearchViewModel
 import com.github.hemoptysisheart.parking.app.ui.support.LOGGER_COMPOSE as LOGGER
 
 @Composable
+@OptIn(ExperimentalComposeUiApi::class)
 fun SearchPage(
     navigation: SearchPageNavigation,
     viewModel: SearchViewModel = hiltViewModel()
@@ -32,7 +34,7 @@ fun SearchPage(
             .fillMaxSize()
     ) {
         SearchHeaderTemplate(query, viewModel.onQueryChange, navigation.onBack)
-        SearchResultTemplate(viewModel.here, resultList, navigation.gotoSelectRoute)
+        SearchResultTemplate(viewModel.here, resultList, navigation.hideKeyboard, navigation.gotoSelectRoute)
     }
 }
 

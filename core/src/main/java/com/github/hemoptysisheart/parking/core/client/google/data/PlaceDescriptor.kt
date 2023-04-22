@@ -1,13 +1,13 @@
 package com.github.hemoptysisheart.parking.core.client.google.data
 
-import com.github.hemoptysisheart.parking.domain.GeoLocation
-
 /**
  * 장소
+ *
+ * TODO `sealed class`로 변경.
  */
 data class PlaceDescriptor(
     val placeId: String? = null,
-    val geoLocation: GeoLocation? = null,
+    val geoLocation: LatLng? = null,
     val address: String? = null
 ) {
     init {
@@ -22,7 +22,7 @@ data class PlaceDescriptor(
         !placeId.isNullOrEmpty() ->
             "place_id:$placeId"
         null != geoLocation ->
-            geoLocation.toSimpleString()
+            "$geoLocation"
         !address.isNullOrEmpty() ->
             address
         else ->

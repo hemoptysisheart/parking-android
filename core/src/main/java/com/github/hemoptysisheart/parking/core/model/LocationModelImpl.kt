@@ -1,10 +1,12 @@
 package com.github.hemoptysisheart.parking.core.model
 
 import android.util.Log
+import com.github.hemoptysisheart.parking.core.client.google.AutocompleteParams
 import com.github.hemoptysisheart.parking.core.client.google.DirectionsParams
 import com.github.hemoptysisheart.parking.core.client.google.MapsClient
 import com.github.hemoptysisheart.parking.core.client.google.NearbySearchParams
 import com.github.hemoptysisheart.parking.core.client.google.data.*
+import com.github.hemoptysisheart.parking.core.client.google.data.PlaceTypeResultOnly.POINT_OF_INTEREST
 import com.github.hemoptysisheart.parking.core.extension.toPartialRoute
 import com.github.hemoptysisheart.parking.core.model.dto.LocationGmpPlace
 import com.github.hemoptysisheart.parking.core.model.dto.PlaceSearchResult
@@ -53,12 +55,20 @@ class LocationModelImpl(
         LOGGER.v("#searchDestination args : query=#query")
 
         val now = timeProvider.instant()
+        mapsClient.autocomplete(
+            AutocompleteParams(
+                input = query,
+                radius = AutocompleteParams.RADIUS_MAX,
+                types = listOf(POINT_OF_INTEREST)
+            ), now
+        )
+
         val params = NearbySearchParams(
             longitude = center.longitude,
             latitude = center.latitude,
             keyword = query,
             rankBy = RankBy.DISTANCE,
-            type = PlaceTypeResultOnly.POINT_OF_INTEREST
+            type = POINT_OF_INTEREST
         )
         val apiResult = mapsClient.nearBy(params, now)
 
@@ -102,7 +112,7 @@ class LocationModelImpl(
 
     private fun Location.toPlaceDescriptor() = when (this) {
         is LocationGmpPlace -> PlaceDescriptor(placeId = place.placeId)
-        else -> PlaceDescriptor(geoLocation = GeoLocation(latitude, longitude))
+        else -> PlaceDescriptor(geoLocation = LatLng(latitude, longitude))
     }
 
     override suspend fun searchRoute(

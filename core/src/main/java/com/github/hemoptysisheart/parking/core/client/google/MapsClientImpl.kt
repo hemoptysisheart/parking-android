@@ -5,8 +5,10 @@ import com.github.hemoptysisheart.parking.core.client.google.data.DirectionsStat
 import com.github.hemoptysisheart.parking.core.client.google.data.ResultMeta
 import com.github.hemoptysisheart.parking.core.client.google.data.TravelMode
 import com.github.hemoptysisheart.util.d
+import com.github.hemoptysisheart.util.e
 import com.github.hemoptysisheart.util.i
 import com.github.hemoptysisheart.util.logger
+import kotlinx.coroutines.delay
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -37,6 +39,29 @@ class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
             .create(PlacesApi::class.java)
 
         logger.i("#init complete : $this")
+    }
+
+    override suspend fun autocomplete(params: AutocompleteParams, requestAt: Instant): AutocompleteResult {
+        logger.e("#autocomplete args : params=$params, requestAt=$requestAt")
+        val response = api.autocomplete(
+            key = key,
+            input = params.input,
+            radius = params.radius,
+            components = params.components?.map { "country:${it.isO3Country}" }?.joinToString("|"),
+            language = params.language?.language
+                ?: if (useDefaultLocale) this.locale.language else null,
+            location = params.location?.toString(),
+            locationBias = params.locationBias?.toString(),
+            locationRestriction = params.locationRestriction?.toString(),
+            offset = params.offset,
+            origin = params.origin?.toString(),
+            region = params.region, sessionToken = params.sessionToken,
+            strictBounds = params.strictBounds,
+            types = params.types?.joinToString("|", "", "") { it.code }
+        )
+        logger.e("response=$response")
+        delay(3_000)
+        TODO("Not yet implemented")
     }
 
     override suspend fun nearBy(params: NearbySearchParams, requestAt: Instant): NearbySearchResult {

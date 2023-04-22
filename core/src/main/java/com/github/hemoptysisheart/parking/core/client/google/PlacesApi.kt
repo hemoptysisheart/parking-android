@@ -1,6 +1,7 @@
 package com.github.hemoptysisheart.parking.core.client.google
 
 import com.github.hemoptysisheart.parking.core.client.google.response.DirectionsResponse
+import com.github.hemoptysisheart.parking.core.client.google.response.PlacesAutocompleteResponse
 import com.github.hemoptysisheart.parking.core.client.google.response.PlacesNearbySearchResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -114,7 +115,7 @@ internal interface PlacesApi {
         @Query(PARAM_SESSION_TOKEN) sessionToken: String? = null,
         @Query(PARAM_STRICT_BOUNDS) strictBounds: Boolean? = null,
         @Query(PARAM_TYPES) types: String? = null
-    )
+    ): PlacesAutocompleteResponse
 
     /**
      * - [필수 파라미터](https://developers.google.com/maps/documentation/places/web-service/search-nearby#required-parameters)

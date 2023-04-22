@@ -4,7 +4,7 @@ import android.util.Log
 import com.github.hemoptysisheart.parking.core.client.google.DirectionsParams
 import com.github.hemoptysisheart.parking.core.client.google.MapsClient
 import com.github.hemoptysisheart.parking.core.client.google.NearbySearchParams
-import com.github.hemoptysisheart.parking.core.client.google.dto.*
+import com.github.hemoptysisheart.parking.core.client.google.data.*
 import com.github.hemoptysisheart.parking.core.extension.toPartialRoute
 import com.github.hemoptysisheart.parking.core.model.dto.LocationGmpPlace
 import com.github.hemoptysisheart.parking.core.model.dto.PlaceSearchResult

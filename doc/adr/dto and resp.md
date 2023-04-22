@@ -27,5 +27,5 @@ API 특히 제3자 API인 경우, API의 정합성이나 안정성을 보장할 
 ## 참고
 
 - [`AddressComponentResp`](../../core/src/main/java/com/github/hemoptysisheart/parking/core/client/google/response/AddressComponentResp.kt)
-  과 [`AddressComponentDto`](../../core/src/main/java/com/github/hemoptysisheart/parking/core/client/google/dto/AddressComponentDto.kt)
+  과 [`AddressComponentDto`](../../core/src/main/java/com/github/hemoptysisheart/parking/core/client/google/data/AddressComponentDto.kt)
   비교.

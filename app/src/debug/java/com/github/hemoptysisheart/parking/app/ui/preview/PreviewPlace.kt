@@ -1,9 +1,9 @@
 package com.github.hemoptysisheart.parking.app.ui.preview
 
-import com.github.hemoptysisheart.parking.core.client.google.dto.*
-import com.github.hemoptysisheart.parking.core.client.google.dto.BusinessStatus.OPERATIONAL
-import com.github.hemoptysisheart.parking.core.client.google.dto.PlaceTypeResultOnly.*
-import com.github.hemoptysisheart.parking.core.client.google.dto.PlaceTypes.*
+import com.github.hemoptysisheart.parking.core.client.google.data.*
+import com.github.hemoptysisheart.parking.core.client.google.data.BusinessStatus.OPERATIONAL
+import com.github.hemoptysisheart.parking.core.client.google.data.PlaceTypeResultOnly.*
+import com.github.hemoptysisheart.parking.core.client.google.data.PlaceTypes.*
 import java.net.URL
 
 @Suppress("NonAsciiCharacters")

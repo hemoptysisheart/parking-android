@@ -1,6 +1,6 @@
 package com.github.hemoptysisheart.parking.app.ui.preview
 
-import com.github.hemoptysisheart.parking.core.client.google.dto.TransportationMode
+import com.github.hemoptysisheart.parking.core.client.google.data.TransportationMode
 import com.github.hemoptysisheart.parking.core.model.LocationModel
 import com.github.hemoptysisheart.parking.core.model.LocationModelImpl
 import com.github.hemoptysisheart.parking.core.model.SensorModel

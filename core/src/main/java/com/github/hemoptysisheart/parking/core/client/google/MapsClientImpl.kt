@@ -1,9 +1,9 @@
 package com.github.hemoptysisheart.parking.core.client.google
 
-import com.github.hemoptysisheart.parking.core.client.google.DtoConverter.toDirectionsGeocodedWaypoint
-import com.github.hemoptysisheart.parking.core.client.google.dto.DirectionsStatus
-import com.github.hemoptysisheart.parking.core.client.google.dto.ResultMeta
-import com.github.hemoptysisheart.parking.core.client.google.dto.TravelMode
+import com.github.hemoptysisheart.parking.core.client.google.DataConverter.toDirectionsGeocodedWaypoint
+import com.github.hemoptysisheart.parking.core.client.google.data.DirectionsStatus
+import com.github.hemoptysisheart.parking.core.client.google.data.ResultMeta
+import com.github.hemoptysisheart.parking.core.client.google.data.TravelMode
 import com.github.hemoptysisheart.util.d
 import com.github.hemoptysisheart.util.i
 import com.github.hemoptysisheart.util.logger
@@ -64,7 +64,7 @@ class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
                 requestAt = requestAt,
                 responseAt = responseAt
             ),
-            places = response.results!!.map { DtoConverter.toPlace(it) },
+            places = response.results!!.map { DataConverter.toPlace(it) },
             nextToken = response.nextPageToken
         )
 
@@ -97,7 +97,7 @@ class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
             meta = ResultMeta(params, requestAt, responseAt),
             status = DirectionsStatus.valueOf(response.status ?: throw IllegalArgumentException("status is null.")),
             availableTravelModes = response.availableTravelModes?.map { TravelMode.valueOf(it) },
-            routes = response.routes!!.map { DtoConverter.toDirectionsRoute(it) },
+            routes = response.routes!!.map { DataConverter.toDirectionsRoute(it) },
             geocodedWaypoints = response.geocodedWaypoints?.map { toDirectionsGeocodedWaypoint(it) },
             errorMessage = response.errorMessage
         )

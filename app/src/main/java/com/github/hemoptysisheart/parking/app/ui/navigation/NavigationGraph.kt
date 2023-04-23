@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.parking.app.navigation
+package com.github.hemoptysisheart.parking.app.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember

@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.parking.app.navigation
+package com.github.hemoptysisheart.parking.app.ui.navigation
 
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.platform.SoftwareKeyboardController

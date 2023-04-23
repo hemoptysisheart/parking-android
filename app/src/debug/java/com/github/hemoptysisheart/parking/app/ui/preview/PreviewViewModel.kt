@@ -2,7 +2,7 @@ package com.github.hemoptysisheart.parking.app.ui.preview
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.SavedStateHandle
-import com.github.hemoptysisheart.parking.app.navigation.SelectRoutePageNavigation
+import com.github.hemoptysisheart.parking.app.ui.navigation.SelectRoutePageNavigation
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewLocation.LOCATION_株式会社ＡＡＡ
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewLocation.LOCATION_신주쿠역
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewLocation.LOCATION_패밀리마트_카부키쵸키타점

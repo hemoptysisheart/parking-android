@@ -10,7 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.rememberNavController
-import com.github.hemoptysisheart.parking.app.navigation.SearchPageNavigation
+import com.github.hemoptysisheart.parking.app.ui.navigation.SearchPageNavigation
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewViewModel.SEARCH_VM
 import com.github.hemoptysisheart.parking.app.ui.template.search.SearchHeaderTemplate
 import com.github.hemoptysisheart.parking.app.ui.template.search.SearchResultTemplate

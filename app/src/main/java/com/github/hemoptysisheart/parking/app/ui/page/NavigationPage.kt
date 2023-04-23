@@ -10,7 +10,7 @@ import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.rememberNavController
-import com.github.hemoptysisheart.parking.app.navigation.NavigationPageNavigation
+import com.github.hemoptysisheart.parking.app.ui.navigation.NavigationPageNavigation
 import com.github.hemoptysisheart.parking.app.ui.template.navigation.HeaderTemplate
 import com.github.hemoptysisheart.parking.app.ui.template.navigation.MapTemplate
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme

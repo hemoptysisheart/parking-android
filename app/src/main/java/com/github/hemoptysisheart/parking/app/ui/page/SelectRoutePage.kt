@@ -8,8 +8,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.compose.rememberNavController
 import com.github.hemoptysisheart.parking.app.ui.interaction.SelectRouteInteraction
+import com.github.hemoptysisheart.parking.app.ui.interaction.rememberInteractionContext
+import com.github.hemoptysisheart.parking.app.ui.interaction.rememberSelectRouteInteraction
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewViewModel.SELECT_ROUTE_VM
 import com.github.hemoptysisheart.parking.app.ui.support.LOGGER
 import com.github.hemoptysisheart.parking.app.ui.template.select.MapTemplate
@@ -56,6 +57,9 @@ fun SelectRoutePage(
 @Preview(showSystemUi = true, showBackground = true)
 fun Preview_SelectRoutePage() {
     ParkingTheme {
-        SelectRoutePage(SelectRouteInteraction(rememberNavController()), SELECT_ROUTE_VM)
+        SelectRoutePage(
+            rememberSelectRouteInteraction(rememberInteractionContext()),
+            SELECT_ROUTE_VM
+        )
     }
 }

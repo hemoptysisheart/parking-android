@@ -1,32 +1,29 @@
 package com.github.hemoptysisheart.parking.app.ui.interaction
 
 import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.platform.SoftwareKeyboardController
-import androidx.navigation.NavController
 import com.github.hemoptysisheart.parking.core.util.Logger
 
+@OptIn(ExperimentalComposeUiApi::class)
 abstract class AbstractInteraction(
-    protected val navController: NavController
+    protected val context: InteractionContext
 ) {
     companion object {
         internal const val TAG = "Interaction"
         val LOGGER = Logger(TAG)
     }
 
-    @OptIn(ExperimentalComposeUiApi::class)
-    val hideKeyboard: (SoftwareKeyboardController?) -> Unit = {
-        if (null != it) {
-            it.hide()
-        } else {
-            LOGGER.e(
-                "#hideKeyboard controller is null. " +
-                        "can not control software keyboard or software keyboard does not exist."
-            )
-        }
-    }
-
     val onBack: () -> Unit = {
         LOGGER.v("#onBack called.")
-        navController.popBackStack()
+        context.navController.popBackStack()
+    }
+
+    val showSoftwareKeyboard: () -> Unit = {
+        LOGGER.v("#showSoftwareKeyboard called.")
+        context.softwareKeyboardController?.show()
+    }
+
+    val hideSoftwareKeyboard: () -> Unit = {
+        LOGGER.v("#hideSoftwareKeyboard called.")
+        context.softwareKeyboardController?.hide()
     }
 }

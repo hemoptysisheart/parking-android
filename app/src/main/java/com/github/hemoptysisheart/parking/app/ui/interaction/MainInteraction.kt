@@ -1,15 +1,11 @@
 package com.github.hemoptysisheart.parking.app.ui.interaction
 
-import androidx.navigation.NavController
-
-class MainInteraction(
-    navController: NavController
-) : AbstractInteraction(navController) {
+class MainInteraction(context: InteractionContext) : AbstractInteraction(context) {
     companion object {
         const val NAME = "MainPage"
 
         const val ROUTE = NAME
     }
 
-    fun search() = navController.navigate(SearchInteraction.NAME)
+    fun search() = context.navController.navigate(SearchInteraction.NAME)
 }

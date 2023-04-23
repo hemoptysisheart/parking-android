@@ -14,8 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.hemoptysisheart.parking.app.ui.molecule.search.RecommendedItem
@@ -33,12 +31,12 @@ import com.github.hemoptysisheart.parking.domain.RecommendItem
 fun SearchResultTemplate(
     here: Location = GeoLocation(0.0, 0.0),
     resultList: List<RecommendItem<*>> = listOf(),
-    hideSoftKeyboard: (SoftwareKeyboardController?) -> Unit = {},
+    hideSoftKeyboard: () -> Unit = {},
     onSelect: (RecommendItem<*>) -> Unit = {}
 ) {
     val state = rememberLazyListState()
     if (state.isScrollInProgress) {
-        hideSoftKeyboard(LocalSoftwareKeyboardController.current)
+        hideSoftKeyboard()
     }
 
     LazyColumn(modifier = Modifier.fillMaxWidth(), state = state) {

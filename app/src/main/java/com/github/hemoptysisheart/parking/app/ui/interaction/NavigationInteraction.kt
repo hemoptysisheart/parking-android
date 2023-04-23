@@ -1,14 +1,11 @@
 package com.github.hemoptysisheart.parking.app.ui.interaction
 
-import androidx.navigation.NavController
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import java.util.*
 import java.util.Objects.requireNonNull
 
-class NavigationInteraction(
-    navController: NavController
-) : AbstractInteraction(navController) {
+class NavigationInteraction(context: InteractionContext) : AbstractInteraction(context) {
     @Suppress("MemberVisibilityCanBePrivate")
     companion object {
         const val NAME = "Navigation"
@@ -32,7 +29,7 @@ class NavigationInteraction(
      * 안내를 끝내고 초기 화면으로 돌아간다.
      */
     val onClose: () -> Unit = {
-        navController.navigate(MainInteraction.ROUTE) {
+        context.navController.navigate(MainInteraction.ROUTE) {
             popUpTo(MainInteraction.ROUTE)
             launchSingleTop = true
         }

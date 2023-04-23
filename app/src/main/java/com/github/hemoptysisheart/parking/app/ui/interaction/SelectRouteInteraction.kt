@@ -1,11 +1,10 @@
 package com.github.hemoptysisheart.parking.app.ui.interaction
 
-import androidx.navigation.NavController
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import com.github.hemoptysisheart.parking.domain.Route
 
-class SelectRouteInteraction(navController: NavController) : AbstractInteraction(navController) {
+class SelectRouteInteraction(context: InteractionContext) : AbstractInteraction(context) {
     companion object {
         const val NAME = "SelectRoute"
 
@@ -27,6 +26,6 @@ class SelectRouteInteraction(navController: NavController) : AbstractInteraction
 
     val gotoNavigation: (Route) -> Unit = {
         LOGGER.d("#gotoNavigation args : route=$it")
-        navController.navigate("${NavigationInteraction.NAME}/${it.id}")
+        context.navController.navigate("${NavigationInteraction.NAME}/${it.id}")
     }
 }

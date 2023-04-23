@@ -9,9 +9,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.compose.rememberNavController
 import com.github.hemoptysisheart.parking.app.ui.interaction.NavigationInteraction
-import com.github.hemoptysisheart.parking.app.ui.preview.PreviewViewModel
+import com.github.hemoptysisheart.parking.app.ui.interaction.rememberInteractionContext
+import com.github.hemoptysisheart.parking.app.ui.interaction.rememberNavigationInteraction
+import com.github.hemoptysisheart.parking.app.ui.preview.PreviewViewModel.NAVIGATION_VM
 import com.github.hemoptysisheart.parking.app.ui.support.LOGGER
 import com.github.hemoptysisheart.parking.app.ui.template.navigation.HeaderTemplate
 import com.github.hemoptysisheart.parking.app.ui.template.navigation.MapTemplate
@@ -55,6 +56,9 @@ fun NavigationPage(
 @Preview(showSystemUi = true, showBackground = true)
 fun Preview_NavigationPage() {
     ParkingTheme {
-        NavigationPage(NavigationInteraction(rememberNavController()), PreviewViewModel.NAVIGATION_VM)
+        NavigationPage(
+            rememberNavigationInteraction(rememberInteractionContext()),
+            NAVIGATION_VM
+        )
     }
 }

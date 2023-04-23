@@ -8,9 +8,9 @@ import com.github.hemoptysisheart.parking.core.client.google.NearbySearchParams
 import com.github.hemoptysisheart.parking.core.client.google.data.*
 import com.github.hemoptysisheart.parking.core.client.google.data.PlaceTypeResultOnly.POINT_OF_INTEREST
 import com.github.hemoptysisheart.parking.core.extension.toPartialRoute
-import com.github.hemoptysisheart.parking.core.model.dto.LocationGmpPlace
-import com.github.hemoptysisheart.parking.core.model.dto.PlaceSearchResult
-import com.github.hemoptysisheart.parking.core.model.dto.RouteSearchResult
+import com.github.hemoptysisheart.parking.core.model.data.LocationGmpPlace
+import com.github.hemoptysisheart.parking.core.model.data.PlaceSearchResult
+import com.github.hemoptysisheart.parking.core.model.data.RouteSearchResult
 import com.github.hemoptysisheart.parking.core.util.Logger
 import com.github.hemoptysisheart.parking.domain.*
 import com.github.hemoptysisheart.util.TimeProvider

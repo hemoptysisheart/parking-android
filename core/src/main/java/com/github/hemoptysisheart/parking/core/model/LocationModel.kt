@@ -1,8 +1,8 @@
 package com.github.hemoptysisheart.parking.core.model
 
 import com.github.hemoptysisheart.parking.core.client.google.data.TransportationMode
-import com.github.hemoptysisheart.parking.core.model.dto.PlaceSearchResult
-import com.github.hemoptysisheart.parking.core.model.dto.RouteSearchResult
+import com.github.hemoptysisheart.parking.core.model.data.PlaceSearchResult
+import com.github.hemoptysisheart.parking.core.model.data.RouteSearchResult
 import com.github.hemoptysisheart.parking.domain.GeoLocation
 import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.domain.RecommendItemLocation

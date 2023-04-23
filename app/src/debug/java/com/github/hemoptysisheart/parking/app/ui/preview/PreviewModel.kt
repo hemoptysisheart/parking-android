@@ -4,8 +4,8 @@ import com.github.hemoptysisheart.parking.core.client.google.data.Transportation
 import com.github.hemoptysisheart.parking.core.model.LocationModel
 import com.github.hemoptysisheart.parking.core.model.LocationModelImpl
 import com.github.hemoptysisheart.parking.core.model.SensorModel
-import com.github.hemoptysisheart.parking.core.model.dto.PlaceSearchResult
-import com.github.hemoptysisheart.parking.core.model.dto.RouteSearchResult
+import com.github.hemoptysisheart.parking.core.model.data.PlaceSearchResult
+import com.github.hemoptysisheart.parking.core.model.data.RouteSearchResult
 import com.github.hemoptysisheart.parking.domain.*
 import java.util.*
 

@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.parking.core.model.dto
+package com.github.hemoptysisheart.parking.core.model.data
 
 import com.github.hemoptysisheart.parking.core.client.google.data.Place
 import com.github.hemoptysisheart.parking.domain.Location

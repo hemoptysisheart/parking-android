@@ -1,7 +1,7 @@
 package com.github.hemoptysisheart.parking.core.client.google
 
-import com.github.hemoptysisheart.parking.core.client.google.dto.PlaceType
-import com.github.hemoptysisheart.parking.core.client.google.dto.RankBy
+import com.github.hemoptysisheart.parking.core.client.google.data.PlaceType
+import com.github.hemoptysisheart.parking.core.client.google.data.RankBy
 import java.util.*
 
 /**

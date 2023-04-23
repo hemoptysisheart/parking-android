@@ -8,7 +8,7 @@ import com.github.hemoptysisheart.parking.app.ui.preview.PreviewPlace.PLACE_ECOL
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewPlace.PLACE_GOOBNE_CHICKEN_曙橋店
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewPlace.PLACE_株式会社ＡＡＡ
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewPlace.PLACE_패밀리마트_카부키쵸키타점
-import com.github.hemoptysisheart.parking.core.model.dto.LocationGmpPlace
+import com.github.hemoptysisheart.parking.core.model.data.LocationGmpPlace
 import com.github.hemoptysisheart.parking.domain.GeoLocation
 
 @Suppress("ObjectPropertyName", "NonAsciiCharacters")

@@ -1,12 +1,11 @@
 package com.github.hemoptysisheart.parking.core.client.google
 
-import com.github.hemoptysisheart.domain.d
-import com.github.hemoptysisheart.domain.i
-import com.github.hemoptysisheart.domain.logger
-import com.github.hemoptysisheart.parking.core.client.google.DtoConverter.toDirectionsGeocodedWaypoint
-import com.github.hemoptysisheart.parking.core.client.google.dto.DirectionsStatus
-import com.github.hemoptysisheart.parking.core.client.google.dto.ResultMeta
-import com.github.hemoptysisheart.parking.core.client.google.dto.TravelMode
+import com.github.hemoptysisheart.parking.core.client.google.DataConverter.toDirectionsGeocodedWaypoint
+import com.github.hemoptysisheart.parking.core.client.google.data.DirectionsStatus
+import com.github.hemoptysisheart.parking.core.client.google.data.PlacesAutocompleteStatus
+import com.github.hemoptysisheart.parking.core.client.google.data.ResultMeta
+import com.github.hemoptysisheart.parking.core.client.google.data.TravelMode
+import com.github.hemoptysisheart.util.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -39,6 +38,44 @@ class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
         logger.i("#init complete : $this")
     }
 
+    override suspend fun autocomplete(params: AutocompleteParams, requestAt: Instant): AutocompleteResult {
+        logger.v("#autocomplete args : params=$params, requestAt=$requestAt")
+        val response = api.autocomplete(
+            key = key,
+            input = params.input,
+            radius = params.radius,
+            components = params.components?.joinToString("|") { "country:${it.isO3Country}" },
+            language = params.language?.language,
+            location = params.location?.toString(),
+            locationBias = params.locationBias?.toString(),
+            locationRestriction = params.locationRestriction?.toString(),
+            offset = params.offset,
+            origin = params.origin?.toString(),
+            region = params.region, sessionToken = params.sessionToken,
+            strictBounds = params.strictBounds,
+            types = params.types?.joinToString("|", "", "") { it.code }
+        )
+        val responseAt = Instant.now()
+        val result = AutocompleteResult(
+            meta = ResultMeta(params, requestAt, responseAt),
+            predictions = response.predictions?.filter {
+                if (null == it.placeId) {
+                    logger.w("#autocomplete prediction has no placeId : prediction=$it")
+                    false
+                } else {
+                    true
+                }
+            }?.map {
+                DataConverter.toPlaceAutocompletePrediction(it)
+            } ?: throw IllegalArgumentException("predictions is null."),
+            status = PlacesAutocompleteStatus[response.status ?: throw IllegalArgumentException("status is null.")],
+            errorMessage = response.errorMessage,
+            infoMessages = response.infoMessages
+        )
+        logger.v("#autocomplete return : $result")
+        return result
+    }
+
     override suspend fun nearBy(params: NearbySearchParams, requestAt: Instant): NearbySearchResult {
         logger.d { "#nearBy args : params=$params, requestAt=$requestAt" }
 
@@ -64,7 +101,7 @@ class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
                 requestAt = requestAt,
                 responseAt = responseAt
             ),
-            places = response.results!!.map { DtoConverter.toPlace(it) },
+            places = response.results!!.map { DataConverter.toPlace(it) },
             nextToken = response.nextPageToken
         )
 
@@ -76,19 +113,19 @@ class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
         logger.d { "#directions args : params=$params, requestAt=$requestAt" }
 
         val response = api.direction(
-            key,
-            params.origin.toString(),
-            params.destination.toString(),
-            params.alternatives,
-            params.arrivalTime?.epochSecond,
-            params.avoid?.joinToString("|"),
-            params.departureTime?.epochSecond,
-            params.locale?.language ?: locale.language,
-            params.transportationMode?.code,
-            params.region,
-            params.trafficModel?.code,
-            params.transitRoutingPreference?.code,
-            params.unit?.code,
+            key = key,
+            origin = params.origin.toString(),
+            destination = params.destination.toString(),
+            alternatives = params.alternatives,
+            arrivalTime = params.arrivalTime?.epochSecond,
+            avoid = params.avoid?.joinToString("|"),
+            departureTime = params.departureTime?.epochSecond,
+            language = params.locale?.language ?: locale.language,
+            mode = params.transportationMode?.code,
+            region = params.region,
+            trafficModel = params.trafficModel?.code,
+            transitRoutingPreference = params.transitRoutingPreference?.code,
+            units = params.unit?.code,
         )
         val responseAt = timeProvider.instant()
         logger.i("#directions : response=$response")
@@ -97,7 +134,7 @@ class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
             meta = ResultMeta(params, requestAt, responseAt),
             status = DirectionsStatus.valueOf(response.status ?: throw IllegalArgumentException("status is null.")),
             availableTravelModes = response.availableTravelModes?.map { TravelMode.valueOf(it) },
-            routes = response.routes!!.map { DtoConverter.toDirectionsRoute(it) },
+            routes = response.routes!!.map { DataConverter.toDirectionsRoute(it) },
             geocodedWaypoints = response.geocodedWaypoints?.map { toDirectionsGeocodedWaypoint(it) },
             errorMessage = response.errorMessage
         )

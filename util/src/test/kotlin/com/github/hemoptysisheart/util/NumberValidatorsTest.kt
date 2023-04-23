@@ -8,14 +8,15 @@ import io.kotest.inspectors.forAll
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldContain
+import mu.KLogger
 import mu.KotlinLogging
 import java.util.stream.IntStream
 import kotlin.streams.toList
 
 class NumberValidatorsTest : BehaviorSpec() {
-    private val logger = KotlinLogging.logger { }
-
     init {
+        val logger: KLogger = KotlinLogging.logger { }
+
         given("-1L을") {
             `when`("LONG_NOT_NEGATIVE_VALIDATOR로 검사하면") {
                 val e = shouldThrowExactly<ValidationFailException> { LONG_NOT_NEGATIVE_VALIDATOR.validate(-1L) }

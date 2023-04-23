@@ -1,36 +1,121 @@
 package com.github.hemoptysisheart.parking.core.client.google
 
 import com.github.hemoptysisheart.parking.core.client.google.response.DirectionsResponse
+import com.github.hemoptysisheart.parking.core.client.google.response.PlacesAutocompleteResponse
 import com.github.hemoptysisheart.parking.core.client.google.response.PlacesNearbySearchResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 internal interface PlacesApi {
     companion object {
-        const val PARAM_KEY = "key"
-        const val PARAM_LOCATION = "location"
-        const val PARAM_KEYWORD = "keyword"
-        const val PARAM_LANGUAGE = "language"
-        const val PARAM_MIN_PRICE = "minprice"
-        const val PARAM_MAX_PRICE = "maxprice"
-        const val PARAM_OPEN = "opennow"
-        const val PARAM_RADIUS = "radius"
-        const val PARAM_RANK_BY = "rankby"
-        const val PARAM_TYPE = "type"
-
-        const val PARAM_DESTINATION = "destination"
-        const val PARAM_ORIGIN = "origin"
         const val PARAM_ALTERNATIVES = "alternatives"
         const val PARAM_ARRIVAL_TIME = "arrival_time"
         const val PARAM_AVOID = "avoid"
+        const val PARAM_COMPONENTS = "components"
         const val PARAM_DEPARTURE_TIME = "departure_time"
+        const val PARAM_DESTINATION = "destination"
+        const val PARAM_INPUT = "input"
+        const val PARAM_KEY = "key"
+        const val PARAM_KEYWORD = "keyword"
+        const val PARAM_LANGUAGE = "language"
+        const val PARAM_LOCATION = "location"
+        const val PARAM_LOCATION_BIAS = "locationbias"
+        const val PARAM_LOCATION_RESTRICTION = "locationrestriction"
+        const val PARAM_MAX_PRICE = "maxprice"
+        const val PARAM_MIN_PRICE = "minprice"
         const val PARAM_MODE = "mode"
+        const val PARAM_OFFSET = "offset"
+        const val PARAM_OPEN = "opennow"
+        const val PARAM_ORIGIN = "origin"
+        const val PARAM_RADIUS = "radius"
+        const val PARAM_RANK_BY = "rankby"
         const val PARAM_REGION = "region"
+        const val PARAM_SESSION_TOKEN = "sessiontoken"
+        const val PARAM_STRICT_BOUNDS = "strictbounds"
         const val PARAM_TRAFFIC_MODEL = "traffic_model"
         const val PARAM_TRANSIT_ROUTING_PREFERENCE = "transit_routing_preference"
+        const val PARAM_TYPE = "type"
+        const val PARAM_TYPES = "types"
         const val PARAM_UNITS = "units"
         const val PARAM_WAYPOINTS = "waypoints"
     }
+
+    /**
+     * [Place Autocomplete](https://developers.google.com/maps/documentation/places/web-service/autocomplete)
+     *
+     * Place Autocomplete 서비스는 HTTP 요청에 대한 응답으로 장소 예상 검색어를 반환하는 웹 서비스입니다. 이 요청은 텍스트 검색 문자열과 선택적
+     * 지리적 경계를 지정합니다. 이 서비스는 비즈니스 유형의 주소, 관심 장소 등의 장소를 사용자 유형으로 반환하여 텍스트 기반 지역 검색에 자동 완성 기능을
+     * 제공하는 데 사용할 수 있습니다.
+     *
+     * @param key Google Maps API key.
+     * @param input The text string on which to search. The Place Autocomplete service will return candidate matches
+     *              based on this string and order results based on their perceived relevance.
+     * @param radius Defines the distance (in meters) within which to return place results. You may bias results to a
+     *              specified circle by passing a location and a radius parameter. Doing so instructs the Places
+     *              service to prefer showing results within that circle; results outside of the defined area may still
+     *              be displayed.
+     * @param components A grouping of places to which you would like to restrict your results. Currently, you can use
+     *                  components to filter by up to 5 countries. Countries must be passed as a two character,
+     *                  ISO 3166-1 Alpha-2 compatible country code. For example: `components=country:fr` would restrict
+     *                  your results to places within France. Multiple countries must be passed as multiple `country:XX`
+     *                  filters, with the pipe character | as a separator. For example:
+     *                  `components=country:us|country:pr|country:vi|country:gu|country:mp` would restrict your results
+     *                  to places within the United States and its unincorporated organized territories.
+     * @param language The language in which to return results.
+     * @param location The point around which to retrieve place information. This must be specified as
+     *              `latitude,longitude`. The `radius` parameter must also be provided when specifying a location. If
+     *              `radius` is not provided, the `location` parameter is ignored.
+     * @param locationBias Prefer results in a specified area, by specifying either a radius plus lat/lng, or two
+     *                  lat/lng pairs representing the points of a rectangle. If this parameter is not specified, the
+     *                  API uses IP address biasing by default.
+     * @param locationRestriction Restrict results to a specified area, by specifying either a radius plus lat/lng, or
+     *                          two lat/lng pairs representing the points of a rectangle.
+     * @param offset The position, in the input term, of the last character that the service uses to match predictions.
+     *              For example, if the input is Google and the offset is 3, the service will match on Goo. The string
+     *              determined by the offset is matched against the first word in the input term only. For example, if
+     *              the input term is Google abc and the offset is 3, the service will attempt to match against Goo abc.
+     *              If no offset is supplied, the service will use the whole term. The offset should generally be set
+     *              to the position of the text caret.
+     * @param origin The origin point from which to calculate straight-line distance to the destination (returned as
+     *              `distance_meters`). If this value is omitted, straight-line distance will not be returned. Must be
+     *              specified as `latitude,longitude`.
+     * @param region The region code, specified as a [ccTLD ("top-level domain")](https://en.wikipedia.org/wiki/List_of_Internet_top-level_domains#Country_code_top-level_domains)
+     *              two-character value. Most ccTLD codes are identical to ISO 3166-1 codes, with some notable
+     *              exceptions. For example, the United Kingdom's ccTLD is "uk" (.co.uk) while its ISO 3166-1 code is
+     *              "gb" (technically for the entity of "The United Kingdom of Great Britain and Northern Ireland").
+     * @param sessionToken A random string which identifies an autocomplete session for billing purposes.
+     *                  The session begins when the user starts typing a query, and concludes when they select a place
+     *                  and a call to Place Details is made. Each session can have multiple queries, followed by one
+     *                  place selection. The API key(s) used for each request within a session must belong to the same
+     *                  Google Cloud Console project. Once a session has concluded, the token is no longer valid; your
+     *                  app must generate a fresh token for each session. If the `sessiontoken` parameter is omitted,
+     *                  or if you reuse a session token, the session is charged as if no session token was provided
+     *                  (each request is billed separately).
+     * @param strictBounds Returns only those places that are strictly within the region defined by location and radius.
+     *                  This is a restriction, rather than a bias, meaning that results outside this region will not be
+     *                  returned even if they match the user input.
+     * @param types You can restrict results from a Place Autocomplete request to be of a certain type by passing the
+     *              `types` parameter. This parameter specifies a type or a type collection, as listed in
+     *              [Place Types](https://developers.google.com/maps/documentation/places/web-service/supported_types).
+     *              If nothing is specified, all types are returned.
+     */
+    @GET("maps/api/place/autocomplete/json")
+    suspend fun autocomplete(
+        @Query(PARAM_KEY) key: String,
+        @Query(PARAM_INPUT) input: String,
+        @Query(PARAM_RADIUS) radius: Int,
+        @Query(PARAM_COMPONENTS) components: String? = null,
+        @Query(PARAM_LANGUAGE) language: String? = null,
+        @Query(PARAM_LOCATION) location: String? = null,
+        @Query(PARAM_LOCATION_BIAS) locationBias: String? = null,
+        @Query(PARAM_LOCATION_RESTRICTION) locationRestriction: String? = null,
+        @Query(PARAM_OFFSET) offset: Int? = null,
+        @Query(PARAM_ORIGIN) origin: String? = null,
+        @Query(PARAM_REGION) region: String? = null,
+        @Query(PARAM_SESSION_TOKEN) sessionToken: String? = null,
+        @Query(PARAM_STRICT_BOUNDS) strictBounds: Boolean? = null,
+        @Query(PARAM_TYPES) types: String? = null
+    ): PlacesAutocompleteResponse
 
     /**
      * - [필수 파라미터](https://developers.google.com/maps/documentation/places/web-service/search-nearby#required-parameters)

@@ -1,11 +1,11 @@
-package com.github.hemoptysisheart.parking.app.ui.navigation
+package com.github.hemoptysisheart.parking.app.ui.interaction
 
 import androidx.navigation.NavController
 import com.github.hemoptysisheart.parking.domain.RecommendItem
 
-class SearchPageNavigation(
+class SearchInteraction(
     navController: NavController
-) : AbstractPageNavigation(navController) {
+) : AbstractInteraction(navController) {
     companion object {
         const val NAME = "SearchPage"
         const val ROUTE = NAME
@@ -13,6 +13,6 @@ class SearchPageNavigation(
 
     val gotoSelectRoute: (RecommendItem<*>) -> Unit = {
         LOGGER.d("#gotoSelectRoute args : item=$it")
-        navController.navigate("${SelectRoutePageNavigation.NAME}/${it.id}")
+        navController.navigate("${SelectRouteInteraction.NAME}/${it.id}")
     }
 }

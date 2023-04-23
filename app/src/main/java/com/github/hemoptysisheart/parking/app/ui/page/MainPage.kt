@@ -9,27 +9,27 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.rememberNavController
-import com.github.hemoptysisheart.parking.app.ui.navigation.MainPageNavigation
+import com.github.hemoptysisheart.parking.app.ui.interaction.MainInteraction
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewViewModel.MAIN_VM
+import com.github.hemoptysisheart.parking.app.ui.support.LOGGER
 import com.github.hemoptysisheart.parking.app.ui.template.main.HeaderTemplate
 import com.github.hemoptysisheart.parking.app.ui.template.main.MapTemplate
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel
-import com.github.hemoptysisheart.parking.app.ui.support.LOGGER_COMPOSE as LOGGER
 
 @Composable
 fun MainPage(
-    navigation: MainPageNavigation,
+    interaction: MainInteraction,
     viewModel: MainViewModel = hiltViewModel()
 ) {
-    LOGGER.v("#MainPage args : viewModel=$viewModel")
+    LOGGER.v("#MainPage args : interaction=$interaction, viewModel=$viewModel")
 
     val showHeader by viewModel.showHeader.collectAsStateWithLifecycle()
     val cameraGoto by viewModel.cameraGoto.collectAsStateWithLifecycle()
 
     Box(modifier = Modifier.fillMaxSize()) {
         if (showHeader) {
-            HeaderTemplate { navigation.search() }
+            HeaderTemplate { interaction.search() }
         }
 
         MapTemplate(
@@ -44,6 +44,6 @@ fun MainPage(
 @Preview(showSystemUi = true, showBackground = true)
 fun Preview_MainPage() {
     ParkingTheme {
-        MainPage(MainPageNavigation(rememberNavController()), MAIN_VM)
+        MainPage(MainInteraction(rememberNavController()), MAIN_VM)
     }
 }

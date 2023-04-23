@@ -1,18 +1,15 @@
-package com.github.hemoptysisheart.parking.app.ui.navigation
+package com.github.hemoptysisheart.parking.app.ui.interaction
 
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.navigation.NavController
 import com.github.hemoptysisheart.parking.core.util.Logger
 
-/**
- * TODO [`*PageNavigation` 클래스 이름 변경해야 하나?](https://github.com/hemoptysisheart/parking-android/issues/79)
- */
-abstract class AbstractPageNavigation(
+abstract class AbstractInteraction(
     protected val navController: NavController
 ) {
     companion object {
-        internal const val TAG = "Navigation"
+        internal const val TAG = "Interaction"
         val LOGGER = Logger(TAG)
     }
 

@@ -18,10 +18,10 @@ import com.github.hemoptysisheart.parking.app.ui.atom.icon.Walk
 import com.github.hemoptysisheart.parking.app.ui.molecule.navigation.NaviLegMolecule
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewLocation.LOCATION_신주쿠역
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewRoute.ROUTE_新宿駅_패밀리마트_카부키쵸키타점
+import com.github.hemoptysisheart.parking.app.ui.support.LOGGER
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 import com.github.hemoptysisheart.parking.domain.GeoLocation
 import com.github.hemoptysisheart.parking.domain.Route
-import com.github.hemoptysisheart.parking.app.ui.support.LOGGER_COMPOSE as LOGGER
 
 @Composable
 @OptIn(ExperimentalFoundationApi::class)

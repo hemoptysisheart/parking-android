@@ -3,7 +3,7 @@ package com.github.hemoptysisheart.parking.app.viewmodel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.hemoptysisheart.parking.app.ui.navigation.SelectRoutePageNavigation
+import com.github.hemoptysisheart.parking.app.ui.interaction.SelectRouteInteraction
 import com.github.hemoptysisheart.parking.core.model.LocationModel
 import com.github.hemoptysisheart.parking.core.model.SensorModel
 import com.github.hemoptysisheart.parking.core.util.Logger
@@ -30,7 +30,7 @@ class SelectRouteViewModel @Inject constructor(
         private val LOGGER = Logger(TAG)
     }
 
-    val destinationId = SelectRoutePageNavigation.navArgs(handle)
+    val destinationId = SelectRouteInteraction.navArgs(handle)
 
     /**
      * TODO `state`로 넘겨받을 수 있는 방식으로 변경.

@@ -9,8 +9,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.rememberNavController
-import com.github.hemoptysisheart.parking.app.ui.navigation.SelectRoutePageNavigation
+import com.github.hemoptysisheart.parking.app.ui.interaction.SelectRouteInteraction
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewViewModel.SELECT_ROUTE_VM
+import com.github.hemoptysisheart.parking.app.ui.support.LOGGER
 import com.github.hemoptysisheart.parking.app.ui.template.select.MapTemplate
 import com.github.hemoptysisheart.parking.app.ui.template.select.RouteDetailTemplate
 import com.github.hemoptysisheart.parking.app.ui.template.select.SelectRouteHeader
@@ -19,9 +20,11 @@ import com.github.hemoptysisheart.parking.app.viewmodel.SelectRouteViewModel
 
 @Composable
 fun SelectRoutePage(
-    navigation: SelectRoutePageNavigation,
+    interaction: SelectRouteInteraction,
     viewModel: SelectRouteViewModel = hiltViewModel()
 ) {
+    LOGGER.v("#SelectRoutePage args : interaction=$interaction, viewModel=$viewModel")
+
     var showControl by remember { mutableStateOf(true) }
     val destination by viewModel.destination.collectAsStateWithLifecycle()
     val routeList by viewModel.routeList.collectAsStateWithLifecycle()
@@ -29,7 +32,7 @@ fun SelectRoutePage(
 
     Box(modifier = Modifier.fillMaxSize()) {
         if (showControl) {
-            SelectRouteHeader(destination = destination, navigation.onBack)
+            SelectRouteHeader(destination = destination, interaction.onBack)
         }
         Column(Modifier.fillMaxSize()) {
             MapTemplate(
@@ -42,7 +45,7 @@ fun SelectRoutePage(
             )
             focusedRoute?.let {
                 if (showControl) {
-                    RouteDetailTemplate(it, Modifier.weight(1f), navigation.gotoNavigation)
+                    RouteDetailTemplate(it, Modifier.weight(1f), interaction.gotoNavigation)
                 }
             }
         }
@@ -50,9 +53,9 @@ fun SelectRoutePage(
 }
 
 @Composable
-@Preview
+@Preview(showSystemUi = true, showBackground = true)
 fun Preview_SelectRoutePage() {
     ParkingTheme {
-        SelectRoutePage(SelectRoutePageNavigation(rememberNavController()), SELECT_ROUTE_VM)
+        SelectRoutePage(SelectRouteInteraction(rememberNavController()), SELECT_ROUTE_VM)
     }
 }

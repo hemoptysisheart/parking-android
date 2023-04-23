@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.parking.app.ui.navigation
+package com.github.hemoptysisheart.parking.app.ui.interaction
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -14,25 +14,25 @@ import com.github.hemoptysisheart.parking.app.ui.page.SelectRoutePage
 fun NavigationGraph() {
     val navController = rememberNavController()
 
-    val main = remember { MainPageNavigation(navController) }
-    val search = remember { SearchPageNavigation(navController) }
-    val select = remember { SelectRoutePageNavigation(navController) }
-    val navigation = remember { NavigationPageNavigation(navController) }
+    val main = remember { MainInteraction(navController) }
+    val search = remember { SearchInteraction(navController) }
+    val select = remember { SelectRouteInteraction(navController) }
+    val navigation = remember { NavigationInteraction(navController) }
 
-    NavHost(navController = navController, startDestination = MainPageNavigation.NAME) {
-        composable(MainPageNavigation.ROUTE) {
+    NavHost(navController = navController, startDestination = MainInteraction.NAME) {
+        composable(MainInteraction.ROUTE) {
             MainPage(main)
         }
 
-        composable(route = SearchPageNavigation.ROUTE) {
+        composable(route = SearchInteraction.ROUTE) {
             SearchPage(search)
         }
 
-        composable(route = SelectRoutePageNavigation.ROUTE, arguments = SelectRoutePageNavigation.ARGUMENTS) {
+        composable(route = SelectRouteInteraction.ROUTE, arguments = SelectRouteInteraction.ARGUMENTS) {
             SelectRoutePage(select)
         }
 
-        composable(route = NavigationPageNavigation.ROUTE, arguments = NavigationPageNavigation.ARGUMENTS) {
+        composable(route = NavigationInteraction.ROUTE, arguments = NavigationInteraction.ARGUMENTS) {
             NavigationPage(navigation)
         }
     }

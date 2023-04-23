@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.parking.app.ui.navigation
+package com.github.hemoptysisheart.parking.app.ui.interaction
 
 import androidx.lifecycle.SavedStateHandle
 

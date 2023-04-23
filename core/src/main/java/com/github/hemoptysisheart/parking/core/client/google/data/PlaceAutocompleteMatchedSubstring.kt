@@ -7,9 +7,9 @@ data class PlaceAutocompleteMatchedSubstring(
     /**
      * Length of the matched substring in the prediction result text.
      */
-    var length: Int,
+    val length: Int,
     /**
      * Start location of the matched substring in the prediction result text.
      */
-    var offset: Int
+    val offset: Int
 )

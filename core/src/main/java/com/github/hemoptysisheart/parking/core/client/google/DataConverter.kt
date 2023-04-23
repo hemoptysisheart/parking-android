@@ -13,6 +13,43 @@ import kotlin.math.roundToLong
 
 @Suppress("MemberVisibilityCanBePrivate")
 internal object DataConverter {
+    fun toPlaceAutocompletePrediction(resp: PlaceAutocompletePredictionResp) = PlaceAutocompletePrediction(
+        resp.description ?: throw IllegalArgumentException("description is null."),
+        resp.matchedSubstrings?.map { toPlaceAutocompleteMatchedSubstring(it) }
+            ?: throw IllegalArgumentException("matchedSubstrings is null."),
+        toStructuredFormatting(
+            resp.structuredFormatting ?: throw IllegalArgumentException("structuredFormatting is null.")
+        ),
+        resp.terms?.map { toPlaceAutocompleteTerm(it) } ?: throw IllegalArgumentException("terms is null."),
+        resp.distanceMeters,
+        resp.placeId,
+        resp.types?.map { PlaceType[it] }
+    )
+
+    fun toPlaceAutocompleteMatchedSubstring(resp: PlaceAutocompleteMatchedSubstringResp) =
+        PlaceAutocompleteMatchedSubstring(
+            resp.length ?: throw IllegalArgumentException("length is null."),
+            resp.offset ?: throw IllegalArgumentException("offset is null.")
+        )
+
+    fun toStructuredFormatting(resp: PlaceAutocompleteStructuredFormatResp) =
+        PlaceAutocompleteStructuredFormat(
+            mainText = resp.mainText ?: throw IllegalArgumentException("mainText is null."),
+            mainTextMatchedSubstrings = resp.mainTextMatchedSubstrings?.map { toPlaceAutocompleteMatchedSubstring(it) }
+                ?: throw IllegalArgumentException("mainTextMatchedSubstrings is null."),
+            secondaryText = resp.secondaryText,
+            secondaryTextMatchedSubstrings = resp.secondaryTextMatchedSubstrings?.map {
+                toPlaceAutocompleteMatchedSubstring(
+                    it
+                )
+            } ?: throw IllegalArgumentException("secondaryTextMatchedSubstrings is null.")
+        )
+
+    fun toPlaceAutocompleteTerm(resp: PlaceAutocompleteTermResp) = PlaceAutocompleteTerm(
+        offset = resp.offset ?: throw IllegalArgumentException("offset is null."),
+        value = resp.value ?: throw IllegalArgumentException("value is null.")
+    )
+
     fun toPlace(resp: PlaceResp) = Place(
         resp.addressComponents?.map { toAddressComponent(it) },
         resp.adrAddress,

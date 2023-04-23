@@ -2,13 +2,13 @@ package com.github.hemoptysisheart.parking.core.client.google
 
 import com.github.hemoptysisheart.parking.core.client.google.DataConverter.toDirectionsGeocodedWaypoint
 import com.github.hemoptysisheart.parking.core.client.google.data.DirectionsStatus
+import com.github.hemoptysisheart.parking.core.client.google.data.PlacesAutocompleteStatus
 import com.github.hemoptysisheart.parking.core.client.google.data.ResultMeta
 import com.github.hemoptysisheart.parking.core.client.google.data.TravelMode
 import com.github.hemoptysisheart.util.d
-import com.github.hemoptysisheart.util.e
 import com.github.hemoptysisheart.util.i
 import com.github.hemoptysisheart.util.logger
-import kotlinx.coroutines.delay
+import com.github.hemoptysisheart.util.v
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -42,14 +42,13 @@ class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
     }
 
     override suspend fun autocomplete(params: AutocompleteParams, requestAt: Instant): AutocompleteResult {
-        logger.e("#autocomplete args : params=$params, requestAt=$requestAt")
+        logger.v("#autocomplete args : params=$params, requestAt=$requestAt")
         val response = api.autocomplete(
             key = key,
             input = params.input,
             radius = params.radius,
-            components = params.components?.map { "country:${it.isO3Country}" }?.joinToString("|"),
-            language = params.language?.language
-                ?: if (useDefaultLocale) this.locale.language else null,
+            components = params.components?.joinToString("|") { "country:${it.isO3Country}" },
+            language = params.language?.language,
             location = params.location?.toString(),
             locationBias = params.locationBias?.toString(),
             locationRestriction = params.locationRestriction?.toString(),
@@ -59,9 +58,19 @@ class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
             strictBounds = params.strictBounds,
             types = params.types?.joinToString("|", "", "") { it.code }
         )
-        logger.e("response=$response")
-        delay(3_000)
-        TODO("Not yet implemented")
+        val responseAt = Instant.now()
+        val result = AutocompleteResult(
+            meta = ResultMeta(params, requestAt, responseAt),
+            predictions = response.predictions?.map { DataConverter.toPlaceAutocompletePrediction(it) }
+                ?: throw IllegalArgumentException("predictions is null."),
+            status = PlacesAutocompleteStatus[response.status ?: throw IllegalArgumentException("status is null.")],
+            errorMessage = response.errorMessage
+                ?: throw IllegalArgumentException("errorMessage is null."),
+            infoMessages = response.infoMessages
+                ?: throw IllegalArgumentException("inMessages is null.")
+        )
+        logger.v("#autocomplete return : $result")
+        return result
     }
 
     override suspend fun nearBy(params: NearbySearchParams, requestAt: Instant): NearbySearchResult {
@@ -101,19 +110,19 @@ class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
         logger.d { "#directions args : params=$params, requestAt=$requestAt" }
 
         val response = api.direction(
-            key,
-            params.origin.toString(),
-            params.destination.toString(),
-            params.alternatives,
-            params.arrivalTime?.epochSecond,
-            params.avoid?.joinToString("|"),
-            params.departureTime?.epochSecond,
-            params.locale?.language ?: locale.language,
-            params.transportationMode?.code,
-            params.region,
-            params.trafficModel?.code,
-            params.transitRoutingPreference?.code,
-            params.unit?.code,
+            key = key,
+            origin = params.origin.toString(),
+            destination = params.destination.toString(),
+            alternatives = params.alternatives,
+            arrivalTime = params.arrivalTime?.epochSecond,
+            avoid = params.avoid?.joinToString("|"),
+            departureTime = params.departureTime?.epochSecond,
+            language = params.locale?.language ?: locale.language,
+            mode = params.transportationMode?.code,
+            region = params.region,
+            trafficModel = params.trafficModel?.code,
+            transitRoutingPreference = params.transitRoutingPreference?.code,
+            units = params.unit?.code,
         )
         val responseAt = timeProvider.instant()
         logger.i("#directions : response=$response")

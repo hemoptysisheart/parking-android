@@ -7,9 +7,9 @@ data class PlaceAutocompleteTerm(
     /**
      * Defines the start position of this term in the description, measured in Unicode characters.
      */
-    var offset: Int,
+    val offset: Int,
     /**
      * The text of the term.
      */
-    var value: String
+    val value: String
 )

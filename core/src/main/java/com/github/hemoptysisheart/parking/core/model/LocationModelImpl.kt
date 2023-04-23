@@ -111,8 +111,10 @@ class LocationModelImpl(
     }
 
     private fun Location.toPlaceDescriptor() = when (this) {
-        is LocationGmpPlace -> PlaceDescriptor(placeId = place.placeId)
-        else -> PlaceDescriptor(geoLocation = LatLng(latitude, longitude))
+        is LocationGmpPlace ->
+            PlaceIdDescriptor(place.placeId!!)
+        else ->
+            LatLngDescriptor(LatLng(latitude, longitude))
     }
 
     override suspend fun searchRoute(

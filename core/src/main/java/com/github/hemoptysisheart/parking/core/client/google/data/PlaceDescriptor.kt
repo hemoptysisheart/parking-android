@@ -2,30 +2,38 @@ package com.github.hemoptysisheart.parking.core.client.google.data
 
 /**
  * 장소
- *
- * TODO `sealed class`로 변경.
  */
-data class PlaceDescriptor(
-    val placeId: String? = null,
-    val geoLocation: LatLng? = null,
-    val address: String? = null
-) {
+sealed interface PlaceDescriptor
+
+class PlaceIdDescriptor(
+    val placeId: String
+) : PlaceDescriptor {
     init {
         when {
-            placeId.isNullOrEmpty() && null == geoLocation && address.isNullOrEmpty() ->
-                throw IllegalArgumentException("all properties are null or empty.")
+            placeId.isEmpty() ->
+                throw IllegalArgumentException("placeId is empty.")
         }
     }
 
-    @Suppress("KotlinConstantConditions")
-    override fun toString() = when {
-        !placeId.isNullOrEmpty() ->
-            "place_id:$placeId"
-        null != geoLocation ->
-            "$geoLocation"
-        !address.isNullOrEmpty() ->
-            address
-        else ->
-            throw IllegalStateException("illegal status : placeId=$placeId, geoLocation=$geoLocation, address=$address")
+    override fun toString() = "place_id:$placeId"
+}
+
+@Suppress("MemberVisibilityCanBePrivate")
+class LatLngDescriptor(
+    val latLng: LatLng
+) : PlaceDescriptor {
+    override fun toString() = "$latLng"
+}
+
+class AddressDescriptor(
+    val address: String
+) : PlaceDescriptor {
+    init {
+        when {
+            address.isEmpty() ->
+                throw IllegalArgumentException("address is empty.")
+        }
     }
+
+    override fun toString() = address
 }

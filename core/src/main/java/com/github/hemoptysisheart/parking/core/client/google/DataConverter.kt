@@ -39,10 +39,8 @@ internal object DataConverter {
                 ?: throw IllegalArgumentException("mainTextMatchedSubstrings is null."),
             secondaryText = resp.secondaryText,
             secondaryTextMatchedSubstrings = resp.secondaryTextMatchedSubstrings?.map {
-                toPlaceAutocompleteMatchedSubstring(
-                    it
-                )
-            } ?: throw IllegalArgumentException("secondaryTextMatchedSubstrings is null.")
+                toPlaceAutocompleteMatchedSubstring(it)
+            }
         )
 
     fun toPlaceAutocompleteTerm(resp: PlaceAutocompleteTermResp) = PlaceAutocompleteTerm(

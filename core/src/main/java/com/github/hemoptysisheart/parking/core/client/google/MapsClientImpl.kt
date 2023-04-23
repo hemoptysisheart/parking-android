@@ -5,10 +5,7 @@ import com.github.hemoptysisheart.parking.core.client.google.data.DirectionsStat
 import com.github.hemoptysisheart.parking.core.client.google.data.PlacesAutocompleteStatus
 import com.github.hemoptysisheart.parking.core.client.google.data.ResultMeta
 import com.github.hemoptysisheart.parking.core.client.google.data.TravelMode
-import com.github.hemoptysisheart.util.d
-import com.github.hemoptysisheart.util.i
-import com.github.hemoptysisheart.util.logger
-import com.github.hemoptysisheart.util.v
+import com.github.hemoptysisheart.util.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -61,13 +58,19 @@ class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
         val responseAt = Instant.now()
         val result = AutocompleteResult(
             meta = ResultMeta(params, requestAt, responseAt),
-            predictions = response.predictions?.map { DataConverter.toPlaceAutocompletePrediction(it) }
-                ?: throw IllegalArgumentException("predictions is null."),
+            predictions = response.predictions?.filter {
+                if (null == it.placeId) {
+                    logger.w("#autocomplete prediction has no placeId : prediction=$it")
+                    false
+                } else {
+                    true
+                }
+            }?.map {
+                DataConverter.toPlaceAutocompletePrediction(it)
+            } ?: throw IllegalArgumentException("predictions is null."),
             status = PlacesAutocompleteStatus[response.status ?: throw IllegalArgumentException("status is null.")],
-            errorMessage = response.errorMessage
-                ?: throw IllegalArgumentException("errorMessage is null."),
+            errorMessage = response.errorMessage,
             infoMessages = response.infoMessages
-                ?: throw IllegalArgumentException("inMessages is null.")
         )
         logger.v("#autocomplete return : $result")
         return result

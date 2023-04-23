@@ -7,7 +7,12 @@ class LocationGmpPlace(
     val place: Place
 ) : Location {
     companion object {
-        private val TAG = LocationGmpPlace::class.simpleName!!
+        private const val TAG = "LocationGmpPlace"
+
+        /**
+         * @param placeId [Google Maps Platform Places ID](https://developers.google.com/maps/documentation/places/web-service/place-id).
+         */
+        fun toId(placeId: String): String = Location.ID_VALIDATOR.validate("$TAG:$placeId")
     }
 
     /**

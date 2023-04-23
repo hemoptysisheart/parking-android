@@ -2,17 +2,14 @@ package com.github.hemoptysisheart.parking.core.model
 
 import android.util.Log
 import com.github.hemoptysisheart.parking.core.client.google.AutocompleteParams
-import com.github.hemoptysisheart.parking.core.client.google.AutocompleteParams.Companion.RADIUS_MAX
+import com.github.hemoptysisheart.parking.core.client.google.AutocompleteParams.Companion.RADIUS_DEFAULT
 import com.github.hemoptysisheart.parking.core.client.google.DirectionsParams
 import com.github.hemoptysisheart.parking.core.client.google.MapsClient
 import com.github.hemoptysisheart.parking.core.client.google.NearbySearchParams
 import com.github.hemoptysisheart.parking.core.client.google.data.*
 import com.github.hemoptysisheart.parking.core.client.google.data.PlaceTypeResultOnly.POINT_OF_INTEREST
 import com.github.hemoptysisheart.parking.core.extension.toPartialRoute
-import com.github.hemoptysisheart.parking.core.model.data.LocationGmpAutocompletePrediction
-import com.github.hemoptysisheart.parking.core.model.data.LocationGmpPlace
-import com.github.hemoptysisheart.parking.core.model.data.PlaceSearchResult
-import com.github.hemoptysisheart.parking.core.model.data.RouteSearchResult
+import com.github.hemoptysisheart.parking.core.model.data.*
 import com.github.hemoptysisheart.parking.core.util.Logger
 import com.github.hemoptysisheart.parking.domain.*
 import com.github.hemoptysisheart.util.TimeProvider
@@ -53,23 +50,23 @@ class LocationModelImpl(
      */
     override suspend fun read(id: String): Location? = locationCache[id]
 
-    override suspend fun searchDestination(center: GeoLocation, query: String): PlaceSearchResult {
+    override suspend fun searchDestination(center: GeoLocation, query: String): DestinationSearchResult {
         LOGGER.v("#searchDestination args : query=#query")
 
         val now = timeProvider.instant()
         val params = AutocompleteParams(
             input = query,
-            radius = RADIUS_MAX,
+            radius = RADIUS_DEFAULT,
+            components = listOf(Locale.JAPAN),
             location = LatLng(center.latitude, center.longitude),
-            locationBias = CircularBias(RADIUS_MAX, LatLng(center.latitude, center.longitude)),
+            locationBias = IpBias,
             types = listOf(POINT_OF_INTEREST)
         )
         val resp = mapsClient.autocomplete(params, now)
-        val result = PlaceSearchResult(
+        val result = DestinationSearchResult(
             center = center,
             query = query,
-            places = resp.predictions.map { RecommendItemLocation(LocationGmpAutocompletePrediction(it)) },
-            nextToken = null
+            predictionList = resp.predictions.map { RecommendItemPlaceAutocompletePrediction(it) }
         )
 
         LOGGER.v("#searchDestination return : $result")

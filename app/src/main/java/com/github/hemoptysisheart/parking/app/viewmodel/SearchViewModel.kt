@@ -51,7 +51,7 @@ class SearchViewModel @Inject constructor(
             searchJob = viewModelScope.launch {
                 resultList.emit(
                     locationModel.searchDestination(sensorModel.location, query)
-                        .places
+                        .predictionList
                 )
             }
         }

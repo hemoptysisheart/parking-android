@@ -1,6 +1,7 @@
 package com.github.hemoptysisheart.parking.core.model
 
 import com.github.hemoptysisheart.parking.core.client.google.data.TransportationMode
+import com.github.hemoptysisheart.parking.core.model.data.DestinationSearchResult
 import com.github.hemoptysisheart.parking.core.model.data.PlaceSearchResult
 import com.github.hemoptysisheart.parking.core.model.data.RouteSearchResult
 import com.github.hemoptysisheart.parking.domain.GeoLocation
@@ -11,11 +12,9 @@ import java.util.*
 
 interface LocationModel {
     /**
-     * `center`를 중심으로 장소를 검색한다.
-     *
-     * TODO 검색 결과는 [Location]을 사용하도록 변경. [RecommendItemLocation]는 UI 레이어에서 처리하도록 변경.
+     * 목적지를 검색한다.
      */
-    suspend fun searchDestination(center: GeoLocation, query: String): PlaceSearchResult
+    suspend fun searchDestination(center: GeoLocation, query: String): DestinationSearchResult
 
     /**
      * @return 없으면 `null`.

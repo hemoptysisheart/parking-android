@@ -6,7 +6,7 @@ import com.github.hemoptysisheart.parking.core.client.google.response.PlacesNear
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-internal interface PlacesApi {
+internal interface ApiSpec {
     companion object {
         const val PARAM_ALTERNATIVES = "alternatives"
         const val PARAM_ARRIVAL_TIME = "arrival_time"

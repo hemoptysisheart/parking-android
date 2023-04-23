@@ -18,7 +18,7 @@ class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
     private val useDefaultLocale = config.useDefaultLocale
     private val timeProvider = config.timeProvider
     private val client: OkHttpClient
-    private val api: PlacesApi
+    private val api: ApiSpec
 
     init {
         client = OkHttpClient.Builder().let {
@@ -33,7 +33,7 @@ class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
             .baseUrl(config.endpoint)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(PlacesApi::class.java)
+            .create(ApiSpec::class.java)
 
         logger.i("#init complete : $this")
     }

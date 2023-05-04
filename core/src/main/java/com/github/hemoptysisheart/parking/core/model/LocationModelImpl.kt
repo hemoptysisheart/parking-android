@@ -1,11 +1,8 @@
 package com.github.hemoptysisheart.parking.core.model
 
 import android.util.Log
-import com.github.hemoptysisheart.parking.core.client.google.AutocompleteParams
+import com.github.hemoptysisheart.parking.core.client.google.*
 import com.github.hemoptysisheart.parking.core.client.google.AutocompleteParams.Companion.RADIUS_DEFAULT
-import com.github.hemoptysisheart.parking.core.client.google.DirectionsParams
-import com.github.hemoptysisheart.parking.core.client.google.MapsClient
-import com.github.hemoptysisheart.parking.core.client.google.NearbySearchParams
 import com.github.hemoptysisheart.parking.core.client.google.data.*
 import com.github.hemoptysisheart.parking.core.client.google.data.PlaceTypeResultOnly.POINT_OF_INTEREST
 import com.github.hemoptysisheart.parking.core.extension.toPartialRoute
@@ -44,11 +41,23 @@ class LocationModelImpl(
 
     private val routeCache = mutableMapOf<UUID, Route>()
 
-    /**
-     * TODO ID가 좌표이면 즉시 인스턴스 생성해서 반환하기.
-     * TODO ID가 플레이스 ID이면 API에서 읽어서 캐시하고 반환하기.
-     */
-    override suspend fun read(id: String): Location? = locationCache[id]
+    override suspend fun read(id: String): Location? {
+        LOGGER.v("#read args : id=$id")
+
+        if (!locationCache.containsKey(id)) {
+            locationCache[id] = LocationGmpPlace(
+                mapsClient.place(
+                    PlaceParams(
+                        LocationGmpPlace.toPlaceId(id)
+                    )
+                ).place
+            )
+        }
+        val location = locationCache[id]
+
+        LOGGER.v("#read return: $location")
+        return location
+    }
 
     override suspend fun searchDestination(center: GeoLocation, query: String): DestinationSearchResult {
         LOGGER.v("#searchDestination args : query=#query")
@@ -57,7 +66,6 @@ class LocationModelImpl(
         val params = AutocompleteParams(
             input = query,
             radius = RADIUS_DEFAULT,
-            components = listOf(Locale.JAPAN),
             location = LatLng(center.latitude, center.longitude),
             locationBias = IpBias,
             types = listOf(POINT_OF_INTEREST)

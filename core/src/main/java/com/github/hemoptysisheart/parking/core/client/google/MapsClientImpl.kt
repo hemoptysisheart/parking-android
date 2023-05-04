@@ -1,10 +1,7 @@
 package com.github.hemoptysisheart.parking.core.client.google
 
 import com.github.hemoptysisheart.parking.core.client.google.DataConverter.toDirectionsGeocodedWaypoint
-import com.github.hemoptysisheart.parking.core.client.google.data.DirectionsStatus
-import com.github.hemoptysisheart.parking.core.client.google.data.PlacesAutocompleteStatus
-import com.github.hemoptysisheart.parking.core.client.google.data.ResultMeta
-import com.github.hemoptysisheart.parking.core.client.google.data.TravelMode
+import com.github.hemoptysisheart.parking.core.client.google.data.*
 import com.github.hemoptysisheart.util.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -36,6 +33,31 @@ class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
             .create(ApiSpec::class.java)
 
         logger.i("#init complete : $this")
+    }
+
+    override suspend fun place(params: PlaceParams): PlaceResult {
+        logger.v("#place args : params=$params")
+
+        val response = api.place(
+            key = key,
+            placeId = params.placeId,
+            fields = params.fields?.let { it.ifEmpty { null } }?.joinToString(",", "", "") { it.code },
+            language = params.language?.language,
+            region = params.region,
+            reviewsNoTranslations = params.reviewsNoTranslations,
+            reviewsSort = params.reviewsSort?.code,
+            sessionToken = params.sessionToken
+        )
+
+        val result = PlaceResult(
+            htmlAttributes = response.htmlAttributions ?: throw IllegalArgumentException("htmlAttributions is null."),
+            place = DataConverter.toPlace(response.result ?: throw IllegalArgumentException("result is null.")),
+            status = PlacesDetailsStatus[response.status ?: throw IllegalArgumentException("status is null.")],
+            infoMessages = response.infoMessages
+        )
+
+        logger.v("#place return : $result")
+        return result
     }
 
     override suspend fun autocomplete(params: AutocompleteParams, requestAt: Instant): AutocompleteResult {

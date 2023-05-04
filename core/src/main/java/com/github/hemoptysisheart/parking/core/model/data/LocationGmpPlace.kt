@@ -11,8 +11,18 @@ class LocationGmpPlace(
 
         /**
          * @param placeId [Google Maps Platform Places ID](https://developers.google.com/maps/documentation/places/web-service/place-id).
+         *
+         * @return [Location.id]
          */
         fun toId(placeId: String): String = Location.ID_VALIDATOR.validate("$TAG:$placeId")
+
+        /**
+         * [Location.id]에서 `place_id`를 추출한다.
+         *
+         * @param id [Location.id]
+         */
+        fun toPlaceId(id: String): String = Location.ID_VALIDATOR.validate(id)
+            .substring(TAG.length + 1)
     }
 
     /**

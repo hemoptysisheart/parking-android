@@ -9,11 +9,11 @@ import androidx.compose.ui.unit.dp
 import com.github.hemoptysisheart.parking.app.ui.atom.icon.Maneuver
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewLocation
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewRoute
+import com.github.hemoptysisheart.parking.app.ui.support.LOGGER
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.domain.NaviLeg
 import com.ireward.htmlcompose.HtmlText
-import com.github.hemoptysisheart.parking.app.ui.support.LOGGER_COMPOSE as LOGGER
 
 @Composable
 fun NaviLegMolecule(

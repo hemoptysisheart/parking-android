@@ -3,7 +3,7 @@ package com.github.hemoptysisheart.parking.app.viewmodel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.hemoptysisheart.parking.app.navigation.NavigationPageNavigation
+import com.github.hemoptysisheart.parking.app.ui.interaction.NavigationInteraction
 import com.github.hemoptysisheart.parking.core.model.LocationModel
 import com.github.hemoptysisheart.parking.core.model.SensorModel
 import com.github.hemoptysisheart.parking.core.util.Logger
@@ -31,7 +31,7 @@ class NavigationViewModel @Inject constructor(
         }
     }
 
-    val routeId = NavigationPageNavigation.navArgs(handle)
+    val routeId = NavigationInteraction.navArgs(handle)
 
     val here = MutableStateFlow(sensorModel.location)
     val route = MutableStateFlow<Route?>(null)

@@ -12,6 +12,7 @@ import com.github.hemoptysisheart.parking.app.ui.molecule.map.ParkingMarker
 import com.github.hemoptysisheart.parking.app.ui.molecule.map.RouteOverview
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewLocation
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewRoute
+import com.github.hemoptysisheart.parking.app.ui.support.LOGGER
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 import com.github.hemoptysisheart.parking.core.extension.latLng
 import com.github.hemoptysisheart.parking.domain.GeoLocation
@@ -21,7 +22,6 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.rememberCameraPositionState
-import com.github.hemoptysisheart.parking.app.ui.support.LOGGER_COMPOSE as LOGGER
 
 @Composable
 fun MapTemplate(

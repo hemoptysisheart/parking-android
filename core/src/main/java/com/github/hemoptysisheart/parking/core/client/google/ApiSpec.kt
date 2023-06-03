@@ -2,11 +2,12 @@ package com.github.hemoptysisheart.parking.core.client.google
 
 import com.github.hemoptysisheart.parking.core.client.google.response.DirectionsResponse
 import com.github.hemoptysisheart.parking.core.client.google.response.PlacesAutocompleteResponse
+import com.github.hemoptysisheart.parking.core.client.google.response.PlacesDetailsResponse
 import com.github.hemoptysisheart.parking.core.client.google.response.PlacesNearbySearchResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-internal interface PlacesApi {
+internal interface ApiSpec {
     companion object {
         const val PARAM_ALTERNATIVES = "alternatives"
         const val PARAM_ARRIVAL_TIME = "arrival_time"
@@ -14,6 +15,7 @@ internal interface PlacesApi {
         const val PARAM_COMPONENTS = "components"
         const val PARAM_DEPARTURE_TIME = "departure_time"
         const val PARAM_DESTINATION = "destination"
+        const val PARAM_FIELDS = "fields"
         const val PARAM_INPUT = "input"
         const val PARAM_KEY = "key"
         const val PARAM_KEYWORD = "keyword"
@@ -27,9 +29,12 @@ internal interface PlacesApi {
         const val PARAM_OFFSET = "offset"
         const val PARAM_OPEN = "opennow"
         const val PARAM_ORIGIN = "origin"
+        const val PARAM_PLACE_ID = "place_id"
         const val PARAM_RADIUS = "radius"
         const val PARAM_RANK_BY = "rankby"
         const val PARAM_REGION = "region"
+        const val PARAM_REVIEWS_NO_TRANSLATIONS = "reviews_no_translations"
+        const val PARAM_REVIEWS_SORT = "reviews_sort"
         const val PARAM_SESSION_TOKEN = "sessiontoken"
         const val PARAM_STRICT_BOUNDS = "strictbounds"
         const val PARAM_TRAFFIC_MODEL = "traffic_model"
@@ -39,6 +44,57 @@ internal interface PlacesApi {
         const val PARAM_UNITS = "units"
         const val PARAM_WAYPOINTS = "waypoints"
     }
+
+    /**
+     * [Place Details](https://developers.google.com/maps/documentation/places/web-service/details)
+     *
+     * @param placeId A textual identifier that uniquely identifies a place, returned from a
+     *              [Place Search](https://developers.google.com/maps/documentation/places/web-service/search). For
+     *              more information about place IDs, see the
+     *              [place ID overview](https://developers.google.com/maps/documentation/places/web-service/place-id).
+     * @param fields Use the fields parameter to specify a comma-separated list of place data types to return. For
+     *              example: `fields=formatted_address,name,geometry`. Use a forward slash when specifying compound
+     *              values. For example: `opening_hours/open_now`. Fields are divided into three billing categories:
+     *              Basic, Contact, and Atmosphere. Basic fields are billed at base rate, and incur no additional
+     *              charges. Contact and Atmosphere fields are billed at a higher rate. See the
+     *              [pricing sheet](https://developers.google.com/maps/documentation/places/web-service/usage-and-billing)
+     *              for more information. Attributions, html_attributions, are always returned with every call,
+     *              regardless of whether the field has been requested.
+     * @param language The language in which to return results.
+     * @param region The region code, specified as a
+     *              [ccTLD ("top-level domain")](https://en.wikipedia.org/wiki/List_of_Internet_top-level_domains#Country_code_top-level_domains)
+     *              two-character value. Most ccTLD codes are identical to ISO 3166-1 codes, with some notable
+     *              exceptions. For example, the United Kingdom's ccTLD is "uk" (.co.uk) while its ISO 3166-1 code is
+     *              "gb" (technically for the entity of "The United Kingdom of Great Britain and Northern Ireland").
+     * @param reviewsNoTranslations Specify `reviews_no_translations=true` to disable translation of reviews; specify
+     *                          `reviews_no_translations=false` to enable translation of reviews. Reviews are returned
+     *                          in their original language. If omitted, or passed with no value, translation of reviews
+     *                          is enabled. If the `language` parameter was specified in the request, use the specified
+     *                          language as the preferred language for translation. If `language` is omitted, the API
+     *                          attempts to use the `Accept-Language` header as the preferred language.
+     * @param reviewsSort The sorting method to use when returning reviews. Can be set to `most_relevant` (default) or
+     *                  `newest`.
+     * @param sessionToken A random string which identifies an autocomplete
+     *                  [session](https://developers.google.com/maps/documentation/places/web-service/details#session_tokens)
+     *                  for billing purposes. The session begins when the user starts typing a query, and concludes
+     *                  when they select a place and a call to Place Details is made. Each session can have multiple
+     *                  queries, followed by one place selection. The API key(s) used for each request within a session
+     *                  must belong to the same Google Cloud Console project. Once a session has concluded, the token
+     *                  is no longer valid; your app must generate a fresh token for each session. If the `sessiontoken`
+     *                  parameter is omitted, or if you reuse a session token, the session is charged as if no session
+     *                  token was provided (each request is billed separately).
+     */
+    @GET("maps/api/place/details/json")
+    suspend fun place(
+        @Query(PARAM_KEY) key: String,
+        @Query(PARAM_PLACE_ID) placeId: String,
+        @Query(PARAM_FIELDS) fields: String? = null,
+        @Query(PARAM_LANGUAGE) language: String? = null,
+        @Query(PARAM_REGION) region: String? = null,
+        @Query(PARAM_REVIEWS_NO_TRANSLATIONS) reviewsNoTranslations: Boolean? = null,
+        @Query(PARAM_REVIEWS_SORT) reviewsSort: String? = null,
+        @Query(PARAM_SESSION_TOKEN) sessionToken: String? = null
+    ): PlacesDetailsResponse
 
     /**
      * [Place Autocomplete](https://developers.google.com/maps/documentation/places/web-service/autocomplete)

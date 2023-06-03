@@ -5,7 +5,7 @@ import java.util.*
 
 data class AutocompleteParams(
     val input: String,
-    val radius: Int,
+    val radius: Int = RADIUS_DEFAULT,
     val components: List<Locale>? = null,
     val language: Locale? = null,
     val location: LatLng? = null,
@@ -23,7 +23,7 @@ data class AutocompleteParams(
         const val NON_WHITESPACE_PATTERN = "\\S.*"
         val NON_WHITESPACE_REGEX = NON_WHITESPACE_PATTERN.toRegex()
 
-        const val RADIUS_MAX = 50_000
+        const val RADIUS_DEFAULT = 50_000
     }
 
     init {
@@ -38,8 +38,6 @@ data class AutocompleteParams(
         when {
             0 >= radius ->
                 throw IllegalArgumentException("radius is not positive : radius=$radius")
-            RADIUS_MAX < radius ->
-                throw IllegalArgumentException("radius is greater than max : radius=$radius, max=$RADIUS_MAX")
         }
 
         offset?.let {

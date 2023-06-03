@@ -4,6 +4,7 @@ import com.github.hemoptysisheart.parking.core.client.google.data.Transportation
 import com.github.hemoptysisheart.parking.core.model.LocationModel
 import com.github.hemoptysisheart.parking.core.model.LocationModelImpl
 import com.github.hemoptysisheart.parking.core.model.SensorModel
+import com.github.hemoptysisheart.parking.core.model.data.DestinationSearchResult
 import com.github.hemoptysisheart.parking.core.model.data.PlaceSearchResult
 import com.github.hemoptysisheart.parking.core.model.data.RouteSearchResult
 import com.github.hemoptysisheart.parking.domain.*
@@ -19,8 +20,8 @@ object PreviewModel {
     }
 
     val GEO_SEARCH_MODEL = object : LocationModel {
-        override suspend fun searchDestination(center: GeoLocation, query: String): PlaceSearchResult {
-            return PlaceSearchResult(center, query, listOf(), null)
+        override suspend fun searchDestination(center: GeoLocation, query: String): DestinationSearchResult {
+            return DestinationSearchResult(center, query, listOf())
         }
 
         override suspend fun read(id: String): Location? = null

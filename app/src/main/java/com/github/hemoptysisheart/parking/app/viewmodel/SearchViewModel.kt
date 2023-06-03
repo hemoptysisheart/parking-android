@@ -39,19 +39,21 @@ class SearchViewModel @Inject constructor(
 
     val resultList = MutableStateFlow(listOf<RecommendItem<*>>())
 
-    val onQueryChange: (String) -> Unit = { it ->
-        LOGGER.d("#onQueryChange args : query=$it")
+    val onQueryChange: (String) -> Unit = { query ->
+        LOGGER.d("#onQueryChange args : query=$query")
 
         viewModelScope.launch {
-            query.emit(it)
+            this@SearchViewModel.query.emit(query)
         }
 
         searchJob?.cancel()
-        searchJob = viewModelScope.launch {
-            resultList.emit(
-                locationModel.searchDestination(sensorModel.location, it)
-                    .places
-            )
+        if (query.isNotEmpty()) {
+            searchJob = viewModelScope.launch {
+                resultList.emit(
+                    locationModel.searchDestination(sensorModel.location, query)
+                        .predictionList
+                )
+            }
         }
     }
 

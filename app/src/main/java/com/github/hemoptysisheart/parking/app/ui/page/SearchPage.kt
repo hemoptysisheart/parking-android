@@ -10,9 +10,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.hemoptysisheart.parking.app.ui.interaction.SearchInteraction
-import com.github.hemoptysisheart.parking.app.ui.interaction.rememberInteractionContext
-import com.github.hemoptysisheart.parking.app.ui.interaction.rememberSearchInteraction
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewViewModel.SEARCH_VM
+import com.github.hemoptysisheart.parking.app.ui.preview.commonInteraction
 import com.github.hemoptysisheart.parking.app.ui.support.LOGGER
 import com.github.hemoptysisheart.parking.app.ui.template.search.SearchHeaderTemplate
 import com.github.hemoptysisheart.parking.app.ui.template.search.SearchResultTemplate
@@ -44,7 +43,7 @@ fun SearchPage(
 fun Preview_SearchPage() {
     ParkingTheme {
         SearchPage(
-            rememberSearchInteraction(rememberInteractionContext()),
+            SearchInteraction(commonInteraction()),
             SEARCH_VM
         )
     }

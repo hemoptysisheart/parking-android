@@ -9,9 +9,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.hemoptysisheart.parking.app.ui.interaction.MainInteraction
-import com.github.hemoptysisheart.parking.app.ui.interaction.rememberInteractionContext
-import com.github.hemoptysisheart.parking.app.ui.interaction.rememberMainInteraction
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewViewModel.MAIN_VM
+import com.github.hemoptysisheart.parking.app.ui.preview.commonInteraction
 import com.github.hemoptysisheart.parking.app.ui.support.LOGGER
 import com.github.hemoptysisheart.parking.app.ui.template.main.HeaderTemplate
 import com.github.hemoptysisheart.parking.app.ui.template.main.MapTemplate
@@ -46,7 +45,7 @@ fun MainPage(
 fun Preview_MainPage() {
     ParkingTheme {
         MainPage(
-            rememberMainInteraction(rememberInteractionContext()),
+            MainInteraction(commonInteraction()),
             MAIN_VM
         )
     }

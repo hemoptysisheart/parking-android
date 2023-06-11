@@ -1,6 +1,5 @@
 package com.github.hemoptysisheart.parking.core.client.google
 
-import com.github.hemoptysisheart.parking.core.client.google.DataConverter.toDirectionsGeocodedWaypoint
 import com.github.hemoptysisheart.parking.core.client.google.data.*
 import com.github.hemoptysisheart.util.*
 import okhttp3.OkHttpClient
@@ -51,7 +50,7 @@ class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
 
         val result = PlaceResult(
             htmlAttributes = response.htmlAttributions ?: throw IllegalArgumentException("htmlAttributions is null."),
-            place = DataConverter.toPlace(response.result ?: throw IllegalArgumentException("result is null.")),
+            place = toPlace(response.result ?: throw IllegalArgumentException("result is null.")),
             status = PlacesDetailsStatus[response.status ?: throw IllegalArgumentException("status is null.")],
             infoMessages = response.infoMessages
         )
@@ -88,7 +87,7 @@ class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
                     true
                 }
             }?.map {
-                DataConverter.toPlaceAutocompletePrediction(it)
+                toPlaceAutocompletePrediction(it)
             } ?: throw IllegalArgumentException("predictions is null."),
             status = PlacesAutocompleteStatus[response.status ?: throw IllegalArgumentException("status is null.")],
             errorMessage = response.errorMessage,
@@ -123,7 +122,7 @@ class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
                 requestAt = requestAt,
                 responseAt = responseAt
             ),
-            places = response.results!!.map { DataConverter.toPlace(it) },
+            places = response.results!!.map { toPlace(it) },
             nextToken = response.nextPageToken
         )
 
@@ -156,7 +155,7 @@ class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
             meta = ResultMeta(params, requestAt, responseAt),
             status = DirectionsStatus.valueOf(response.status ?: throw IllegalArgumentException("status is null.")),
             availableTravelModes = response.availableTravelModes?.map { TravelMode.valueOf(it) },
-            routes = response.routes!!.map { DataConverter.toDirectionsRoute(it) },
+            routes = response.routes!!.map { toDirectionsRoute(it) },
             geocodedWaypoints = response.geocodedWaypoints?.map { toDirectionsGeocodedWaypoint(it) },
             errorMessage = response.errorMessage
         )

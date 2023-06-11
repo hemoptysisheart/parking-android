@@ -50,7 +50,7 @@ class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
 
         val result = PlaceResult(
             htmlAttributes = response.htmlAttributions ?: throw IllegalArgumentException("htmlAttributions is null."),
-            place = toPlace(response.result ?: throw IllegalArgumentException("result is null.")),
+            place = response.result?.toData() ?: throw IllegalArgumentException("result is null."),
             status = PlacesDetailsStatus[response.status ?: throw IllegalArgumentException("status is null.")],
             infoMessages = response.infoMessages
         )
@@ -86,9 +86,7 @@ class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
                 } else {
                     true
                 }
-            }?.map {
-                toPlaceAutocompletePrediction(it)
-            } ?: throw IllegalArgumentException("predictions is null."),
+            }?.map { it.toData() } ?: throw IllegalArgumentException("predictions is null."),
             status = PlacesAutocompleteStatus[response.status ?: throw IllegalArgumentException("status is null.")],
             errorMessage = response.errorMessage,
             infoMessages = response.infoMessages
@@ -122,7 +120,7 @@ class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
                 requestAt = requestAt,
                 responseAt = responseAt
             ),
-            places = response.results!!.map { toPlace(it) },
+            places = response.results!!.map { it.toData() },
             nextToken = response.nextPageToken
         )
 
@@ -155,8 +153,8 @@ class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
             meta = ResultMeta(params, requestAt, responseAt),
             status = DirectionsStatus.valueOf(response.status ?: throw IllegalArgumentException("status is null.")),
             availableTravelModes = response.availableTravelModes?.map { TravelMode.valueOf(it) },
-            routes = response.routes!!.map { toDirectionsRoute(it) },
-            geocodedWaypoints = response.geocodedWaypoints?.map { toDirectionsGeocodedWaypoint(it) },
+            routes = response.routes!!.map { it.toData() },
+            geocodedWaypoints = response.geocodedWaypoints?.map { it.toData() },
             errorMessage = response.errorMessage
         )
 

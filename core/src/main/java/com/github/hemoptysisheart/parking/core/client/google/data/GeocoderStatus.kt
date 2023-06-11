@@ -6,5 +6,7 @@ enum class GeocoderStatus {
 
     companion object {
         operator fun get(ordinal: Int) = values()[ordinal]
+
+        operator fun get(name: String) = valueOf(name)
     }
 }

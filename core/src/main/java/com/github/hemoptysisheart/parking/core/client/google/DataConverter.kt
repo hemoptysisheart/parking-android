@@ -3,220 +3,242 @@ package com.github.hemoptysisheart.parking.core.client.google
 import android.icu.util.Currency
 import android.net.Uri
 import com.github.hemoptysisheart.parking.core.client.google.data.*
+import com.github.hemoptysisheart.parking.core.client.google.data.PlaceOpeningHoursPeriodDetail.Companion.DATE_FORMATTER
+import com.github.hemoptysisheart.parking.core.client.google.data.PlaceOpeningHoursPeriodDetail.Companion.TIME_FORMATTER
 import com.github.hemoptysisheart.parking.core.client.google.response.*
-import com.github.hemoptysisheart.parking.domain.GeoLocation
 import com.github.hemoptysisheart.parking.domain.Location
 import java.net.URL
 import java.time.*
 import java.util.*
 import kotlin.math.roundToLong
 
-internal fun toPlaceAutocompletePrediction(resp: PlaceAutocompletePredictionResp) = PlaceAutocompletePrediction(
-    resp.description ?: throw IllegalArgumentException("description is null."),
-    resp.matchedSubstrings?.map { toPlaceAutocompleteMatchedSubstring(it) }
+internal fun PlaceAutocompletePredictionResp.toData() = PlaceAutocompletePrediction(
+    description = description ?: throw IllegalArgumentException("description is null."),
+    matchedSubstrings = matchedSubstrings?.map { it.toData() }
         ?: throw IllegalArgumentException("matchedSubstrings is null."),
-    toStructuredFormatting(
-        resp.structuredFormatting ?: throw IllegalArgumentException("structuredFormatting is null.")
-    ),
-    resp.terms?.map { toPlaceAutocompleteTerm(it) } ?: throw IllegalArgumentException("terms is null."),
-    resp.distanceMeters,
-    resp.placeId,
-    resp.types?.map { PlaceType[it] }
+    structuredFormatting = structuredFormatting?.toData()
+        ?: throw IllegalArgumentException("structuredFormatting is null."),
+    terms = terms?.map { it.toData() }
+        ?: throw IllegalArgumentException("terms is null."),
+    distanceMeters = distanceMeters,
+    placeId = placeId,
+    types = types?.map { PlaceType[it] }
 )
 
-internal fun toPlaceAutocompleteMatchedSubstring(resp: PlaceAutocompleteMatchedSubstringResp) =
-    PlaceAutocompleteMatchedSubstring(
-        resp.length ?: throw IllegalArgumentException("length is null."),
-        resp.offset ?: throw IllegalArgumentException("offset is null.")
-    )
-
-internal fun toStructuredFormatting(resp: PlaceAutocompleteStructuredFormatResp) =
-    PlaceAutocompleteStructuredFormat(
-        mainText = resp.mainText ?: throw IllegalArgumentException("mainText is null."),
-        mainTextMatchedSubstrings = resp.mainTextMatchedSubstrings?.map { toPlaceAutocompleteMatchedSubstring(it) }
-            ?: throw IllegalArgumentException("mainTextMatchedSubstrings is null."),
-        secondaryText = resp.secondaryText,
-        secondaryTextMatchedSubstrings = resp.secondaryTextMatchedSubstrings?.map {
-            toPlaceAutocompleteMatchedSubstring(it)
-        }
-    )
-
-internal fun toPlaceAutocompleteTerm(resp: PlaceAutocompleteTermResp) = PlaceAutocompleteTerm(
-    offset = resp.offset ?: throw IllegalArgumentException("offset is null."),
-    value = resp.value ?: throw IllegalArgumentException("value is null.")
+internal fun PlaceAutocompleteMatchedSubstringResp.toData() = PlaceAutocompleteMatchedSubstring(
+    length = length
+        ?: throw IllegalArgumentException("length is null."),
+    offset = offset
+        ?: throw IllegalArgumentException("offset is null.")
 )
 
-internal fun toPlace(resp: PlaceResp) = Place(
-    resp.addressComponents?.map { toAddressComponent(it) },
-    resp.adrAddress,
-    resp.businessStatus?.let { BusinessStatus[it] },
-    resp.curbsidePickup,
-    resp.currentOpeningHours?.let { toPlaceOpeningHours(it) },
-    resp.delivery,
-    resp.dineIn,
-    resp.editorialSummary?.let { toPlaceEditorialSummary(it) },
-    resp.formattedAddress,
-    resp.formattedPhoneNumber,
-    resp.geometry?.let { toGeometry(it) },
-    resp.icon?.let { URL(it) },
-    resp.iconBackgroundColor,
-    resp.iconMaskBaseUri?.let { URL(it) },
-    resp.internationalPhoneNumber,
-    resp.name,
-    resp.openingHours?.let { toPlaceOpeningHours(it) },
-    resp.photos?.map { toPlacePhoto(it) },
-    resp.placeId,
-    resp.plusCode?.let { toPlusCode(it) },
-    resp.priceLv?.let { PriceLevel[it] },
-    resp.rating,
-    resp.reservable,
-    resp.reviews?.map { toPlaceReview(it) },
-    resp.secondaryOpeningHours?.let { toPlaceOpeningHours(it) },
-    resp.servesBeer,
-    resp.servesBreakfast,
-    resp.servesBrunch,
-    resp.servesDinner,
-    resp.servesLunch,
-    resp.servesVegetarianFood,
-    resp.servesWine,
-    resp.takeout,
-    resp.types?.map { PlaceType[it] }?.toSet(),
-    resp.url?.let { URL(it) },
-    resp.userRatingsTotal,
-    resp.utcOffset?.let { Duration.ofMinutes(it.toLong()) },
-    resp.vicinity,
-    resp.website?.let { URL(it) },
-    resp.wheelchairAccessibleEntrance
+internal fun PlaceAutocompleteStructuredFormatResp.toData() = PlaceAutocompleteStructuredFormat(
+    mainText = mainText
+        ?: throw IllegalArgumentException("mainText is null."),
+    mainTextMatchedSubstrings = mainTextMatchedSubstrings?.map { it.toData() }
+        ?: throw IllegalArgumentException("mainTextMatchedSubstrings is null."),
+    secondaryText = secondaryText,
+    secondaryTextMatchedSubstrings = secondaryTextMatchedSubstrings?.map { it.toData() }
 )
 
-internal fun toAddressComponent(resp: AddressComponentResp) = AddressComponent(
-    longName = resp.longName ?: throw IllegalArgumentException("longName is null."),
-    shortName = resp.shortName ?: throw IllegalArgumentException("shortName is null."),
-    types = resp.types?.map { PlaceType[it] }?.toSet() ?: throw IllegalArgumentException("types is null.")
+internal fun PlaceAutocompleteTermResp.toData() = PlaceAutocompleteTerm(
+    offset = offset ?: throw IllegalArgumentException("offset is null."),
+    value = value ?: throw IllegalArgumentException("value is null.")
 )
 
-internal fun toPlaceOpeningHours(resp: PlaceOpeningHoursResp) = PlaceOpeningHours(
-    open = resp.open,
-    periods = resp.periods?.map { toPlaceOpeningHoursPeriod(it) },
-    specialDays = resp.specialDays?.map { toPlaceSpecialDay(it) },
-    type = resp.type?.let { PlaceOpeningHoursType.valueOf(it) },
-    weekdays = resp.weekdayText
+internal fun PlaceResp.toData() = Place(
+    addressComponents = addressComponents?.map { it.toData() },
+    adrAddress = adrAddress,
+    businessStatus = businessStatus?.let { BusinessStatus[it] },
+    curbsidePickup = curbsidePickup,
+    currentOpeningHours = currentOpeningHours?.toData(),
+    delivery = delivery,
+    dineIn = dineIn,
+    editorialSummary = editorialSummary?.toData(),
+    formattedAddress = formattedAddress,
+    formattedPhoneNumber = formattedPhoneNumber,
+    geometry = geometry?.toData(),
+    icon = icon?.let { URL(it) },
+    iconBackgroundColor = iconBackgroundColor,
+    iconMaskBase = iconMaskBaseUri?.let { URL(it) },
+    internationalPhoneNumber = internationalPhoneNumber,
+    name = name,
+    openingHours = openingHours?.toData(),
+    photos = photos?.map { it.toData() },
+    placeId = placeId,
+    plusCode = plusCode?.toData(),
+    priceLv = priceLv?.let { PriceLevel[it] },
+    rating = rating,
+    reservable = reservable,
+    reviews = reviews?.map { it.toData() },
+    secondaryOpeningHours = secondaryOpeningHours?.toData(),
+    beer = servesBeer,
+    breakfast = servesBreakfast,
+    brunch = servesBrunch,
+    dinner = servesDinner,
+    lunch = servesLunch,
+    vegetarianFood = servesVegetarianFood,
+    wine = servesWine,
+    takeout = takeout,
+    types = types?.map { PlaceType[it] }?.toSet(),
+    url = url?.let { URL(it) },
+    userRatingsTotal = userRatingsTotal,
+    utcOffset = utcOffset?.let { Duration.ofMinutes(it.toLong()) },
+    vicinity = vicinity,
+    website = website?.let { URL(it) },
+    wheelchairAccessibleEntrance = wheelchairAccessibleEntrance
 )
 
-internal fun toPlaceOpeningHoursPeriod(resp: PlaceOpeningHoursPeriodResp) =
-    PlaceOpeningHoursPeriod(open = toPlaceOpeningHoursPeriodDetail(
-        resp.open ?: throw IllegalArgumentException("open is null.")
-    ), close = resp.close?.let { toPlaceOpeningHoursPeriodDetail(it) })
-
-internal fun toPlaceOpeningHoursPeriodDetail(resp: PlaceOpeningHoursPeriodDetailResp) = PlaceOpeningHoursPeriodDetail(
-    day = PlaceOpeningHoursPeriodDetail.codeToDayOfWeek(
-        resp.day ?: throw IllegalArgumentException("day is null.")
-    ),
-    time = LocalTime.parse(
-        resp.time ?: throw IllegalArgumentException("time is null."), PlaceOpeningHoursPeriodDetail.TIME_FORMATTER
-    ),
-    date = resp.date?.let { LocalDate.parse(it, PlaceOpeningHoursPeriodDetail.DATE_FORMATTER) },
-    truncated = resp.truncated ?: false
+internal fun AddressComponentResp.toData() = AddressComponent(
+    longName = longName
+        ?: throw IllegalArgumentException("longName is null."),
+    shortName = shortName
+        ?: throw IllegalArgumentException("shortName is null."),
+    types = types?.map { PlaceType[it] }?.toSet()
+        ?: throw IllegalArgumentException("types is null.")
 )
 
-internal fun toPlaceSpecialDay(resp: PlaceSpecialDayResp) = PlaceSpecialDay(
-    date = resp.date?.let { LocalDate.parse(it, PlaceSpecialDay.DATE_FORMATTER) },
-    exceptionalHours = resp.exceptionalHours ?: false
+internal fun PlaceOpeningHoursResp.toData() = PlaceOpeningHours(
+    open = open,
+    periods = periods?.map { it.toData() },
+    specialDays = specialDays?.map { it.toData() },
+    type = type?.let { PlaceOpeningHoursType.valueOf(it) },
+    weekdays = weekdayText
 )
 
-internal fun toPlaceEditorialSummary(resp: PlaceEditorialSummaryResp) = PlaceEditorialSummary(
-    language = resp.language?.let { Locale.forLanguageTag(it) }, overview = resp.overview
+internal fun PlaceOpeningHoursPeriodResp.toData() = PlaceOpeningHoursPeriod(
+    open = open?.toData() ?: throw IllegalArgumentException("open is null."),
+    close = close?.toData()
 )
 
-internal fun toGeometry(resp: GeometryResp) = Geometry(
-    location = toLatLng(resp.location ?: throw IllegalArgumentException("location is null.")),
-    viewport = toBounds(resp.viewport ?: throw IllegalArgumentException("viewport is null."))
+internal fun PlaceOpeningHoursPeriodDetailResp.toData() = PlaceOpeningHoursPeriodDetail(
+    day = PlaceOpeningHoursPeriodDetail.codeToDayOfWeek(day ?: throw IllegalArgumentException("day is null.")),
+    time = LocalTime.parse(time ?: throw IllegalArgumentException("time is null."), TIME_FORMATTER),
+    date = date?.let { LocalDate.parse(it, DATE_FORMATTER) },
+    truncated = truncated ?: false
 )
 
-internal fun toLatLng(resp: LatLngLiteralResp) = LatLng(
-    latitude = resp.lat ?: throw IllegalArgumentException("lat is null."),
-    longitude = resp.lng ?: throw IllegalArgumentException("lng is null.")
+internal fun PlaceSpecialDayResp.toData() = PlaceSpecialDay(
+    date = date?.let { LocalDate.parse(it, PlaceSpecialDay.DATE_FORMATTER) },
+    exceptionalHours = exceptionalHours ?: false
 )
 
-internal fun toBounds(resp: BoundsResp) = Bounds(
-    northEast = toLatLng(resp.northEast ?: throw IllegalArgumentException("northEast is null")),
-    southWest = toLatLng(resp.southWest ?: throw IllegalArgumentException("southWest is null."))
+internal fun PlaceEditorialSummaryResp.toData() = PlaceEditorialSummary(
+    language = language?.let { Locale.forLanguageTag(it) },
+    overview = overview
 )
 
-internal fun toPlacePhoto(resp: PlacePhotoResp) = PlacePhoto(
-    width = resp.width ?: throw IllegalArgumentException("width is null."),
-    height = resp.height ?: throw IllegalArgumentException("height is null."),
-    htmlAttributions = resp.htmlAttributions ?: throw IllegalArgumentException("htmlAttributions is null."),
-    photoReference = resp.photoReference ?: throw IllegalArgumentException("photoReference is null.")
+internal fun GeometryResp.toData() = Geometry(
+    location = location?.toData()
+        ?: throw IllegalArgumentException("location is null."),
+    viewport = viewport?.toData()
+        ?: throw IllegalArgumentException("viewport is null.")
 )
 
-internal fun toPlusCode(resp: PlusCodeResp) = PlusCode(
-    globalCode = resp.globalCode ?: throw IllegalArgumentException("globalCode is null."),
-    compoundCode = resp.compoundCode ?: throw IllegalArgumentException("compoundCode is null.")
+internal fun LatLngLiteralResp.toData() = LatLng(
+    latitude = lat
+        ?: throw IllegalArgumentException("lat is null."),
+    longitude = lng
+        ?: throw IllegalArgumentException("lng is null.")
 )
 
-internal fun toPlaceReview(resp: PlaceReviewResp) =
-    PlaceReview(authorName = resp.authorName ?: throw IllegalArgumentException("authorName is null"),
-        rating = resp.rating ?: throw IllegalArgumentException("rating is null."),
-        relativeTimeDescription = resp.relativeTimeDescription
-            ?: throw IllegalArgumentException("relativeTimeDescription is null."),
-        time = resp.time?.let { Instant.ofEpochSecond(it) } ?: throw IllegalArgumentException("time is null."),
-        author = resp.authorUrl?.let { URL(it) },
-        language = resp.language?.let { Locale.forLanguageTag(it) },
-        originalLanguage = resp.originalLanguage?.let { Locale.forLanguageTag(it) },
-        profilePhoto = resp.profilePhotoUrl?.let { URL(it) },
-        text = resp.text,
-        translated = resp.translated ?: false
-    )
+internal fun BoundsResp.toData() = Bounds(
+    northEast = northEast?.toData()
+        ?: throw IllegalArgumentException("northEast is null"),
+    southWest = southWest?.toData()
+        ?: throw IllegalArgumentException("southWest is null.")
+)
 
-internal fun toDirectionsRoute(resp: DirectionsRouteResp) = DirectionsRoute(bounds = resp.bounds?.let {
-    Bounds(
-        toLatLng(it.northEast ?: throw IllegalArgumentException("northEast is null.")),
-        toLatLng(it.southWest ?: throw IllegalArgumentException("southWest is null."))
-    )
-} ?: throw IllegalArgumentException("bounds is null."),
-    copyrights = resp.copyrights ?: throw IllegalArgumentException("copyrights is null."),
-    legs = resp.legs?.map { toDirectionsLeg(it) } ?: throw IllegalArgumentException("legs is null."),
-    overviewPolyline = toDirectionsPolyline(
-        resp.overviewPolyline ?: throw IllegalArgumentException("overviewPolyline is null.")
-    ),
-    summary = resp.summary ?: throw IllegalArgumentException("summary is null."),
-    warnings = resp.warnings ?: throw IllegalArgumentException("warnings is null."),
-    waypointOrder = resp.waypointOrder ?: throw IllegalArgumentException("waypointOrder is null."),
-    fare = resp.fare?.let { toFare(it) })
+internal fun PlacePhotoResp.toData() = PlacePhoto(
+    width = width
+        ?: throw IllegalArgumentException("width is null."),
+    height = height
+        ?: throw IllegalArgumentException("height is null."),
+    htmlAttributions = htmlAttributions
+        ?: throw IllegalArgumentException("htmlAttributions is null."),
+    photoReference = photoReference
+        ?: throw IllegalArgumentException("photoReference is null.")
+)
 
-internal fun toDirectionsGeocodedWaypoint(resp: DirectionsGeocodedWaypointResp) =
-    DirectionsGeocodedWaypoint(geocoderStatus = GeocoderStatus.valueOf(
-        resp.geocoderStatus ?: throw IllegalArgumentException("geocoderStatus is null")
-    ), partialMatch = resp.partialMatch, placeId = resp.placeId, types = resp.types?.map { PlaceType[it] })
+internal fun PlusCodeResp.toData() = PlusCode(
+    globalCode = globalCode
+        ?: throw IllegalArgumentException("globalCode is null."),
+    compoundCode = compoundCode
+        ?: throw IllegalArgumentException("compoundCode is null.")
+)
 
-internal fun toDirectionsLeg(resp: DirectionsLegResp) = DirectionsLeg(
-    endAddress = resp.endAddress ?: throw IllegalArgumentException("endAddress is null."),
-    endLocation = toLatLng(resp.endLocation ?: throw IllegalArgumentException("endLocation is null.")),
-    startAddress = resp.startAddress ?: throw IllegalArgumentException("startAddress is null."),
-    startLocation = toLatLng(resp.startLocation ?: throw IllegalArgumentException("startLocation is null.")),
-    steps = resp.steps?.map { toDirectionsStep(it) } ?: throw IllegalArgumentException("steps is null."),
-    viaWaypoint = resp.viaWaypoint?.map { toDirectionsViaWaypoint(it) }
+internal fun PlaceReviewResp.toData() = PlaceReview(
+    authorName = authorName
+        ?: throw IllegalArgumentException("authorName is null"),
+    rating = rating
+        ?: throw IllegalArgumentException("rating is null."),
+    relativeTimeDescription = relativeTimeDescription
+        ?: throw IllegalArgumentException("relativeTimeDescription is null."),
+    time = time?.let { Instant.ofEpochSecond(it) } ?: throw IllegalArgumentException("time is null."),
+    author = authorUrl?.let { URL(it) },
+    language = language?.let { Locale.forLanguageTag(it) },
+    originalLanguage = originalLanguage?.let { Locale.forLanguageTag(it) },
+    profilePhoto = profilePhotoUrl?.let { URL(it) },
+    text = text,
+    translated = translated
+        ?: false
+)
+
+internal fun DirectionsRouteResp.toData() = DirectionsRoute(
+    bounds = bounds?.toData()
+        ?: throw IllegalArgumentException("bounds is null."),
+    copyrights = copyrights
+        ?: throw IllegalArgumentException("copyrights is null."),
+    legs = legs?.map { it.toData() }
+        ?: throw IllegalArgumentException("legs is null."),
+    overviewPolyline = overviewPolyline?.toData()
+        ?: throw IllegalArgumentException("overviewPolyline is null."),
+    summary = summary
+        ?: throw IllegalArgumentException("summary is null."),
+    warnings = warnings
+        ?: throw IllegalArgumentException("warnings is null."),
+    waypointOrder = waypointOrder
+        ?: throw IllegalArgumentException("waypointOrder is null."),
+    fare = fare?.toData())
+
+internal fun DirectionsGeocodedWaypointResp.toData() = DirectionsGeocodedWaypoint(
+    geocoderStatus = GeocoderStatus[geocoderStatus ?: throw IllegalArgumentException("geocoderStatus is null")],
+    partialMatch = partialMatch,
+    placeId = placeId,
+    types = types?.map { PlaceType[it] })
+
+internal fun DirectionsLegResp.toData() = DirectionsLeg(
+    endAddress = endAddress
+        ?: throw IllegalArgumentException("endAddress is null."),
+    endLocation = endLocation?.toData()
+        ?: throw IllegalArgumentException("endLocation is null."),
+    startAddress = startAddress
+        ?: throw IllegalArgumentException("startAddress is null."),
+    startLocation = startLocation?.toData()
+        ?: throw IllegalArgumentException("startLocation is null."),
+    steps = steps?.map { it.toData() }
+        ?: throw IllegalArgumentException("steps is null."),
+    viaWaypoint = viaWaypoint?.map { it.toData() }
         ?: throw IllegalArgumentException("viaWaypoint is null."),
-    arrivalTime = resp.arrivalTime?.let { toZonedDateTime(it) },
-    departureTime = resp.departureTime?.let { toZonedDateTime(it) },
-    distance = resp.distance?.let { toLabeledNumber(it) }
+    arrivalTime = arrivalTime?.toData(),
+    departureTime = departureTime?.toData(),
+    distance = distance?.toData()
         ?: throw IllegalArgumentException("distance is null."),
-    duration = resp.duration?.let { toLabeledNumber(it) }
+    duration = duration?.toData()
         ?: throw IllegalArgumentException("duration is null."),
-    durationInTraffic = resp.durationInTraffic?.let { toLabeledNumber(it) }
+    durationInTraffic = durationInTraffic?.toData()
 )
 
-internal fun toFare(resp: FareResp) = Fare(
-    Currency.getInstance(resp.currency),
-    resp.text ?: throw IllegalArgumentException("text is null."),
-    resp.value ?: throw IllegalArgumentException("value is null.")
+internal fun FareResp.toData() = Fare(
+    Currency.getInstance(currency),
+    text ?: throw IllegalArgumentException("text is null."),
+    value ?: throw IllegalArgumentException("value is null.")
 )
 
 /**
  * See [`PolylineEncoding`](https://github.com/googlemaps/google-maps-services-java/blob/main/src/main/java/com/google/maps/internal/PolylineEncoding.java).
  */
-fun decodePolyline(encodedPolyline: String): List<LatLng> {
+internal fun decodePolyline(encodedPolyline: String): List<LatLng> {
     val len = encodedPolyline.length
     val path = mutableListOf<LatLng>()
 
@@ -251,7 +273,7 @@ fun decodePolyline(encodedPolyline: String): List<LatLng> {
 /**
  * See [`PolylineEncoding`](https://github.com/googlemaps/google-maps-services-java/blob/main/src/main/java/com/google/maps/internal/PolylineEncoding.java).
  */
-fun encodePolyline(polyline: List<Location>): String {
+internal fun encodePolyline(polyline: List<Location>): String {
     var lastLat: Long = 0
     var lastLng: Long = 0
 
@@ -272,7 +294,7 @@ fun encodePolyline(polyline: List<Location>): String {
     return result.toString()
 }
 
-private fun encode(value: Long, result: java.lang.StringBuilder) {
+private fun encode(value: Long, result: StringBuilder) {
     var v = value
     v = if (v < 0) (v shl 1).inv() else v shl 1
     while (v >= 0x20) {
@@ -282,87 +304,83 @@ private fun encode(value: Long, result: java.lang.StringBuilder) {
     result.append(Character.toChars((v + 63).toInt()))
 }
 
-internal fun toDirectionsPolyline(resp: DirectionsPolylineResp) = DirectionsPolyline(
-    decodePolyline(
-        resp.points
-            ?: throw IllegalArgumentException("points is null.")
-    )
+internal fun DirectionsPolylineResp.toData() = DirectionsPolyline(
+    decodePolyline(points ?: throw IllegalArgumentException("points is null."))
 )
 
-internal fun toDirectionsStep(resp: DirectionsStepResp) = DirectionsStep(
-    duration = toLabeledNumber(resp.duration ?: throw IllegalArgumentException("duration is null.")),
-    endLocation = toLatLng(resp.endLocation ?: throw IllegalArgumentException("endLocation is null.")),
-    html = resp.html ?: throw IllegalArgumentException("html is null."),
-    polyline = toDirectionsPolyline(resp.polyline ?: throw IllegalArgumentException("polyline is null.")),
-    startLocation = toLatLng(resp.startLocation ?: throw IllegalArgumentException("startLocation is null.")),
-    travelMode = TravelMode.valueOf(resp.travelMode ?: throw IllegalArgumentException("travelMode is null.")),
-    distance = resp.distance?.run { toLabeledNumber(this) },
-    maneuver = resp.maneuver?.run { Maneuver[this] },
-    steps = resp.steps,
-    transitDetails = resp.transitDetails?.run { toDirectionsTransitDetails(this) }
+internal fun DirectionsStepResp.toData() = DirectionsStep(
+    duration = duration?.toData()
+        ?: throw IllegalArgumentException("duration is null."),
+    endLocation = endLocation?.toData()
+        ?: throw IllegalArgumentException("endLocation is null."),
+    html = html ?: throw IllegalArgumentException("html is null."),
+    polyline = polyline?.toData()
+        ?: throw IllegalArgumentException("polyline is null."),
+    startLocation = startLocation?.toData()
+        ?: throw IllegalArgumentException("startLocation is null."),
+    travelMode = TravelMode[travelMode ?: throw IllegalArgumentException("travelMode is null.")],
+    distance = distance?.toData(),
+    maneuver = maneuver?.run { Maneuver[this] },
+    steps = steps,
+    transitDetails = transitDetails?.toData()
 )
 
-internal fun toDirectionsTransitDetails(resp: DirectionsTransitDetailsResp) = DirectionsTransitDetails(
-    arrivalStop = resp.arrivalStop?.run { toDirectionsTransitStop(this) },
-    arrivalTime = resp.arrivalTime?.run { toZonedDateTime(this) },
-    departureStop = resp.departureStop?.run { toDirectionsTransitStop(this) },
-    departureTime = resp.departureTime?.run { toZonedDateTime(this) },
-    headsign = resp.headsign,
-    headway = resp.headway,
-    line = resp.line?.run { toDirectionsTransitLine(this) },
-    numStops = resp.numStops,
-    tripShortName = resp.tripShortName
+internal fun DirectionsTransitDetailsResp.toData() = DirectionsTransitDetails(
+    arrivalStop = arrivalStop?.toData(),
+    arrivalTime = arrivalTime?.toData(),
+    departureStop = departureStop?.toData(),
+    departureTime = departureTime?.toData(),
+    headsign = headsign,
+    headway = headway,
+    line = line?.toData(),
+    numStops = numStops,
+    tripShortName = tripShortName
 )
 
-internal fun toDirectionsTransitLine(resp: DirectionsTransitLineResp) = DirectionsTransitLine(
-    agencies = resp.agencies?.map { toDirectionsTransitAgency(it) }
+internal fun DirectionsTransitLineResp.toData() = DirectionsTransitLine(
+    agencies = agencies?.map { it.toData() }
         ?: throw IllegalArgumentException("agencies is null."),
-    name = resp.name ?: throw IllegalArgumentException("name is null."),
-    color = resp.color,
-    icon = resp.icon?.run { Uri.parse(this) },
-    shortName = resp.shortName,
-    textColor = resp.textColor,
-    url = resp.url?.run { Uri.parse(this) },
-    vehicle = resp.vehicle?.run { toDirectionsTransitVehicle(this) }
+    name = name
+        ?: throw IllegalArgumentException("name is null."),
+    color = color,
+    icon = icon?.run { Uri.parse(this) },
+    shortName = shortName,
+    textColor = textColor,
+    url = url?.run { Uri.parse(this) },
+    vehicle = vehicle?.toData()
 )
 
-internal fun toDirectionsTransitVehicle(resp: DirectionsTransitVehicleResp) = DirectionsTransitVehicle(
-    name = resp.name ?: throw IllegalArgumentException("name is null."),
-    type = resp.type?.run { VehicleType.valueOf(this) } ?: throw IllegalArgumentException("type is null."),
-    icon = resp.icon?.run { Uri.parse(this) },
-    localIcon = resp.localIcon?.run { Uri.parse(this) }
+internal fun DirectionsTransitVehicleResp.toData() = DirectionsTransitVehicle(
+    name = name
+        ?: throw IllegalArgumentException("name is null."),
+    type = VehicleType[type ?: throw IllegalArgumentException("type is null.")],
+    icon = icon?.run { Uri.parse(this) },
+    localIcon = localIcon?.run { Uri.parse(this) }
 )
 
-internal fun toDirectionsTransitAgency(resp: DirectionsTransitAgencyResp) =
-    DirectionsTransitAgency(resp.name, resp.phone, resp.url?.run { Uri.parse(this) })
+internal fun DirectionsTransitAgencyResp.toData() = DirectionsTransitAgency(
+    name = name,
+    phone = phone,
+    url = url?.run { Uri.parse(this) })
 
-internal fun toDirectionsTransitStop(resp: DirectionsTransitStopResp) = DirectionsTransitStop(
-    resp.location?.run {
-        GeoLocation(
-            lat ?: throw IllegalArgumentException("lat is null."),
-            lng ?: throw IllegalArgumentException("lng is null.")
-        )
-    } ?: throw IllegalArgumentException("location is null."),
-    resp.name ?: throw IllegalArgumentException("name is null.")
+internal fun DirectionsTransitStopResp.toData() = DirectionsTransitStop(
+    location = location?.toData()
+        ?: throw IllegalArgumentException("location is null."),
+    name = name ?: throw IllegalArgumentException("name is null.")
 )
 
-internal fun toDirectionsViaWaypoint(resp: DirectionsViaWaypointResp) = DirectionsViaWaypoint(
-    location = resp.location?.run {
-        GeoLocation(
-            lat ?: throw IllegalArgumentException("lat is null."),
-            lng ?: throw IllegalArgumentException("lng is null.")
-        )
-    },
-    stepIndex = resp.stepIndex,
-    stepInterpolation = resp.stepInterpolation
+internal fun DirectionsViaWaypointResp.toData() = DirectionsViaWaypoint(
+    location = location?.toData(),
+    stepIndex = stepIndex,
+    stepInterpolation = stepInterpolation
 )
 
-internal fun toZonedDateTime(resp: TimeZoneTextValueObjectResp): ZonedDateTime = ZonedDateTime.ofInstant(
-    Instant.ofEpochSecond(resp.value?.toLong() ?: throw IllegalArgumentException("value is null.")),
-    ZoneId.of(resp.timeZone)
+internal fun TimeZoneTextValueObjectResp.toData(): ZonedDateTime = ZonedDateTime.ofInstant(
+    Instant.ofEpochSecond(value?.toLong() ?: throw IllegalArgumentException("value is null.")),
+    ZoneId.of(timeZone)
 )
 
-internal fun toLabeledNumber(resp: TextValueObjectResp) = LabeledNumber(
-    resp.text ?: throw IllegalArgumentException("text is null."),
-    resp.value ?: throw IllegalArgumentException("value is null.")
+internal fun TextValueObjectResp.toData() = LabeledNumber(
+    label = text ?: throw IllegalArgumentException("text is null."),
+    number = value ?: throw IllegalArgumentException("value is null.")
 )

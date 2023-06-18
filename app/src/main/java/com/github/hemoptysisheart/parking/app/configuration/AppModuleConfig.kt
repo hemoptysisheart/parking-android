@@ -40,10 +40,9 @@ class AppModuleConfig {
 
     @Provides
     @Singleton
-    fun provideMapsClient(timeProvider: TimeProvider): MapsClient {
+    fun provideMapsClient(): MapsClient {
         val config = PlacesClientConfig(
             key = BuildConfig.GOOGLE_MAPS_PLATFORM_API_KEY,
-            timeProvider = timeProvider,
             useDefaultLocale = true,
             debug = BuildConfig.DEBUG
         )

@@ -8,8 +8,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.hemoptysisheart.parking.app.domain.distance
-import com.github.hemoptysisheart.parking.app.ui.atom.Distance
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewRecommendItem.ITEM_株式会社ＡＡＡ
 import com.github.hemoptysisheart.parking.app.ui.support.LOGGER
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
@@ -19,9 +17,9 @@ import com.github.hemoptysisheart.parking.domain.RecommendItem
 
 @Composable
 fun RecommendedItem(
-    item: RecommendItem<*>,
+    item: RecommendItem,
     here: Location = GeoLocation(0.0, 0.0),
-    onSelect: (RecommendItem<*>) -> Unit = {}
+    onSelect: (RecommendItem) -> Unit = {}
 ) {
     LOGGER.v("#MapRecommendedItem args : item=$item, onSelectRecommend=$onSelect")
 
@@ -35,13 +33,6 @@ fun RecommendedItem(
         item.detail?.let { detail ->
             Spacer(modifier = Modifier.height(2.dp))
             Text(text = detail, color = Color.Gray)
-
-            item.item?.apply {
-                when (this) {
-                    is Location ->
-                        Distance(distance = distance(here))
-                }
-            }
         }
     }
 }

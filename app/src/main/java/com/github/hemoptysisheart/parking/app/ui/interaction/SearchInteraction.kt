@@ -9,7 +9,7 @@ class SearchInteraction(commonInteraction: CommonInteraction) : Interaction by c
         const val ROUTE = NAME
     }
 
-    val gotoSelectRoute: (RecommendItem<*>) -> Unit = {
+    val gotoSelectRoute: (RecommendItem) -> Unit = {
         LOGGER.d("#gotoSelectRoute args : item=$it")
 
         navController.navigate("${SelectRouteInteraction.NAME}/${it.id}")

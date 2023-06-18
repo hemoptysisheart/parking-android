@@ -4,8 +4,8 @@ import com.github.hemoptysisheart.parking.core.client.google.data.PlaceAutocompl
 import com.github.hemoptysisheart.parking.domain.RecommendItem
 
 class RecommendItemPlaceAutocompletePrediction(
-    override val item: PlaceAutocompletePrediction
-) : RecommendItem<PlaceAutocompletePrediction> {
+    val item: PlaceAutocompletePrediction
+) : RecommendItem {
     companion object {
         private const val TAG = "RecommendItemPlaceAutocompletePrediction"
     }

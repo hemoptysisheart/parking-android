@@ -2,11 +2,11 @@ package com.github.hemoptysisheart.parking.app.ui.preview
 
 import com.github.hemoptysisheart.parking.core.client.google.data.TransportationMode
 import com.github.hemoptysisheart.parking.core.model.LocationModel
-import com.github.hemoptysisheart.parking.core.model.LocationModelImpl
 import com.github.hemoptysisheart.parking.core.model.SensorModel
 import com.github.hemoptysisheart.parking.core.model.data.DestinationSearchResult
 import com.github.hemoptysisheart.parking.core.model.data.PlaceSearchResult
 import com.github.hemoptysisheart.parking.core.model.data.RouteSearchResult
+import com.github.hemoptysisheart.parking.core.model.data.TransportMapping
 import com.github.hemoptysisheart.parking.domain.*
 import java.util.*
 
@@ -38,7 +38,7 @@ object PreviewModel {
             return RouteSearchResult(
                 origin,
                 destination,
-                LocationModelImpl.TRANSPORTATION_MODE_MAP[mode]!!,
+                TransportMapping[mode],
                 listOf(
                     PartialRoute(
                         "preview data",

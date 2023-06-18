@@ -3,8 +3,6 @@ package com.github.hemoptysisheart.parking.core.model
 import android.util.Log
 import com.github.hemoptysisheart.parking.core.client.google.MapsClient
 import com.github.hemoptysisheart.parking.core.client.google.data.*
-import com.github.hemoptysisheart.parking.core.client.google.data.AutocompleteParams.Companion.RADIUS_DEFAULT
-import com.github.hemoptysisheart.parking.core.client.google.data.PlaceTypeResultOnly.POINT_OF_INTEREST
 import com.github.hemoptysisheart.parking.core.extension.toPartialRoute
 import com.github.hemoptysisheart.parking.core.model.data.*
 import com.github.hemoptysisheart.parking.core.util.Logger
@@ -52,18 +50,12 @@ class LocationModelImpl(
     override suspend fun searchDestination(center: GeoLocation, query: String): DestinationSearchResult {
         LOGGER.v("#searchDestination args : query=#query")
 
-        val params = AutocompleteParams(
-            input = query,
-            radius = RADIUS_DEFAULT,
-            location = LatLng(center.latitude, center.longitude),
-            locationBias = IpBias,
-            types = listOf(POINT_OF_INTEREST)
-        )
-        val predictions = mapsClient.autocomplete(params)
+        val params = NearbySearchParams(center.longitude, center.latitude, query)
+        val placeList = mapsClient.nearBy(params)
         val result = DestinationSearchResult(
             center = center,
             query = query,
-            predictionList = predictions.map { RecommendItemPlaceAutocompletePrediction(it) }
+            placeList = placeList.map { RecommendItemPlace(it) }
         )
 
         LOGGER.v("#searchDestination return : $result")

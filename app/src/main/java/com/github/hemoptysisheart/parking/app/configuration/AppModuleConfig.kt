@@ -88,8 +88,8 @@ class AppModuleConfig {
 
     @Provides
     @Singleton
-    fun provideLocationModel(mapsClient: MapsClient, timeProvider: TimeProvider): LocationModel {
-        val model = LocationModelImpl(mapsClient, timeProvider)
+    fun provideLocationModel(mapsClient: MapsClient): LocationModel {
+        val model = LocationModelImpl(mapsClient)
         LOGGER.i("#provideLocationModel return : $model")
         return model
     }

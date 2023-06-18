@@ -9,13 +9,10 @@ import com.github.hemoptysisheart.parking.core.extension.toPartialRoute
 import com.github.hemoptysisheart.parking.core.model.data.*
 import com.github.hemoptysisheart.parking.core.util.Logger
 import com.github.hemoptysisheart.parking.domain.*
-import com.github.hemoptysisheart.util.TimeProvider
-import java.time.Instant
 import java.util.*
 
 class LocationModelImpl(
-    private val mapsClient: MapsClient,
-    private val timeProvider: TimeProvider
+    private val mapsClient: MapsClient
 ) : LocationModel {
     companion object {
         private const val TAG = "GeoSearchModelImpl"
@@ -80,7 +77,6 @@ class LocationModelImpl(
     override suspend fun searchParking(destination: Location): PlaceSearchResult {
         LOGGER.v("#searchParking args : destination=$destination")
 
-        val now = timeProvider.instant()
         val params = NearbySearchParams(
             longitude = destination.longitude,
             latitude = destination.latitude,
@@ -115,7 +111,6 @@ class LocationModelImpl(
     ): RouteSearchResult {
         LOGGER.v("#searchRoute args : origin=$origin, destination=$destination, mode=$mode")
 
-        val now = Instant.now()
         val params = DirectionsParams(
             origin = origin.toPlaceDescriptor(),
             destination = destination.toPlaceDescriptor(),
@@ -167,5 +162,5 @@ class LocationModelImpl(
         return route
     }
 
-    override fun toString() = "$TAG(placesClient=$mapsClient, timeProvider=$timeProvider)"
+    override fun toString() = "$TAG(placesClient=$mapsClient)"
 }

@@ -23,4 +23,10 @@ enum class TravelMode {
      * `WALKING` requests calculation for walking via pedestrian paths & sidewalks (where available).
      */
     WALKING;
+
+    companion object {
+        operator fun get(ordinal: Int) = values()[ordinal]
+
+        operator fun get(name: String) = valueOf(name)
+    }
 }

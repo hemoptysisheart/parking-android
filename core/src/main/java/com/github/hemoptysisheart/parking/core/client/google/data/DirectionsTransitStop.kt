@@ -1,7 +1,5 @@
 package com.github.hemoptysisheart.parking.core.client.google.data
 
-import com.github.hemoptysisheart.parking.domain.GeoLocation
-
 /**
  * [DirectionsTransitStop](https://developers.google.com/maps/documentation/directions/get-directions#DirectionsTransitStop)
  */
@@ -12,7 +10,7 @@ data class DirectionsTransitStop(
      * See [LatLngLiteral](https://developers.google.com/maps/documentation/directions/get-directions#LatLngLiteral)
      * for more information.
      */
-    val location: GeoLocation,
+    val location: LatLng,
     /**
      * The name of the transit stop.
      */

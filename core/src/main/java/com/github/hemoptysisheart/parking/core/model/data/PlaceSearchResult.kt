@@ -7,5 +7,5 @@ data class PlaceSearchResult(
     val center: GeoLocation,
     val query: String?,
     val places: List<RecommendItemLocation>,
-    val nextToken: String?
+    val nextToken: String? = null
 )

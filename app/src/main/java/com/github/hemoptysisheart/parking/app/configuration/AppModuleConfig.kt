@@ -40,10 +40,9 @@ class AppModuleConfig {
 
     @Provides
     @Singleton
-    fun provideMapsClient(timeProvider: TimeProvider): MapsClient {
+    fun provideMapsClient(): MapsClient {
         val config = PlacesClientConfig(
             key = BuildConfig.GOOGLE_MAPS_PLATFORM_API_KEY,
-            timeProvider = timeProvider,
             useDefaultLocale = true,
             debug = BuildConfig.DEBUG
         )
@@ -89,8 +88,8 @@ class AppModuleConfig {
 
     @Provides
     @Singleton
-    fun provideLocationModel(mapsClient: MapsClient, timeProvider: TimeProvider): LocationModel {
-        val model = LocationModelImpl(mapsClient, timeProvider)
+    fun provideLocationModel(mapsClient: MapsClient): LocationModel {
+        val model = LocationModelImpl(mapsClient)
         LOGGER.i("#provideLocationModel return : $model")
         return model
     }

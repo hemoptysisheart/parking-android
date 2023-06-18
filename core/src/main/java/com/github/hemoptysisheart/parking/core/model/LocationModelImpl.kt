@@ -1,21 +1,18 @@
 package com.github.hemoptysisheart.parking.core.model
 
 import android.util.Log
-import com.github.hemoptysisheart.parking.core.client.google.*
-import com.github.hemoptysisheart.parking.core.client.google.AutocompleteParams.Companion.RADIUS_DEFAULT
+import com.github.hemoptysisheart.parking.core.client.google.MapsClient
 import com.github.hemoptysisheart.parking.core.client.google.data.*
+import com.github.hemoptysisheart.parking.core.client.google.data.AutocompleteParams.Companion.RADIUS_DEFAULT
 import com.github.hemoptysisheart.parking.core.client.google.data.PlaceTypeResultOnly.POINT_OF_INTEREST
 import com.github.hemoptysisheart.parking.core.extension.toPartialRoute
 import com.github.hemoptysisheart.parking.core.model.data.*
 import com.github.hemoptysisheart.parking.core.util.Logger
 import com.github.hemoptysisheart.parking.domain.*
-import com.github.hemoptysisheart.util.TimeProvider
-import java.time.Instant
 import java.util.*
 
 class LocationModelImpl(
-    private val mapsClient: MapsClient,
-    private val timeProvider: TimeProvider
+    private val mapsClient: MapsClient
 ) : LocationModel {
     companion object {
         private const val TAG = "GeoSearchModelImpl"
@@ -46,11 +43,8 @@ class LocationModelImpl(
 
         if (!locationCache.containsKey(id)) {
             locationCache[id] = LocationGmpPlace(
-                mapsClient.place(
-                    PlaceParams(
-                        LocationGmpPlace.toPlaceId(id)
-                    )
-                ).place
+                place = mapsClient.place(PlaceParams(LocationGmpPlace.toPlaceId(id)))
+                    ?: throw IllegalArgumentException("place does not exist : placeId=${LocationGmpPlace.toPlaceId(id)}")
             )
         }
         val location = locationCache[id]
@@ -62,7 +56,6 @@ class LocationModelImpl(
     override suspend fun searchDestination(center: GeoLocation, query: String): DestinationSearchResult {
         LOGGER.v("#searchDestination args : query=#query")
 
-        val now = timeProvider.instant()
         val params = AutocompleteParams(
             input = query,
             radius = RADIUS_DEFAULT,
@@ -70,11 +63,11 @@ class LocationModelImpl(
             locationBias = IpBias,
             types = listOf(POINT_OF_INTEREST)
         )
-        val resp = mapsClient.autocomplete(params, now)
+        val predictions = mapsClient.autocomplete(params)
         val result = DestinationSearchResult(
             center = center,
             query = query,
-            predictionList = resp.predictions.map { RecommendItemPlaceAutocompletePrediction(it) }
+            predictionList = predictions.map { RecommendItemPlaceAutocompletePrediction(it) }
         )
 
         LOGGER.v("#searchDestination return : $result")
@@ -84,21 +77,19 @@ class LocationModelImpl(
     override suspend fun searchParking(destination: Location): PlaceSearchResult {
         LOGGER.v("#searchParking args : destination=$destination")
 
-        val now = timeProvider.instant()
         val params = NearbySearchParams(
             longitude = destination.longitude,
             latitude = destination.latitude,
             radius = SEARCH_PARKING_RADIUS,
             type = PlaceTypes.PARKING
         )
-        val apiResult = mapsClient.nearBy(params, now)
-        Log.v(TAG, "#searchParking : apiResult=$apiResult")
+        val places = mapsClient.nearBy(params)
+        Log.v(TAG, "#searchParking : places=$places")
 
         val result = PlaceSearchResult(
             GeoLocation(destination.latitude, destination.longitude),
             null,
-            apiResult.places.map { RecommendItemLocation(LocationGmpPlace(it)) },
-            apiResult.nextToken
+            places.map { RecommendItemLocation(LocationGmpPlace(it)) }
         )
 
         LOGGER.v("#searchParking return : $result")
@@ -108,6 +99,7 @@ class LocationModelImpl(
     private fun Location.toPlaceDescriptor() = when (this) {
         is LocationGmpPlace ->
             PlaceIdDescriptor(place.placeId!!)
+
         else ->
             LatLngDescriptor(LatLng(latitude, longitude))
     }
@@ -119,20 +111,19 @@ class LocationModelImpl(
     ): RouteSearchResult {
         LOGGER.v("#searchRoute args : origin=$origin, destination=$destination, mode=$mode")
 
-        val now = Instant.now()
         val params = DirectionsParams(
             origin = origin.toPlaceDescriptor(),
             destination = destination.toPlaceDescriptor(),
             alternatives = false,
             transportationMode = mode
         )
-        val result = mapsClient.directions(params, now)
+        val routes = mapsClient.directions(params)
 
         val route = RouteSearchResult(
             origin = origin,
             destination = destination,
             transport = TRANSPORTATION_MODE_MAP[mode]!!,
-            partialRouteList = result.routes.map { it.toPartialRoute() }
+            partialRouteList = routes.map { it.toPartialRoute() }
         )
         LOGGER.v("#searchRoute return : $route")
         return route
@@ -171,5 +162,5 @@ class LocationModelImpl(
         return route
     }
 
-    override fun toString() = "$TAG(placesClient=$mapsClient, timeProvider=$timeProvider)"
+    override fun toString() = "$TAG(placesClient=$mapsClient)"
 }

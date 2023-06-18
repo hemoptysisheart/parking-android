@@ -1,7 +1,5 @@
 package com.github.hemoptysisheart.parking.core.client.google
 
-import com.github.hemoptysisheart.util.TimeProvider
-import com.github.hemoptysisheart.util.TruncatedTimeProvider
 import java.net.URL
 import java.util.*
 
@@ -23,7 +21,6 @@ class PlacesClientConfig(
      * `true`면 [locale]를 사용한다.
      */
     val useDefaultLocale: Boolean = false,
-    val timeProvider: TimeProvider = TruncatedTimeProvider(),
     val debug: Boolean = false
 ) {
     companion object {
@@ -37,5 +34,5 @@ class PlacesClientConfig(
     }
 
     override fun toString() = "${PlacesClientConfig::class.simpleName}(key=[ PROTECTED ], endpoint=$endpoint, " +
-            "locale=$locale, useDefaultLocale=$useDefaultLocale, timeProvider=$timeProvider, debug=$debug)"
+            "locale=$locale, useDefaultLocale=$useDefaultLocale, debug=$debug)"
 }

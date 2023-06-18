@@ -1,6 +1,5 @@
-package com.github.hemoptysisheart.parking.core.client.google
+package com.github.hemoptysisheart.parking.core.client.google.data
 
-import com.github.hemoptysisheart.parking.core.client.google.data.*
 import java.time.Instant
 import java.util.*
 

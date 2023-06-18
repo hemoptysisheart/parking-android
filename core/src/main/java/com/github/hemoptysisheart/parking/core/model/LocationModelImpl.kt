@@ -2,7 +2,7 @@ package com.github.hemoptysisheart.parking.core.model
 
 import android.util.Log
 import com.github.hemoptysisheart.parking.core.client.google.*
-import com.github.hemoptysisheart.parking.core.client.google.AutocompleteParams.Companion.RADIUS_DEFAULT
+import com.github.hemoptysisheart.parking.core.client.google.data.AutocompleteParams.Companion.RADIUS_DEFAULT
 import com.github.hemoptysisheart.parking.core.client.google.data.*
 import com.github.hemoptysisheart.parking.core.client.google.data.PlaceTypeResultOnly.POINT_OF_INTEREST
 import com.github.hemoptysisheart.parking.core.extension.toPartialRoute

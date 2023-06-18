@@ -1,7 +1,5 @@
-package com.github.hemoptysisheart.parking.core.client.google
+package com.github.hemoptysisheart.parking.core.client.google.data
 
-import com.github.hemoptysisheart.parking.core.client.google.data.Field
-import com.github.hemoptysisheart.parking.core.client.google.data.ReviewSort
 import java.util.*
 
 data class PlaceParams(

@@ -33,8 +33,13 @@ fun SearchPage(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        SearchHeaderTemplate(query, viewModel.onQueryChange, interaction.onBack)
-        SearchResultTemplate(viewModel.here, resultList, interaction.hideSoftwareKeyboard, interaction.gotoSelectRoute)
+        SearchHeaderTemplate(query, viewModel.onQueryChange, interaction::onBack)
+        SearchResultTemplate(
+            viewModel.here,
+            resultList,
+            interaction::hideSoftwareKeyboard,
+            interaction::gotoSelectRoute
+        )
     }
 }
 

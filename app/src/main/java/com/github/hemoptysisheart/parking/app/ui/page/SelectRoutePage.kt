@@ -32,7 +32,7 @@ fun SelectRoutePage(
 
     Box(modifier = Modifier.fillMaxSize()) {
         if (showControl) {
-            SelectRouteHeader(destination = destination, interaction.onBack)
+            SelectRouteHeader(destination = destination, interaction::onBack)
         }
         Column(Modifier.fillMaxSize()) {
             MapTemplate(
@@ -45,7 +45,7 @@ fun SelectRoutePage(
             )
             focusedRoute?.let {
                 if (showControl) {
-                    RouteDetailTemplate(it, Modifier.weight(1f), interaction.gotoNavigation)
+                    RouteDetailTemplate(it, Modifier.weight(1f), interaction::gotoNavigation)
                 }
             }
         }

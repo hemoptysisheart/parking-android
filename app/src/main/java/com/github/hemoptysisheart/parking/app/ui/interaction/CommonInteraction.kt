@@ -18,17 +18,17 @@ class CommonInteraction(
         val LOGGER = Logger(TAG)
     }
 
-    override val onBack: () -> Unit = {
+    override fun onBack() {
         LOGGER.v("#onBack called.")
         navController.popBackStack()
     }
 
-    override val showSoftwareKeyboard: () -> Unit = {
+    override fun showSoftwareKeyboard() {
         LOGGER.v("#showSoftwareKeyboard called.")
         softwareKeyboardController?.show()
     }
 
-    override val hideSoftwareKeyboard: () -> Unit = {
+    override fun hideSoftwareKeyboard() {
         LOGGER.v("#hideSoftwareKeyboard called.")
         softwareKeyboardController?.hide()
     }

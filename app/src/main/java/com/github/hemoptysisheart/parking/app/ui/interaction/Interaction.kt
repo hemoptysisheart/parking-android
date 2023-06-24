@@ -12,16 +12,22 @@ import androidx.navigation.NavHostController
  * - 소프트웨어 키보드 보이기/숨기기.
  */
 interface Interaction {
-    val context:Context
+    val context: Context
 
     val navController: NavHostController
 
     @OptIn(ExperimentalComposeUiApi::class)
     val softwareKeyboardController: SoftwareKeyboardController?
 
-    val onBack: () -> Unit
+    fun onBack()
 
-    val showSoftwareKeyboard: () -> Unit
+    /**
+     * 가상 키보드 숨기기.
+     */
+    fun showSoftwareKeyboard()
 
-    val hideSoftwareKeyboard: () -> Unit
+    /**
+     * 가상 키보드 보이기.
+     */
+    fun hideSoftwareKeyboard()
 }

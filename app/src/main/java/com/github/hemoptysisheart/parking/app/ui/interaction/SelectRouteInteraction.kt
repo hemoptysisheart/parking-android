@@ -5,7 +5,7 @@ import androidx.navigation.navArgument
 import com.github.hemoptysisheart.parking.app.ui.interaction.CommonInteraction.Companion.LOGGER
 import com.github.hemoptysisheart.parking.domain.Route
 
-class SelectRouteInteraction(commonInteraction: CommonInteraction) :Interaction by commonInteraction{
+class SelectRouteInteraction(commonInteraction: CommonInteraction) : Interaction by commonInteraction {
     companion object {
         const val NAME = "SelectRoute"
 
@@ -25,9 +25,9 @@ class SelectRouteInteraction(commonInteraction: CommonInteraction) :Interaction 
         }
     }
 
-    val gotoNavigation: (Route) -> Unit = {
-        LOGGER.d("#gotoNavigation args : route=$it")
+    fun gotoNavigation(route: Route) {
+        LOGGER.d("#gotoNavigation args : route=$route")
 
-        navController.navigate("${NavigationInteraction.NAME}/${it.id}")
+        navController.navigate("${NavigationInteraction.NAME}/${route.id}")
     }
 }

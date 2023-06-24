@@ -4,12 +4,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.github.hemoptysisheart.parking.app.ui.interaction.SearchInteraction
+import com.github.hemoptysisheart.parking.app.ui.interaction.SearchDestinationPageInteraction
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewViewModel.SEARCH_VM
 import com.github.hemoptysisheart.parking.app.ui.preview.commonInteraction
 import com.github.hemoptysisheart.parking.app.ui.support.LOGGER
@@ -18,13 +17,15 @@ import com.github.hemoptysisheart.parking.app.ui.template.search.SearchResultTem
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 import com.github.hemoptysisheart.parking.app.viewmodel.SearchViewModel
 
+/**
+ * [목적지 검색 화면](https://www.figma.com/file/I3LN6lcAVaAXlNba0kBKPN/Parking?type=design&node-id=112-509&mode=design)
+ */
 @Composable
-@OptIn(ExperimentalComposeUiApi::class)
-fun SearchPage(
-    interaction: SearchInteraction,
+fun SearchDestinationPage(
+    interaction: SearchDestinationPageInteraction,
     viewModel: SearchViewModel = hiltViewModel()
 ) {
-    LOGGER.v("#SearchPage args : interaction=$interaction, viewModel=$viewModel")
+    LOGGER.v("#SearchDestinationPage args : interaction=$interaction, viewModel=$viewModel")
 
     val query by viewModel.query.collectAsStateWithLifecycle()
     val resultList by viewModel.resultList.collectAsStateWithLifecycle()
@@ -45,10 +46,10 @@ fun SearchPage(
 
 @Composable
 @Preview(showSystemUi = true, showBackground = true)
-fun Preview_SearchPage() {
+fun Preview_SearchDestinationPage() {
     ParkingTheme {
-        SearchPage(
-            SearchInteraction(commonInteraction()),
+        SearchDestinationPage(
+            SearchDestinationPageInteraction(commonInteraction()),
             SEARCH_VM
         )
     }

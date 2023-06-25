@@ -20,11 +20,6 @@ class LocationModelImpl(
         private val LOGGER = Logger(TAG)
 
         /**
-         * 기본 목적지 검색 반경(100Km).
-         */
-        const val SEARCH_DESTINATION_RADIUS = 100_000
-
-        /**
          * 목적지 주변 주차장 검색 반경 기본값(100m).
          */
         const val SEARCH_PARKING_RADIUS = 100
@@ -58,8 +53,8 @@ class LocationModelImpl(
         val params = NearbySearchParams(
             longitude = center.longitude,
             latitude = center.latitude,
-            radius = SEARCH_DESTINATION_RADIUS,
-            keyword = query
+            keyword = query,
+            rankBy = RankBy.DISTANCE
         )
         val placeList = mapsClient.nearBy(params)
         val result = DestinationSearchResult(

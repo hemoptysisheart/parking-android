@@ -17,8 +17,8 @@ class SearchDestinationPageInteraction(commonInteraction: CommonInteraction) : I
     }
 
     fun gotoSelectRoute(item: RecommendItem) {
-        LOGGER.d("#gotoSelectRoute args : item=$item")
-
-        navController.navigate("${SelectRouteInteraction.NAME}/${item.id}")
+        val route = "${SelectRouteInteraction.NAME}/${item.id}"
+        LOGGER.d("#gotoSelectRoute args : item=$item, route=$route")
+        navController.navigate(route)
     }
 }

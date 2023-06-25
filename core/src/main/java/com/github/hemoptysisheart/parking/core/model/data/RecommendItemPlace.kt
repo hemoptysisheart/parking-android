@@ -6,7 +6,11 @@ import com.github.hemoptysisheart.parking.domain.RecommendItem
 class RecommendItemPlace(
     val place: Place
 ) : RecommendItem {
-    override val id = "RecommendItemPlace/${place.placeId}"
+    companion object {
+        const val ID_PREFIX = "gmp:"
+    }
+
+    override val id = "$ID_PREFIX${place.placeId}"
 
     override val summary: String = place.name
         ?: place.formattedAddress

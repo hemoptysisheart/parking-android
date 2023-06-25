@@ -16,7 +16,7 @@ class LocationModelImpl(
     private val mapsClient: MapsClient
 ) : LocationModel {
     companion object {
-        private const val TAG = "GeoSearchModelImpl"
+        private const val TAG = "LocationModelImpl"
         private val LOGGER = Logger(TAG)
 
         /**
@@ -42,7 +42,7 @@ class LocationModelImpl(
 
         if (!locationCache.containsKey(id)) {
             locationCache[id] = LocationGmpPlace(
-                place = mapsClient.place(PlaceParams(LocationGmpPlace.toPlaceId(id)))
+                place = mapsClient.place(PlaceParams(id.substring(RecommendItemPlace.ID_PREFIX.length)))
                     ?: throw IllegalArgumentException("place does not exist : placeId=${LocationGmpPlace.toPlaceId(id)}")
             )
         }

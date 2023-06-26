@@ -3,6 +3,9 @@ package com.github.hemoptysisheart.parking.core.model.data
 import com.github.hemoptysisheart.parking.core.client.google.data.Place
 import com.github.hemoptysisheart.parking.domain.RecommendItem
 
+/**
+ * Google Maps Platform 추천 장소.
+ */
 class RecommendItemPlace(
     val place: Place
 ) : RecommendItem {
@@ -12,10 +15,27 @@ class RecommendItemPlace(
 
     override val id = "$ID_PREFIX${place.placeId}"
 
-    override val summary: String = place.name
-        ?: place.formattedAddress
-        ?: place.vicinity
-        ?: place.geometry?.location.toString()
+    override var summary: String = ""
+        private set
 
-    override val detail: String = ""
+    override var detail: String = ""
+        private set
+
+    init {
+        val candidates = listOfNotNull(
+            place.name,
+            place.formattedAddress,
+            place.vicinity,
+            place.geometry?.location.toString()
+        )
+
+        if (candidates.isNotEmpty()) {
+            summary = candidates[0]
+        }
+        detail = if (1 < candidates.size) {
+            candidates[1]
+        } else {
+            ""
+        }
+    }
 }

@@ -9,7 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.github.hemoptysisheart.parking.app.ui.page.MainPage
 import com.github.hemoptysisheart.parking.app.ui.page.NavigationPage
-import com.github.hemoptysisheart.parking.app.ui.page.SearchPage
+import com.github.hemoptysisheart.parking.app.ui.page.SearchDestinationPage
 import com.github.hemoptysisheart.parking.app.ui.page.SelectRoutePage
 
 @Composable
@@ -21,7 +21,7 @@ fun NavigationGraph() {
         softwareKeyboardController = LocalSoftwareKeyboardController.current
     )
     val mainInteraction = MainInteraction(commonInteraction)
-    val searchInteraction = SearchInteraction(commonInteraction)
+    val searchDestinationPageInteraction = SearchDestinationPageInteraction(commonInteraction)
     val selectRouteInteraction = SelectRouteInteraction(commonInteraction)
     val navigationInteraction = NavigationInteraction(commonInteraction)
 
@@ -30,8 +30,8 @@ fun NavigationGraph() {
             MainPage(mainInteraction)
         }
 
-        composable(route = SearchInteraction.ROUTE) {
-            SearchPage(searchInteraction)
+        composable(route = SearchDestinationPageInteraction.ROUTE) {
+            SearchDestinationPage(searchDestinationPageInteraction)
         }
 
         composable(route = SelectRouteInteraction.ROUTE, arguments = SelectRouteInteraction.ARGUMENTS) {

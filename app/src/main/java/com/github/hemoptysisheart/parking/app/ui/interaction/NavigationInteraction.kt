@@ -6,7 +6,7 @@ import com.github.hemoptysisheart.parking.app.ui.interaction.CommonInteraction.C
 import java.util.*
 import java.util.Objects.requireNonNull
 
-class NavigationInteraction(commonInteraction: CommonInteraction) :Interaction by commonInteraction{
+class NavigationInteraction(commonInteraction: CommonInteraction) : Interaction by commonInteraction {
     @Suppress("MemberVisibilityCanBePrivate")
     companion object {
         const val NAME = "Navigation"
@@ -29,7 +29,7 @@ class NavigationInteraction(commonInteraction: CommonInteraction) :Interaction b
     /**
      * 안내를 끝내고 초기 화면으로 돌아간다.
      */
-    val onClose: () -> Unit = {
+    fun onClose() {
         navController.navigate(MainInteraction.ROUTE) {
             popUpTo(MainInteraction.ROUTE)
             launchSingleTop = true

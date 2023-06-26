@@ -3,7 +3,7 @@ package com.github.hemoptysisheart.parking.domain
 /**
  * 추천 항목.
  */
-interface RecommendItem<T> {
+interface RecommendItem {
     /**
      * 추천항목([RecommendItem.item])의 ID.
      *
@@ -20,9 +20,4 @@ interface RecommendItem<T> {
      * 상세. 기본 `null`.
      */
     val detail: String?
-
-    /**
-     * 추천 내용.
-     */
-    val item: T
 }

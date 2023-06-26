@@ -1,8 +1,8 @@
 package com.github.hemoptysisheart.parking.domain
 
 class RecommendItemLocation(
-    override val item: Location
-) : RecommendItem<Location> {
+    val item: Location
+) : RecommendItem {
     override val id = item.id
 
     override val summary = item.name

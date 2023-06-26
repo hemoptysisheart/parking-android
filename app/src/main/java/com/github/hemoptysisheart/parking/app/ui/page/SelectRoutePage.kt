@@ -18,6 +18,12 @@ import com.github.hemoptysisheart.parking.app.ui.template.select.SelectRouteHead
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 import com.github.hemoptysisheart.parking.app.viewmodel.SelectRouteViewModel
 
+/**
+ * [경로 선택 화면](https://www.figma.com/file/I3LN6lcAVaAXlNba0kBKPN/Parking?type=design&node-id=505-508&mode=design)
+ *
+ * 목적지를 선택한 후, 가능한 여러 경로를 보여준다.
+ * 각 경로의 정보를 보여주면서 사용자가 선택할 수 있도록 하고, 안내 화면으로 넘어가야 한다.
+ */
 @Composable
 fun SelectRoutePage(
     interaction: SelectRouteInteraction,
@@ -32,7 +38,7 @@ fun SelectRoutePage(
 
     Box(modifier = Modifier.fillMaxSize()) {
         if (showControl) {
-            SelectRouteHeader(destination = destination, interaction.onBack)
+            SelectRouteHeader(destination = destination, interaction::onBack)
         }
         Column(Modifier.fillMaxSize()) {
             MapTemplate(
@@ -45,7 +51,7 @@ fun SelectRoutePage(
             )
             focusedRoute?.let {
                 if (showControl) {
-                    RouteDetailTemplate(it, Modifier.weight(1f), interaction.gotoNavigation)
+                    RouteDetailTemplate(it, Modifier.weight(1f), interaction::gotoNavigation)
                 }
             }
         }

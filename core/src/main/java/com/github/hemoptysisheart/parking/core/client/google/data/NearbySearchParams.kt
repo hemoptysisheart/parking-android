@@ -17,6 +17,11 @@ data class NearbySearchParams(
      */
     val latitude: Double,
     /**
+     * 검색할 위치([longitude], [latitude])의 반경. 미터(meter) 단위.
+     * [radius](https://developers.google.com/maps/documentation/places/web-service/search-nearby#radius)
+     */
+    val radius: Int? = null,
+    /**
      * 검색어.
      * [keyword](https://developers.google.com/maps/documentation/places/web-service/search-nearby#keyword)
      */
@@ -40,11 +45,6 @@ data class NearbySearchParams(
      * [opennow](https://developers.google.com/maps/documentation/places/web-service/search-nearby#opennow)
      */
     val open: Boolean? = null,
-    /**
-     * 검색할 위치([longitude], [latitude])의 반경. 미터(meter) 단위.
-     * [radius](https://developers.google.com/maps/documentation/places/web-service/search-nearby#radius)
-     */
-    val radius: Int? = null,
     val rankBy: RankBy? = null,
     val type: PlaceType? = null
 ) {

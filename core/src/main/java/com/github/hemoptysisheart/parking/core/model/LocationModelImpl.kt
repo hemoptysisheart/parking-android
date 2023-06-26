@@ -3,32 +3,26 @@ package com.github.hemoptysisheart.parking.core.model
 import android.util.Log
 import com.github.hemoptysisheart.parking.core.client.google.MapsClient
 import com.github.hemoptysisheart.parking.core.client.google.data.*
-import com.github.hemoptysisheart.parking.core.client.google.data.AutocompleteParams.Companion.RADIUS_DEFAULT
-import com.github.hemoptysisheart.parking.core.client.google.data.PlaceTypeResultOnly.POINT_OF_INTEREST
 import com.github.hemoptysisheart.parking.core.extension.toPartialRoute
 import com.github.hemoptysisheart.parking.core.model.data.*
 import com.github.hemoptysisheart.parking.core.util.Logger
-import com.github.hemoptysisheart.parking.domain.*
+import com.github.hemoptysisheart.parking.domain.GeoLocation
+import com.github.hemoptysisheart.parking.domain.Location
+import com.github.hemoptysisheart.parking.domain.RecommendItemLocation
+import com.github.hemoptysisheart.parking.domain.Route
 import java.util.*
 
 class LocationModelImpl(
     private val mapsClient: MapsClient
 ) : LocationModel {
     companion object {
-        private const val TAG = "GeoSearchModelImpl"
+        private const val TAG = "LocationModelImpl"
         private val LOGGER = Logger(TAG)
 
         /**
-         * 목적지 주변 주차장 검색 반경 기본값. meter 단위.
+         * 목적지 주변 주차장 검색 반경 기본값(100m).
          */
         const val SEARCH_PARKING_RADIUS = 100
-
-        val TRANSPORTATION_MODE_MAP = mapOf(
-            TransportationMode.WALKING to Transport.WALK,
-            TransportationMode.DRIVING to Transport.DRIVE,
-            TransportationMode.BICYCLING to Transport.BICYCLE,
-            TransportationMode.TRANSIT to Transport.TRANSIT
-        )
     }
 
     /**
@@ -43,7 +37,7 @@ class LocationModelImpl(
 
         if (!locationCache.containsKey(id)) {
             locationCache[id] = LocationGmpPlace(
-                place = mapsClient.place(PlaceParams(LocationGmpPlace.toPlaceId(id)))
+                place = mapsClient.place(PlaceParams(id.substring(RecommendItemPlace.ID_PREFIX.length)))
                     ?: throw IllegalArgumentException("place does not exist : placeId=${LocationGmpPlace.toPlaceId(id)}")
             )
         }
@@ -56,18 +50,17 @@ class LocationModelImpl(
     override suspend fun searchDestination(center: GeoLocation, query: String): DestinationSearchResult {
         LOGGER.v("#searchDestination args : query=#query")
 
-        val params = AutocompleteParams(
-            input = query,
-            radius = RADIUS_DEFAULT,
-            location = LatLng(center.latitude, center.longitude),
-            locationBias = IpBias,
-            types = listOf(POINT_OF_INTEREST)
+        val params = NearbySearchParams(
+            longitude = center.longitude,
+            latitude = center.latitude,
+            keyword = query,
+            rankBy = RankBy.DISTANCE
         )
-        val predictions = mapsClient.autocomplete(params)
+        val placeList = mapsClient.nearBy(params)
         val result = DestinationSearchResult(
             center = center,
             query = query,
-            predictionList = predictions.map { RecommendItemPlaceAutocompletePrediction(it) }
+            placeList = placeList.map { RecommendItemPlace(it) }
         )
 
         LOGGER.v("#searchDestination return : $result")
@@ -122,7 +115,7 @@ class LocationModelImpl(
         val route = RouteSearchResult(
             origin = origin,
             destination = destination,
-            transport = TRANSPORTATION_MODE_MAP[mode]!!,
+            transport = TransportMapping[mode],
             partialRouteList = routes.map { it.toPartialRoute() }
         )
         LOGGER.v("#searchRoute return : $route")

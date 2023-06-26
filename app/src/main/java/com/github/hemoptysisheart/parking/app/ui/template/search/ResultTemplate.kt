@@ -30,9 +30,9 @@ import com.github.hemoptysisheart.parking.domain.RecommendItem
 @Composable
 fun SearchResultTemplate(
     here: Location = GeoLocation(0.0, 0.0),
-    resultList: List<RecommendItem<*>> = listOf(),
+    resultList: List<RecommendItem> = listOf(),
     hideSoftKeyboard: () -> Unit = {},
-    onSelect: (RecommendItem<*>) -> Unit = {}
+    onSelect: (RecommendItem) -> Unit = {}
 ) {
     val state = rememberLazyListState()
     if (state.isScrollInProgress) {

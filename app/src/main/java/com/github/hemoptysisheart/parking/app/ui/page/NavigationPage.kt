@@ -41,8 +41,8 @@ fun NavigationPage(
         Box(modifier = Modifier.fillMaxSize()) {
             HeaderTemplate(
                 route = it,
-                onBack = interaction.onBack,
-                onClose = interaction.onClose,
+                onBack = interaction::onBack,
+                onClose = interaction::onClose,
                 modifier = Modifier
                     .zIndex(10f)
             )

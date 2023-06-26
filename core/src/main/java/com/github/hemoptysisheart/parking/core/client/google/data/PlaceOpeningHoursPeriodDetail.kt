@@ -13,7 +13,7 @@ data class PlaceOpeningHoursPeriodDetail(
 ) {
     @Suppress("MemberVisibilityCanBePrivate")
     companion object {
-        const val TIME_PATTERN = "hhmm"
+        const val TIME_PATTERN = "HHmm"
 
         val TIME_FORMATTER = DateTimeFormatter.ofPattern(TIME_PATTERN)!!
 

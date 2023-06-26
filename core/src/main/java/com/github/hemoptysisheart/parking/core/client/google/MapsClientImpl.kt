@@ -1,8 +1,7 @@
 package com.github.hemoptysisheart.parking.core.client.google
 
 import com.github.hemoptysisheart.parking.core.client.google.data.*
-import com.github.hemoptysisheart.util.logger
-import com.github.hemoptysisheart.util.v
+import com.github.hemoptysisheart.parking.core.util.Logger
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -11,6 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
     companion object {
         private const val TAG = "MapsClientImpl"
+        private val LOGGER = Logger(TAG)
     }
 
     private val key = config.key
@@ -34,7 +34,7 @@ class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
     }
 
     override suspend fun place(params: PlaceParams): Place? {
-        logger.v("#place args : params=$params")
+        LOGGER.v("#place args : params=$params")
 
         val response = api.place(
             key = key,
@@ -46,16 +46,16 @@ class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
             reviewsSort = params.reviewsSort?.code,
             sessionToken = params.sessionToken
         )
-        logger.v("#place : response=$response")
+        LOGGER.v("#place : response=$response")
 
         val place = response.result?.toData()
 
-        logger.v("#place return : $place")
+        LOGGER.v("#place return : $place")
         return place
     }
 
     override suspend fun autocomplete(params: AutocompleteParams): List<PlaceAutocompletePrediction> {
-        logger.v("#autocomplete args : params=$params")
+        LOGGER.v("#autocomplete args : params=$params")
 
         val response = api.autocomplete(
             key = key,
@@ -72,17 +72,17 @@ class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
             strictBounds = params.strictBounds,
             types = params.types?.joinToString("|", "", "") { it.code }
         )
-        logger.v("#autocomplete : response=$response")
+        LOGGER.v("#autocomplete : response=$response")
 
         val predictions = response.predictions?.filter { null != it.placeId }?.map { it.toData() }
             ?: throw IllegalArgumentException("predictions is null.")
 
-        logger.v("#autocomplete return : $predictions")
+        LOGGER.v("#autocomplete return : $predictions")
         return predictions
     }
 
     override suspend fun nearBy(params: NearbySearchParams): List<Place> {
-        logger.v { "#nearBy args : params=$params" }
+        LOGGER.v("#nearBy args : params=$params")
 
         val response = api.nearBy(
             keyword = params.keyword,
@@ -97,16 +97,16 @@ class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
             type = params.type?.code,
             key = key
         )
-        logger.v { "#nearBy : response=$response" }
+        LOGGER.v("#nearBy : response=$response")
 
         val places = response.results!!.map { it.toData() }
 
-        logger.v { "#nearBy return : $places" }
+        LOGGER.v("#nearBy return : $places")
         return places
     }
 
     override suspend fun directions(params: DirectionsParams): List<DirectionsRoute> {
-        logger.v { "#directions args : params=$params" }
+        LOGGER.v("#directions args : params=$params")
 
         val response = api.direction(
             key = key,
@@ -123,11 +123,11 @@ class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
             transitRoutingPreference = params.transitRoutingPreference?.code,
             units = params.unit?.code,
         )
-        logger.v { "#directions : response=$response" }
+        LOGGER.v("#directions : response=$response")
 
         val routes = response.routes!!.map { it.toData() }
 
-        logger.v { "#directions return : $routes" }
+        LOGGER.v("#directions return : $routes")
         return routes
     }
 

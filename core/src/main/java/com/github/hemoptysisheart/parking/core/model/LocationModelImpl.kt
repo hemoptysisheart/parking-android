@@ -11,8 +11,9 @@ import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.domain.RecommendItemLocation
 import com.github.hemoptysisheart.parking.domain.Route
 import java.util.*
+import javax.inject.Inject
 
-class LocationModelImpl(
+class LocationModelImpl @Inject constructor(
     private val mapsClient: MapsClient
 ) : LocationModel {
     companion object {

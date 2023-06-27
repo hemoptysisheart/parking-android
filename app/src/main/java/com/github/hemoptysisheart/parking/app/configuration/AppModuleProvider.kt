@@ -24,7 +24,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class AppModuleConfig {
+class AppModuleProvider {
     companion object {
         private const val TAG = "AppModuleConfig"
         private val LOGGER = Logger(TAG)
@@ -83,14 +83,6 @@ class AppModuleConfig {
         val model = SensorModelImpl(client)
 
         LOGGER.i("#provideSensorModel return : $model")
-        return model
-    }
-
-    @Provides
-    @Singleton
-    fun provideLocationModel(mapsClient: MapsClient): LocationModel {
-        val model = LocationModelImpl(mapsClient)
-        LOGGER.i("#provideLocationModel return : $model")
         return model
     }
 }

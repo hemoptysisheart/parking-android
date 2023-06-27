@@ -24,7 +24,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class AppModuleConfig {
+class AppModuleProvider {
     companion object {
         private const val TAG = "AppModuleConfig"
         private val LOGGER = Logger(TAG)

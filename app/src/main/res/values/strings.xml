@@ -40,7 +40,7 @@
     <string name="unit_kilo_meter">%s Km</string>
     <string name="unit_distance_known">\?</string>
 
-    <string name="label_welcome_message">운전 하면\n%s</string>
+    <string name="label_welcome_message">운전 할 땐\n%s부터</string>
 
     <string name="select_route_destination_marker_description">목적지</string>
     <string name="select_route_parking_marker_focused_description">선택한 주차장</string>

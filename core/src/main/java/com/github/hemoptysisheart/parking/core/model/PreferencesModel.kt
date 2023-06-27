@@ -139,7 +139,7 @@ class PreferencesModel(
             const val LAST_USED_AT = "$TAG.lastUsedAt"
         }
 
-        override var bootUpShow = sharedPreferences.getBoolean(BOOT_UP_SHOW, false)
+        override var bootUpShow = sharedPreferences.getBoolean(BOOT_UP_SHOW, true)
             set(value) {
                 LOGGER.v("#bootUpShow set : $value")
                 editor.putBoolean(BOOT_UP_SHOW, value)

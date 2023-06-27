@@ -85,12 +85,4 @@ class AppModuleProvider {
         LOGGER.i("#provideSensorModel return : $model")
         return model
     }
-
-    @Provides
-    @Singleton
-    fun provideLocationModel(mapsClient: MapsClient): LocationModel {
-        val model = LocationModelImpl(mapsClient)
-        LOGGER.i("#provideLocationModel return : $model")
-        return model
-    }
 }

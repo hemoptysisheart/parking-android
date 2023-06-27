@@ -13,4 +13,9 @@ interface Preferences {
      * 실행 설정.
      */
     val execution: ExecutionPreferences
+
+    /**
+     * 앱 가이드 설정.
+     */
+    val wizard: WizardPreferences
 }

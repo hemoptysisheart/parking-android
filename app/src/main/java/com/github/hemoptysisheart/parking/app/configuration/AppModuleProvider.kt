@@ -9,8 +9,6 @@ import com.github.hemoptysisheart.parking.core.client.google.MapsClientImpl
 import com.github.hemoptysisheart.parking.core.client.google.PlacesClientConfig
 import com.github.hemoptysisheart.parking.core.model.*
 import com.github.hemoptysisheart.parking.core.util.Logger
-import com.github.hemoptysisheart.parking.domain.ExecutionPreferences
-import com.github.hemoptysisheart.parking.domain.InstallPreferences
 import com.github.hemoptysisheart.parking.domain.Preferences
 import com.github.hemoptysisheart.util.TimeProvider
 import com.github.hemoptysisheart.util.TruncatedTimeProvider
@@ -70,11 +68,15 @@ class AppModuleProvider {
 
     @Provides
     @Singleton
-    fun provideExecutionPreferencesModel(preferences: Preferences): ExecutionPreferences = preferences.execution
+    fun provideExecutionPreferencesModel(preferences: Preferences) = preferences.execution
 
     @Provides
     @Singleton
-    fun provideInstallPreferencesModel(preferences: Preferences): InstallPreferences = preferences.install
+    fun provideInstallPreferencesModel(preferences: Preferences) = preferences.install
+
+    @Provides
+    @Singleton
+    fun provideWizardPreferences(preferences: Preferences) = preferences.wizard
 
     @Provides
     @Singleton

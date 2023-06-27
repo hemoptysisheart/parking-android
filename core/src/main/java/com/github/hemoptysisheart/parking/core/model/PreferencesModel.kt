@@ -5,6 +5,7 @@ import com.github.hemoptysisheart.parking.core.util.Logger
 import com.github.hemoptysisheart.parking.domain.ExecutionPreferences
 import com.github.hemoptysisheart.parking.domain.InstallPreferences
 import com.github.hemoptysisheart.parking.domain.Preferences
+import com.github.hemoptysisheart.parking.domain.WizardPreferences
 import com.github.hemoptysisheart.util.TimeProvider
 import java.time.Instant
 import java.util.*
@@ -125,15 +126,55 @@ class PreferencesModel(
                 "foregroundCount=$foregroundCount, lastForegroundAt=$lastForegroundAt)"
     }
 
+    class WizardPreferencesModel(
+        sharedPreferences: SharedPreferences,
+        private val editor: SharedPreferences.Editor
+    ) : WizardPreferences {
+        companion object {
+            private const val TAG = "${PreferencesModel.TAG}.WizardPreferencesModel"
+            private val LOGGER = Logger(TAG)
+
+            const val BOOT_UP_SHOW = "$TAG.bootUpShow"
+            const val USED_COUNT = "$TAG.usedCount"
+            const val LAST_USED_AT = "$TAG.lastUsedAt"
+        }
+
+        override var bootUpShow = sharedPreferences.getBoolean(BOOT_UP_SHOW, false)
+            set(value) {
+                LOGGER.v("#bootUpShow set : $value")
+                editor.putBoolean(BOOT_UP_SHOW, value)
+                    .apply()
+                field = value
+            }
+        override var usedCount = sharedPreferences.getInt(USED_COUNT, 0)
+            set(value) {
+                LOGGER.v("#usedCount set : $value")
+                editor.putInt(USED_COUNT, value)
+                    .apply()
+                field = value
+            }
+        override var lastUsedAt = Instant.ofEpochMilli(sharedPreferences.getLong(LAST_USED_AT, 0L))
+            set(value) {
+                LOGGER.v("#lastUsedAt set : $value")
+                editor.putLong(LAST_USED_AT, value.toEpochMilli())
+                    .apply()
+                field = value
+            }
+
+        override fun toString() = "$TAG(bootUpShow=$bootUpShow, showCount=$usedCount, lastUsedAt=$lastUsedAt)"
+    }
+
     private val editor = sharedPreferences.edit()
 
     override val install = InstallPreferencesModel(sharedPreferences, editor)
 
     override val execution = ExecutionPreferencesModel(sharedPreferences, timeProvider, editor)
 
+    override val wizard = WizardPreferencesModel(sharedPreferences, editor)
+
     init {
         editor.commit()
     }
 
-    override fun toString() = "$TAG(install=$install, execution=$execution)"
+    override fun toString() = "$TAG(install=$install, execution=$execution, wizard=$wizard)"
 }

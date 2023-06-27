@@ -10,8 +10,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.github.hemoptysisheart.parking.app.ui.molecule.map.DestinationMarker
 import com.github.hemoptysisheart.parking.app.ui.molecule.map.ParkingMarker
 import com.github.hemoptysisheart.parking.app.ui.molecule.map.RouteOverview
-import com.github.hemoptysisheart.parking.app.ui.preview.PreviewLocation
-import com.github.hemoptysisheart.parking.app.ui.preview.PreviewRoute
+import com.github.hemoptysisheart.parking.app.ui.preview.LOCATION_신주쿠역
+import com.github.hemoptysisheart.parking.app.ui.preview.ROUTE_新宿駅_패밀리마트_카부키쵸키타점
 import com.github.hemoptysisheart.parking.app.ui.support.LOGGER
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 import com.github.hemoptysisheart.parking.core.extension.latLng
@@ -61,6 +61,6 @@ fun MapTemplate(
 @Preview(showBackground = true)
 fun Preview_MapTemplate() {
     ParkingTheme {
-        MapTemplate(PreviewLocation.LOCATION_신주쿠역, PreviewRoute.ROUTE_新宿駅_패밀리마트_카부키쵸키타점)
+        MapTemplate(LOCATION_신주쿠역, ROUTE_新宿駅_패밀리마트_카부키쵸키타점)
     }
 }

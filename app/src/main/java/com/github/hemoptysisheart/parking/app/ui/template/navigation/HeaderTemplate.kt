@@ -13,7 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.hemoptysisheart.parking.app.ui.molecule.common.BackButton
 import com.github.hemoptysisheart.parking.app.ui.molecule.common.CloseButton
-import com.github.hemoptysisheart.parking.app.ui.preview.PreviewRoute
+import com.github.hemoptysisheart.parking.app.ui.preview.ROUTE_新宿駅_패밀리마트_카부키쵸키타점
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 import com.github.hemoptysisheart.parking.domain.Route
 
@@ -41,6 +41,6 @@ fun HeaderTemplate(
 @Preview(showBackground = true)
 fun Preview_HeaderTemplate() {
     ParkingTheme {
-        HeaderTemplate(PreviewRoute.ROUTE_新宿駅_패밀리마트_카부키쵸키타점)
+        HeaderTemplate(ROUTE_新宿駅_패밀리마트_카부키쵸키타점)
     }
 }

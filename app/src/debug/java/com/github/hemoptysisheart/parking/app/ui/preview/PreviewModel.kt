@@ -10,55 +10,53 @@ import com.github.hemoptysisheart.parking.core.model.data.TransportMapping
 import com.github.hemoptysisheart.parking.domain.*
 import java.util.*
 
-object PreviewModel {
-    val SENSOR_MODEL = object : SensorModel {
-        override val location: GeoLocation = GeoLocation(37.5638354, 126.9040477)
+val SENSOR_MODEL = object : SensorModel {
+    override val location: GeoLocation = GeoLocation(37.5638354, 126.9040477)
 
-        override fun addLocationCallback(key: Any, callback: (GeoLocation) -> Unit) {}
+    override fun addLocationCallback(key: Any, callback: (GeoLocation) -> Unit) {}
 
-        override fun removeLocationCallback(key: Any) {}
+    override fun removeLocationCallback(key: Any) {}
+}
+
+val LOCATION_MODEL = object : LocationModel {
+    override suspend fun searchDestination(center: GeoLocation, query: String): DestinationSearchResult {
+        return DestinationSearchResult(center, query, listOf())
     }
 
-    val LOCATION_MODEL = object : LocationModel {
-        override suspend fun searchDestination(center: GeoLocation, query: String): DestinationSearchResult {
-            return DestinationSearchResult(center, query, listOf())
-        }
+    override suspend fun read(id: String): Location? = null
 
-        override suspend fun read(id: String): Location? = null
+    override suspend fun searchParking(destination: Location): PlaceSearchResult {
+        return PlaceSearchResult(GeoLocation(destination.latitude, destination.longitude), null, listOf(), null)
+    }
 
-        override suspend fun searchParking(destination: Location): PlaceSearchResult {
-            return PlaceSearchResult(GeoLocation(destination.latitude, destination.longitude), null, listOf(), null)
-        }
-
-        override suspend fun searchRoute(
-            origin: Location,
-            destination: Location,
-            mode: TransportationMode
-        ): RouteSearchResult {
-            return RouteSearchResult(
-                origin,
-                destination,
-                TransportMapping[mode],
-                listOf(
-                    PartialRoute(
-                        "preview data",
-                        GeoBounds(
-                            northEast = GeoLocation(35.6982605, 139.7074366),
-                            southWest = GeoLocation(35.6896586, 139.7028543)
-                        ),
-                        listOf(),   // TODO 내용 채우기.
-                        listOf()    // TODO 내용 채우기.
-                    )
+    override suspend fun searchRoute(
+        origin: Location,
+        destination: Location,
+        mode: TransportationMode
+    ): RouteSearchResult {
+        return RouteSearchResult(
+            origin,
+            destination,
+            TransportMapping[mode],
+            listOf(
+                PartialRoute(
+                    "preview data",
+                    GeoBounds(
+                        northEast = GeoLocation(35.6982605, 139.7074366),
+                        southWest = GeoLocation(35.6896586, 139.7028543)
+                    ),
+                    listOf(),   // TODO 내용 채우기.
+                    listOf()    // TODO 내용 채우기.
                 )
             )
-        }
+        )
+    }
 
-        override suspend fun searchRoute(origin: Location, destination: Location): List<Route> {
-            TODO("Not yet implemented")
-        }
+    override suspend fun searchRoute(origin: Location, destination: Location): List<Route> {
+        TODO("Not yet implemented")
+    }
 
-        override suspend fun read(id: UUID): Route? {
-            TODO("Not yet implemented")
-        }
+    override suspend fun read(id: UUID): Route? {
+        TODO("Not yet implemented")
     }
 }

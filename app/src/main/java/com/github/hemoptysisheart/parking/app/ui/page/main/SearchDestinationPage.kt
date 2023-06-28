@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.parking.app.ui.page
+package com.github.hemoptysisheart.parking.app.ui.page.main
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.github.hemoptysisheart.parking.app.ui.interaction.SearchDestinationPageInteraction
+import com.github.hemoptysisheart.parking.app.ui.interaction.main.SearchDestinationPageInteraction
 import com.github.hemoptysisheart.parking.app.ui.preview.SEARCH_VM
 import com.github.hemoptysisheart.parking.app.ui.preview.commonInteraction
 import com.github.hemoptysisheart.parking.app.ui.support.LOGGER

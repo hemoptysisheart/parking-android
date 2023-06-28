@@ -2,8 +2,8 @@ package com.github.hemoptysisheart.parking.app.ui.preview
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.SavedStateHandle
-import com.github.hemoptysisheart.parking.app.ui.interaction.NavigationInteraction
-import com.github.hemoptysisheart.parking.app.ui.interaction.SelectRouteInteraction
+import com.github.hemoptysisheart.parking.app.ui.interaction.main.NavigationInteraction
+import com.github.hemoptysisheart.parking.app.ui.interaction.main.SelectRouteInteraction
 import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.NavigationViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.SearchViewModel

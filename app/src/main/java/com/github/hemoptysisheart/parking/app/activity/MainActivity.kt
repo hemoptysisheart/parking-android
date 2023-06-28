@@ -3,7 +3,7 @@ package com.github.hemoptysisheart.parking.app.activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.github.hemoptysisheart.parking.app.ui.interaction.MainNavigationGraph
+import com.github.hemoptysisheart.parking.app.ui.interaction.main.MainNavigationGraph
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 import com.github.hemoptysisheart.parking.core.logging.logArgsD
 import dagger.hilt.android.AndroidEntryPoint

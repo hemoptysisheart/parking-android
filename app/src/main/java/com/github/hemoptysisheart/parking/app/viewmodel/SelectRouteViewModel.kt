@@ -3,7 +3,7 @@ package com.github.hemoptysisheart.parking.app.viewmodel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.hemoptysisheart.parking.app.ui.interaction.SelectRouteInteraction
+import com.github.hemoptysisheart.parking.app.ui.interaction.main.SelectRouteInteraction
 import com.github.hemoptysisheart.parking.core.model.LocationModel
 import com.github.hemoptysisheart.parking.core.model.SensorModel
 import com.github.hemoptysisheart.parking.core.util.Logger

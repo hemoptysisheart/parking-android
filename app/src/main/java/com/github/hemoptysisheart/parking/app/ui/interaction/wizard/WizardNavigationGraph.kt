@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.parking.app.ui.interaction
+package com.github.hemoptysisheart.parking.app.ui.interaction.wizard
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -7,11 +7,12 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.github.hemoptysisheart.parking.app.ui.page.InstructionPage
+import com.github.hemoptysisheart.parking.app.ui.interaction.CommonInteraction
+import com.github.hemoptysisheart.parking.app.ui.page.wizard.InstructionPage
 
 @Composable
 @OptIn(ExperimentalComposeUiApi::class)
-fun WizardInteractionGraph() {
+fun WizardNavigationGraph() {
     val commonInteraction = CommonInteraction(
         context = LocalContext.current,
         navController = rememberNavController(),

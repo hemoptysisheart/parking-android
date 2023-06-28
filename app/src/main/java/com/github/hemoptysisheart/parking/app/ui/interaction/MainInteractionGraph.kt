@@ -14,7 +14,7 @@ import com.github.hemoptysisheart.parking.app.ui.page.SelectRoutePage
 
 @Composable
 @OptIn(ExperimentalComposeUiApi::class)
-fun NavigationGraph() {
+fun MainNavigationGraph() {
     val commonInteraction = CommonInteraction(
         context = LocalContext.current,
         navController = rememberNavController(),

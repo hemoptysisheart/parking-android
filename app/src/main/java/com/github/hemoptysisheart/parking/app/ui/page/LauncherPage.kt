@@ -43,7 +43,8 @@ fun LauncherPage(
                 modifier = Modifier.fillMaxWidth(),
                 fontSize = 44.sp,
                 fontWeight = FontWeight.ExtraBold,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                lineHeight = 60.sp
             )
         }
     }

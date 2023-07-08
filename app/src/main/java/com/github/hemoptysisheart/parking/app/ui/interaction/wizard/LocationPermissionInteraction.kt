@@ -4,12 +4,12 @@ import com.github.hemoptysisheart.parking.app.ui.interaction.CommonInteraction
 import com.github.hemoptysisheart.parking.app.ui.interaction.Interaction
 import com.github.hemoptysisheart.parking.core.util.Logger
 
-class InstructionInteraction(commonInteraction: CommonInteraction) : Interaction by commonInteraction {
+class LocationPermissionInteraction(commonInteraction: CommonInteraction) : Interaction by commonInteraction {
     companion object {
-        private const val TAG = "InstructionInteraction"
+        private const val TAG = "LocationPermissionInteraction"
         private val LOGGER = Logger(TAG)
 
-        const val NAME = "wizard/instruction"
+        const val NAME = "wizard/location"
 
         const val ROUTE_PATTERN = NAME
     }
@@ -20,7 +20,5 @@ class InstructionInteraction(commonInteraction: CommonInteraction) : Interaction
 
     fun next() {
         LOGGER.d("#next called.")
-
-        navController.navigate(LocationPermissionInteraction.ROUTE_PATTERN)
     }
 }

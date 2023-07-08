@@ -8,7 +8,33 @@ import com.github.hemoptysisheart.parking.core.model.data.PlaceSearchResult
 import com.github.hemoptysisheart.parking.core.model.data.RouteSearchResult
 import com.github.hemoptysisheart.parking.core.model.data.TransportMapping
 import com.github.hemoptysisheart.parking.domain.*
+import com.github.hemoptysisheart.util.truncateToMillis
+import java.time.Instant
 import java.util.*
+
+val INSTALL_PREFERENCES_MODEL = object : InstallPreferences {
+    override val installId: UUID = UUID.randomUUID()
+}
+
+val EXECUTION_PREFERENCES_MODEL = object : ExecutionPreferences {
+    override var initStartAt: Instant = Instant.now().truncateToMillis()
+    override var coldStartCount: Long = 1L
+    override var lastColdStartAt: Instant = Instant.now()
+    override var foregroundCount: Long = 1L
+    override var lastForegroundAt: Instant = Instant.now()
+}
+
+val WIZARD_PREFERENCES_MODEL = object : WizardPreferences {
+    override var bootUpShow = true
+    override var usedCount = 1
+    override var lastUsedAt = Instant.now().truncateToMillis()
+}
+
+val PREFERENCES_MODEL = object : Preferences {
+    override val install = INSTALL_PREFERENCES_MODEL
+    override val execution = EXECUTION_PREFERENCES_MODEL
+    override val wizard = WIZARD_PREFERENCES_MODEL
+}
 
 val SENSOR_MODEL = object : SensorModel {
     override val location: GeoLocation = GeoLocation(37.5638354, 126.9040477)

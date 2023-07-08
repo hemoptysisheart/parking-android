@@ -22,6 +22,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.github.hemoptysisheart.parking.R
 import com.github.hemoptysisheart.parking.app.activity.MainActivity
 import com.github.hemoptysisheart.parking.app.activity.WizardActivity
+import com.github.hemoptysisheart.parking.app.ui.preview.LAUNCHER_VM
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 import com.github.hemoptysisheart.parking.app.viewmodel.LauncherViewModel
 import kotlinx.coroutines.delay
@@ -63,6 +64,6 @@ fun LauncherPage(
 @Preview(showSystemUi = true, showBackground = true)
 fun Preview_LauncherPage() {
     ParkingTheme {
-        LauncherPage()
+        LauncherPage(LAUNCHER_VM)
     }
 }

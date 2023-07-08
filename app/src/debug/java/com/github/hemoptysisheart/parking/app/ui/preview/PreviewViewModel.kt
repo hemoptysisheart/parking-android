@@ -4,13 +4,12 @@ import android.annotation.SuppressLint
 import androidx.lifecycle.SavedStateHandle
 import com.github.hemoptysisheart.parking.app.ui.interaction.main.NavigationInteraction
 import com.github.hemoptysisheart.parking.app.ui.interaction.main.SelectRouteInteraction
-import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel
-import com.github.hemoptysisheart.parking.app.viewmodel.NavigationViewModel
-import com.github.hemoptysisheart.parking.app.viewmodel.SearchViewModel
-import com.github.hemoptysisheart.parking.app.viewmodel.SelectRouteViewModel
+import com.github.hemoptysisheart.parking.app.viewmodel.*
 import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.domain.Route
 import kotlinx.coroutines.flow.MutableStateFlow
+
+val LAUNCHER_VM = LauncherViewModel(WIZARD_PREFERENCES_MODEL)
 
 val MAIN_VM = MainViewModel(SENSOR_MODEL)
 

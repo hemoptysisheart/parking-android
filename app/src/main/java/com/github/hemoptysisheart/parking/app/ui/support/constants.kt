@@ -8,7 +8,7 @@ const val TAG_COMPOSE = "Compose"
 /**
  * [Composable]용 로거.
  */
-val LOGGER = Logger(TAG_COMPOSE)
+val LOGGER_COMPOSE = Logger(TAG_COMPOSE)
 
 const val TAG_SUPPORT = "Support"
 val LOGGER_SUPPORT = Logger(TAG_SUPPORT)

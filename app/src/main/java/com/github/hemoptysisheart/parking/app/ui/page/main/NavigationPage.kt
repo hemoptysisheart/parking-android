@@ -12,11 +12,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.hemoptysisheart.parking.app.ui.interaction.main.NavigationInteraction
 import com.github.hemoptysisheart.parking.app.ui.preview.NAVIGATION_VM
 import com.github.hemoptysisheart.parking.app.ui.preview.commonInteraction
-import com.github.hemoptysisheart.parking.app.ui.support.LOGGER
 import com.github.hemoptysisheart.parking.app.ui.template.navigation.HeaderTemplate
 import com.github.hemoptysisheart.parking.app.ui.template.navigation.MapTemplate
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 import com.github.hemoptysisheart.parking.app.viewmodel.NavigationViewModel
+import com.github.hemoptysisheart.parking.app.ui.support.LOGGER_COMPOSE as LOGGER
 
 @Composable
 fun NavigationPage(

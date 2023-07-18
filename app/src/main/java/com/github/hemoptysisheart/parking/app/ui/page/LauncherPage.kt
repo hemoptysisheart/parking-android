@@ -26,6 +26,7 @@ import com.github.hemoptysisheart.parking.app.ui.preview.LAUNCHER_VM
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 import com.github.hemoptysisheart.parking.app.viewmodel.LauncherViewModel
 import kotlinx.coroutines.delay
+import com.github.hemoptysisheart.parking.app.ui.support.LOGGER_COMPOSE as LOGGER
 
 @Composable
 fun LauncherPage(
@@ -56,6 +57,7 @@ fun LauncherPage(
         } else {
             Intent(context, MainActivity::class.java)
         }
+        LOGGER.i("#LauncherPage move to : intent=$intent")
         context.startActivity(intent)
     }
 }

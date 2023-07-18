@@ -13,13 +13,14 @@ import com.github.hemoptysisheart.parking.core.extension.latLng
 import com.github.hemoptysisheart.parking.domain.Route
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.rememberMarkerState
+import com.github.hemoptysisheart.parking.app.ui.support.LOGGER_COMPOSE as LOGGER
 
 @Composable
 fun ParkingMarker(
     context: Context,
     route: Route,
     focused: Boolean,
-    onSelect: (Route) -> Unit = { LOGGER.v("#onSelect args : route=$it") }
+    onSelect: (Route) -> Unit = { }
 ) {
     LOGGER.v("#ParkingMarker args : context=$context, route=$route, focused=$focused, onSelect=$onSelect")
     if (focused) {

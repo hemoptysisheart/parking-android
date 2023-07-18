@@ -9,9 +9,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.hemoptysisheart.parking.app.ui.interaction.wizard.InstructionInteraction
 import com.github.hemoptysisheart.parking.app.ui.preview.commonInteraction
-import com.github.hemoptysisheart.parking.app.ui.support.LOGGER
 import com.github.hemoptysisheart.parking.app.ui.template.wizard.FooterTemplate
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
+import com.github.hemoptysisheart.parking.app.ui.support.LOGGER_COMPOSE as LOGGER
 
 @Composable
 fun InstructionPage(

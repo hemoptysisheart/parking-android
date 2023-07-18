@@ -11,12 +11,12 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.hemoptysisheart.parking.app.ui.interaction.main.SelectRouteInteraction
 import com.github.hemoptysisheart.parking.app.ui.preview.SELECT_ROUTE_VM
 import com.github.hemoptysisheart.parking.app.ui.preview.commonInteraction
-import com.github.hemoptysisheart.parking.app.ui.support.LOGGER
 import com.github.hemoptysisheart.parking.app.ui.template.select.MapTemplate
 import com.github.hemoptysisheart.parking.app.ui.template.select.RouteDetailTemplate
 import com.github.hemoptysisheart.parking.app.ui.template.select.SelectRouteHeader
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 import com.github.hemoptysisheart.parking.app.viewmodel.SelectRouteViewModel
+import com.github.hemoptysisheart.parking.app.ui.support.LOGGER_COMPOSE as LOGGER
 
 /**
  * [경로 선택 화면](https://www.figma.com/file/I3LN6lcAVaAXlNba0kBKPN/Parking?type=design&node-id=505-508&mode=design)

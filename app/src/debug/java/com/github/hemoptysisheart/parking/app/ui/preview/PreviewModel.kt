@@ -2,6 +2,7 @@ package com.github.hemoptysisheart.parking.app.ui.preview
 
 import com.github.hemoptysisheart.parking.core.client.google.data.TransportationMode
 import com.github.hemoptysisheart.parking.core.model.LocationModel
+import com.github.hemoptysisheart.parking.core.model.PermissionModel
 import com.github.hemoptysisheart.parking.core.model.SensorModel
 import com.github.hemoptysisheart.parking.core.model.data.DestinationSearchResult
 import com.github.hemoptysisheart.parking.core.model.data.PlaceSearchResult
@@ -85,4 +86,8 @@ val LOCATION_MODEL = object : LocationModel {
     override suspend fun read(id: UUID): Route? {
         TODO("Not yet implemented")
     }
+}
+
+val PERMISSION_MODEL = object : PermissionModel {
+    override var location: Boolean = false
 }

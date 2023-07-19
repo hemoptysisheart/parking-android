@@ -87,4 +87,12 @@ class AppModuleProvider {
         LOGGER.i("#provideSensorModel return : $model")
         return model
     }
+
+    @Provides
+    @Singleton
+    fun providePermissionModel(@ApplicationContext context: Context): PermissionModel {
+        val model = PermissionModelImpl(context)
+        LOGGER.i("#providePermissionModel return : $model")
+        return model
+    }
 }

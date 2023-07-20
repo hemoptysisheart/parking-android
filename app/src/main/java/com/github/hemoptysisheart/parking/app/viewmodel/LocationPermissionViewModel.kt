@@ -18,8 +18,12 @@ class LocationPermissionViewModel @Inject constructor(
 
     val permission = MutableStateFlow(permissionModel.location)
 
-    fun requestLocationPermission() {
-        LOGGER.d("#requestLocationPermission called.")
+    fun refreshPermission() {
+        LOGGER.d("#refreshPermission called.")
+
+        launch {
+            permission.emit(permissionModel.location)
+        }
     }
 
     override fun onResume(owner: LifecycleOwner) {

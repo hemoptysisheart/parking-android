@@ -1,10 +1,15 @@
 package com.github.hemoptysisheart.parking.app.ui.page.wizard
 
+import android.Manifest
+import androidx.activity.compose.ManagedActivityResultLauncher
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -28,19 +33,47 @@ fun LocationPermissionPage(
     LOGGER.v("#LocationPermissionPage args : interaction=$interaction, viewModel=$viewModel")
 
     val permission by viewModel.permission.collectAsStateWithLifecycle()
+    val requestPermission = rememberRequestPermission(
+        permission = Manifest.permission.ACCESS_FINE_LOCATION,
+        onGranted = viewModel::refreshPermission
+    )
 
     LocationPermissionPageContent(
         interaction = interaction,
         permission = permission,
-        requestLocationPermission = viewModel::requestLocationPermission
+        onClickRequestPermission = requestPermission::request
     )
+}
+
+@Composable
+fun rememberRequestPermission(
+    permission: String,
+    onGranted: () -> Unit,
+    onDenied: () -> Unit={}
+): RequestPermission {
+    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) {
+        if (it) {
+            onGranted()
+        } else {
+            onDenied()
+        }
+    }
+
+    return remember(permission, onGranted, onDenied) { RequestPermission(launcher, permission) }
+}
+
+class RequestPermission(
+    private val launcher: ManagedActivityResultLauncher<String, Boolean>,
+    private val permission: String
+) {
+    fun request() = launcher.launch(permission)
 }
 
 @Composable
 fun LocationPermissionPageContent(
     interaction: LocationPermissionInteraction,
     permission: Boolean,
-    requestLocationPermission: () -> Unit = {}
+    onClickRequestPermission: () -> Unit = {}
 ) {
     Column(
         modifier = Modifier
@@ -55,7 +88,7 @@ fun LocationPermissionPageContent(
             Text(text = "권한 있음.")
         } else {
             Text(text = "권한이 없습니다.")
-            Button(onClick = requestLocationPermission) {
+            Button(onClick = onClickRequestPermission) {
                 Text(text = "위치정보 권한을 요청합니다.")
             }
         }

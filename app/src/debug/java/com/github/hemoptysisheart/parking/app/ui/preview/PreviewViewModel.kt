@@ -37,3 +37,5 @@ val NAVIGATION_VM = NavigationViewModel(
     ),
     SENSOR_MODEL, LOCATION_MODEL
 )
+
+val LOCATION_PERMISSION_VIEW_MODEL = LocationPermissionViewModel(PERMISSION_MODEL)

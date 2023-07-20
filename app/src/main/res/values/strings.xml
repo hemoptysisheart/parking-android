@@ -46,4 +46,7 @@
     <string name="select_route_parking_marker_focused_description">선택한 주차장</string>
     <string name="select_route_parking_marker_description">주차장</string>
     <string name="select_route_start_navigation_button_label">안내</string>
+
+    <string name="page_wizard_instruction_title">Parking은</string>
+    <string name="page_wizard_instruction_contents">주차 문제를 고려해서 이동 경로를 검색하는 앱입니다.</string>
 </resources>

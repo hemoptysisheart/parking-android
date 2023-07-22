@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.parking.app.viewmodel
+package com.github.hemoptysisheart.parking.app.viewmodel.main
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel

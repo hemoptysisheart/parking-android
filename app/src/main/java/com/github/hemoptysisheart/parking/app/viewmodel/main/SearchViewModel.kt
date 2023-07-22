@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.parking.app.viewmodel
+package com.github.hemoptysisheart.parking.app.viewmodel.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

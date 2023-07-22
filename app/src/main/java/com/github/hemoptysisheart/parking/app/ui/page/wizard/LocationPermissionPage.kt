@@ -21,7 +21,7 @@ import com.github.hemoptysisheart.parking.app.ui.preview.commonInteraction
 import com.github.hemoptysisheart.parking.app.ui.support.rememberRequestPermission
 import com.github.hemoptysisheart.parking.app.ui.template.wizard.FooterTemplate
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
-import com.github.hemoptysisheart.parking.app.viewmodel.LocationPermissionViewModel
+import com.github.hemoptysisheart.parking.app.viewmodel.wizard.LocationPermissionViewModel
 import com.github.hemoptysisheart.parking.app.ui.support.LOGGER_COMPOSE as LOGGER
 
 @Composable
@@ -34,7 +34,8 @@ fun LocationPermissionPage(
     val permission by viewModel.permission.collectAsStateWithLifecycle()
     val requestPermission = rememberRequestPermission(
         permission = Manifest.permission.ACCESS_FINE_LOCATION,
-        onGranted = viewModel::refreshPermission
+        onGranted = viewModel::refreshPermission,
+        onDenied = viewModel::refreshPermission
     )
 
     LocationPermissionPageContent(

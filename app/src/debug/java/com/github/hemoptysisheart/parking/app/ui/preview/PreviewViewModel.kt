@@ -5,6 +5,11 @@ import androidx.lifecycle.SavedStateHandle
 import com.github.hemoptysisheart.parking.app.ui.interaction.main.NavigationInteraction
 import com.github.hemoptysisheart.parking.app.ui.interaction.main.SelectRouteInteraction
 import com.github.hemoptysisheart.parking.app.viewmodel.*
+import com.github.hemoptysisheart.parking.app.viewmodel.main.MainViewModel
+import com.github.hemoptysisheart.parking.app.viewmodel.main.NavigationViewModel
+import com.github.hemoptysisheart.parking.app.viewmodel.main.SearchViewModel
+import com.github.hemoptysisheart.parking.app.viewmodel.main.SelectRouteViewModel
+import com.github.hemoptysisheart.parking.app.viewmodel.wizard.LocationPermissionViewModel
 import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.domain.Route
 import kotlinx.coroutines.flow.MutableStateFlow

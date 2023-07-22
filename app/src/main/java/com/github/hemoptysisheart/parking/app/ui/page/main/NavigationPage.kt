@@ -15,7 +15,7 @@ import com.github.hemoptysisheart.parking.app.ui.preview.commonInteraction
 import com.github.hemoptysisheart.parking.app.ui.template.navigation.HeaderTemplate
 import com.github.hemoptysisheart.parking.app.ui.template.navigation.MapTemplate
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
-import com.github.hemoptysisheart.parking.app.viewmodel.NavigationViewModel
+import com.github.hemoptysisheart.parking.app.viewmodel.main.NavigationViewModel
 import com.github.hemoptysisheart.parking.app.ui.support.LOGGER_COMPOSE as LOGGER
 
 @Composable

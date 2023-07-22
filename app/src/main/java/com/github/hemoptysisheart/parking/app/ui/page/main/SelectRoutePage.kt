@@ -15,7 +15,7 @@ import com.github.hemoptysisheart.parking.app.ui.template.select.MapTemplate
 import com.github.hemoptysisheart.parking.app.ui.template.select.RouteDetailTemplate
 import com.github.hemoptysisheart.parking.app.ui.template.select.SelectRouteHeader
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
-import com.github.hemoptysisheart.parking.app.viewmodel.SelectRouteViewModel
+import com.github.hemoptysisheart.parking.app.viewmodel.main.SelectRouteViewModel
 import com.github.hemoptysisheart.parking.app.ui.support.LOGGER_COMPOSE as LOGGER
 
 /**

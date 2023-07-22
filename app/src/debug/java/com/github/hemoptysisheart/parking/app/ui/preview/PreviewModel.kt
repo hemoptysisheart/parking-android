@@ -29,9 +29,15 @@ val WIZARD_PREFERENCES_MODEL = object : WizardPreferences {
     override var bootUpShow = true
     override var showCount = 1
     override var lastShownAt = Instant.now().truncateToMillis()
+    override var locationPermissionRequestCount: Int = 0
+
     override fun increaseShowCount() {
         showCount++
         lastShownAt = Instant.now().truncateToMillis()
+    }
+
+    override fun locationPermissionRequested() {
+        locationPermissionRequestCount++
     }
 }
 

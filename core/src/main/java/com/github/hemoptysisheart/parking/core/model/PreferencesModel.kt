@@ -138,6 +138,7 @@ class PreferencesModel(
             const val BOOT_UP_SHOW = "$TAG.bootUpShow"
             const val USED_COUNT = "$TAG.usedCount"
             const val LAST_USED_AT = "$TAG.lastUsedAt"
+            const val LOCATION_PERMISSION_REQUESTED = "$TAG.locationPermissionRequested"
         }
 
         override var bootUpShow = sharedPreferences.getBoolean(BOOT_UP_SHOW, true)
@@ -162,12 +163,30 @@ class PreferencesModel(
                 field = value
             }
 
+        override var locationPermissionRequestCount: Int = sharedPreferences.getInt(LOCATION_PERMISSION_REQUESTED, 0)
+            set(value) {
+                LOGGER.v("#locationPermissionRequested set : $value")
+                if (0 >= value) {
+                    throw IllegalArgumentException("value is less than zero : value=$value")
+                }
+
+                editor.putInt(LOCATION_PERMISSION_REQUESTED, value)
+                    .apply()
+
+                field = value
+            }
+
         override fun increaseShowCount() {
             showCount++
             lastShownAt = timeProvider.instant()
         }
 
-        override fun toString() = "$TAG(bootUpShow=$bootUpShow, showCount=$showCount, lastShownAt=$lastShownAt)"
+        override fun locationPermissionRequested() {
+            locationPermissionRequestCount++
+        }
+
+        override fun toString() = "$TAG(bootUpShow=$bootUpShow, showCount=$showCount, lastShownAt=$lastShownAt, " +
+                "locationPermissionRequestCount=$locationPermissionRequestCount)"
     }
 
     private val editor = sharedPreferences.edit()

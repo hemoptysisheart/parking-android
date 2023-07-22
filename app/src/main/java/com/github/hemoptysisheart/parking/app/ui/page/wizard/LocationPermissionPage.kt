@@ -5,9 +5,11 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,17 +33,31 @@ fun LocationPermissionPage(
 ) {
     LOGGER.v("#LocationPermissionPage args : interaction=$interaction, viewModel=$viewModel")
 
+    // TODO 유틸리티로 분리.
+    val lifecycle = LocalLifecycleOwner.current.lifecycle
+    DisposableEffect(LocationPermissionViewModel::class) {
+        lifecycle.addObserver(viewModel)
+        onDispose {
+            lifecycle.removeObserver(viewModel)
+        }
+    }
+
     val permission by viewModel.permission.collectAsStateWithLifecycle()
+    val permissionRequestedCount by viewModel.permissionRequestedCount.collectAsStateWithLifecycle()
+
     val requestPermission = rememberRequestPermission(
         permission = Manifest.permission.ACCESS_FINE_LOCATION,
-        onGranted = viewModel::refreshPermission,
-        onDenied = viewModel::refreshPermission
+        onGranted = {}
     )
 
     LocationPermissionPageContent(
         interaction = interaction,
         permission = permission,
-        onClickRequestPermission = requestPermission::invoke
+        permissionRequestedCount = permissionRequestedCount,
+        onClickRequestPermission = {
+            viewModel.onClickRequestPermission()
+            requestPermission()
+        }
     )
 }
 
@@ -49,6 +65,7 @@ fun LocationPermissionPage(
 fun LocationPermissionPageContent(
     interaction: LocationPermissionInteraction,
     permission: Boolean,
+    permissionRequestedCount: Int,
     onClickRequestPermission: () -> Unit = {}
 ) {
     Column(
@@ -60,19 +77,70 @@ fun LocationPermissionPageContent(
         Spacer(modifier = Modifier.weight(1F))
         Text(
             text = stringResource(R.string.permission_location),
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(0.dp, 10.dp),
             textAlign = TextAlign.Center
         )
         Spacer(modifier = Modifier.height(20.dp))
-        Button(onClick = onClickRequestPermission, enabled = !permission) {
-            Text(
-                text = if (permission) {
-                    stringResource(R.string.permission_location_granted, stringResource(R.string.permission_location))
-                } else {
-                    stringResource(R.string.permission_location_request, stringResource(R.string.permission_location))
+        Text(
+            text = stringResource(
+                R.string.permission_location_description,
+                stringResource(R.string.app_name)
+            ),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(0.dp, 10.dp)
+        )
+        Spacer(modifier = Modifier.height(20.dp))
+
+        // TODO 템플릿으로 분리.
+        when {
+            permission -> Button(onClick = { }, enabled = false) {
+                Text(
+                    text = stringResource(
+                        R.string.label_permission_request,
+                        stringResource(R.string.permission_location)
+                    )
+                )
+            }
+
+            0 == permissionRequestedCount -> Button(onClick = onClickRequestPermission) {
+                Text(
+                    text = stringResource(
+                        R.string.label_permission_request,
+                        stringResource(R.string.permission_location)
+                    )
+                )
+            }
+
+            else -> {
+                Text(
+                    text = stringResource(
+                        R.string.label_permission_maybe_not_allowed,
+                        stringResource(R.string.permission_location),
+                        stringResource(R.string.permission_location)
+                    ),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(0.dp, 10.dp)
+                )
+                if (1 == permissionRequestedCount) {
+                    Button(onClick = onClickRequestPermission) {
+                        Text(
+                            text = stringResource(
+                                R.string.label_permission_request,
+                                stringResource(R.string.permission_location)
+                            )
+                        )
+                    }
                 }
-            )
+                Button(onClick = interaction::gotoPermissionSetting) {
+                    Text(text = stringResource(R.string.label_open_app_setting))
+                }
+            }
         }
+
         Spacer(modifier = Modifier.weight(1F))
         FooterTemplate(onClickSkip = interaction::skip, onClickNext = interaction::next)
     }
@@ -95,6 +163,7 @@ fun Preview_LocationPermissionPageContentGranted() {
     ParkingTheme {
         LocationPermissionPageContent(
             interaction = LocationPermissionInteraction(commonInteraction()),
+            permissionRequestedCount = 0,
             permission = true
         )
     }
@@ -106,6 +175,7 @@ fun Preview_LocationPermissionPageContentNotGranted() {
     ParkingTheme {
         LocationPermissionPageContent(
             interaction = LocationPermissionInteraction(commonInteraction()),
+            permissionRequestedCount = 0,
             permission = false
         )
     }

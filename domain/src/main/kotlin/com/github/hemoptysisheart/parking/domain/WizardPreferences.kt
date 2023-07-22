@@ -22,7 +22,17 @@ interface WizardPreferences {
     val lastShownAt: Instant
 
     /**
+     * 위치정보 권한 요청 횟수.
+     */
+    val locationPermissionRequestCount: Int
+
+    /**
      * [WizardPreferences.showCount]를 1 증가시키고 [WizardPreferences.lastShownAt]를 현재 시각으로 갱신한다.
      */
     fun increaseShowCount()
+
+    /**
+     * [WizardPreferences.locationPermissionRequestCount]을 1 증가시킨다.
+     */
+    fun locationPermissionRequested()
 }

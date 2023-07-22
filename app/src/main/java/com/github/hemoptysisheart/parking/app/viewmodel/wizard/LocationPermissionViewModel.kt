@@ -4,13 +4,14 @@ import androidx.lifecycle.LifecycleOwner
 import com.github.hemoptysisheart.parking.app.viewmodel.BaseViewModel
 import com.github.hemoptysisheart.parking.core.model.PermissionModel
 import com.github.hemoptysisheart.parking.core.util.Logger
+import com.github.hemoptysisheart.parking.domain.WizardPreferences
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import java.util.concurrent.atomic.AtomicInteger
 import javax.inject.Inject
 
 @HiltViewModel
 class LocationPermissionViewModel @Inject constructor(
+    private val wizardPreferences: WizardPreferences,
     private val permissionModel: PermissionModel
 ) : BaseViewModel() {
     companion object {
@@ -19,16 +20,16 @@ class LocationPermissionViewModel @Inject constructor(
     }
 
     val permission = MutableStateFlow(permissionModel.location)
-    private val requestCount = AtomicInteger(0)
+    val permissionRequestedCount = MutableStateFlow(0)
 
-    fun refreshPermission(onFinally: () -> Unit = {}) {
-        LOGGER.d("#refreshPermission called.")
+    fun onClickRequestPermission() {
+        LOGGER.d("#onClickRequestPermission called.")
 
-        val count = requestCount.incrementAndGet()
-        LOGGER.d("#refreshPermission : count=$count")
         launch {
+            wizardPreferences.locationPermissionRequested()
+
             permission.emit(permissionModel.location)
-            onFinally()
+            permissionRequestedCount.emit(permissionRequestedCount.value + 1)
         }
     }
 

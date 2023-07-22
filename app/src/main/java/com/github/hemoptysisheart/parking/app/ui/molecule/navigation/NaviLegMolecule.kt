@@ -7,13 +7,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.hemoptysisheart.parking.app.ui.atom.icon.Maneuver
-import com.github.hemoptysisheart.parking.app.ui.preview.PreviewLocation
-import com.github.hemoptysisheart.parking.app.ui.preview.PreviewRoute
-import com.github.hemoptysisheart.parking.app.ui.support.LOGGER
+import com.github.hemoptysisheart.parking.app.ui.preview.LOCATION_신주쿠역
+import com.github.hemoptysisheart.parking.app.ui.preview.ROUTE_新宿駅_패밀리마트_카부키쵸키타점
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 import com.github.hemoptysisheart.parking.domain.Location
 import com.github.hemoptysisheart.parking.domain.NaviLeg
 import com.ireward.htmlcompose.HtmlText
+import com.github.hemoptysisheart.parking.app.ui.support.LOGGER_COMPOSE as LOGGER
 
 @Composable
 fun NaviLegMolecule(
@@ -45,6 +45,6 @@ fun NaviLegMolecule(
 @Preview(showBackground = true)
 fun Preview_NaviLegMolecule() {
     ParkingTheme {
-        NaviLegMolecule(PreviewLocation.LOCATION_신주쿠역, PreviewRoute.ROUTE_新宿駅_패밀리마트_카부키쵸키타점.driving!!.legList[0])
+        NaviLegMolecule(LOCATION_신주쿠역, ROUTE_新宿駅_패밀리마트_카부키쵸키타점.driving!!.legList[0])
     }
 }

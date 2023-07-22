@@ -9,8 +9,6 @@ import com.github.hemoptysisheart.parking.core.client.google.MapsClientImpl
 import com.github.hemoptysisheart.parking.core.client.google.PlacesClientConfig
 import com.github.hemoptysisheart.parking.core.model.*
 import com.github.hemoptysisheart.parking.core.util.Logger
-import com.github.hemoptysisheart.parking.domain.ExecutionPreferences
-import com.github.hemoptysisheart.parking.domain.InstallPreferences
 import com.github.hemoptysisheart.parking.domain.Preferences
 import com.github.hemoptysisheart.util.TimeProvider
 import com.github.hemoptysisheart.util.TruncatedTimeProvider
@@ -54,7 +52,7 @@ class AppModuleProvider {
 
     @Provides
     @Singleton
-    fun providePreferencesModel(@ApplicationContext context: Context, timeProvider: TimeProvider): Preferences {
+    fun providePreferences(@ApplicationContext context: Context, timeProvider: TimeProvider): Preferences {
         val sharedPreferences = EncryptedSharedPreferences.create(
             context,
             "com.github.hemoptysisheart.parking.sharedPreferences",
@@ -70,11 +68,15 @@ class AppModuleProvider {
 
     @Provides
     @Singleton
-    fun provideExecutionPreferencesModel(preferences: Preferences): ExecutionPreferences = preferences.execution
+    fun provideExecutionPreferences(preferences: Preferences) = preferences.execution
 
     @Provides
     @Singleton
-    fun provideInstallPreferencesModel(preferences: Preferences): InstallPreferences = preferences.install
+    fun provideInstallPreferences(preferences: Preferences) = preferences.install
+
+    @Provides
+    @Singleton
+    fun provideWizardPreferences(preferences: Preferences) = preferences.wizard
 
     @Provides
     @Singleton
@@ -83,6 +85,14 @@ class AppModuleProvider {
         val model = SensorModelImpl(client)
 
         LOGGER.i("#provideSensorModel return : $model")
+        return model
+    }
+
+    @Provides
+    @Singleton
+    fun providePermissionModel(@ApplicationContext context: Context): PermissionModel {
+        val model = PermissionModelImpl(context)
+        LOGGER.i("#providePermissionModel return : $model")
         return model
     }
 }

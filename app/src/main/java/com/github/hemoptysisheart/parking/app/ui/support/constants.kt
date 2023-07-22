@@ -1,9 +1,14 @@
 package com.github.hemoptysisheart.parking.app.ui.support
 
+import androidx.compose.runtime.Composable
 import com.github.hemoptysisheart.parking.core.util.Logger
 
 const val TAG_COMPOSE = "Compose"
-val LOGGER = Logger(TAG_COMPOSE)
+
+/**
+ * [Composable]용 로거.
+ */
+val LOGGER_COMPOSE = Logger(TAG_COMPOSE)
 
 const val TAG_SUPPORT = "Support"
 val LOGGER_SUPPORT = Logger(TAG_SUPPORT)

@@ -1,4 +1,7 @@
-package com.github.hemoptysisheart.parking.app.ui.interaction
+package com.github.hemoptysisheart.parking.app.ui.interaction.main
+
+import com.github.hemoptysisheart.parking.app.ui.interaction.CommonInteraction
+import com.github.hemoptysisheart.parking.app.ui.interaction.Interaction
 
 class MainInteraction(commonInteraction: CommonInteraction) : Interaction by commonInteraction {
     companion object {

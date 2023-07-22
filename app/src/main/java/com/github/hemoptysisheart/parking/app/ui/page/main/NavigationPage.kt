@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.parking.app.ui.page
+package com.github.hemoptysisheart.parking.app.ui.page.main
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,14 +9,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.github.hemoptysisheart.parking.app.ui.interaction.NavigationInteraction
-import com.github.hemoptysisheart.parking.app.ui.preview.PreviewViewModel.NAVIGATION_VM
+import com.github.hemoptysisheart.parking.app.ui.interaction.main.NavigationInteraction
+import com.github.hemoptysisheart.parking.app.ui.preview.NAVIGATION_VM
 import com.github.hemoptysisheart.parking.app.ui.preview.commonInteraction
-import com.github.hemoptysisheart.parking.app.ui.support.LOGGER
 import com.github.hemoptysisheart.parking.app.ui.template.navigation.HeaderTemplate
 import com.github.hemoptysisheart.parking.app.ui.template.navigation.MapTemplate
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
-import com.github.hemoptysisheart.parking.app.viewmodel.NavigationViewModel
+import com.github.hemoptysisheart.parking.app.viewmodel.main.NavigationViewModel
+import com.github.hemoptysisheart.parking.app.ui.support.LOGGER_COMPOSE as LOGGER
 
 @Composable
 fun NavigationPage(
@@ -32,6 +32,7 @@ fun NavigationPage(
         null == route -> {
             LOGGER.e("#NavigationPage route is null.")
         }
+
         true != route?.contains(here) -> {
             throw IllegalArgumentException("route does not contains here : here=$here, route=$route")
         }

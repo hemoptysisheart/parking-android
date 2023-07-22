@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.parking.app.ui.interaction
+package com.github.hemoptysisheart.parking.app.ui.interaction.main
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -7,14 +7,15 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.github.hemoptysisheart.parking.app.ui.page.MainPage
-import com.github.hemoptysisheart.parking.app.ui.page.NavigationPage
-import com.github.hemoptysisheart.parking.app.ui.page.SearchDestinationPage
-import com.github.hemoptysisheart.parking.app.ui.page.SelectRoutePage
+import com.github.hemoptysisheart.parking.app.ui.interaction.CommonInteraction
+import com.github.hemoptysisheart.parking.app.ui.page.main.MainPage
+import com.github.hemoptysisheart.parking.app.ui.page.main.NavigationPage
+import com.github.hemoptysisheart.parking.app.ui.page.main.SearchDestinationPage
+import com.github.hemoptysisheart.parking.app.ui.page.main.SelectRoutePage
 
 @Composable
 @OptIn(ExperimentalComposeUiApi::class)
-fun NavigationGraph() {
+fun MainNavigationGraph() {
     val commonInteraction = CommonInteraction(
         context = LocalContext.current,
         navController = rememberNavController(),

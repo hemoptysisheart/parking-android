@@ -1,6 +1,8 @@
-package com.github.hemoptysisheart.parking.app.ui.interaction
+package com.github.hemoptysisheart.parking.app.ui.interaction.main
 
+import com.github.hemoptysisheart.parking.app.ui.interaction.CommonInteraction
 import com.github.hemoptysisheart.parking.app.ui.interaction.CommonInteraction.Companion.LOGGER
+import com.github.hemoptysisheart.parking.app.ui.interaction.Interaction
 import com.github.hemoptysisheart.parking.domain.RecommendItem
 
 /**

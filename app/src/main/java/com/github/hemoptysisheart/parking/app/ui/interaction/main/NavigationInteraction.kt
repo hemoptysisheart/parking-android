@@ -1,8 +1,11 @@
-package com.github.hemoptysisheart.parking.app.ui.interaction
+package com.github.hemoptysisheart.parking.app.ui.interaction.main
 
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
+import com.github.hemoptysisheart.parking.app.ui.interaction.CommonInteraction
 import com.github.hemoptysisheart.parking.app.ui.interaction.CommonInteraction.Companion.LOGGER
+import com.github.hemoptysisheart.parking.app.ui.interaction.Interaction
+import com.github.hemoptysisheart.parking.app.ui.interaction.NavArgs
 import java.util.*
 import java.util.Objects.requireNonNull
 

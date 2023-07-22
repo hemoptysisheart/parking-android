@@ -5,6 +5,7 @@ import com.github.hemoptysisheart.parking.core.util.Logger
 import com.github.hemoptysisheart.parking.domain.ExecutionPreferences
 import com.github.hemoptysisheart.parking.domain.InstallPreferences
 import com.github.hemoptysisheart.parking.domain.Preferences
+import com.github.hemoptysisheart.parking.domain.WizardPreferences
 import com.github.hemoptysisheart.util.TimeProvider
 import java.time.Instant
 import java.util.*
@@ -125,15 +126,80 @@ class PreferencesModel(
                 "foregroundCount=$foregroundCount, lastForegroundAt=$lastForegroundAt)"
     }
 
+    class WizardPreferencesModel(
+        sharedPreferences: SharedPreferences,
+        private val timeProvider: TimeProvider,
+        private val editor: SharedPreferences.Editor
+    ) : WizardPreferences {
+        companion object {
+            private const val TAG = "${PreferencesModel.TAG}.WizardPreferencesModel"
+            private val LOGGER = Logger(TAG)
+
+            const val BOOT_UP_SHOW = "$TAG.bootUpShow"
+            const val USED_COUNT = "$TAG.usedCount"
+            const val LAST_USED_AT = "$TAG.lastUsedAt"
+            const val LOCATION_PERMISSION_REQUESTED = "$TAG.locationPermissionRequested"
+        }
+
+        override var bootUpShow = sharedPreferences.getBoolean(BOOT_UP_SHOW, true)
+            set(value) {
+                LOGGER.v("#bootUpShow set : $value")
+                editor.putBoolean(BOOT_UP_SHOW, value)
+                    .apply()
+                field = value
+            }
+        override var showCount = sharedPreferences.getInt(USED_COUNT, 0)
+            set(value) {
+                LOGGER.v("#usedCount set : $value")
+                editor.putInt(USED_COUNT, value)
+                    .apply()
+                field = value
+            }
+        override var lastShownAt = Instant.ofEpochMilli(sharedPreferences.getLong(LAST_USED_AT, 0L))
+            set(value) {
+                LOGGER.v("#lastUsedAt set : $value")
+                editor.putLong(LAST_USED_AT, value.toEpochMilli())
+                    .apply()
+                field = value
+            }
+
+        override var locationPermissionRequestCount: Int = sharedPreferences.getInt(LOCATION_PERMISSION_REQUESTED, 0)
+            set(value) {
+                LOGGER.v("#locationPermissionRequested set : $value")
+                if (0 >= value) {
+                    throw IllegalArgumentException("value is less than zero : value=$value")
+                }
+
+                editor.putInt(LOCATION_PERMISSION_REQUESTED, value)
+                    .apply()
+
+                field = value
+            }
+
+        override fun increaseShowCount() {
+            showCount++
+            lastShownAt = timeProvider.instant()
+        }
+
+        override fun locationPermissionRequested() {
+            locationPermissionRequestCount++
+        }
+
+        override fun toString() = "$TAG(bootUpShow=$bootUpShow, showCount=$showCount, lastShownAt=$lastShownAt, " +
+                "locationPermissionRequestCount=$locationPermissionRequestCount)"
+    }
+
     private val editor = sharedPreferences.edit()
 
     override val install = InstallPreferencesModel(sharedPreferences, editor)
 
     override val execution = ExecutionPreferencesModel(sharedPreferences, timeProvider, editor)
 
+    override val wizard = WizardPreferencesModel(sharedPreferences, timeProvider, editor)
+
     init {
         editor.commit()
     }
 
-    override fun toString() = "$TAG(install=$install, execution=$execution)"
+    override fun toString() = "$TAG(install=$install, execution=$execution, wizard=$wizard)"
 }

@@ -3,13 +3,9 @@ package com.github.hemoptysisheart.parking.app.activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.ui.Modifier
 import com.github.hemoptysisheart.parking.app.ui.page.LauncherPage
-import com.github.hemoptysisheart.parking.core.util.Logger
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
+import com.github.hemoptysisheart.parking.core.util.Logger
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -28,9 +24,7 @@ class LauncherActivity : ComponentActivity() {
 
         setContent {
             ParkingTheme {
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
-                    LauncherPage()
-                }
+                LauncherPage()
             }
         }
     }

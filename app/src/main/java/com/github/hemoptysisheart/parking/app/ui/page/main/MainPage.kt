@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.parking.app.ui.page
+package com.github.hemoptysisheart.parking.app.ui.page.main
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,14 +8,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.github.hemoptysisheart.parking.app.ui.interaction.MainInteraction
-import com.github.hemoptysisheart.parking.app.ui.preview.PreviewViewModel.MAIN_VM
+import com.github.hemoptysisheart.parking.app.ui.interaction.main.MainInteraction
+import com.github.hemoptysisheart.parking.app.ui.preview.MAIN_VM
 import com.github.hemoptysisheart.parking.app.ui.preview.commonInteraction
-import com.github.hemoptysisheart.parking.app.ui.support.LOGGER
 import com.github.hemoptysisheart.parking.app.ui.template.main.HeaderTemplate
 import com.github.hemoptysisheart.parking.app.ui.template.main.MapTemplate
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
-import com.github.hemoptysisheart.parking.app.viewmodel.MainViewModel
+import com.github.hemoptysisheart.parking.app.viewmodel.main.MainViewModel
+import com.github.hemoptysisheart.parking.app.ui.support.LOGGER_COMPOSE as LOGGER
 
 @Composable
 fun MainPage(

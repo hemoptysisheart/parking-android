@@ -13,5 +13,5 @@ import javax.inject.Singleton
 abstract class AppModuleBinder {
     @Binds
     @Singleton
-    abstract fun provideLocationModel(model: LocationModelImpl): LocationModel
+    abstract fun bindLocationModel(model: LocationModelImpl): LocationModel
 }

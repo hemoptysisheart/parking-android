@@ -27,8 +27,12 @@ val EXECUTION_PREFERENCES_MODEL = object : ExecutionPreferences {
 
 val WIZARD_PREFERENCES_MODEL = object : WizardPreferences {
     override var bootUpShow = true
-    override var usedCount = 1
-    override var lastUsedAt = Instant.now().truncateToMillis()
+    override var showCount = 1
+    override var lastShownAt = Instant.now().truncateToMillis()
+    override fun increaseShowCount() {
+        showCount++
+        lastShownAt = Instant.now().truncateToMillis()
+    }
 }
 
 val PREFERENCES_MODEL = object : Preferences {

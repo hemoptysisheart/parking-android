@@ -14,10 +14,15 @@ interface WizardPreferences {
     /**
      * 사용자가 본 횟수.
      */
-    val usedCount: Int
+    val showCount: Int
 
     /**
      * 마지막 사용 시각.
      */
-    val lastUsedAt: Instant
+    val lastShownAt: Instant
+
+    /**
+     * [WizardPreferences.showCount]를 1 증가시키고 [WizardPreferences.lastShownAt]를 현재 시각으로 갱신한다.
+     */
+    fun increaseShowCount()
 }

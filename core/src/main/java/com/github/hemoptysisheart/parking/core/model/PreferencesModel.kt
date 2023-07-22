@@ -128,6 +128,7 @@ class PreferencesModel(
 
     class WizardPreferencesModel(
         sharedPreferences: SharedPreferences,
+        private val timeProvider: TimeProvider,
         private val editor: SharedPreferences.Editor
     ) : WizardPreferences {
         companion object {
@@ -146,14 +147,14 @@ class PreferencesModel(
                     .apply()
                 field = value
             }
-        override var usedCount = sharedPreferences.getInt(USED_COUNT, 0)
+        override var showCount = sharedPreferences.getInt(USED_COUNT, 0)
             set(value) {
                 LOGGER.v("#usedCount set : $value")
                 editor.putInt(USED_COUNT, value)
                     .apply()
                 field = value
             }
-        override var lastUsedAt = Instant.ofEpochMilli(sharedPreferences.getLong(LAST_USED_AT, 0L))
+        override var lastShownAt = Instant.ofEpochMilli(sharedPreferences.getLong(LAST_USED_AT, 0L))
             set(value) {
                 LOGGER.v("#lastUsedAt set : $value")
                 editor.putLong(LAST_USED_AT, value.toEpochMilli())
@@ -161,7 +162,12 @@ class PreferencesModel(
                 field = value
             }
 
-        override fun toString() = "$TAG(bootUpShow=$bootUpShow, showCount=$usedCount, lastUsedAt=$lastUsedAt)"
+        override fun increaseShowCount() {
+            showCount++
+            lastShownAt = timeProvider.instant()
+        }
+
+        override fun toString() = "$TAG(bootUpShow=$bootUpShow, showCount=$showCount, lastShownAt=$lastShownAt)"
     }
 
     private val editor = sharedPreferences.edit()
@@ -170,7 +176,7 @@ class PreferencesModel(
 
     override val execution = ExecutionPreferencesModel(sharedPreferences, timeProvider, editor)
 
-    override val wizard = WizardPreferencesModel(sharedPreferences, editor)
+    override val wizard = WizardPreferencesModel(sharedPreferences, timeProvider, editor)
 
     init {
         editor.commit()

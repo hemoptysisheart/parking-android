@@ -56,6 +56,7 @@ fun LauncherPage(
             Intent(context, WizardActivity::class.java)
         } else {
             Intent(context, MainActivity::class.java)
+            Intent(context, WizardActivity::class.java)
         }
         LOGGER.i("#LauncherPage move to : intent=$intent")
         context.startActivity(intent)

@@ -52,7 +52,7 @@ class AppModuleProvider {
 
     @Provides
     @Singleton
-    fun providePreferencesModel(@ApplicationContext context: Context, timeProvider: TimeProvider): Preferences {
+    fun providePreferences(@ApplicationContext context: Context, timeProvider: TimeProvider): Preferences {
         val sharedPreferences = EncryptedSharedPreferences.create(
             context,
             "com.github.hemoptysisheart.parking.sharedPreferences",
@@ -68,11 +68,11 @@ class AppModuleProvider {
 
     @Provides
     @Singleton
-    fun provideExecutionPreferencesModel(preferences: Preferences) = preferences.execution
+    fun provideExecutionPreferences(preferences: Preferences) = preferences.execution
 
     @Provides
     @Singleton
-    fun provideInstallPreferencesModel(preferences: Preferences) = preferences.install
+    fun provideInstallPreferences(preferences: Preferences) = preferences.install
 
     @Provides
     @Singleton

@@ -4,11 +4,11 @@
 
 ## 타입
 
-### `ID`
+### `Identifier`
 
 앱 내부 데이터 인식용 ID.
 
-### `Object`
+### `IdentifiableObject`
 
 앱 내부 데이터를 통합 관리할 방법을 만들기 위한 상위 타입.
 
@@ -28,9 +28,9 @@
 
 안내에 사용한 경로
 
-### `SearchQuery`
+### `DestinationQuery`
 
-검색어 입력 기록.
+목적지 검색 기록.
 
 ### `<I>Place`
 
@@ -49,3 +49,7 @@ Google Maps Platform
 언어별 [what3words](https://what3words.com) 정보.
 
 - 실내 정보까지는 관리할 수 없지만, 차에서 내린 후의 실내 이동 최소화와 최적화에 활용할 수 있다.
+
+### `Route`
+
+경로

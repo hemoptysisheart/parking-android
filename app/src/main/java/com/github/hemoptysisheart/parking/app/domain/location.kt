@@ -1,6 +1,6 @@
 package com.github.hemoptysisheart.parking.app.domain
 
-import com.github.hemoptysisheart.parking.domain.Location
+import com.github.hemoptysisheart.parking.domain.deprecate.Location
 
 
 /**

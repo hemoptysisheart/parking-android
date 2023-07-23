@@ -1,7 +1,7 @@
 package com.github.hemoptysisheart.parking.core.extension
 
 import com.github.hemoptysisheart.parking.core.client.google.data.DirectionsRoute
-import com.github.hemoptysisheart.parking.domain.PartialRoute
+import com.github.hemoptysisheart.parking.domain.deprecate.PartialRoute
 
 fun DirectionsRoute.toPartialRoute() = PartialRoute(
     summary = summary,

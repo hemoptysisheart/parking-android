@@ -5,7 +5,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.github.hemoptysisheart.parking.R.string.*
-import com.github.hemoptysisheart.parking.domain.Maneuver
+import com.github.hemoptysisheart.parking.domain.deprecate.Maneuver
 
 /**
  * [Maneuver]의 UI용 리소스 정보.

@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.parking.domain
+package com.github.hemoptysisheart.parking.domain.deprecate
 
 /**
  * 장소 검색 조건.

@@ -1,7 +1,7 @@
-package com.github.hemoptysisheart.parking.core.model.data
+package com.github.hemoptysisheart.parking.core.deprecate
 
 import com.github.hemoptysisheart.parking.core.client.google.data.PlaceAutocompletePrediction
-import com.github.hemoptysisheart.parking.domain.RecommendItem
+import com.github.hemoptysisheart.parking.domain.deprecate.RecommendItem
 
 class RecommendItemPlaceAutocompletePrediction(
     val item: PlaceAutocompletePrediction

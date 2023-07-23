@@ -1,6 +1,6 @@
 package com.github.hemoptysisheart.parking.core.model
 
-import com.github.hemoptysisheart.parking.domain.GeoLocation
+import com.github.hemoptysisheart.parking.domain.deprecate.GeoLocation
 
 /**
  * 단말기 센서에서 습득한 정보를 제공.

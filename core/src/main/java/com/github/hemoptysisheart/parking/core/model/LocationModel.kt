@@ -1,13 +1,13 @@
 package com.github.hemoptysisheart.parking.core.model
 
 import com.github.hemoptysisheart.parking.core.client.google.data.TransportationMode
-import com.github.hemoptysisheart.parking.core.model.data.DestinationSearchResult
-import com.github.hemoptysisheart.parking.core.model.data.PlaceSearchResult
-import com.github.hemoptysisheart.parking.core.model.data.RouteSearchResult
-import com.github.hemoptysisheart.parking.domain.GeoLocation
-import com.github.hemoptysisheart.parking.domain.Location
-import com.github.hemoptysisheart.parking.domain.RecommendItemLocation
-import com.github.hemoptysisheart.parking.domain.Route
+import com.github.hemoptysisheart.parking.core.deprecate.DestinationSearchResult
+import com.github.hemoptysisheart.parking.core.deprecate.PlaceSearchResult
+import com.github.hemoptysisheart.parking.core.deprecate.RouteSearchResult
+import com.github.hemoptysisheart.parking.domain.deprecate.GeoLocation
+import com.github.hemoptysisheart.parking.domain.deprecate.Location
+import com.github.hemoptysisheart.parking.domain.deprecate.RecommendItemLocation
+import com.github.hemoptysisheart.parking.domain.deprecate.Route
 import java.util.*
 
 interface LocationModel {

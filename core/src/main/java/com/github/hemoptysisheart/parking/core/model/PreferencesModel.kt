@@ -2,10 +2,10 @@ package com.github.hemoptysisheart.parking.core.model
 
 import android.content.SharedPreferences
 import com.github.hemoptysisheart.parking.core.util.Logger
-import com.github.hemoptysisheart.parking.domain.ExecutionPreferences
-import com.github.hemoptysisheart.parking.domain.InstallPreferences
-import com.github.hemoptysisheart.parking.domain.Preferences
-import com.github.hemoptysisheart.parking.domain.WizardPreferences
+import com.github.hemoptysisheart.parking.domain.app.ExecutionPreferences
+import com.github.hemoptysisheart.parking.domain.app.InstallPreferences
+import com.github.hemoptysisheart.parking.domain.app.Preferences
+import com.github.hemoptysisheart.parking.domain.app.WizardPreferences
 import com.github.hemoptysisheart.util.TimeProvider
 import java.time.Instant
 import java.util.*

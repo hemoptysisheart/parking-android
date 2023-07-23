@@ -1,7 +1,7 @@
-package com.github.hemoptysisheart.parking.core.model.data
+package com.github.hemoptysisheart.parking.core.deprecate
 
 import com.github.hemoptysisheart.parking.core.client.google.data.Place
-import com.github.hemoptysisheart.parking.domain.RecommendItem
+import com.github.hemoptysisheart.parking.domain.deprecate.RecommendItem
 
 /**
  * Google Maps Platform 추천 장소.

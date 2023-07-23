@@ -2,7 +2,7 @@
 
 package com.github.hemoptysisheart.parking.app.ui.preview
 
-import com.github.hemoptysisheart.parking.domain.GeoLocation
+import com.github.hemoptysisheart.parking.domain.deprecate.GeoLocation
 
 val OVERVIEW_DRIVE_신주쿠역_TO_ECOLO_PARK_KABUKICHO_29 = listOf(
     GeoLocation(35.68912, 139.70047000000002),

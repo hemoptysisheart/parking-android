@@ -1,7 +1,7 @@
 package com.github.hemoptysisheart.parking.app.viewmodel.wizard
 
 import com.github.hemoptysisheart.parking.app.viewmodel.BaseViewModel
-import com.github.hemoptysisheart.parking.domain.WizardPreferences
+import com.github.hemoptysisheart.parking.domain.app.WizardPreferences
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

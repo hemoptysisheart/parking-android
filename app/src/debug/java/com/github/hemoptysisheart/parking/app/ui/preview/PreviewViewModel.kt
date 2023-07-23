@@ -10,8 +10,8 @@ import com.github.hemoptysisheart.parking.app.viewmodel.main.NavigationViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.main.SearchViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.main.SelectRouteViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.wizard.LocationPermissionViewModel
-import com.github.hemoptysisheart.parking.domain.Location
-import com.github.hemoptysisheart.parking.domain.Route
+import com.github.hemoptysisheart.parking.domain.deprecate.Location
+import com.github.hemoptysisheart.parking.domain.deprecate.Route
 import kotlinx.coroutines.flow.MutableStateFlow
 
 val LAUNCHER_VM = LauncherViewModel(WIZARD_PREFERENCES_MODEL)

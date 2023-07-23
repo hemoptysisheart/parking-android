@@ -11,8 +11,8 @@ import com.github.hemoptysisheart.parking.app.ui.molecule.map.ParkingMarker
 import com.github.hemoptysisheart.parking.app.ui.molecule.map.RouteOverview
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 import com.github.hemoptysisheart.parking.core.extension.latLng
-import com.github.hemoptysisheart.parking.domain.Location
-import com.github.hemoptysisheart.parking.domain.Route
+import com.github.hemoptysisheart.parking.domain.deprecate.Location
+import com.github.hemoptysisheart.parking.domain.deprecate.Route
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.GoogleMap

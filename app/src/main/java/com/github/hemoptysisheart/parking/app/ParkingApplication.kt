@@ -8,8 +8,8 @@ import com.github.hemoptysisheart.parking.app.support.ActivityLifecycleCallbacks
 import com.github.hemoptysisheart.parking.core.logging.AndroidLoggingHandler
 import com.github.hemoptysisheart.parking.core.model.PreferencesModel.ExecutionPreferencesModel
 import com.github.hemoptysisheart.parking.core.util.Logger
-import com.github.hemoptysisheart.parking.domain.ExecutionPreferences
-import com.github.hemoptysisheart.parking.domain.InstallPreferences
+import com.github.hemoptysisheart.parking.domain.app.ExecutionPreferences
+import com.github.hemoptysisheart.parking.domain.app.InstallPreferences
 import com.github.hemoptysisheart.util.TimeProvider
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.MainScope

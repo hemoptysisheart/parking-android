@@ -2,7 +2,7 @@
 
 package com.github.hemoptysisheart.parking.app.ui.preview
 
-import com.github.hemoptysisheart.parking.domain.RecommendItemLocation
+import com.github.hemoptysisheart.parking.domain.deprecate.RecommendItemLocation
 
 val ITEM_AAA_TOHO_TRADING = RecommendItemLocation(LOCATION_AAA_TOHO_TRADING)
 

@@ -6,7 +6,7 @@ import com.github.hemoptysisheart.parking.core.client.google.data.*
 import com.github.hemoptysisheart.parking.core.client.google.data.PlaceOpeningHoursPeriodDetail.Companion.DATE_FORMATTER
 import com.github.hemoptysisheart.parking.core.client.google.data.PlaceOpeningHoursPeriodDetail.Companion.TIME_FORMATTER
 import com.github.hemoptysisheart.parking.core.client.google.response.*
-import com.github.hemoptysisheart.parking.domain.Location
+import com.github.hemoptysisheart.parking.domain.deprecate.Location
 import java.net.URL
 import java.time.*
 import java.util.*

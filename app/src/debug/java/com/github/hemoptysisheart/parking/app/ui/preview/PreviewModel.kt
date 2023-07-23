@@ -1,14 +1,18 @@
 package com.github.hemoptysisheart.parking.app.ui.preview
 
 import com.github.hemoptysisheart.parking.core.client.google.data.TransportationMode
+import com.github.hemoptysisheart.parking.core.deprecate.DestinationSearchResult
+import com.github.hemoptysisheart.parking.core.deprecate.PlaceSearchResult
+import com.github.hemoptysisheart.parking.core.deprecate.RouteSearchResult
+import com.github.hemoptysisheart.parking.core.deprecate.TransportMapping
 import com.github.hemoptysisheart.parking.core.model.LocationModel
 import com.github.hemoptysisheart.parking.core.model.PermissionModel
 import com.github.hemoptysisheart.parking.core.model.SensorModel
-import com.github.hemoptysisheart.parking.core.model.data.DestinationSearchResult
-import com.github.hemoptysisheart.parking.core.model.data.PlaceSearchResult
-import com.github.hemoptysisheart.parking.core.model.data.RouteSearchResult
-import com.github.hemoptysisheart.parking.core.model.data.TransportMapping
-import com.github.hemoptysisheart.parking.domain.*
+import com.github.hemoptysisheart.parking.domain.app.ExecutionPreferences
+import com.github.hemoptysisheart.parking.domain.app.InstallPreferences
+import com.github.hemoptysisheart.parking.domain.app.Preferences
+import com.github.hemoptysisheart.parking.domain.app.WizardPreferences
+import com.github.hemoptysisheart.parking.domain.deprecate.*
 import com.github.hemoptysisheart.util.truncateToMillis
 import java.time.Instant
 import java.util.*

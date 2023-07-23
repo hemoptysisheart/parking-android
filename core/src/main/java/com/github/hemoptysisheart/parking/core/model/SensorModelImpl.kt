@@ -3,7 +3,7 @@ package com.github.hemoptysisheart.parking.core.model
 import android.annotation.SuppressLint
 import android.os.Looper
 import com.github.hemoptysisheart.parking.core.logging.logArgs
-import com.github.hemoptysisheart.parking.domain.GeoLocation
+import com.github.hemoptysisheart.parking.domain.deprecate.GeoLocation
 import com.google.android.gms.location.*
 import com.google.android.gms.location.Priority.PRIORITY_HIGH_ACCURACY
 

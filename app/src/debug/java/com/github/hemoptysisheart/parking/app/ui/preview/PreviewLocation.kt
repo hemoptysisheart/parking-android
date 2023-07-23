@@ -2,8 +2,8 @@
 
 package com.github.hemoptysisheart.parking.app.ui.preview
 
-import com.github.hemoptysisheart.parking.core.model.data.LocationGmpPlace
-import com.github.hemoptysisheart.parking.domain.GeoLocation
+import com.github.hemoptysisheart.parking.core.deprecate.LocationGmpPlace
+import com.github.hemoptysisheart.parking.domain.deprecate.GeoLocation
 
 val LOCATION_AAA_TOHO_TRADING = LocationGmpPlace(PLACE_AAA_TOHO_TRADING)
 

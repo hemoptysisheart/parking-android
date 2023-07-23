@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.parking.domain
+package com.github.hemoptysisheart.parking.domain.deprecate
 
 enum class Maneuver {
     TURN_SLIGHT_LEFT,

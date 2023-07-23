@@ -13,7 +13,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.github.hemoptysisheart.parking.app.ui.support.ManeuverRes
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
-import com.github.hemoptysisheart.parking.domain.Maneuver
+import com.github.hemoptysisheart.parking.domain.deprecate.Maneuver
 
 @Composable
 fun Maneuver(

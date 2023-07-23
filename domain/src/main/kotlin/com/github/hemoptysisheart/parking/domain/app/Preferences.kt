@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.parking.domain
+package com.github.hemoptysisheart.parking.domain.app
 
 /**
  * 앱 설정 정보.

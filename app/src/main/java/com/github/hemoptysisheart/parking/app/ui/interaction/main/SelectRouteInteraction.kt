@@ -6,7 +6,7 @@ import com.github.hemoptysisheart.parking.app.ui.interaction.CommonInteraction
 import com.github.hemoptysisheart.parking.app.ui.interaction.CommonInteraction.Companion.LOGGER
 import com.github.hemoptysisheart.parking.app.ui.interaction.Interaction
 import com.github.hemoptysisheart.parking.app.ui.interaction.NavArgs
-import com.github.hemoptysisheart.parking.domain.Route
+import com.github.hemoptysisheart.parking.domain.deprecate.Route
 
 
 /**

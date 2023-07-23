@@ -3,6 +3,7 @@
 package com.github.hemoptysisheart.parking.app.ui.preview
 
 import com.github.hemoptysisheart.parking.domain.*
+import com.github.hemoptysisheart.parking.domain.deprecate.*
 import java.time.Duration
 import java.util.*
 

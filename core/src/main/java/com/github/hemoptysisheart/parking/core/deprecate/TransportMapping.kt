@@ -1,7 +1,7 @@
-package com.github.hemoptysisheart.parking.core.model.data
+package com.github.hemoptysisheart.parking.core.deprecate
 
 import com.github.hemoptysisheart.parking.core.client.google.data.TransportationMode
-import com.github.hemoptysisheart.parking.domain.Transport
+import com.github.hemoptysisheart.parking.domain.deprecate.Transport
 
 enum class TransportMapping(
     val mode: TransportationMode,

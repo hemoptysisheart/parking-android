@@ -1,8 +1,8 @@
 package com.github.hemoptysisheart.parking.core.extension
 
 import com.github.hemoptysisheart.parking.core.client.google.data.DirectionsStep
-import com.github.hemoptysisheart.parking.domain.Maneuver
-import com.github.hemoptysisheart.parking.domain.NaviStep
+import com.github.hemoptysisheart.parking.domain.deprecate.Maneuver
+import com.github.hemoptysisheart.parking.domain.deprecate.NaviStep
 import java.time.Duration
 
 fun DirectionsStep.toNaviStep() = NaviStep(

@@ -1,8 +1,8 @@
-package com.github.hemoptysisheart.parking.core.model.data
+package com.github.hemoptysisheart.parking.core.deprecate
 
-import com.github.hemoptysisheart.parking.domain.Location
-import com.github.hemoptysisheart.parking.domain.PartialRoute
-import com.github.hemoptysisheart.parking.domain.Transport
+import com.github.hemoptysisheart.parking.domain.deprecate.Location
+import com.github.hemoptysisheart.parking.domain.deprecate.PartialRoute
+import com.github.hemoptysisheart.parking.domain.deprecate.Transport
 
 /**
  * 경로 검색 결과.

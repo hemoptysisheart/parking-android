@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.parking.domain
+package com.github.hemoptysisheart.parking.domain.deprecate
 
 import com.github.hemoptysisheart.util.RegexValidator
 

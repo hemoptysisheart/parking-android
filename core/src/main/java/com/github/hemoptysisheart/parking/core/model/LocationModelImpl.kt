@@ -3,13 +3,13 @@ package com.github.hemoptysisheart.parking.core.model
 import android.util.Log
 import com.github.hemoptysisheart.parking.core.client.google.MapsClient
 import com.github.hemoptysisheart.parking.core.client.google.data.*
+import com.github.hemoptysisheart.parking.core.deprecate.*
 import com.github.hemoptysisheart.parking.core.extension.toPartialRoute
-import com.github.hemoptysisheart.parking.core.model.data.*
 import com.github.hemoptysisheart.parking.core.util.Logger
-import com.github.hemoptysisheart.parking.domain.GeoLocation
-import com.github.hemoptysisheart.parking.domain.Location
-import com.github.hemoptysisheart.parking.domain.RecommendItemLocation
-import com.github.hemoptysisheart.parking.domain.Route
+import com.github.hemoptysisheart.parking.domain.deprecate.GeoLocation
+import com.github.hemoptysisheart.parking.domain.deprecate.Location
+import com.github.hemoptysisheart.parking.domain.deprecate.RecommendItemLocation
+import com.github.hemoptysisheart.parking.domain.deprecate.Route
 import java.util.*
 import javax.inject.Inject
 

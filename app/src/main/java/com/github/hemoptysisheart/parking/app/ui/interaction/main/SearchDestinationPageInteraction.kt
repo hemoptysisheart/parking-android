@@ -3,7 +3,7 @@ package com.github.hemoptysisheart.parking.app.ui.interaction.main
 import com.github.hemoptysisheart.parking.app.ui.interaction.CommonInteraction
 import com.github.hemoptysisheart.parking.app.ui.interaction.CommonInteraction.Companion.LOGGER
 import com.github.hemoptysisheart.parking.app.ui.interaction.Interaction
-import com.github.hemoptysisheart.parking.domain.RecommendItem
+import com.github.hemoptysisheart.parking.domain.deprecate.RecommendItem
 
 /**
  * [목적지 검색 화면](https://www.figma.com/file/I3LN6lcAVaAXlNba0kBKPN/Parking?type=design&node-id=112-509&mode=design)에서

@@ -15,7 +15,7 @@ import androidx.compose.ui.zIndex
 import com.github.hemoptysisheart.parking.app.ui.molecule.common.BackButton
 import com.github.hemoptysisheart.parking.app.ui.preview.LOCATION_株式会社ＡＡＡ
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
-import com.github.hemoptysisheart.parking.domain.Location
+import com.github.hemoptysisheart.parking.domain.deprecate.Location
 
 @Composable
 fun SelectRouteHeader(

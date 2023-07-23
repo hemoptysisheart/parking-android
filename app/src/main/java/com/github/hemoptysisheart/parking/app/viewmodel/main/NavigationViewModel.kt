@@ -7,8 +7,8 @@ import com.github.hemoptysisheart.parking.app.ui.interaction.main.NavigationInte
 import com.github.hemoptysisheart.parking.core.model.LocationModel
 import com.github.hemoptysisheart.parking.core.model.SensorModel
 import com.github.hemoptysisheart.parking.core.util.Logger
-import com.github.hemoptysisheart.parking.domain.GeoLocation
-import com.github.hemoptysisheart.parking.domain.Route
+import com.github.hemoptysisheart.parking.domain.deprecate.GeoLocation
+import com.github.hemoptysisheart.parking.domain.deprecate.Route
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch

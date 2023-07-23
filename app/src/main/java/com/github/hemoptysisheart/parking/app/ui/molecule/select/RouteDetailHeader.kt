@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.sp
 import com.github.hemoptysisheart.parking.R
 import com.github.hemoptysisheart.parking.app.ui.preview.ROUTE_新宿駅_패밀리마트_카부키쵸키타점
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
-import com.github.hemoptysisheart.parking.domain.Route
+import com.github.hemoptysisheart.parking.domain.deprecate.Route
 
 @Composable
 fun RouteDetailHeader(route: Route, gotoNavigation: (Route) -> Unit = {}) {

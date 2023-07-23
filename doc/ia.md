@@ -1,44 +1,50 @@
 # 정보 구조 (Information Architecture
 
-![IA](asset/ia.png)
+[![IA](asset/ia.png)](https://www.figma.com/file/rKJxXjvDtDNprvdojVxaaN/Parking?type=whiteboard&node-id=518-415)
 
-## 정보 Information
+## 타입
 
-### 위치 `Location`
+### `ID`
 
-단순한 위도 경도 정보.
+앱 내부 데이터 인식용 ID.
 
-### 어떤 장소 `Place`
+### `Object`
 
-위치/장소 정보가 정밀도에 따라 계층 구조를 가질 수 있으면서 모든 계층을 같은 방식으로 다룰 수 있도록 만드는 추상적인 정보.
+앱 내부 데이터를 통합 관리할 방법을 만들기 위한 상위 타입.
 
-- `대략적 장소`, `장소`, `자세한 장소`로 나뉜다.
-- 크기 : `대략적 장소` > `장소` > `자세한 장소`
+### `<I>RecommendItem`
 
-### 대략적 장소 `CoarseSpot`
+검색 추천 항목.
 
-장거리 이동에 고려할만한 기준점. 도시에서 도시로 이동할 경우에 활용.
+#### `RecommendItemSearchQuery`
 
-- 데이터 분석에 활용하기 위해 장소(`Spot`)에서 분리.
-- 향후 장거리 물류로 서비스를 확장할 때 활용.
+목적지를 선택한 검색어
 
-### 장소 `Spot`
+#### `RecommendItemDestination`
 
-단거리 이동의 기준점 혹은 장거리 이동의 시작과 끝 단계, 장거리 이동용 도로 사이의 연결구간에서 활용.
+경로 찾기에 선택한 목적지
 
-- 시내 이동을 기반으로 하는 서비스 초반의 주요 정보.
+#### `RecommendItemRoute`
 
-### 자세한 장소 `FineSpot`
+안내에 사용한 경로
 
-차량 이동 전후의 이동 기준점.
+### `SearchQuery`
 
-- 건물의 입구 구분, 건물 내의 층/방 구분.
-- 일정 관리로 서비스 확장할 때 필요한 정보.
-- 필요한 상황
-    - 엘리베이터 기다리다 늦는 경우.
-    - 배달 시간을 보장하는 음식점
+검색어 입력 기록.
 
-### (보류) W3W
+### `<I>Place`
+
+장소
+
+#### `GmpPlace`
+
+Google Maps Platform
+
+#### `SavedPlace`
+
+사용자가 기기에 저장한 장소
+
+#### (보류) W3W
 
 언어별 [what3words](https://what3words.com) 정보.
 

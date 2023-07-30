@@ -20,6 +20,8 @@ dependencyResolutionManagement {
 rootProject.name = 'Parking'
 
 include ':util',
+        ':client-google',
+
         ':domain',
         ':core',
         ':app'

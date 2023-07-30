@@ -4,9 +4,6 @@ import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.github.hemoptysisheart.parking.BuildConfig
-import com.github.hemoptysisheart.parking.core.client.google.MapsClient
-import com.github.hemoptysisheart.parking.core.client.google.MapsClientImpl
-import com.github.hemoptysisheart.parking.core.client.google.PlacesClientConfig
 import com.github.hemoptysisheart.parking.core.model.*
 import com.github.hemoptysisheart.parking.core.util.Logger
 import com.github.hemoptysisheart.parking.domain.app.Preferences
@@ -29,13 +26,13 @@ class AppModuleProvider {
 
     @Provides
     @Singleton
-    fun provideMapsClient(): MapsClient {
-        val config = PlacesClientConfig(
+    fun provideMapsClient(): com.github.hemoptysisheart.parking.client.google.MapsClient {
+        val config = com.github.hemoptysisheart.parking.client.google.PlacesClientConfig(
             key = BuildConfig.GOOGLE_MAPS_PLATFORM_API_KEY,
             useDefaultLocale = true,
             debug = BuildConfig.DEBUG
         )
-        val client = MapsClientImpl(config)
+        val client = com.github.hemoptysisheart.parking.client.google.MapsClientImpl(config)
 
         LOGGER.i("#provideMapsClient return : $client")
         return client

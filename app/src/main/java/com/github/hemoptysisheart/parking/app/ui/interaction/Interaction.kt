@@ -1,9 +1,6 @@
 package com.github.hemoptysisheart.parking.app.ui.interaction
 
-import android.content.Context
-import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.platform.SoftwareKeyboardController
-import androidx.navigation.NavHostController
+import android.net.Uri
 
 /**
  * 사용자가 애플리케이션을 조작할 때 필요한 기본 상호작용을 제공한다.
@@ -12,14 +9,20 @@ import androidx.navigation.NavHostController
  * - 소프트웨어 키보드 보이기/숨기기.
  */
 interface Interaction {
-    val context: Context
+    /**
+     * 돌아가기.
+     */
+    fun goBack()
 
-    val navController: NavHostController
+    /**
+     * 외부 브라우저 열기.
+     */
+    fun openWeb(uri: String) = openWebPage(Uri.parse(uri))
 
-    @OptIn(ExperimentalComposeUiApi::class)
-    val softwareKeyboardController: SoftwareKeyboardController?
-
-    fun onBack()
+    /**
+     * 외부 브라우저 열기.
+     */
+    fun openWebPage(uri: Uri)
 
     /**
      * 가상 키보드 숨기기.

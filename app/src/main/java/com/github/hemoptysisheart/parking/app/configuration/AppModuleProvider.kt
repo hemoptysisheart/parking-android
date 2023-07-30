@@ -12,7 +12,6 @@ import com.github.hemoptysisheart.parking.core.util.Logger
 import com.github.hemoptysisheart.parking.domain.app.Preferences
 import com.github.hemoptysisheart.util.TimeProvider
 import com.github.hemoptysisheart.util.TruncatedTimeProvider
-import com.google.android.gms.location.LocationServices
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,14 +29,6 @@ class AppModuleProvider {
 
     @Provides
     @Singleton
-    fun provideTimeProvider(): TimeProvider {
-        val provider = TruncatedTimeProvider()
-        LOGGER.i("#provideTimeProvider return : $provider")
-        return provider
-    }
-
-    @Provides
-    @Singleton
     fun provideMapsClient(): MapsClient {
         val config = PlacesClientConfig(
             key = BuildConfig.GOOGLE_MAPS_PLATFORM_API_KEY,
@@ -48,6 +39,14 @@ class AppModuleProvider {
 
         LOGGER.i("#provideMapsClient return : $client")
         return client
+    }
+
+    @Provides
+    @Singleton
+    fun provideTimeProvider(): TimeProvider {
+        val provider = TruncatedTimeProvider()
+        LOGGER.i("#provideTimeProvider return : $provider")
+        return provider
     }
 
     @Provides
@@ -77,22 +76,4 @@ class AppModuleProvider {
     @Provides
     @Singleton
     fun provideWizardPreferences(preferences: Preferences) = preferences.wizard
-
-    @Provides
-    @Singleton
-    fun provideSensorModel(@ApplicationContext context: Context): SensorModel {
-        val client = LocationServices.getFusedLocationProviderClient(context)
-        val model = SensorModelImpl(client)
-
-        LOGGER.i("#provideSensorModel return : $model")
-        return model
-    }
-
-    @Provides
-    @Singleton
-    fun providePermissionModel(@ApplicationContext context: Context): PermissionModel {
-        val model = PermissionModelImpl(context)
-        LOGGER.i("#providePermissionModel return : $model")
-        return model
-    }
 }

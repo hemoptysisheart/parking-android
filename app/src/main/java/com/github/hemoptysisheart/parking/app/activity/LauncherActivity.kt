@@ -3,7 +3,6 @@ package com.github.hemoptysisheart.parking.app.activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.github.hemoptysisheart.parking.app.ui.page.LauncherPage
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 import com.github.hemoptysisheart.parking.core.util.Logger
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,7 +23,6 @@ class LauncherActivity : ComponentActivity() {
 
         setContent {
             ParkingTheme {
-                LauncherPage()
             }
         }
     }

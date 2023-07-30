@@ -6,7 +6,6 @@ import com.github.hemoptysisheart.parking.core.client.google.data.*
 import com.github.hemoptysisheart.parking.core.client.google.data.PlaceOpeningHoursPeriodDetail.Companion.DATE_FORMATTER
 import com.github.hemoptysisheart.parking.core.client.google.data.PlaceOpeningHoursPeriodDetail.Companion.TIME_FORMATTER
 import com.github.hemoptysisheart.parking.core.client.google.response.*
-import com.github.hemoptysisheart.parking.domain.deprecate.Location
 import java.net.URL
 import java.time.*
 import java.util.*
@@ -273,7 +272,7 @@ internal fun decodePolyline(encodedPolyline: String): List<LatLng> {
 /**
  * See [`PolylineEncoding`](https://github.com/googlemaps/google-maps-services-java/blob/main/src/main/java/com/google/maps/internal/PolylineEncoding.java).
  */
-internal fun encodePolyline(polyline: List<Location>): String {
+internal fun encodePolyline(polyline: List<LatLng>): String {
     var lastLat: Long = 0
     var lastLng: Long = 0
 

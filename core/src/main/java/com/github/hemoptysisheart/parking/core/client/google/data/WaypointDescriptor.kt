@@ -1,12 +1,11 @@
 package com.github.hemoptysisheart.parking.core.client.google.data
 
-import com.github.hemoptysisheart.parking.domain.deprecate.GeoLocation
 
 data class WaypointDescriptor(
     val placeId: String? = null,
-    val location: GeoLocation? = null,
+    val location: LatLng? = null,
     val address: String? = null,
-    val polyline: List<GeoLocation>? = null
+    val polyline: List<LatLng>? = null
 ) {
     init {
         when {

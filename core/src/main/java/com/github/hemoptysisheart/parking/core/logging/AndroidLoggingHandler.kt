@@ -38,7 +38,7 @@ class AndroidLoggingHandler : Handler() {
 
         try {
             Log.println(level, tag, message)
-        } catch (e: RuntimeException) {
+        } catch (e: Exception) {
             Log.e(this.javaClass.simpleName, "Error logging message", e)
         }
     }
@@ -49,6 +49,7 @@ class AndroidLoggingHandler : Handler() {
             Level.WARNING.intValue() -> Log.WARN
             Level.INFO.intValue() -> Log.INFO
             Level.FINE.intValue() -> Log.DEBUG
+            Level.FINEST.intValue() -> Log.VERBOSE
             else -> Log.DEBUG
         }
 }

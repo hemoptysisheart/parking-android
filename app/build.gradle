@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId 'com.github.hemoptysisheart.parking'
-        minSdk 31
+        minSdk 33
         targetSdk 33
         versionCode 1
         versionName '0.0.1'
@@ -62,6 +62,7 @@ android {
 }
 
 dependencies {
+    implementation project(':client-google')
     implementation project(':core')
 
     implementation 'androidx.activity:activity-compose:1.6.1'

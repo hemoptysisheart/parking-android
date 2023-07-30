@@ -4,15 +4,11 @@ import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.github.hemoptysisheart.parking.BuildConfig
-import com.github.hemoptysisheart.parking.core.client.google.MapsClient
-import com.github.hemoptysisheart.parking.core.client.google.MapsClientImpl
-import com.github.hemoptysisheart.parking.core.client.google.PlacesClientConfig
 import com.github.hemoptysisheart.parking.core.model.*
-import com.github.hemoptysisheart.parking.core.util.Logger
-import com.github.hemoptysisheart.parking.domain.Preferences
+import com.github.hemoptysisheart.parking.core.util.AndroidLogger
+import com.github.hemoptysisheart.parking.domain.app.Preferences
 import com.github.hemoptysisheart.util.TimeProvider
 import com.github.hemoptysisheart.util.TruncatedTimeProvider
-import com.google.android.gms.location.LocationServices
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,7 +21,21 @@ import javax.inject.Singleton
 class AppModuleProvider {
     companion object {
         private const val TAG = "AppModuleConfig"
-        private val LOGGER = Logger(TAG)
+        private val LOGGER = AndroidLogger(TAG)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMapsClient(): com.github.hemoptysisheart.parking.client.google.MapsClient {
+        val config = com.github.hemoptysisheart.parking.client.google.PlacesClientConfig(
+            key = BuildConfig.GOOGLE_MAPS_PLATFORM_API_KEY,
+            useDefaultLocale = true,
+            debug = BuildConfig.DEBUG
+        )
+        val client = com.github.hemoptysisheart.parking.client.google.MapsClientImpl(config)
+
+        LOGGER.i("#provideMapsClient return : $client")
+        return client
     }
 
     @Provides
@@ -34,20 +44,6 @@ class AppModuleProvider {
         val provider = TruncatedTimeProvider()
         LOGGER.i("#provideTimeProvider return : $provider")
         return provider
-    }
-
-    @Provides
-    @Singleton
-    fun provideMapsClient(): MapsClient {
-        val config = PlacesClientConfig(
-            key = BuildConfig.GOOGLE_MAPS_PLATFORM_API_KEY,
-            useDefaultLocale = true,
-            debug = BuildConfig.DEBUG
-        )
-        val client = MapsClientImpl(config)
-
-        LOGGER.i("#provideMapsClient return : $client")
-        return client
     }
 
     @Provides
@@ -77,22 +73,4 @@ class AppModuleProvider {
     @Provides
     @Singleton
     fun provideWizardPreferences(preferences: Preferences) = preferences.wizard
-
-    @Provides
-    @Singleton
-    fun provideSensorModel(@ApplicationContext context: Context): SensorModel {
-        val client = LocationServices.getFusedLocationProviderClient(context)
-        val model = SensorModelImpl(client)
-
-        LOGGER.i("#provideSensorModel return : $model")
-        return model
-    }
-
-    @Provides
-    @Singleton
-    fun providePermissionModel(@ApplicationContext context: Context): PermissionModel {
-        val model = PermissionModelImpl(context)
-        LOGGER.i("#providePermissionModel return : $model")
-        return model
-    }
 }

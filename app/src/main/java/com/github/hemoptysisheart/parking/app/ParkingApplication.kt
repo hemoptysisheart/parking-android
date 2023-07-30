@@ -7,13 +7,11 @@ import com.github.hemoptysisheart.parking.app.activity.MainActivity
 import com.github.hemoptysisheart.parking.app.support.ActivityLifecycleCallbacksAdapter
 import com.github.hemoptysisheart.parking.core.logging.AndroidLoggingHandler
 import com.github.hemoptysisheart.parking.core.model.PreferencesModel.ExecutionPreferencesModel
-import com.github.hemoptysisheart.parking.core.util.Logger
-import com.github.hemoptysisheart.parking.domain.ExecutionPreferences
-import com.github.hemoptysisheart.parking.domain.InstallPreferences
+import com.github.hemoptysisheart.parking.core.util.AndroidLogger
+import com.github.hemoptysisheart.parking.domain.app.ExecutionPreferences
+import com.github.hemoptysisheart.parking.domain.app.InstallPreferences
 import com.github.hemoptysisheart.util.TimeProvider
 import dagger.hilt.android.HiltAndroidApp
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.launch
 import java.time.Duration
 import java.time.Instant
 import javax.inject.Inject
@@ -21,8 +19,7 @@ import javax.inject.Inject
 @HiltAndroidApp
 class ParkingApplication : Application() {
     companion object {
-        private const val TAG = "ParkingApplication"
-        private val LOGGER = Logger(TAG)
+        private val LOGGER = AndroidLogger(ParkingApplication::class)
     }
 
     private val activityLifecycleCallbacks = object : ActivityLifecycleCallbacksAdapter() {
@@ -77,8 +74,5 @@ class ParkingApplication : Application() {
         LOGGER.i("#onCreate : installPreferences=$installPreferences, executionPreferences=$executionPreferences")
 
         AndroidLoggingHandler.setup()
-        MainScope().launch {
-            // TODO
-        }
     }
 }

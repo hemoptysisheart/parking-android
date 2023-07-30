@@ -8,6 +8,10 @@ java {
     targetCompatibility = JavaVersion.VERSION_11
 }
 
+test {
+    useJUnitPlatform()
+}
+
 dependencies {
     api project(':util')
 

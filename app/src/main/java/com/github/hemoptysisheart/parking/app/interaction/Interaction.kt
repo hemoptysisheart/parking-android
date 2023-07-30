@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.parking.app.ui.interaction
+package com.github.hemoptysisheart.parking.app.interaction
 
 import android.net.Uri
 

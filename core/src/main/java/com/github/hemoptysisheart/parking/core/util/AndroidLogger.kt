@@ -1,9 +1,10 @@
 package com.github.hemoptysisheart.parking.core.util
 
 import android.util.Log
-import com.github.hemoptysisheart.parking.core.util.Logger.Level.*
+import com.github.hemoptysisheart.parking.core.util.AndroidLogger.Level.*
+import kotlin.reflect.KClass
 
-class Logger(
+class AndroidLogger(
     val name: String
 ) {
     enum class Level {
@@ -23,10 +24,13 @@ class Logger(
         val NAME_REGEX = NAME_PATTERN.toRegex()
     }
 
+    constructor(clazz: KClass<*>) : this(clazz.simpleName!!)
+
     init {
         when {
             name.isEmpty() ->
                 throw IllegalArgumentException("name is empty.")
+
             !name.matches(NAME_REGEX) ->
                 throw IllegalArgumentException("illegal name : name='$name', PATTERN='$NAME_PATTERN'")
         }
@@ -35,6 +39,7 @@ class Logger(
     fun v(message: String) = when (option.levelOverwrite[V]) {
         null,
         V -> Log.v(name, message)
+
         D -> Log.d(name, message)
         I -> Log.i(name, message)
         W -> Log.w(name, message)
@@ -44,6 +49,7 @@ class Logger(
     fun v(message: String, e: Throwable) = when (option.levelOverwrite[V]) {
         null,
         V -> Log.v(name, message, e)
+
         D -> Log.d(name, message, e)
         I -> Log.i(name, message, e)
         W -> Log.w(name, message, e)
@@ -54,6 +60,7 @@ class Logger(
         V -> Log.v(name, message)
         null,
         D -> Log.d(name, message)
+
         I -> Log.i(name, message)
         W -> Log.w(name, message)
         E -> Log.e(name, message)
@@ -63,6 +70,7 @@ class Logger(
         V -> Log.v(name, message, e)
         null,
         D -> Log.d(name, message, e)
+
         I -> Log.i(name, message, e)
         W -> Log.w(name, message, e)
         E -> Log.e(name, message, e)
@@ -73,6 +81,7 @@ class Logger(
         D -> Log.d(name, message)
         null,
         I -> Log.i(name, message)
+
         W -> Log.w(name, message)
         E -> Log.e(name, message)
     }
@@ -82,6 +91,7 @@ class Logger(
         D -> Log.d(name, message, e)
         null,
         I -> Log.i(name, message, e)
+
         W -> Log.w(name, message, e)
         E -> Log.e(name, message, e)
     }
@@ -92,6 +102,7 @@ class Logger(
         I -> Log.i(name, message)
         null,
         W -> Log.w(name, message)
+
         E -> Log.e(name, message)
     }
 
@@ -101,6 +112,7 @@ class Logger(
         I -> Log.i(name, message, e)
         null,
         W -> Log.w(name, message, e)
+
         E -> Log.e(name, message, e)
     }
 

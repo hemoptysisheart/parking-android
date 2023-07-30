@@ -5,7 +5,7 @@ import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.github.hemoptysisheart.parking.BuildConfig
 import com.github.hemoptysisheart.parking.core.model.*
-import com.github.hemoptysisheart.parking.core.util.Logger
+import com.github.hemoptysisheart.parking.core.util.AndroidLogger
 import com.github.hemoptysisheart.parking.domain.app.Preferences
 import com.github.hemoptysisheart.util.TimeProvider
 import com.github.hemoptysisheart.util.TruncatedTimeProvider
@@ -21,7 +21,7 @@ import javax.inject.Singleton
 class AppModuleProvider {
     companion object {
         private const val TAG = "AppModuleConfig"
-        private val LOGGER = Logger(TAG)
+        private val LOGGER = AndroidLogger(TAG)
     }
 
     @Provides

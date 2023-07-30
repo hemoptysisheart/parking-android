@@ -6,7 +6,7 @@ import android.net.Uri
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.navigation.NavHostController
-import com.github.hemoptysisheart.parking.core.util.Logger
+import com.github.hemoptysisheart.parking.core.util.AndroidLogger
 
 @OptIn(ExperimentalComposeUiApi::class)
 class CommonInteraction(
@@ -15,32 +15,33 @@ class CommonInteraction(
     private val softwareKeyboardController: SoftwareKeyboardController?
 ) : Interaction {
     companion object {
-        private const val TAG = "CommonInteraction"
-
-        private val LOGGER = Logger(TAG)
+        private val LOGGER = AndroidLogger(CommonInteraction::class)
     }
 
     override fun goBack() {
-        LOGGER.d("#goBack called.")
+        LOGGER.i("#goBack called.")
 
         navController.popBackStack()
     }
 
     override fun openWebPage(uri: Uri) {
-        LOGGER.d("#openWebPage args : uri=$uri")
+        LOGGER.i("#openWebPage args : uri=$uri")
 
         context.startActivity(Intent(Intent.ACTION_VIEW, uri))
     }
 
     override fun showSoftwareKeyboard() {
-        LOGGER.d("#showSoftwareKeyboard called.")
+        LOGGER.i("#showSoftwareKeyboard called.")
 
         softwareKeyboardController?.show()
     }
 
     override fun hideSoftwareKeyboard() {
-        LOGGER.d("#hideSoftwareKeyboard called.")
+        LOGGER.i("#hideSoftwareKeyboard called.")
 
         softwareKeyboardController?.hide()
     }
+
+    override fun toString() =
+        "context=$context, navController=$navController, softwareKeyboardController=$softwareKeyboardController"
 }

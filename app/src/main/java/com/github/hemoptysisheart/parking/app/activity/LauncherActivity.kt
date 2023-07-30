@@ -3,8 +3,11 @@ package com.github.hemoptysisheart.parking.app.activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import com.github.hemoptysisheart.parking.app.ui.interaction.launcher.LauncherInteraction
+import com.github.hemoptysisheart.parking.app.ui.interaction.rememberCommonInteraction
+import com.github.hemoptysisheart.parking.app.ui.page.launcher.LauncherPage
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
-import com.github.hemoptysisheart.parking.core.util.Logger
+import com.github.hemoptysisheart.parking.core.util.AndroidLogger
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -13,16 +16,16 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class LauncherActivity : ComponentActivity() {
     companion object {
-        private const val TAG = "LauncherActivity"
-        private val LOGGER = Logger(TAG)
+        private val LOGGER = AndroidLogger(LauncherActivity::class)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        LOGGER.v("#onCreate args : savedInstanceState=$savedInstanceState")
+        LOGGER.i("#onCreate args : savedInstanceState=$savedInstanceState")
         super.onCreate(savedInstanceState)
 
         setContent {
             ParkingTheme {
+                LauncherPage(LauncherInteraction(rememberCommonInteraction()))
             }
         }
     }

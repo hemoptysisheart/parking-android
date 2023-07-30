@@ -1,7 +1,7 @@
 package com.github.hemoptysisheart.parking.core.model
 
 import android.content.SharedPreferences
-import com.github.hemoptysisheart.parking.core.util.Logger
+import com.github.hemoptysisheart.parking.core.util.AndroidLogger
 import com.github.hemoptysisheart.parking.domain.app.ExecutionPreferences
 import com.github.hemoptysisheart.parking.domain.app.InstallPreferences
 import com.github.hemoptysisheart.parking.domain.app.Preferences
@@ -24,7 +24,7 @@ class PreferencesModel(
     ) : InstallPreferences {
         companion object {
             private const val TAG = "${PreferencesModel.TAG}.InstallPreferences"
-            private val LOGGER = Logger(TAG)
+            private val LOGGER = AndroidLogger(TAG)
 
             const val INSTALL_ID = "$TAG.installId"
         }
@@ -54,7 +54,7 @@ class PreferencesModel(
     ) : ExecutionPreferences {
         companion object {
             private const val TAG = "${PreferencesModel.TAG}.ExecutionPreferences"
-            private val LOGGER = Logger(TAG)
+            private val LOGGER = AndroidLogger(TAG)
 
             const val INIT_START_AT = "$TAG.initStartAt"
             const val COLD_START_COUNT = "$TAG.coldStartCount"
@@ -133,7 +133,7 @@ class PreferencesModel(
     ) : WizardPreferences {
         companion object {
             private const val TAG = "${PreferencesModel.TAG}.WizardPreferencesModel"
-            private val LOGGER = Logger(TAG)
+            private val LOGGER = AndroidLogger(TAG)
 
             const val BOOT_UP_SHOW = "$TAG.bootUpShow"
             const val USED_COUNT = "$TAG.usedCount"

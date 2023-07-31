@@ -3,20 +3,29 @@ package com.github.hemoptysisheart.parking.app.ui.page.main
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.PreviewActivity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.hemoptysisheart.parking.app.interaction.baseInteraction
 import com.github.hemoptysisheart.parking.app.interaction.main.LandingMapInteraction
 import com.github.hemoptysisheart.parking.app.ui.molcule.EasyButton
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
+import com.github.hemoptysisheart.parking.app.viewmodel.LandingMapViewModel
+import com.github.hemoptysisheart.parking.app.viewmodel.hiltBaseViewModel
 
 /**
  * [랜딩 맵](https://www.figma.com/file/rKJxXjvDtDNprvdojVxaaN/Parking?type=whiteboard&node-id=526-645)
  */
 @Composable
-fun LandingMapPage(interaction: LandingMapInteraction) {
+fun LandingMapPage(
+    interaction: LandingMapInteraction,
+    viewModel: LandingMapViewModel = hiltBaseViewModel()
+) {
+    val count by viewModel.count.collectAsStateWithLifecycle()
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -36,6 +45,10 @@ fun LandingMapPage(interaction: LandingMapInteraction) {
 
         EasyButton(onClick = interaction::gotoDestinationSearch, label = "목적지 검색")
         EasyButton(onClick = interaction::gotoSetting, label = "설정")
+
+        Spacer(modifier = Modifier.height(30.dp))
+
+        Text(text = "onResume : $count 회", modifier = Modifier.fillMaxWidth())
     }
 }
 

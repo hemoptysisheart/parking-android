@@ -12,6 +12,9 @@ import com.github.hemoptysisheart.parking.app.interaction.main.LandingMapInterac
 import com.github.hemoptysisheart.parking.app.ui.molcule.EasyButton
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 
+/**
+ * [랜딩 맵](https://www.figma.com/file/rKJxXjvDtDNprvdojVxaaN/Parking?type=whiteboard&node-id=526-645)
+ */
 @Composable
 fun LandingMapPage(interaction: LandingMapInteraction) {
     Column(

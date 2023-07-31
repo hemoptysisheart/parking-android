@@ -15,6 +15,9 @@ import com.github.hemoptysisheart.parking.app.ui.page.LOGGER
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 import com.github.hemoptysisheart.parking.app.viewmodel.launcher.LauncherViewModel
 
+/**
+ * [스플래시](https://www.figma.com/file/rKJxXjvDtDNprvdojVxaaN/Parking?type=whiteboard&node-id=526-641)
+ */
 @Composable
 fun LauncherPage(
     interaction: LauncherInteraction,

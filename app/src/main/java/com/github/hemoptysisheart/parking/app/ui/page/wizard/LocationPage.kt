@@ -13,6 +13,9 @@ import com.github.hemoptysisheart.parking.app.ui.molcule.EasyButton
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 import com.github.hemoptysisheart.parking.app.ui.theme.Typography
 
+/**
+ * [마법사](https://www.figma.com/file/rKJxXjvDtDNprvdojVxaaN/Parking?type=whiteboard&node-id=526-649)
+ */
 @Composable
 fun LocationPage(interaction: LocationInteraction) {
     Column(Modifier.fillMaxSize()) {

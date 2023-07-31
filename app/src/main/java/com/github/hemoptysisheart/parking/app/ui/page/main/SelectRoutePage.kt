@@ -8,15 +8,17 @@ import androidx.compose.ui.tooling.PreviewActivity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.hemoptysisheart.parking.app.interaction.baseInteraction
-import com.github.hemoptysisheart.parking.app.interaction.main.DestinationSearchInteraction
+import com.github.hemoptysisheart.parking.app.interaction.main.SelectRouteInteraction
 import com.github.hemoptysisheart.parking.app.ui.molcule.EasyButton
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 
 /**
- * [목적지 검색](https://www.figma.com/file/rKJxXjvDtDNprvdojVxaaN/Parking?type=whiteboard&node-id=526-653)
+ * [경로 선택](https://www.figma.com/file/rKJxXjvDtDNprvdojVxaaN/Parking?type=whiteboard&node-id=526-681)
  */
 @Composable
-fun DestinationSearchPage(interaction: DestinationSearchInteraction) {
+fun SelectRoutePage(
+    interaction: SelectRouteInteraction
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -25,9 +27,7 @@ fun DestinationSearchPage(interaction: DestinationSearchInteraction) {
     ) {
         Text(
             text = """
-                - 검색어 입력창
-                - 추천 항목
-                - 검색 결과
+                주차장을 거쳐가는 경로를 비교해보고 선택할 수 있다.
             """.trimIndent(),
             modifier = Modifier
                 .fillMaxWidth()
@@ -35,15 +35,14 @@ fun DestinationSearchPage(interaction: DestinationSearchInteraction) {
         )
 
         EasyButton(onClick = interaction::goBack, label = "돌아가기")
-        EasyButton(onClick = interaction::gotoDestinationSearchFilterSetting, label = "검색 필터")
-        EasyButton(onClick = interaction::gotoSelectParking, label = "목적지 선택")
+        EasyButton(onClick = interaction::gotoRouteNavigation, label = "안내 시작")
     }
 }
 
 @Composable
-@Preview(showSystemUi = true)
-fun Preview_DestinationSearchPage() {
+@Preview
+fun Preview_SelectRoutePage() {
     ParkingTheme {
-        DestinationSearchPage(DestinationSearchInteraction(baseInteraction(PreviewActivity())))
+        SelectRoutePage(SelectRouteInteraction(baseInteraction(PreviewActivity())))
     }
 }

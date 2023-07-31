@@ -12,6 +12,9 @@ import com.github.hemoptysisheart.parking.app.interaction.main.SelectParingInter
 import com.github.hemoptysisheart.parking.app.ui.molcule.EasyButton
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 
+/**
+ * [주차장 선택](https://www.figma.com/file/rKJxXjvDtDNprvdojVxaaN/Parking?type=whiteboard&node-id=526-673)
+ */
 @Composable
 fun SelectParkingPage(interaction: SelectParingInteraction) {
     Column(
@@ -35,7 +38,7 @@ fun SelectParkingPage(interaction: SelectParingInteraction) {
 
         EasyButton(onClick = interaction::goBack, label = "돌아가기")
         EasyButton(onClick = { /*TODO*/ }, label = "주차장(경로) 선택")
-        EasyButton(onClick = interaction::gotoRouteNavigation, label = "안내 시작")
+        EasyButton(onClick = interaction::gotoSelectRoute, label = "경로 선택")
     }
 }
 

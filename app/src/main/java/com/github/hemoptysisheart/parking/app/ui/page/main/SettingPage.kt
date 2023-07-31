@@ -36,6 +36,7 @@ fun SettingPage(interaction: SettingInteraction) {
 
         EasyButton(onClick = interaction::goBack, label = "돌아가기")
         EasyButton(onClick = interaction::gotoSearchDestinationFilter, label = "목적지 검색 필터")
+        EasyButton(onClick = interaction::gotoWizard, label = "마법사")
         EasyButton(onClick = interaction::gotoDeveloperSetting, label = "개발자 설정")
     }
 }

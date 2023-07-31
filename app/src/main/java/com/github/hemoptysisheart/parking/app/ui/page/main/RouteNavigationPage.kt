@@ -12,6 +12,9 @@ import com.github.hemoptysisheart.parking.app.interaction.main.RouteNavigationIn
 import com.github.hemoptysisheart.parking.app.ui.molcule.EasyButton
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 
+/**
+ * [경로 안내](https://www.figma.com/file/rKJxXjvDtDNprvdojVxaaN/Parking?type=whiteboard&node-id=526-693)
+ */
 @Composable
 fun RouteNavigationPage(interaction: RouteNavigationInteraction) {
     Column(

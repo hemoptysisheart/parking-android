@@ -4,6 +4,9 @@ import com.github.hemoptysisheart.parking.app.interaction.BaseInteraction
 import com.github.hemoptysisheart.parking.app.interaction.Interaction
 import com.github.hemoptysisheart.parking.core.util.AndroidLogger
 
+/**
+ * [경로 안내](https://www.figma.com/file/rKJxXjvDtDNprvdojVxaaN/Parking?type=whiteboard&node-id=526-693)
+ */
 class RouteNavigationInteraction(
     private val base: BaseInteraction
 ) : Interaction by base {

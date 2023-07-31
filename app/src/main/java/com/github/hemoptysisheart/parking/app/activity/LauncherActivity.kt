@@ -3,8 +3,8 @@ package com.github.hemoptysisheart.parking.app.activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.github.hemoptysisheart.parking.app.ui.interaction.launcher.LauncherInteraction
-import com.github.hemoptysisheart.parking.app.ui.interaction.rememberCommonInteraction
+import com.github.hemoptysisheart.parking.app.interaction.baseInteraction
+import com.github.hemoptysisheart.parking.app.interaction.launcher.LauncherInteraction
 import com.github.hemoptysisheart.parking.app.ui.page.launcher.LauncherPage
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 import com.github.hemoptysisheart.parking.core.util.AndroidLogger
@@ -25,7 +25,7 @@ class LauncherActivity : ComponentActivity() {
 
         setContent {
             ParkingTheme {
-                LauncherPage(LauncherInteraction(rememberCommonInteraction()))
+                LauncherPage(LauncherInteraction(baseInteraction(this)))
             }
         }
     }

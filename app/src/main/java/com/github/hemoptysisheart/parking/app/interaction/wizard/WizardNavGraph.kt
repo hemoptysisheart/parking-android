@@ -7,6 +7,9 @@ import com.github.hemoptysisheart.parking.app.interaction.BaseInteraction
 import com.github.hemoptysisheart.parking.app.ui.page.wizard.InstructionPage
 import com.github.hemoptysisheart.parking.app.ui.page.wizard.LocationPage
 
+/**
+ * 마법사 네비게이션 그래프.
+ */
 @Composable
 fun WizardNavGraph(baseInteraction: BaseInteraction) {
     val instruction = InstructionInteraction(baseInteraction)

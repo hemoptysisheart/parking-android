@@ -1,12 +1,12 @@
 package com.github.hemoptysisheart.parking.app.ui.page.launcher
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.PreviewActivity
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.github.hemoptysisheart.parking.app.interaction.baseInteraction
 import com.github.hemoptysisheart.parking.app.interaction.launcher.LauncherInteraction
@@ -22,11 +22,22 @@ fun LauncherPage(
 ) {
     LOGGER.v("#LauncherPage args : interaction=$interaction")
 
-    Column(Modifier.fillMaxSize()) {
-        Spacer(modifier = Modifier.weight(1F))
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = """
+                - 로고
+                - 카피라이트
+            """.trimIndent(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp)
+        )
+
         EasyButton(onClick = interaction::gotoWizard, label = "마법사")
         EasyButton(onClick = interaction::gotoLandingMap, label = "랜딩맵")
-        Spacer(modifier = Modifier.weight(1F))
     }
 }
 

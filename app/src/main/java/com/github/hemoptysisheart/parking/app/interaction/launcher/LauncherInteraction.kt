@@ -7,6 +7,9 @@ import com.github.hemoptysisheart.parking.app.interaction.BaseInteraction
 import com.github.hemoptysisheart.parking.app.interaction.Interaction
 import com.github.hemoptysisheart.parking.core.util.AndroidLogger
 
+/**
+ * [스플래시](https://www.figma.com/file/rKJxXjvDtDNprvdojVxaaN/Parking?type=whiteboard&node-id=526-641)
+ */
 class LauncherInteraction(
     private val baseInteraction: BaseInteraction
 ) : Interaction by baseInteraction {

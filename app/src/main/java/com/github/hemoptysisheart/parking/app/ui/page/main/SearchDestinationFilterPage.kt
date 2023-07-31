@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.parking.app.ui.page.main.setting
+package com.github.hemoptysisheart.parking.app.ui.page.main
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text

@@ -4,12 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.github.hemoptysisheart.parking.app.interaction.BaseInteraction
-import com.github.hemoptysisheart.parking.app.ui.page.main.DestinationSearchPage
-import com.github.hemoptysisheart.parking.app.ui.page.main.LandingMapPage
-import com.github.hemoptysisheart.parking.app.ui.page.main.RouteNavigationPage
-import com.github.hemoptysisheart.parking.app.ui.page.main.SelectParkingPage
-import com.github.hemoptysisheart.parking.app.ui.page.main.setting.SearchDestinationFilterPage
-import com.github.hemoptysisheart.parking.app.ui.page.main.setting.SettingPage
+import com.github.hemoptysisheart.parking.app.ui.page.main.*
 
 /**
  * 메인 네비게이션 그래프.
@@ -23,6 +18,7 @@ fun MainNavGraph(baseInteraction: BaseInteraction) {
 
     val setting = SettingInteraction(baseInteraction)
     val searchDestinationFilter = SearchDestinationFilterInteraction(baseInteraction)
+    val developerSetting = DeveloperSettingInteraction(baseInteraction)
 
     NavHost(baseInteraction.navController, LandingMapInteraction.ROUTE_PATTERN) {
         composable(LandingMapInteraction.ROUTE_PATTERN) {
@@ -42,6 +38,9 @@ fun MainNavGraph(baseInteraction: BaseInteraction) {
         }
         composable(SearchDestinationFilterInteraction.ROUTE_PATTERN) {
             SearchDestinationFilterPage(searchDestinationFilter)
+        }
+        composable(DeveloperSettingInteraction.ROUTE_PATTERN) {
+            DeveloperSettingPage(developerSetting)
         }
     }
 }

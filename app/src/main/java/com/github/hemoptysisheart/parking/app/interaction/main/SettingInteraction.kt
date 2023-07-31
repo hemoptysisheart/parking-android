@@ -18,4 +18,10 @@ class SettingInteraction(
 
         base.navController.navigate(SearchDestinationFilterInteraction.ROUTE_PATTERN)
     }
+
+    fun gotoDeveloperSetting() {
+        LOGGER.i("#gotoDeveloperSetting called.")
+
+        base.navController.navigate(DeveloperSettingInteraction.ROUTE_PATTERN)
+    }
 }

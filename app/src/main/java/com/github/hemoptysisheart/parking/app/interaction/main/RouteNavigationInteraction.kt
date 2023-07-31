@@ -9,7 +9,17 @@ class RouteNavigationInteraction(
 ) : Interaction by base {
     companion object {
         private val LOGGER = AndroidLogger(RouteNavigationInteraction::class)
-
         const val ROUTE_PATTERN = "routeNavigation"
+
+    }
+
+    fun closeRouteNavigation() {
+        LOGGER.i("#closeRouteNavigation called.")
+
+        base.navController.navigate(LandingMapInteraction.ROUTE_PATTERN) {
+            popUpTo(LandingMapInteraction.ROUTE_PATTERN) {
+                inclusive = true
+            }
+        }
     }
 }

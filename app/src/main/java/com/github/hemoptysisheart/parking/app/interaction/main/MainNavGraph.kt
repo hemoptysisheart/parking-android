@@ -7,7 +7,6 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.github.hemoptysisheart.parking.app.interaction.BaseInteraction
-import com.github.hemoptysisheart.parking.app.ui.molcule.ProgressIndicator
 import com.github.hemoptysisheart.parking.app.ui.page.main.*
 
 /**
@@ -27,7 +26,6 @@ fun MainNavGraph(baseInteraction: BaseInteraction) {
 
     // ui
     Column(Modifier.fillMaxSize()) {
-        ProgressIndicator(true)
         NavHost(
             navController = baseInteraction.navController,
             startDestination = LandingMapInteraction.ROUTE_PATTERN,

@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.parking.app.viewmodel
+package com.github.hemoptysisheart.parking.app.ui.support
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -6,6 +6,7 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
+import com.github.hemoptysisheart.parking.app.viewmodel.BaseViewModel
 
 @Composable
 inline fun <reified VM : BaseViewModel> hiltBaseViewModel(
@@ -14,7 +15,6 @@ inline fun <reified VM : BaseViewModel> hiltBaseViewModel(
     }
 ): VM {
     val vm: VM = hiltViewModel(viewModelStoreOwner)
-
     val lifecycle = LocalLifecycleOwner.current.lifecycle
     DisposableEffect(vm) {
         lifecycle.addObserver(vm)

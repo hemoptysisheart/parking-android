@@ -3,6 +3,7 @@ package com.github.hemoptysisheart.parking.app.viewmodel
 import androidx.lifecycle.LifecycleOwner
 import com.github.hemoptysisheart.parking.core.util.AndroidLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.util.concurrent.atomic.AtomicInteger
 import javax.inject.Inject
@@ -16,11 +17,17 @@ class LandingMapViewModel @Inject constructor() : BaseViewModel() {
         private val LOGGER = AndroidLogger(LandingMapViewModel::class)
     }
 
-    private val counter = AtomicInteger()
+    private val showCounter = AtomicInteger()
     val count = MutableStateFlow(0)
 
     init {
         LOGGER.i("#init called.")
+    }
+
+    fun onProgress() {
+        launch(true) {
+            delay(5000L)
+        }
     }
 
     override fun onResume(owner: LifecycleOwner) {
@@ -28,7 +35,7 @@ class LandingMapViewModel @Inject constructor() : BaseViewModel() {
         super.onResume(owner)
 
         launch {
-            count.emit(counter.incrementAndGet())
+            count.emit(showCounter.incrementAndGet())
         }
     }
 

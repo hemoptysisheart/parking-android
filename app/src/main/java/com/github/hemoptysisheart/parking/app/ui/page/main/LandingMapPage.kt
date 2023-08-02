@@ -12,9 +12,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.hemoptysisheart.parking.app.interaction.baseInteraction
 import com.github.hemoptysisheart.parking.app.interaction.main.LandingMapInteraction
 import com.github.hemoptysisheart.parking.app.ui.molcule.EasyButton
+import com.github.hemoptysisheart.parking.app.ui.support.hiltBaseViewModel
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 import com.github.hemoptysisheart.parking.app.viewmodel.LandingMapViewModel
-import com.github.hemoptysisheart.parking.app.viewmodel.hiltBaseViewModel
 
 /**
  * [랜딩 맵](https://www.figma.com/file/rKJxXjvDtDNprvdojVxaaN/Parking?type=whiteboard&node-id=526-645)
@@ -48,7 +48,12 @@ fun LandingMapPage(
 
         Spacer(modifier = Modifier.height(30.dp))
 
-        Text(text = "onResume : $count 회", modifier = Modifier.fillMaxWidth())
+        Text(
+            text = "onResume : $count 회", modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp)
+        )
+        EasyButton(onClick = viewModel::onProgress, label = "작업 시작")
     }
 }
 

@@ -2,13 +2,12 @@ package com.github.hemoptysisheart.parking.app.interaction.main
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.github.hemoptysisheart.parking.app.interaction.BaseInteraction
+import com.github.hemoptysisheart.parking.app.ui.molcule.ProgressIndicator
 import com.github.hemoptysisheart.parking.app.ui.page.main.*
 
 /**
@@ -28,8 +27,12 @@ fun MainNavGraph(baseInteraction: BaseInteraction) {
 
     // ui
     Column(Modifier.fillMaxSize()) {
-        LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
-        NavHost(baseInteraction.navController, LandingMapInteraction.ROUTE_PATTERN) {
+        ProgressIndicator(true)
+        NavHost(
+            navController = baseInteraction.navController,
+            startDestination = LandingMapInteraction.ROUTE_PATTERN,
+            modifier = Modifier.fillMaxSize()
+        ) {
             composable(LandingMapInteraction.ROUTE_PATTERN) {
                 LandingMapPage(landingMap)
             }

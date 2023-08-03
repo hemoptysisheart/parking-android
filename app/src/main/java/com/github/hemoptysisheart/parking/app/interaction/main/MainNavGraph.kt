@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.github.hemoptysisheart.parking.app.interaction.BaseInteraction
 import com.github.hemoptysisheart.parking.app.ui.page.main.*
+import com.github.hemoptysisheart.parking.app.ui.template.GlobalHeader
 
 /**
  * 메인 네비게이션 그래프.
@@ -15,6 +16,8 @@ import com.github.hemoptysisheart.parking.app.ui.page.main.*
 @Composable
 fun MainNavGraph(baseInteraction: BaseInteraction) {
     // interactions : set up navigation graph
+    val globalHeader = GlobalHeaderInteraction(baseInteraction)
+
     val landingMap = LandingMapInteraction(baseInteraction)
     val destinationSearch = DestinationSearchInteraction(baseInteraction)
     val selectParing = SelectParingInteraction(baseInteraction)
@@ -26,6 +29,8 @@ fun MainNavGraph(baseInteraction: BaseInteraction) {
 
     // ui
     Column(Modifier.fillMaxSize()) {
+        GlobalHeader(globalHeader)
+
         NavHost(
             navController = baseInteraction.navController,
             startDestination = LandingMapInteraction.ROUTE_PATTERN,

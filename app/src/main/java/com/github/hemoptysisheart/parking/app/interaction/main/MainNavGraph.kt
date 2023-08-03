@@ -20,7 +20,8 @@ fun MainNavGraph(baseInteraction: BaseInteraction) {
 
     val landingMap = LandingMapInteraction(baseInteraction)
     val destinationSearch = DestinationSearchInteraction(baseInteraction)
-    val selectParing = SelectParingInteraction(baseInteraction)
+    val selectParking = SelectParingInteraction(baseInteraction)
+    val selectRoute = SelectRouteInteraction(baseInteraction)
     val routeNavigation = RouteNavigationInteraction(baseInteraction)
 
     val setting = SettingInteraction(baseInteraction)
@@ -46,7 +47,10 @@ fun MainNavGraph(baseInteraction: BaseInteraction) {
                 SettingPage(setting)
             }
             composable(SelectParingInteraction.ROUTE_PATTERN) {
-                SelectParkingPage(selectParing)
+                SelectParkingPage(selectParking)
+            }
+            composable(SelectRouteInteraction.ROUTE_PATTERN) {
+                SelectRoutePage(selectRoute)
             }
             composable(RouteNavigationInteraction.ROUTE_PATTERN) {
                 RouteNavigationPage(routeNavigation)

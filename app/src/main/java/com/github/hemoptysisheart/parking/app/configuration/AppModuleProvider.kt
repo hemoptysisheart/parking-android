@@ -48,6 +48,14 @@ class AppModuleProvider {
 
     @Provides
     @Singleton
+    fun provideProgressReporter(): ProgressReporter {
+        val reporter = ProgressReporter()
+        LOGGER.i("#provideProgressReporter return : $reporter")
+        return reporter
+    }
+
+    @Provides
+    @Singleton
     fun providePreferences(@ApplicationContext context: Context, timeProvider: TimeProvider): Preferences {
         val sharedPreferences = EncryptedSharedPreferences.create(
             context,

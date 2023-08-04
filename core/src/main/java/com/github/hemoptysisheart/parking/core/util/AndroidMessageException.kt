@@ -1,6 +1,5 @@
 package com.github.hemoptysisheart.parking.core.util
 
-import android.content.Context
 import androidx.annotation.StringRes
 
 /**
@@ -12,13 +11,5 @@ class AndroidMessageException(
     vararg val detailArgs: Any?,
     cause: Throwable? = null
 ) : Exception("title=$titleId, detailId=$detailId, detailArgs=${detailArgs.contentToString()}", cause) {
-    fun title(context: Context) = if (null == titleId) {
-        null
-    } else {
-        context.getString(titleId)
-    }
-
-    fun detail(context: Context) = context.getString(detailId, *detailArgs)
-
     override fun toString() = "(titleId=$titleId, detailId=$detailId, detailArgs=${detailArgs.contentToString()})"
 }

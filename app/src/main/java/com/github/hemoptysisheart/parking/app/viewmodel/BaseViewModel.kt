@@ -3,8 +3,7 @@ package com.github.hemoptysisheart.parking.app.viewmodel
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.hemoptysisheart.parking.core.model.AndroidMessageExceptionReporter
-import com.github.hemoptysisheart.parking.core.model.ProgressReporter
+import com.github.hemoptysisheart.parking.core.model.GlobalChannel
 import com.github.hemoptysisheart.parking.core.util.AndroidLogger
 import com.github.hemoptysisheart.parking.core.util.AndroidMessageException
 import com.github.hemoptysisheart.util.TimeProvider
@@ -26,10 +25,7 @@ open class BaseViewModel : ViewModel(), DefaultLifecycleObserver {
     lateinit var timeProvider: TimeProvider
 
     @Inject
-    lateinit var progressReporter: ProgressReporter
-
-    @Inject
-    lateinit var androidMessageExceptionReporter: AndroidMessageExceptionReporter
+    lateinit var globalChannel: GlobalChannel
 
     fun launch(
         progress: Boolean = false,
@@ -45,18 +41,18 @@ open class BaseViewModel : ViewModel(), DefaultLifecycleObserver {
                 if (progress) {
                     logger.v("#launch increase progress : key=$launchKey, now=${timeProvider.instant()}")
                     progressCounter.incrementAndGet()
-                    progressReporter.publish(1)
+                    globalChannel.reportProgress(1)
                 }
 
                 block()
             } catch (e: AndroidMessageException) {
                 logger.w("#launch error occur.", e)
-                androidMessageExceptionReporter.publish(e)
+                globalChannel.reportException(e)
             } finally {
                 if (progress) {
                     logger.v("#launch decrease progress : key=$launchKey, now=${timeProvider.instant()}")
                     progressCounter.decrementAndGet()
-                    progressReporter.publish(-1)
+                    globalChannel.reportProgress(-1)
                 }
             }
         }
@@ -67,7 +63,7 @@ open class BaseViewModel : ViewModel(), DefaultLifecycleObserver {
         super.onCleared()
 
         viewModelScope.launch {
-            progressReporter.publish(-progressCounter.get())
+            globalChannel.reportProgress(-progressCounter.get())
         }
     }
 }

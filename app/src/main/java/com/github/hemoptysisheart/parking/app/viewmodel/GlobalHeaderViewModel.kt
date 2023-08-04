@@ -3,8 +3,7 @@ package com.github.hemoptysisheart.parking.app.viewmodel
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.hemoptysisheart.parking.core.model.AndroidMessageExceptionReporter
-import com.github.hemoptysisheart.parking.core.model.ProgressReporter
+import com.github.hemoptysisheart.parking.core.model.GlobalChannelConsumer
 import com.github.hemoptysisheart.parking.core.util.AndroidLogger
 import com.github.hemoptysisheart.parking.core.util.AndroidMessageException
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,8 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GlobalHeaderViewModel @Inject constructor(
-    private val launchReporter: ProgressReporter,
-    private val androidMessageExceptionReporter: AndroidMessageExceptionReporter
+    private val globalChannelConsumer: GlobalChannelConsumer,
 ) : ViewModel(), DefaultLifecycleObserver {
     companion object {
         private val LOGGER = AndroidLogger(GlobalHeaderViewModel::class)
@@ -33,34 +31,27 @@ class GlobalHeaderViewModel @Inject constructor(
     val error = MutableStateFlow<AndroidMessageException?>(null)
 
     init {
-        viewModelScope.launch {
-            launchReporter.addSubscriber(GlobalHeaderViewModel::class) {
+        globalChannelConsumer.progressConsumer = GlobalChannelConsumer.Consumer {
+            LOGGER.v("#progressConsumer args : count=$it")
+            viewModelScope.launch {
                 progressMutex.withLock {
                     _progress += it
-                    LOGGER.v("#launchReporter.Subscriber publish $it : _progress=$_progress")
                     progress.emit(0 < _progress)
                 }
             }
+        }
 
-            androidMessageExceptionReporter.addSubscriber(GlobalHeaderViewModel::class) {
+        globalChannelConsumer.exceptionConsumer = GlobalChannelConsumer.Consumer {
+            LOGGER.v("#exceptionConsumer args : exception=$it", it)
+            viewModelScope.launch {
                 errorMutex.withLock {
                     if (null == error.value) {
                         error.emit(it)
                     } else {
                         errorQueue.add(it)
                     }
-                    LOGGER.v("#androidMessageExceptionReporter.Subscriber : error=${error.value}, errorQueue=$errorQueue")
                 }
             }
-        }
-    }
-
-    override fun onCleared() {
-        LOGGER.d("#onCleared called.")
-        super.onCleared()
-
-        viewModelScope.launch {
-            launchReporter.removeSubscriber(GlobalHeaderViewModel::class)
         }
     }
 
@@ -71,10 +62,14 @@ class GlobalHeaderViewModel @Inject constructor(
             errorMutex.withLock {
                 error.emit(null)
                 if (errorQueue.isNotEmpty()) {
-                    delay(10L)
+                    delay(70L)
                     error.emit(errorQueue.removeAt(0))
                 }
             }
         }
     }
+
+    override fun toString() = "GlobalHeaderViewModel(globalChannelConsumer=$globalChannelConsumer, " +
+            "progressMutex=$progressMutex, _progress=$_progress, progress=${progress.value}, " +
+            "errorMutex=$errorMutex, errorQueue=$errorQueue, error=${error.value})"
 }

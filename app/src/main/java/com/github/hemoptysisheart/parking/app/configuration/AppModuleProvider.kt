@@ -48,22 +48,6 @@ class AppModuleProvider {
 
     @Provides
     @Singleton
-    fun provideProgressReporter(): ProgressReporter {
-        val reporter = ProgressReporter()
-        LOGGER.i("#provideProgressReporter return : $reporter")
-        return reporter
-    }
-
-    @Provides
-    @Singleton
-    fun provideAndroidMessageExceptionReporter(): AndroidMessageExceptionReporter {
-        val reporter = AndroidMessageExceptionReporter()
-        LOGGER.i("#provideAndroidMessageExceptionReporter return : $reporter")
-        return reporter
-    }
-
-    @Provides
-    @Singleton
     fun provideGlobalChannelImpl() = GlobalChannelImpl()
 
     @Provides

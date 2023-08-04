@@ -54,6 +54,10 @@ fun LandingMapPage(
                 .padding(10.dp)
         )
         EasyButton(onClick = viewModel::onProgress, label = "작업 시작")
+
+        Spacer(modifier = Modifier.height(30.dp))
+
+        EasyButton(onClick = viewModel::onError, label = "에러 발생")
     }
 }
 

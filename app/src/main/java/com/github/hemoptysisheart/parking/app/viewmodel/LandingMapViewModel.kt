@@ -1,9 +1,12 @@
 package com.github.hemoptysisheart.parking.app.viewmodel
 
 import androidx.lifecycle.LifecycleOwner
+import com.github.hemoptysisheart.parking.R
+import com.github.hemoptysisheart.parking.core.util.AndroidMessageException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import java.time.ZonedDateTime
 import java.util.concurrent.ThreadLocalRandom
 import java.util.concurrent.atomic.AtomicInteger
 import javax.inject.Inject
@@ -34,6 +37,22 @@ class LandingMapViewModel @Inject constructor() : BaseViewModel() {
 
         launch {
             count.emit(showCounter.incrementAndGet())
+        }
+    }
+
+    fun onError() {
+        logger.d("#onError called.")
+
+        launch {
+            delay(1500L)
+            when (ThreadLocalRandom.current().nextInt(2)) {
+                0 -> throw AndroidMessageException(null, R.string.global_header_error_exp_case_simple_detail)
+                1 -> throw AndroidMessageException(
+                    R.string.global_header_error_exp_case_full_title,
+                    R.string.global_header_error_exp_case_full_detail_template,
+                    ZonedDateTime.now()
+                )
+            }
         }
     }
 }

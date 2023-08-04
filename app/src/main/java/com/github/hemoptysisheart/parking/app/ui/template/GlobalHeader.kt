@@ -17,6 +17,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.hemoptysisheart.parking.app.interaction.main.GlobalHeaderInteraction
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 import com.github.hemoptysisheart.parking.app.viewmodel.GlobalHeaderViewModel
+import com.github.hemoptysisheart.parking.core.util.AndroidMessageException
 
 @Composable
 fun GlobalHeader(
@@ -32,12 +33,21 @@ fun GlobalHeader(
     }
 
     val progress by viewModel.progress.collectAsStateWithLifecycle()
+    val error by viewModel.error.collectAsStateWithLifecycle()
 
-    GlobalHeaderContent(progress)
+    GlobalHeaderContent(progress, error, viewModel::onClearError)
 }
 
 @Composable
-private fun GlobalHeaderContent(progress: Boolean) {
+private fun GlobalHeaderContent(
+    progress: Boolean,
+    error: AndroidMessageException? = null,
+    onClearError: () -> Unit = {}
+) {
+    if (null != error) {
+        GlobalAlertDialog(error, onClearError)
+    }
+
     if (progress) {
         LinearProgressIndicator(modifier = Modifier.fillMaxWidth(), trackColor = Color.Transparent)
     } else {

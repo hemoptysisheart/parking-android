@@ -3,8 +3,10 @@ package com.github.hemoptysisheart.parking.app.viewmodel
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.github.hemoptysisheart.parking.core.model.AndroidMessageExceptionReporter
 import com.github.hemoptysisheart.parking.core.model.ProgressReporter
 import com.github.hemoptysisheart.parking.core.util.AndroidLogger
+import com.github.hemoptysisheart.parking.core.util.AndroidMessageException
 import com.github.hemoptysisheart.util.TimeProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
@@ -26,6 +28,9 @@ open class BaseViewModel : ViewModel(), DefaultLifecycleObserver {
     @Inject
     lateinit var progressReporter: ProgressReporter
 
+    @Inject
+    lateinit var androidMessageExceptionReporter: AndroidMessageExceptionReporter
+
     fun launch(
         progress: Boolean = false,
         context: CoroutineContext = EmptyCoroutineContext,
@@ -44,6 +49,9 @@ open class BaseViewModel : ViewModel(), DefaultLifecycleObserver {
                 }
 
                 block()
+            } catch (e: AndroidMessageException) {
+                logger.w("#launch error occur.", e)
+                androidMessageExceptionReporter.publish(e)
             } finally {
                 if (progress) {
                     logger.v("#launch decrease progress : key=$launchKey, now=${timeProvider.instant()}")

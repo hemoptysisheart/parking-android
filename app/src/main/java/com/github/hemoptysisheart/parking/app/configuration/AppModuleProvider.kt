@@ -56,6 +56,14 @@ class AppModuleProvider {
 
     @Provides
     @Singleton
+    fun provideAndroidMessageExceptionReporter(): AndroidMessageExceptionReporter {
+        val reporter = AndroidMessageExceptionReporter()
+        LOGGER.i("#provideAndroidMessageExceptionReporter return : $reporter")
+        return reporter
+    }
+
+    @Provides
+    @Singleton
     fun providePreferences(@ApplicationContext context: Context, timeProvider: TimeProvider): Preferences {
         val sharedPreferences = EncryptedSharedPreferences.create(
             context,

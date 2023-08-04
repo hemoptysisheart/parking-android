@@ -64,6 +64,10 @@ class AppModuleProvider {
 
     @Provides
     @Singleton
+    fun provideGlobalChannelImpl() = GlobalChannelImpl()
+
+    @Provides
+    @Singleton
     fun providePreferences(@ApplicationContext context: Context, timeProvider: TimeProvider): Preferences {
         val sharedPreferences = EncryptedSharedPreferences.create(
             context,

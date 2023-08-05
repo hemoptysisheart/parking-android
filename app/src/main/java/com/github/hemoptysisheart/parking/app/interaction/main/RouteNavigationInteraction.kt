@@ -12,8 +12,8 @@ class RouteNavigationInteraction(
 ) : Interaction by base {
     companion object {
         private val LOGGER = AndroidLogger(RouteNavigationInteraction::class)
-        const val ROUTE_PATTERN = "routeNavigation"
 
+        const val ROUTE_PATTERN = "main/routeNavigation"
     }
 
     fun closeRouteNavigation() {

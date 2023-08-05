@@ -10,6 +10,6 @@ class SearchSettingInteraction(
     companion object {
         private val LOGGER = AndroidLogger(SearchSettingInteraction::class)
 
-        const val ROUTE_PATTERN = "setting/search"
+        const val ROUTE_PATTERN = "main/setting/search"
     }
 }

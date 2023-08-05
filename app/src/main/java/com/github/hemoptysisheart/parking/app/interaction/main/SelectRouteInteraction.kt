@@ -13,7 +13,7 @@ class SelectRouteInteraction(
     companion object {
         private val LOGGER = AndroidLogger(SelectRouteInteraction::class)
 
-        const val ROUTE_PATTERN = "selectRoute"
+        const val ROUTE_PATTERN = "main/selectRoute"
     }
 
     fun gotoRouteNavigation() {

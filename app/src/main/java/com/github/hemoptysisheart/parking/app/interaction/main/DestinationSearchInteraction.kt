@@ -11,7 +11,7 @@ class DestinationSearchInteraction(private val base: BaseInteraction) : Interact
     companion object {
         private val LOGGER = AndroidLogger(DestinationSearchInteraction::class)
 
-        const val ROUTE_PATTERN = "searchDestination"
+        const val ROUTE_PATTERN = "main/destinationSearch"
     }
 
     fun gotoSelectParking() {

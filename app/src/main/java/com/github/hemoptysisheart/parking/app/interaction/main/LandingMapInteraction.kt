@@ -13,7 +13,7 @@ class LandingMapInteraction(
     companion object {
         private val LOGGER = AndroidLogger(LandingMapInteraction::class)
 
-        const val ROUTE_PATTERN = "landingMap"
+        const val ROUTE_PATTERN = "main/landingMap"
     }
 
     fun gotoDestinationSearch() {

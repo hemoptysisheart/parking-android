@@ -10,6 +10,6 @@ class DeveloperSettingInteraction(
     companion object {
         private val LOGGER = AndroidLogger(DeveloperSettingInteraction::class)
 
-        const val ROUTE_PATTERN = "setting/developer"
+        const val ROUTE_PATTERN = "main/setting/developer"
     }
 }

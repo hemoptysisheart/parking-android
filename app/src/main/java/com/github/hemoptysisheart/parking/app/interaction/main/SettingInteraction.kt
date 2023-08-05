@@ -11,7 +11,7 @@ class SettingInteraction(
 ) : Interaction by base {
     companion object {
         private val LOGGER = AndroidLogger(SettingInteraction::class)
-        const val ROUTE_PATTERN = "setting"
+        const val ROUTE_PATTERN = "main/setting"
 
     }
 

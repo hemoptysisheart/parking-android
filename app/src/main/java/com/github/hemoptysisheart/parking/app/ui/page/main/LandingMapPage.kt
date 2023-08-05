@@ -5,15 +5,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.PreviewActivity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.github.hemoptysisheart.parking.app.interaction.baseInteraction
 import com.github.hemoptysisheart.parking.app.interaction.main.LandingMapInteraction
 import com.github.hemoptysisheart.parking.app.ui.molcule.EasyButton
+import com.github.hemoptysisheart.parking.app.ui.page.LOGGER
+import com.github.hemoptysisheart.parking.app.ui.preview.PreviewPage
 import com.github.hemoptysisheart.parking.app.ui.support.hiltBaseViewModel
-import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 import com.github.hemoptysisheart.parking.app.viewmodel.LandingMapViewModel
 
 /**
@@ -24,6 +23,8 @@ fun LandingMapPage(
     interaction: LandingMapInteraction,
     viewModel: LandingMapViewModel = hiltBaseViewModel()
 ) {
+    LOGGER.v("#LandingMapPage args : interaction=$interaction, viewModel=$viewModel")
+
     val count by viewModel.count.collectAsStateWithLifecycle()
 
     Column(
@@ -64,7 +65,7 @@ fun LandingMapPage(
 @Composable
 @Preview(showSystemUi = true)
 fun LandingMapPage() {
-    ParkingTheme {
-        LandingMapPage(LandingMapInteraction(baseInteraction(PreviewActivity())))
+    PreviewPage {
+        LandingMapPage(LandingMapInteraction(it))
     }
 }

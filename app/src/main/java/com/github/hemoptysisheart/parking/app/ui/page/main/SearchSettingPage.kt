@@ -4,18 +4,19 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.PreviewActivity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.hemoptysisheart.parking.app.interaction.baseInteraction
 import com.github.hemoptysisheart.parking.app.interaction.main.SearchSettingInteraction
 import com.github.hemoptysisheart.parking.app.ui.molcule.EasyButton
-import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
+import com.github.hemoptysisheart.parking.app.ui.page.LOGGER
+import com.github.hemoptysisheart.parking.app.ui.preview.PreviewPage
 
 @Composable
 fun SearchSettingPage(
     interaction: SearchSettingInteraction
 ) {
+    LOGGER.v("#SearchSettingPage args : interaction=$interaction")
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -39,7 +40,7 @@ fun SearchSettingPage(
 @Composable
 @Preview(showSystemUi = true)
 fun Preview_SearchSettingPage() {
-    ParkingTheme {
-        SearchSettingPage(SearchSettingInteraction(baseInteraction(PreviewActivity())))
+    PreviewPage {
+        SearchSettingPage(SearchSettingInteraction(it))
     }
 }

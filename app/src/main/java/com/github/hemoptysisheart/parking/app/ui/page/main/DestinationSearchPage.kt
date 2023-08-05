@@ -4,19 +4,19 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.PreviewActivity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.hemoptysisheart.parking.app.interaction.baseInteraction
 import com.github.hemoptysisheart.parking.app.interaction.main.DestinationSearchInteraction
 import com.github.hemoptysisheart.parking.app.ui.molcule.EasyButton
-import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
+import com.github.hemoptysisheart.parking.app.ui.page.LOGGER
+import com.github.hemoptysisheart.parking.app.ui.preview.PreviewPage
 
 /**
  * [목적지 검색](https://www.figma.com/file/rKJxXjvDtDNprvdojVxaaN/Parking?type=whiteboard&node-id=526-653)
  */
 @Composable
 fun DestinationSearchPage(interaction: DestinationSearchInteraction) {
+    LOGGER.v("#DestinationSearchPage args : interaction=$interaction")
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -43,7 +43,7 @@ fun DestinationSearchPage(interaction: DestinationSearchInteraction) {
 @Composable
 @Preview(showSystemUi = true)
 fun Preview_DestinationSearchPage() {
-    ParkingTheme {
-        DestinationSearchPage(DestinationSearchInteraction(baseInteraction(PreviewActivity())))
+    PreviewPage {
+        DestinationSearchPage(DestinationSearchInteraction(it))
     }
 }

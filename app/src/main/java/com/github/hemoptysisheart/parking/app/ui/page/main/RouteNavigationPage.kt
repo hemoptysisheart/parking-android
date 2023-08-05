@@ -4,19 +4,19 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.PreviewActivity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.hemoptysisheart.parking.app.interaction.baseInteraction
 import com.github.hemoptysisheart.parking.app.interaction.main.RouteNavigationInteraction
 import com.github.hemoptysisheart.parking.app.ui.molcule.EasyButton
-import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
+import com.github.hemoptysisheart.parking.app.ui.page.LOGGER
+import com.github.hemoptysisheart.parking.app.ui.preview.PreviewPage
 
 /**
  * [경로 안내](https://www.figma.com/file/rKJxXjvDtDNprvdojVxaaN/Parking?type=whiteboard&node-id=526-693)
  */
 @Composable
 fun RouteNavigationPage(interaction: RouteNavigationInteraction) {
+    LOGGER.v("#RouteNavigationPage args : interaction=$interaction")
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -45,7 +45,7 @@ fun RouteNavigationPage(interaction: RouteNavigationInteraction) {
 @Composable
 @Preview(showSystemUi = true)
 fun Preview_RouteNavigationPage() {
-    ParkingTheme {
-        RouteNavigationPage(RouteNavigationInteraction(baseInteraction(PreviewActivity())))
+    PreviewPage {
+        RouteNavigationPage(RouteNavigationInteraction(it))
     }
 }

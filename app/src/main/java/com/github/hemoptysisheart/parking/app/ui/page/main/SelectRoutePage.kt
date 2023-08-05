@@ -4,13 +4,12 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.PreviewActivity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.hemoptysisheart.parking.app.interaction.baseInteraction
 import com.github.hemoptysisheart.parking.app.interaction.main.SelectRouteInteraction
 import com.github.hemoptysisheart.parking.app.ui.molcule.EasyButton
-import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
+import com.github.hemoptysisheart.parking.app.ui.page.LOGGER
+import com.github.hemoptysisheart.parking.app.ui.preview.PreviewPage
 
 /**
  * [경로 선택](https://www.figma.com/file/rKJxXjvDtDNprvdojVxaaN/Parking?type=whiteboard&node-id=526-681)
@@ -19,6 +18,7 @@ import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 fun SelectRoutePage(
     interaction: SelectRouteInteraction
 ) {
+    LOGGER.v("#SelectRoutePage args : interaction=$interaction")
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -40,9 +40,9 @@ fun SelectRoutePage(
 }
 
 @Composable
-@Preview
+@Preview(showSystemUi = true)
 fun Preview_SelectRoutePage() {
-    ParkingTheme {
-        SelectRoutePage(SelectRouteInteraction(baseInteraction(PreviewActivity())))
+    PreviewPage {
+        SelectRoutePage(SelectRouteInteraction(it))
     }
 }

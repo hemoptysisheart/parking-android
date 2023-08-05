@@ -25,10 +25,20 @@ fun SearchSettingPage(
     ) {
         Text(
             text = """
-                - 목적직 검색 반경
+                - 목적지 검색 반경
+                    - 기본 반경
+                    - 지정
                 - 주차장 검색 반경
+                    - 기본 반경
+                    - 지정
                 - 검색 언어
+                    - 미지정
+                    - 시스템 언어
+                    - 위치 기반
+                    - 지정
                 - 검색 결과 없을 때 재검색 여부
+                - 날짜 포맷
+                - 거리 단위
             """.trimIndent(),
             modifier = Modifier.fillMaxWidth()
         )

@@ -7,11 +7,11 @@ import com.github.hemoptysisheart.parking.core.util.AndroidLogger
 /**
  * [주차장 선택](https://www.figma.com/file/rKJxXjvDtDNprvdojVxaaN/Parking?type=whiteboard&node-id=526-673)
  */
-class SelectParingInteraction(
+class SelectParkingInteraction(
     private val base: BaseInteraction
 ) : Interaction by base {
     companion object {
-        private val LOGGER = AndroidLogger(SelectParingInteraction::class)
+        private val LOGGER = AndroidLogger(SelectParkingInteraction::class)
 
         const val ROUTE_PATTERN = "selectParking"
     }

@@ -8,7 +8,7 @@ import androidx.compose.ui.tooling.PreviewActivity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.hemoptysisheart.parking.app.interaction.baseInteraction
-import com.github.hemoptysisheart.parking.app.interaction.main.SelectParingInteraction
+import com.github.hemoptysisheart.parking.app.interaction.main.SelectParkingInteraction
 import com.github.hemoptysisheart.parking.app.ui.molcule.EasyButton
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 
@@ -16,7 +16,7 @@ import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
  * [주차장 선택](https://www.figma.com/file/rKJxXjvDtDNprvdojVxaaN/Parking?type=whiteboard&node-id=526-673)
  */
 @Composable
-fun SelectParkingPage(interaction: SelectParingInteraction) {
+fun SelectParkingPage(interaction: SelectParkingInteraction) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -46,6 +46,6 @@ fun SelectParkingPage(interaction: SelectParingInteraction) {
 @Preview(showSystemUi = true)
 fun Preview_SelectParkingPage() {
     ParkingTheme {
-        SelectParkingPage(SelectParingInteraction(baseInteraction(PreviewActivity())))
+        SelectParkingPage(SelectParkingInteraction(baseInteraction(PreviewActivity())))
     }
 }

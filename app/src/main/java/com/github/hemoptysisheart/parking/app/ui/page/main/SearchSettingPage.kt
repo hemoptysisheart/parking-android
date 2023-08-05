@@ -8,12 +8,14 @@ import androidx.compose.ui.tooling.PreviewActivity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.hemoptysisheart.parking.app.interaction.baseInteraction
-import com.github.hemoptysisheart.parking.app.interaction.main.SearchDestinationFilterInteraction
+import com.github.hemoptysisheart.parking.app.interaction.main.SearchSettingInteraction
 import com.github.hemoptysisheart.parking.app.ui.molcule.EasyButton
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
 
 @Composable
-fun SearchDestinationFilterPage(interaction: SearchDestinationFilterInteraction) {
+fun SearchSettingPage(
+    interaction: SearchSettingInteraction
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -22,7 +24,9 @@ fun SearchDestinationFilterPage(interaction: SearchDestinationFilterInteraction)
     ) {
         Text(
             text = """
-                - 검색 반경
+                - 목적직 검색 반경
+                - 주차장 검색 반경
+                - 검색 언어
                 - 검색 결과 없을 때 재검색 여부
             """.trimIndent(),
             modifier = Modifier.fillMaxWidth()
@@ -34,8 +38,8 @@ fun SearchDestinationFilterPage(interaction: SearchDestinationFilterInteraction)
 
 @Composable
 @Preview(showSystemUi = true)
-fun Preview_SearchDestinationFilterPage() {
+fun Preview_SearchSettingPage() {
     ParkingTheme {
-        SearchDestinationFilterPage(SearchDestinationFilterInteraction(baseInteraction(PreviewActivity())))
+        SearchSettingPage(SearchSettingInteraction(baseInteraction(PreviewActivity())))
     }
 }

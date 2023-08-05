@@ -20,12 +20,12 @@ fun MainNavGraph(baseInteraction: BaseInteraction) {
 
     val landingMap = LandingMapInteraction(baseInteraction)
     val destinationSearch = DestinationSearchInteraction(baseInteraction)
-    val selectParking = SelectParingInteraction(baseInteraction)
+    val selectParking = SelectParkingInteraction(baseInteraction)
     val selectRoute = SelectRouteInteraction(baseInteraction)
     val routeNavigation = RouteNavigationInteraction(baseInteraction)
 
     val setting = SettingInteraction(baseInteraction)
-    val searchDestinationFilter = SearchDestinationFilterInteraction(baseInteraction)
+    val searchDestinationFilter = SearchSettingInteraction(baseInteraction)
     val developerSetting = DeveloperSettingInteraction(baseInteraction)
 
     // ui
@@ -46,7 +46,7 @@ fun MainNavGraph(baseInteraction: BaseInteraction) {
             composable(SettingInteraction.ROUTE_PATTERN) {
                 SettingPage(setting)
             }
-            composable(SelectParingInteraction.ROUTE_PATTERN) {
+            composable(SelectParkingInteraction.ROUTE_PATTERN) {
                 SelectParkingPage(selectParking)
             }
             composable(SelectRouteInteraction.ROUTE_PATTERN) {
@@ -55,8 +55,8 @@ fun MainNavGraph(baseInteraction: BaseInteraction) {
             composable(RouteNavigationInteraction.ROUTE_PATTERN) {
                 RouteNavigationPage(routeNavigation)
             }
-            composable(SearchDestinationFilterInteraction.ROUTE_PATTERN) {
-                SearchDestinationFilterPage(searchDestinationFilter)
+            composable(SearchSettingInteraction.ROUTE_PATTERN) {
+                SearchSettingPage(searchDestinationFilter)
             }
             composable(DeveloperSettingInteraction.ROUTE_PATTERN) {
                 DeveloperSettingPage(developerSetting)

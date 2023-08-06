@@ -12,13 +12,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.hemoptysisheart.parking.app.interaction.main.SettingInteraction
 import com.github.hemoptysisheart.parking.app.ui.molecule.EasyButton
-import com.github.hemoptysisheart.parking.app.ui.page.LOGGER
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewPage
 
 @Composable
 fun SettingPage(interaction: SettingInteraction) {
-    LOGGER.v("#SettingPage args : interaction=$interaction")
-
     Column(
             modifier = Modifier
                     .fillMaxSize()
@@ -40,7 +37,7 @@ fun SettingPage(interaction: SettingInteraction) {
         )
 
         EasyButton(onClick = interaction::goBack, label = "돌아가기")
-        EasyButton(onClick = interaction::gotoSearchDestinationFilter, label = "목적지 검색 필터")
+        EasyButton(onClick = interaction::gotoSearchSetting, label = "검색 설정")
         EasyButton(onClick = interaction::gotoWizard, label = "마법사")
         EasyButton(onClick = interaction::gotoDeveloperSetting, label = "개발자 설정")
     }

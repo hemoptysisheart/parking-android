@@ -17,7 +17,13 @@ import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
+/**
+ * [ViewModel] 확장 기능.
+ */
 open class BaseViewModel : ViewModel(), DefaultLifecycleObserver {
+    /**
+     * 여러개의 속성이 긴밀하게 연동되는 UI를 구현해야 할 때, 관련 기능을 묶어서 구현할 수 있도록 도와주는 [ViewModel] 유틸리티 클래스.
+     */
     abstract class ViewModelet(
             val base: BaseViewModel,
             val key: UUID = UUID.randomUUID()!!

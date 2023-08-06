@@ -15,8 +15,8 @@ class SettingInteraction(
 
     }
 
-    fun gotoSearchDestinationFilter() {
-        LOGGER.i("#gotoSearchDestinationFilter called.")
+    fun gotoSearchSetting() {
+        LOGGER.i("#gotoSearchSetting called.")
 
         base.navController.navigate(SearchSettingInteraction.ROUTE_PATTERN)
     }

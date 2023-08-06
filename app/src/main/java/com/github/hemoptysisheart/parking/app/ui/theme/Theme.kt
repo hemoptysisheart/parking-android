@@ -10,38 +10,6 @@ import androidx.compose.runtime.Composable
 fun ParkingTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
     MaterialTheme(
             colorScheme = if (darkTheme) {
-                lightColorScheme(
-                        primary = LightPrimary,
-                        onPrimary = LightOnPrimary,
-                        primaryContainer = LightPrimaryContainer,
-                        onPrimaryContainer = LightOnPrimaryContainer,
-                        inversePrimary = LightInversePrimary,
-                        secondary = LightSecondary,
-                        onSecondary = LightOnSecondary,
-                        secondaryContainer = LightSecondaryContainer,
-                        onSecondaryContainer = LightOnSecondaryContainer,
-                        tertiary = LightTertiary,
-                        onTertiary = LightOnTertiary,
-                        tertiaryContainer = LightTertiaryContainer,
-                        onTertiaryContainer = LightOnTertiaryContainer,
-                        background = LightBackground,
-                        onBackground = LightOnBackground,
-                        surface = LightSurface,
-                        onSurface = LightOnSurface,
-                        surfaceVariant = LightSurfaceVariant,
-                        onSurfaceVariant = LightOnSurfaceVariant,
-                        surfaceTint = LightSurfaceTint,
-                        inverseSurface = LightInverseSurface,
-                        inverseOnSurface = LightInverseOnSurface,
-                        error = LightError,
-                        errorContainer = LightErrorContainer,
-                        onError = LightOnError,
-                        onErrorContainer = LightOnErrorContainer,
-                        outline = LightOutline,
-                        outlineVariant = LightOutlineVariant,
-                        scrim = LightScrim
-                )
-            } else {
                 darkColorScheme(
                         primary = DarkPrimary,
                         onPrimary = DarkOnPrimary,
@@ -72,6 +40,38 @@ fun ParkingTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composabl
                         outline = DarkOutline,
                         outlineVariant = DarkOutlineVariant,
                         scrim = DarkScrim
+                )
+            } else {
+                lightColorScheme(
+                        primary = LightPrimary,
+                        onPrimary = LightOnPrimary,
+                        primaryContainer = LightPrimaryContainer,
+                        onPrimaryContainer = LightOnPrimaryContainer,
+                        inversePrimary = LightInversePrimary,
+                        secondary = LightSecondary,
+                        onSecondary = LightOnSecondary,
+                        secondaryContainer = LightSecondaryContainer,
+                        onSecondaryContainer = LightOnSecondaryContainer,
+                        tertiary = LightTertiary,
+                        onTertiary = LightOnTertiary,
+                        tertiaryContainer = LightTertiaryContainer,
+                        onTertiaryContainer = LightOnTertiaryContainer,
+                        background = LightBackground,
+                        onBackground = LightOnBackground,
+                        surface = LightSurface,
+                        onSurface = LightOnSurface,
+                        surfaceVariant = LightSurfaceVariant,
+                        onSurfaceVariant = LightOnSurfaceVariant,
+                        surfaceTint = LightSurfaceTint,
+                        inverseSurface = LightInverseSurface,
+                        inverseOnSurface = LightInverseOnSurface,
+                        error = LightError,
+                        errorContainer = LightErrorContainer,
+                        onError = LightOnError,
+                        onErrorContainer = LightOnErrorContainer,
+                        outline = LightOutline,
+                        outlineVariant = LightOutlineVariant,
+                        scrim = LightScrim
                 )
             },
             typography = Typography,

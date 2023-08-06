@@ -9,7 +9,9 @@ import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.ArrowDropUp
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.hemoptysisheart.parking.R
@@ -19,12 +21,14 @@ import com.github.hemoptysisheart.parking.app.ui.preview.preview
 @Composable
 fun BackButton(
         description: String? = null,
+        color: Color = LocalContentColor.current,
         onClick: () -> Unit = { }
 ) {
     IconButton(onClick = onClick) {
         Icon(
                 imageVector = Icons.Default.ArrowBack,
-                contentDescription = description
+                contentDescription = description,
+                tint = color
         )
     }
 }
@@ -32,26 +36,29 @@ fun BackButton(
 @Composable
 fun DropDownButton(
         description: String? = null,
+        color: Color = LocalContentColor.current,
         onClick: () -> Unit = { }
 ) {
     IconButton(onClick = onClick) {
         Icon(
                 imageVector = Icons.Default.ArrowDropDown,
-                contentDescription = description
+                contentDescription = description,
+                tint = color
         )
     }
 }
 
 @Composable
 fun DropUpButton(
-        label: String? = null,
         description: String? = null,
+        color: Color = LocalContentColor.current,
         onClick: () -> Unit = { }
 ) {
     IconButton(onClick = onClick) {
         Icon(
                 imageVector = Icons.Default.ArrowDropUp,
-                contentDescription = description ?: label
+                contentDescription = description,
+                tint = color
         )
     }
 }

@@ -18,7 +18,8 @@ class DistanceSettingViewModelet(
         @StringRes val label: Int,
         @StringRes val description: Int,
         val defaultDistance: NonNegativeInt,
-        val distanceRange: IntRange
+        val distanceRange: IntRange,
+        private val postChange: suspend () -> Unit
 ) : BaseViewModel.ViewModelet(base) {
     private val logger = AndroidLogger(this::class, key)
 
@@ -36,6 +37,8 @@ class DistanceSettingViewModelet(
 
         launch {
             _enable.emit(enable)
+
+            postChange()
         }
     }
 
@@ -51,6 +54,8 @@ class DistanceSettingViewModelet(
 
         launch {
             _distance.emit(d)
+
+            postChange()
         }
     }
 
@@ -60,6 +65,8 @@ class DistanceSettingViewModelet(
 
         launch {
             _unit.emit(unit)
+
+            postChange()
         }
     }
 }

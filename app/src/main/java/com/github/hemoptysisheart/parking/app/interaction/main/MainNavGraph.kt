@@ -1,7 +1,9 @@
 package com.github.hemoptysisheart.parking.app.interaction.main
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
@@ -36,7 +38,9 @@ fun MainNavGraph(baseInteraction: BaseInteraction) {
     val developerSetting = DeveloperSettingInteraction(baseInteraction)
 
     // ui
-    Column(Modifier.fillMaxSize()) {
+    Column(Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)) {
         GlobalHeader(globalHeader)
 
         NavHost(

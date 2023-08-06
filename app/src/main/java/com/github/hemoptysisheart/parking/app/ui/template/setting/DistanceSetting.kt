@@ -1,6 +1,9 @@
 package com.github.hemoptysisheart.parking.app.ui.template.setting
 
+import android.content.res.Configuration.UI_MODE_NIGHT_NO
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.annotation.StringRes
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -9,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Switch
 import androidx.compose.runtime.Composable
@@ -68,7 +72,7 @@ fun DistanceSetting(
 ) {
     var expand by remember(key) { mutableStateOf(false) }
 
-    Column(modifier = Modifier.padding(20.dp, 10.dp)) {
+    Column(modifier = Modifier.background(MaterialTheme.colorScheme.background)) {
         Row(
                 modifier = Modifier.padding(0.dp, 5.dp),
                 verticalAlignment = Alignment.CenterVertically
@@ -76,13 +80,14 @@ fun DistanceSetting(
             TextLabelLarge(
                     text = stringResource(id = label),
                     modifier = Modifier.weight(1F),
+                    color = MaterialTheme.colorScheme.onBackground,
                     fontWeight = FontWeight.Bold
             )
             Switch(checked = enable, onCheckedChange = onToggleEnable)
         }
         TextBodyMedium(
                 text = stringResource(description, DistanceUnitRes[unit].format(distance.value), unit.label),
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5F)
         )
         Row(
                 modifier = Modifier.padding(0.dp, 5.dp),
@@ -94,7 +99,8 @@ fun DistanceSetting(
                     modifier = Modifier.weight(1F),
                     enabled = enable,
                     textStyle = Typography.labelLarge.copy(textAlign = TextAlign.End),
-                    keyboardOptions = KEYBOARD_NUMBER
+                    keyboardOptions = KEYBOARD_NUMBER,
+                    colors = OutlinedTextFieldDefaults.colors()
             )
             Spacer(modifier = Modifier.width(10.dp))
             InputDropdown(
@@ -124,7 +130,8 @@ fun DistanceSetting(
 }
 
 @Composable
-@Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_NO)
+@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 fun Preview_DistanceSetting() {
     PreviewComponent {
         DistanceSetting(previewSearchSettingViewModel().destination)

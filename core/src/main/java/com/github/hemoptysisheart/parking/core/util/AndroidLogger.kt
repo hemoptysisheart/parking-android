@@ -26,6 +26,8 @@ class AndroidLogger(
 
     constructor(clazz: KClass<*>) : this(clazz.simpleName!!)
 
+    constructor(clazz: KClass<*>, vararg keys: Any) : this("${clazz.simpleName!!}@${keys.contentToString()}")
+
     init {
         when {
             name.isEmpty() ->

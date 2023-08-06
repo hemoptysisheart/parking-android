@@ -1,40 +1,78 @@
 package com.github.hemoptysisheart.parking.app.ui.page.main
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.github.hemoptysisheart.parking.R
 import com.github.hemoptysisheart.parking.app.interaction.main.SearchSettingInteraction
-import com.github.hemoptysisheart.parking.app.ui.molecule.EasyButton
 import com.github.hemoptysisheart.parking.app.ui.page.LOGGER
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewPage
+import com.github.hemoptysisheart.parking.app.ui.state.setting.DistanceSettingState
+import com.github.hemoptysisheart.parking.app.ui.support.collect
+import com.github.hemoptysisheart.parking.app.ui.support.hiltBaseViewModel
+import com.github.hemoptysisheart.parking.app.ui.template.setting.DistanceSetting
+import com.github.hemoptysisheart.parking.app.ui.template.setting.SettingItemDetail
+import com.github.hemoptysisheart.parking.app.viewmodel.DistanceSettingViewModelet
+import com.github.hemoptysisheart.parking.app.viewmodel.main.SearchSettingViewModel
+import com.github.hemoptysisheart.parking.domain.common.DistanceUnit
 
 @Composable
 fun SearchSettingPage(
-        interaction: SearchSettingInteraction
+        interaction: SearchSettingInteraction,
+        viewModel: SearchSettingViewModel = hiltBaseViewModel()
 ) {
     LOGGER.v("#SearchSettingPage args : interaction=$interaction")
 
-    Column(
-            modifier = Modifier
-                    .fillMaxSize()
-                    .padding(10.dp),
-            verticalArrangement = Arrangement.Center
+    val parking by viewModel.parking.collectAsStateWithLifecycle()
+
+    SearchSettingPage(
+            interaction = interaction,
+            destination = viewModel.destination,
+            parking = parking,
+            onChangeEnable = viewModel::onChangeEnable,
+            onChangeDestinationDistance = viewModel::onChangeDestinationDistance,
+            onChangeDestinationDistanceUnit = viewModel::onChangeDestinationDistanceUnit
+    )
+}
+
+@Composable
+internal fun SearchSettingPage(
+        interaction: SearchSettingInteraction,
+        destination: DistanceSettingViewModelet,
+        parking: DistanceSettingState,
+        onChangeEnable: (DistanceSettingState, Boolean) -> Unit = { s, b -> },
+        onChangeDestinationDistance: (String) -> Unit = { },
+        onChangeDestinationDistanceUnit: (DistanceUnit?) -> Unit = { }
+) {
+    SettingItemDetail(
+            title = R.string.template_setting_item_distance_title,
+            onBack = interaction::goBack
     ) {
+        DistanceSetting(
+                destination.key,
+                destination.label,
+                destination.description,
+                destination.enable.collect(),
+                destination.distance.collect(),
+                destination.unit.collect(),
+                onToggleEnable = destination::onChangeEnable,
+                onChangeDistance = destination::onChangeDistance,
+                onChangeUnit = destination::onChangeUnit
+        )
+
+        DistanceSetting(state = parking, onToggleEnable = { onChangeEnable(parking, it) })
+
+        Divider(Modifier.padding(10.dp, 20.dp))
+
         Text(
                 text = """
-                - 목적지 검색 반경
-                    - 기본 반경
-                    - 지정
-                - 주차장 검색 반경
-                    - 기본 반경
-                    - 지정
                 - 검색 언어
                     - 미지정
                     - 시스템 언어
@@ -42,12 +80,21 @@ fun SearchSettingPage(
                     - 지정
                 - 검색 결과 없을 때 재검색 여부
                 - 날짜 포맷
-                - 거리 단위
             """.trimIndent(),
                 modifier = Modifier.fillMaxWidth()
         )
 
-        EasyButton(onClick = interaction::goBack, label = "닫기")
+        Text(text = "aaaaaaaa", Modifier.padding(20.dp))
+        Text(text = "aaaaaaaa", Modifier.padding(20.dp))
+        Text(text = "aaaaaaaa", Modifier.padding(20.dp))
+        Text(text = "aaaaaaaa", Modifier.padding(20.dp))
+        Text(text = "aaaaaaaa", Modifier.padding(20.dp))
+        Text(text = "aaaaaaaa", Modifier.padding(20.dp))
+        Text(text = "aaaaaaaa", Modifier.padding(20.dp))
+        Text(text = "aaaaaaaa", Modifier.padding(20.dp))
+        Text(text = "aaaaaaaa", Modifier.padding(20.dp))
+        Text(text = "aaaaaaaa", Modifier.padding(20.dp))
+        Text(text = "aaaaaaaa", Modifier.padding(20.dp))
     }
 }
 

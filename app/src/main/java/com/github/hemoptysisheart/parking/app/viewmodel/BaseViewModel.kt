@@ -18,6 +18,18 @@ import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
 open class BaseViewModel : ViewModel(), DefaultLifecycleObserver {
+    abstract class ViewModelet(
+            val base: BaseViewModel,
+            val key: UUID = UUID.randomUUID()!!
+    ) {
+        protected fun launch(
+                progress: Boolean = false,
+                context: CoroutineContext = EmptyCoroutineContext,
+                start: CoroutineStart = CoroutineStart.DEFAULT,
+                block: suspend CoroutineScope.() -> Unit
+        ): Job = base.launch(progress, context, start, block)
+    }
+
     private val progressCounter = AtomicInteger()
     protected val logger = AndroidLogger(this::class)
 

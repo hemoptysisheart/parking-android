@@ -15,6 +15,11 @@
 
     <string name="template_setting_item_distance_title">검색 설정</string>
 
+    <string name="page_search_setting_distance_label">목적지 검색 반경</string>
+    <string name="page_search_setting_distance_description">현재 위치 혹은 지도 중심을 기준으로 반경 %d %s 안에서 목적지를 찾습니다.</string>
+    <string name="page_search_setting_parking_label">주차장 검색 반경</string>
+    <string name="page_search_setting_parking_description">목적지 주변 %d %s 안에서 주차장을 찾습니다. 거리는 도보 이동 거리가 아니라 직선거리 이므로 실제로 이동하는 거리는 더 멀어집니다.</string>
+
     <!-- ========================================================================================================== -->
 
     <string name="domain_maneuver_turn_slight_left">약간 좌회전</string>

@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.ArrowDropUp
 import androidx.compose.material3.Icon
@@ -14,6 +15,19 @@ import androidx.compose.ui.unit.dp
 import com.github.hemoptysisheart.parking.R
 import com.github.hemoptysisheart.parking.app.ui.preview.PreviewComponent
 import com.github.hemoptysisheart.parking.app.ui.preview.preview
+
+@Composable
+fun BackButton(
+        description: String? = null,
+        onClick: () -> Unit = { }
+) {
+    IconButton(onClick = onClick) {
+        Icon(
+                imageVector = Icons.Default.ArrowBack,
+                contentDescription = description
+        )
+    }
+}
 
 @Composable
 fun DropDownButton(
@@ -51,6 +65,10 @@ fun Preview_InputButton() {
                 verticalArrangement = Arrangement.spacedBy(4.dp),
                 horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
+            preview(R.string.molecule_input_button_back_label) {
+                BackButton(it)
+            }
+
             preview(R.string.molecule_input_button_drop_down_label) {
                 DropDownButton(it)
             }

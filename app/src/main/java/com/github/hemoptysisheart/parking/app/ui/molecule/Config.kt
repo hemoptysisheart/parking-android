@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.parking.app.ui.molcule
+package com.github.hemoptysisheart.parking.app.ui.molecule
 
 import com.github.hemoptysisheart.parking.core.util.AndroidLogger
 

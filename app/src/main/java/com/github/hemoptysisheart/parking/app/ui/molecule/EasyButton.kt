@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.parking.app.ui.molcule
+package com.github.hemoptysisheart.parking.app.ui.molecule
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding

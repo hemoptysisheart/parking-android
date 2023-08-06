@@ -19,3 +19,10 @@ fun PreviewPage(content: @Composable (BaseInteraction) -> Unit) {
         content(baseInteraction)
     }
 }
+
+@Composable
+fun PreviewComponent(content: @Composable () -> Unit) {
+    ParkingTheme {
+        content()
+    }
+}

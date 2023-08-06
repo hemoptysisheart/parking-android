@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.parking.app.ui.molcule
+package com.github.hemoptysisheart.parking.app.ui.molecule
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer

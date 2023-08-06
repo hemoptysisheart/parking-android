@@ -4,8 +4,8 @@ import java.net.URLEncoder
 import java.nio.charset.StandardCharsets.UTF_8
 
 data class Identifier(
-    val type: Type,
-    val key: String
+        val type: Type,
+        val key: String
 ) {
     companion object {
         const val SCHEME = "parking"

@@ -16,18 +16,18 @@ import com.github.hemoptysisheart.parking.app.ui.preview.PreviewPage
 
 @Composable
 fun DeveloperSettingPage(
-    interaction: DeveloperSettingInteraction
+        interaction: DeveloperSettingInteraction
 ) {
     LOGGER.v("#DeveloperSettingPage args : interaction=$interaction")
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(10.dp),
-        verticalArrangement = Arrangement.Center
+            modifier = Modifier
+                    .fillMaxSize()
+                    .padding(10.dp),
+            verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = """
+                text = """
                 - GMP 키 변경
                 - Install 설정 정보
             """.trimIndent()

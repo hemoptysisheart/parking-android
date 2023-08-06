@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             ParkingTheme {
                 MainNavGraph(
-                    BaseInteraction(this, rememberNavController(), LocalSoftwareKeyboardController.current)
+                        BaseInteraction(this, rememberNavController(), LocalSoftwareKeyboardController.current)
                 )
             }
         }

@@ -1,6 +1,6 @@
 package com.github.hemoptysisheart.parking.domain.app
 
-import java.util.*
+import java.util.UUID
 
 /**
  * 앱 설치에 관한 정보.

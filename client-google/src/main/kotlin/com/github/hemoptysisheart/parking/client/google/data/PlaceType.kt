@@ -6,8 +6,8 @@ package com.github.hemoptysisheart.parking.client.google.data
 sealed interface PlaceType {
     companion object {
         operator fun get(code: String): PlaceType = PlaceTypes[code]
-            ?: PlaceTypeResultOnly[code]
-            ?: UnknownPlaceType(code)
+                ?: PlaceTypeResultOnly[code]
+                ?: UnknownPlaceType(code)
     }
 
     val code: String
@@ -20,7 +20,7 @@ sealed interface PlaceType {
  * [주소 유형 및 주소 구성요소 유형](https://developers.google.com/maps/documentation/geocoding/requests-geocoding?hl=ko#Types)
  */
 enum class PlaceTypes(
-    override val code: String
+        override val code: String
 ) : PlaceType {
     ACCOUNTING("accounting"),
     AIRPORT("airport"),
@@ -137,7 +137,7 @@ enum class PlaceTypes(
  * 검색 결과로 나타날 수 있음.
  */
 enum class PlaceTypeResultOnly(
-    override val code: String
+        override val code: String
 ) : PlaceType {
     ADMINISTRATIVE_AREA_LEVEL_1("administrative_area_level_1"),
     ADMINISTRATIVE_AREA_LEVEL_2("administrative_area_level_2"),
@@ -193,5 +193,5 @@ enum class PlaceTypeResultOnly(
 }
 
 data class UnknownPlaceType(
-    override val code: String
+        override val code: String
 ) : PlaceType

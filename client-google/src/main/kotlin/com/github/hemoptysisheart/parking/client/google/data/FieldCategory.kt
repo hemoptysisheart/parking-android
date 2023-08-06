@@ -1,7 +1,7 @@
 package com.github.hemoptysisheart.parking.client.google.data
 
 enum class FieldCategory(
-    val code: String
+        val code: String
 ) {
     /**
      * The Basic category includes the following fields.

@@ -4,9 +4,9 @@ import java.time.Duration
 import java.time.Instant
 
 class ResultMeta<P>(
-    val params: P,
-    val requestAt: Instant,
-    val responseAt: Instant
+        val params: P,
+        val requestAt: Instant,
+        val responseAt: Instant
 ) {
     val duration: Duration = Duration.between(requestAt, responseAt)
 
@@ -29,5 +29,5 @@ class ResultMeta<P>(
     }
 
     override fun toString() =
-        "${ResultMeta::class.simpleName}(params=$params, requestAt=$requestAt, responseAt=$responseAt, duration=$duration)"
+            "${ResultMeta::class.simpleName}(params=$params, requestAt=$requestAt, responseAt=$responseAt, duration=$duration)"
 }

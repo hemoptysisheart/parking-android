@@ -1,7 +1,7 @@
 package com.github.hemoptysisheart.parking.client.google.data
 
 enum class ReviewSort(
-    val code: String
+        val code: String
 ) {
     MOST_RELEVANT("most_relevant"),
     NEWEST("newest");

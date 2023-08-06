@@ -7,7 +7,14 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.github.hemoptysisheart.parking.app.interaction.BaseInteraction
-import com.github.hemoptysisheart.parking.app.ui.page.main.*
+import com.github.hemoptysisheart.parking.app.ui.page.main.DestinationSearchPage
+import com.github.hemoptysisheart.parking.app.ui.page.main.DeveloperSettingPage
+import com.github.hemoptysisheart.parking.app.ui.page.main.LandingMapPage
+import com.github.hemoptysisheart.parking.app.ui.page.main.RouteNavigationPage
+import com.github.hemoptysisheart.parking.app.ui.page.main.SearchSettingPage
+import com.github.hemoptysisheart.parking.app.ui.page.main.SelectParkingPage
+import com.github.hemoptysisheart.parking.app.ui.page.main.SelectRoutePage
+import com.github.hemoptysisheart.parking.app.ui.page.main.SettingPage
 import com.github.hemoptysisheart.parking.app.ui.template.GlobalHeader
 
 /**
@@ -33,9 +40,9 @@ fun MainNavGraph(baseInteraction: BaseInteraction) {
         GlobalHeader(globalHeader)
 
         NavHost(
-            navController = baseInteraction.navController,
-            startDestination = LandingMapInteraction.ROUTE_PATTERN,
-            modifier = Modifier.fillMaxSize()
+                navController = baseInteraction.navController,
+                startDestination = LandingMapInteraction.ROUTE_PATTERN,
+                modifier = Modifier.fillMaxSize()
         ) {
             composable(LandingMapInteraction.ROUTE_PATTERN) {
                 LandingMapPage(landingMap)

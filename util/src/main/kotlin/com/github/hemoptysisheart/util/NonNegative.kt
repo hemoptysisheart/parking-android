@@ -20,7 +20,7 @@ interface NonNegative<N> {
 
 @JvmInline
 value class NonNegativeNumber(
-    override val value: Number
+        override val value: Number
 ) : NonNegative<Number> {
     init {
         if (0.0 > value.toDouble()) {
@@ -31,7 +31,7 @@ value class NonNegativeNumber(
 
 @JvmInline
 value class NonNegativeInt(
-    override val value: Int
+        override val value: Int
 ) : NonNegative<Int> {
     init {
         if (0 > value) {
@@ -42,7 +42,7 @@ value class NonNegativeInt(
 
 @JvmInline
 value class NonNegativeLong(
-    override val value: Long
+        override val value: Long
 ) : NonNegative<Long> {
     init {
         if (0L > value) {
@@ -53,7 +53,7 @@ value class NonNegativeLong(
 
 @JvmInline
 value class NonNegativeFloat(
-    override val value: Float
+        override val value: Float
 ) : NonNegative<Float> {
     init {
         if (0F > value) {
@@ -64,7 +64,7 @@ value class NonNegativeFloat(
 
 @JvmInline
 value class NonNegativeDouble(
-    override val value: Double
+        override val value: Double
 ) : NonNegative<Double> {
     init {
         if (0.0 > value) {
@@ -75,7 +75,7 @@ value class NonNegativeDouble(
 
 @JvmInline
 value class NonNegativeBigInteger(
-    override val value: BigInteger
+        override val value: BigInteger
 ) : NonNegative<BigInteger> {
     init {
         if (BigInteger.ZERO > value) {
@@ -86,7 +86,7 @@ value class NonNegativeBigInteger(
 
 @JvmInline
 value class NonNegativeBigDecimal(
-    override val value: BigDecimal
+        override val value: BigDecimal
 ) : NonNegative<BigDecimal> {
     init {
         if (BigDecimal.ZERO > value) {

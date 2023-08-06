@@ -10,9 +10,9 @@ import com.github.hemoptysisheart.parking.app.viewmodel.BaseViewModel
 
 @Composable
 inline fun <reified VM : BaseViewModel> hiltBaseViewModel(
-    viewModelStoreOwner: ViewModelStoreOwner = checkNotNull(LocalViewModelStoreOwner.current) {
-        "No ViewModelStoreOwner was provided via LocalViewModelStoreOwner"
-    }
+        viewModelStoreOwner: ViewModelStoreOwner = checkNotNull(LocalViewModelStoreOwner.current) {
+            "No ViewModelStoreOwner was provided via LocalViewModelStoreOwner"
+        }
 ): VM {
     val vm: VM = hiltViewModel(viewModelStoreOwner)
 

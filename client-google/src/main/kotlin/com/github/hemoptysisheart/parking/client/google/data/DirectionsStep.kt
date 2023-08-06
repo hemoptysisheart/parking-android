@@ -18,71 +18,71 @@ package com.github.hemoptysisheart.parking.client.google.data
  * Walker", and "Turn left onto Innes Ave".
  */
 data class DirectionsStep(
-    /**
-     * Contains the typical time required to perform the step, until the next step. This field may be undefined if the
-     * duration is unknown.
-     *
-     * See [TextValueObject](https://developers.google.com/maps/documentation/directions/get-directions#TextValueObject)
-     * for more information.
-     */
-    val duration: LabeledNumber,
-    /**
-     * Contains the location of the last point of this step.
-     *
-     * See [LatLngLiteral](https://developers.google.com/maps/documentation/directions/get-directions#LatLngLiteral)
-     * for more information.
-     */
-    val endLocation: LatLng,
-    /**
-     * Contains formatted instructions for this step, presented as an HTML text string. This content is meant to be
-     * read as-is. Do not programmatically parse this display-only content.
-     */
-    val html: String,
-    /**
-     * Contains a single points object that holds an encoded polyline representation of the step. This polyline is an
-     * approximate (smoothed) path of the step.
-     *
-     * See [DirectionsPolyline](https://developers.google.com/maps/documentation/directions/get-directions#DirectionsPolyline)
-     * for more information.
-     */
-    val polyline: DirectionsPolyline,
-    /**
-     * Contains the location of the starting point of this step.
-     *
-     * See [LatLngLiteral](https://developers.google.com/maps/documentation/directions/get-directions#LatLngLiteral)
-     * for more information.
-     */
-    val startLocation: LatLng,
-    /**
-     * Contains the type of travel mode used.
-     *
-     * See [TravelMode](https://developers.google.com/maps/documentation/directions/get-directions#TravelMode)
-     * for more information.
-     */
-    val travelMode: TravelMode,
-    /**
-     * Contains the distance covered by this step until the next step. This field may be undefined if the distance is
-     * unknown.
-     *
-     * See [TextValueObject](https://developers.google.com/maps/documentation/directions/get-directions#TextValueObject)
-     * for more information.
-     */
-    val distance: LabeledNumber?,
-    /**
-     * Contains the action to take for the current step (turn left, merge, straight, etc.). Values are subject to
-     * change, and new values may be introduced without prior notice.
-     */
-    val maneuver: Maneuver?,
-    /**
-     * Contains detailed directions for walking or driving steps in transit directions. Substeps are only available
-     * when `travel_mode` is set to "transit". The inner steps array is of the same type as steps.
-     */
-    val steps: String?,
-    /**
-     * Details pertaining to this step if the travel mode is `TRANSIT`.
-     *
-     * See [DirectionsTransitDetails](https://developers.google.com/maps/documentation/directions/get-directions#DirectionsTransitDetails)
-     * for more information.
-     */
-    val transitDetails: DirectionsTransitDetails?
+        /**
+         * Contains the typical time required to perform the step, until the next step. This field may be undefined if the
+         * duration is unknown.
+         *
+         * See [TextValueObject](https://developers.google.com/maps/documentation/directions/get-directions#TextValueObject)
+         * for more information.
+         */
+        val duration: LabeledNumber,
+        /**
+         * Contains the location of the last point of this step.
+         *
+         * See [LatLngLiteral](https://developers.google.com/maps/documentation/directions/get-directions#LatLngLiteral)
+         * for more information.
+         */
+        val endLocation: LatLng,
+        /**
+         * Contains formatted instructions for this step, presented as an HTML text string. This content is meant to be
+         * read as-is. Do not programmatically parse this display-only content.
+         */
+        val html: String,
+        /**
+         * Contains a single points object that holds an encoded polyline representation of the step. This polyline is an
+         * approximate (smoothed) path of the step.
+         *
+         * See [DirectionsPolyline](https://developers.google.com/maps/documentation/directions/get-directions#DirectionsPolyline)
+         * for more information.
+         */
+        val polyline: DirectionsPolyline,
+        /**
+         * Contains the location of the starting point of this step.
+         *
+         * See [LatLngLiteral](https://developers.google.com/maps/documentation/directions/get-directions#LatLngLiteral)
+         * for more information.
+         */
+        val startLocation: LatLng,
+        /**
+         * Contains the type of travel mode used.
+         *
+         * See [TravelMode](https://developers.google.com/maps/documentation/directions/get-directions#TravelMode)
+         * for more information.
+         */
+        val travelMode: TravelMode,
+        /**
+         * Contains the distance covered by this step until the next step. This field may be undefined if the distance is
+         * unknown.
+         *
+         * See [TextValueObject](https://developers.google.com/maps/documentation/directions/get-directions#TextValueObject)
+         * for more information.
+         */
+        val distance: LabeledNumber?,
+        /**
+         * Contains the action to take for the current step (turn left, merge, straight, etc.). Values are subject to
+         * change, and new values may be introduced without prior notice.
+         */
+        val maneuver: Maneuver?,
+        /**
+         * Contains detailed directions for walking or driving steps in transit directions. Substeps are only available
+         * when `travel_mode` is set to "transit". The inner steps array is of the same type as steps.
+         */
+        val steps: String?,
+        /**
+         * Details pertaining to this step if the travel mode is `TRANSIT`.
+         *
+         * See [DirectionsTransitDetails](https://developers.google.com/maps/documentation/directions/get-directions#DirectionsTransitDetails)
+         * for more information.
+         */
+        val transitDetails: DirectionsTransitDetails?
 )

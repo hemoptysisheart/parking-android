@@ -86,14 +86,14 @@ internal interface ApiSpec {
      */
     @GET("maps/api/place/details/json")
     suspend fun place(
-        @Query(PARAM_KEY) key: String,
-        @Query(PARAM_PLACE_ID) placeId: String,
-        @Query(PARAM_FIELDS) fields: String? = null,
-        @Query(PARAM_LANGUAGE) language: String? = null,
-        @Query(PARAM_REGION) region: String? = null,
-        @Query(PARAM_REVIEWS_NO_TRANSLATIONS) reviewsNoTranslations: Boolean? = null,
-        @Query(PARAM_REVIEWS_SORT) reviewsSort: String? = null,
-        @Query(PARAM_SESSION_TOKEN) sessionToken: String? = null
+            @Query(PARAM_KEY) key: String,
+            @Query(PARAM_PLACE_ID) placeId: String,
+            @Query(PARAM_FIELDS) fields: String? = null,
+            @Query(PARAM_LANGUAGE) language: String? = null,
+            @Query(PARAM_REGION) region: String? = null,
+            @Query(PARAM_REVIEWS_NO_TRANSLATIONS) reviewsNoTranslations: Boolean? = null,
+            @Query(PARAM_REVIEWS_SORT) reviewsSort: String? = null,
+            @Query(PARAM_SESSION_TOKEN) sessionToken: String? = null
     ): PlacesDetailsResponse
 
     /**
@@ -157,20 +157,20 @@ internal interface ApiSpec {
      */
     @GET("maps/api/place/autocomplete/json")
     suspend fun autocomplete(
-        @Query(PARAM_KEY) key: String,
-        @Query(PARAM_INPUT) input: String,
-        @Query(PARAM_RADIUS) radius: Int,
-        @Query(PARAM_COMPONENTS) components: String? = null,
-        @Query(PARAM_LANGUAGE) language: String? = null,
-        @Query(PARAM_LOCATION) location: String? = null,
-        @Query(PARAM_LOCATION_BIAS) locationBias: String? = null,
-        @Query(PARAM_LOCATION_RESTRICTION) locationRestriction: String? = null,
-        @Query(PARAM_OFFSET) offset: Int? = null,
-        @Query(PARAM_ORIGIN) origin: String? = null,
-        @Query(PARAM_REGION) region: String? = null,
-        @Query(PARAM_SESSION_TOKEN) sessionToken: String? = null,
-        @Query(PARAM_STRICT_BOUNDS) strictBounds: Boolean? = null,
-        @Query(PARAM_TYPES) types: String? = null
+            @Query(PARAM_KEY) key: String,
+            @Query(PARAM_INPUT) input: String,
+            @Query(PARAM_RADIUS) radius: Int,
+            @Query(PARAM_COMPONENTS) components: String? = null,
+            @Query(PARAM_LANGUAGE) language: String? = null,
+            @Query(PARAM_LOCATION) location: String? = null,
+            @Query(PARAM_LOCATION_BIAS) locationBias: String? = null,
+            @Query(PARAM_LOCATION_RESTRICTION) locationRestriction: String? = null,
+            @Query(PARAM_OFFSET) offset: Int? = null,
+            @Query(PARAM_ORIGIN) origin: String? = null,
+            @Query(PARAM_REGION) region: String? = null,
+            @Query(PARAM_SESSION_TOKEN) sessionToken: String? = null,
+            @Query(PARAM_STRICT_BOUNDS) strictBounds: Boolean? = null,
+            @Query(PARAM_TYPES) types: String? = null
     ): PlacesAutocompleteResponse
 
     /**
@@ -209,16 +209,16 @@ internal interface ApiSpec {
      */
     @GET("/maps/api/place/nearbysearch/json")
     suspend fun nearBy(
-        @Query(PARAM_KEYWORD) keyword: String? = null,
-        @Query(PARAM_LOCATION) location: String,
-        @Query(PARAM_LANGUAGE) language: String? = null,
-        @Query(PARAM_MIN_PRICE) minPrice: Int? = null,
-        @Query(PARAM_MAX_PRICE) maxPrice: Int? = null,
-        @Query(PARAM_OPEN) open: Boolean? = null,
-        @Query(PARAM_RADIUS) radius: Int? = null,
-        @Query(PARAM_RANK_BY) rankBy: String? = null,
-        @Query(PARAM_TYPE) type: String? = null,
-        @Query(PARAM_KEY) key: String
+            @Query(PARAM_KEYWORD) keyword: String? = null,
+            @Query(PARAM_LOCATION) location: String,
+            @Query(PARAM_LANGUAGE) language: String? = null,
+            @Query(PARAM_MIN_PRICE) minPrice: Int? = null,
+            @Query(PARAM_MAX_PRICE) maxPrice: Int? = null,
+            @Query(PARAM_OPEN) open: Boolean? = null,
+            @Query(PARAM_RADIUS) radius: Int? = null,
+            @Query(PARAM_RANK_BY) rankBy: String? = null,
+            @Query(PARAM_TYPE) type: String? = null,
+            @Query(PARAM_KEY) key: String
     ): PlacesNearbySearchResponse
 
     /**
@@ -281,19 +281,19 @@ internal interface ApiSpec {
      */
     @GET("/maps/api/directions/json")
     suspend fun direction(
-        @Query(PARAM_KEY) key: String,
-        @Query(PARAM_ORIGIN) origin: String,
-        @Query(PARAM_DESTINATION) destination: String,
-        @Query(PARAM_ALTERNATIVES) alternatives: Boolean? = null,
-        @Query(PARAM_ARRIVAL_TIME) arrivalTime: Long? = null,
-        @Query(PARAM_AVOID) avoid: String? = null,
-        @Query(PARAM_DEPARTURE_TIME) departureTime: Long? = null,
-        @Query(PARAM_LANGUAGE) language: String? = null,
-        @Query(PARAM_MODE) mode: String? = null,
-        @Query(PARAM_REGION) region: String? = null,
-        @Query(PARAM_TRAFFIC_MODEL) trafficModel: String? = null,
-        @Query(PARAM_TRANSIT_ROUTING_PREFERENCE) transitRoutingPreference: String? = null,
-        @Query(PARAM_UNITS) units: String? = null,
-        @Query(PARAM_WAYPOINTS) waypoints: String? = null
+            @Query(PARAM_KEY) key: String,
+            @Query(PARAM_ORIGIN) origin: String,
+            @Query(PARAM_DESTINATION) destination: String,
+            @Query(PARAM_ALTERNATIVES) alternatives: Boolean? = null,
+            @Query(PARAM_ARRIVAL_TIME) arrivalTime: Long? = null,
+            @Query(PARAM_AVOID) avoid: String? = null,
+            @Query(PARAM_DEPARTURE_TIME) departureTime: Long? = null,
+            @Query(PARAM_LANGUAGE) language: String? = null,
+            @Query(PARAM_MODE) mode: String? = null,
+            @Query(PARAM_REGION) region: String? = null,
+            @Query(PARAM_TRAFFIC_MODEL) trafficModel: String? = null,
+            @Query(PARAM_TRANSIT_ROUTING_PREFERENCE) transitRoutingPreference: String? = null,
+            @Query(PARAM_UNITS) units: String? = null,
+            @Query(PARAM_WAYPOINTS) waypoints: String? = null
     ): DirectionsResponse
 }

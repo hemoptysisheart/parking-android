@@ -2,10 +2,10 @@ package com.github.hemoptysisheart.util
 
 @Suppress("MemberVisibilityCanBePrivate")
 open class RangeValidator<T : Comparable<T>>(
-    val min: T,
-    val max: T,
-    val includeMin: Boolean = true,
-    val includeMax: Boolean = false
+        val min: T,
+        val max: T,
+        val includeMin: Boolean = true,
+        val includeMax: Boolean = false
 ) : Validator<T> {
     override fun validate(value: T): T {
         if (includeMin) {
@@ -32,5 +32,5 @@ open class RangeValidator<T : Comparable<T>>(
     }
 
     override fun toString() =
-        "${RangeValidator::class.simpleName}(min=$min, max=$max, includeMin=$includeMin, includeMax=$includeMax)"
+            "${RangeValidator::class.simpleName}(min=$min, max=$max, includeMin=$includeMin, includeMax=$includeMax)"
 }

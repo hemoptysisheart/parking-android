@@ -4,19 +4,19 @@ import com.github.hemoptysisheart.parking.client.google.data.*
 import java.util.*
 
 data class AutocompleteParams(
-    val input: String,
-    val radius: Int = RADIUS_DEFAULT,
-    val components: List<Locale>? = null,
-    val language: Locale? = null,
-    val location: LatLng? = null,
-    val locationBias: LocationBias? = null,
-    val locationRestriction: LocationRestriction? = null,
-    val offset: Int? = null,
-    val origin: LatLng? = null,
-    val region: String? = null,
-    val sessionToken: String? = null,
-    val strictBounds: Boolean? = null,
-    val types: List<PlaceType>? = null
+        val input: String,
+        val radius: Int = RADIUS_DEFAULT,
+        val components: List<Locale>? = null,
+        val language: Locale? = null,
+        val location: LatLng? = null,
+        val locationBias: LocationBias? = null,
+        val locationRestriction: LocationRestriction? = null,
+        val offset: Int? = null,
+        val origin: LatLng? = null,
+        val region: String? = null,
+        val sessionToken: String? = null,
+        val strictBounds: Boolean? = null,
+        val types: List<PlaceType>? = null
 ) {
     @Suppress("MemberVisibilityCanBePrivate")
     companion object {

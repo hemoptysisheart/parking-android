@@ -1,10 +1,12 @@
 package com.github.hemoptysisheart.parking.client.google.data
 
-import com.github.hemoptysisheart.parking.client.google.data.FieldCategory.*
+import com.github.hemoptysisheart.parking.client.google.data.FieldCategory.ATMOSPHERE
+import com.github.hemoptysisheart.parking.client.google.data.FieldCategory.BASIC
+import com.github.hemoptysisheart.parking.client.google.data.FieldCategory.CONTACT
 
 enum class Field(
-    val category: FieldCategory,
-    val code: String
+        val category: FieldCategory,
+        val code: String
 ) {
     ADDRESS_COMPONENTS(BASIC, "address_components"),
     ADR_ADDRESS(BASIC, "adr_address"),

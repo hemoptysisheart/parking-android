@@ -1,6 +1,12 @@
 package com.github.hemoptysisheart.parking.app.ui.page.main
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -20,28 +26,28 @@ import com.github.hemoptysisheart.parking.app.viewmodel.LandingMapViewModel
  */
 @Composable
 fun LandingMapPage(
-    interaction: LandingMapInteraction,
-    viewModel: LandingMapViewModel = hiltBaseViewModel()
+        interaction: LandingMapInteraction,
+        viewModel: LandingMapViewModel = hiltBaseViewModel()
 ) {
     LOGGER.v("#LandingMapPage args : interaction=$interaction, viewModel=$viewModel")
 
     val count by viewModel.count.collectAsStateWithLifecycle()
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(10.dp),
-        verticalArrangement = Arrangement.Center
+            modifier = Modifier
+                    .fillMaxSize()
+                    .padding(10.dp),
+            verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = """
+                text = """
                 지도, 현재 위치, 오버레이 표시.
                 
                 목적지를 선택했을 경우와 비슷한 오버레이를 활용해서 사용자에게 정보를 전달하고 다음 행동을 유도한다.
             """.trimIndent(),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(10.dp)
+                modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(10.dp)
         )
 
         EasyButton(onClick = interaction::gotoDestinationSearch, label = "목적지 검색")
@@ -50,7 +56,7 @@ fun LandingMapPage(
         Spacer(modifier = Modifier.height(30.dp))
 
         Text(
-            text = "onResume : $count 회", modifier = Modifier
+                text = "onResume : $count 회", modifier = Modifier
                 .fillMaxWidth()
                 .padding(10.dp)
         )

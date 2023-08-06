@@ -31,7 +31,7 @@ class WizardActivity : ComponentActivity() {
         setContent {
             ParkingTheme {
                 WizardNavGraph(
-                    BaseInteraction(this, rememberNavController(), LocalSoftwareKeyboardController.current)
+                        BaseInteraction(this, rememberNavController(), LocalSoftwareKeyboardController.current)
                 )
             }
         }

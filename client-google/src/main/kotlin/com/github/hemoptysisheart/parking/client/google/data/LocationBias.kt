@@ -19,8 +19,8 @@ object IpBias : LocationBias {
  * `circle:radius@lat,lng`.
  */
 data class CircularBias(
-    val radius: Int,
-    val center: LatLng
+        val radius: Int,
+        val center: LatLng
 ) : LocationBias {
     init {
         when {
@@ -38,8 +38,8 @@ data class CircularBias(
  * wrapped to the range -180, 180, and north/south values are clamped to the range -90, 90.
  */
 data class RectangularBias(
-    val southWest: LatLng,
-    val northEast: LatLng
+        val southWest: LatLng,
+        val northEast: LatLng
 ) {
     override fun toString() = "rectangle:$southWest|$northEast"
 }

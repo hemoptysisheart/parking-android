@@ -1,7 +1,7 @@
 package com.github.hemoptysisheart.util
 
 class RegexValidator(
-    val regex: Regex
+        val regex: Regex
 ) : Validator<String> {
     constructor(pattern: String) : this(pattern.toRegex())
 

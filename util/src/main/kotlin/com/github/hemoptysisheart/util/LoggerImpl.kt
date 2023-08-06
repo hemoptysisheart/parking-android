@@ -1,7 +1,11 @@
 package com.github.hemoptysisheart.util
 
 import java.util.logging.Level
-import java.util.logging.Level.*
+import java.util.logging.Level.FINE
+import java.util.logging.Level.FINEST
+import java.util.logging.Level.INFO
+import java.util.logging.Level.SEVERE
+import java.util.logging.Level.WARNING
 import java.util.logging.Logger.getLogger
 import kotlin.reflect.KClass
 
@@ -15,7 +19,7 @@ import kotlin.reflect.KClass
  * - [LoggerImpl.e] -> [Level.SEVERE]
  */
 class LoggerImpl(
-    name: String
+        name: String
 ) : Logger {
     constructor(clazz: KClass<*>) : this(clazz.simpleName!!)
 

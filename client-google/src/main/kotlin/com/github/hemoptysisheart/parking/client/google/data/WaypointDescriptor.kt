@@ -2,10 +2,10 @@ package com.github.hemoptysisheart.parking.client.google.data
 
 
 data class WaypointDescriptor(
-    val placeId: String? = null,
-    val location: LatLng? = null,
-    val address: String? = null,
-    val polyline: List<LatLng>? = null
+        val placeId: String? = null,
+        val location: LatLng? = null,
+        val address: String? = null,
+        val polyline: List<LatLng>? = null
 ) {
     init {
         when {

@@ -13,8 +13,8 @@ import com.github.hemoptysisheart.parking.app.interaction.BaseInteraction
 @Composable
 @OptIn(ExperimentalComposeUiApi::class)
 fun previewBaseInteraction(
-    navController: NavHostController = rememberNavController(),
-    keyboardController: SoftwareKeyboardController? = LocalSoftwareKeyboardController.current
+        navController: NavHostController = rememberNavController(),
+        keyboardController: SoftwareKeyboardController? = LocalSoftwareKeyboardController.current
 ) = remember {
     BaseInteraction(PreviewActivity(), navController, keyboardController)
 }

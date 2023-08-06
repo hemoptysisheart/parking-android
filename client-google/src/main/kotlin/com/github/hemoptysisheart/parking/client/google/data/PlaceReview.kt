@@ -2,17 +2,17 @@ package com.github.hemoptysisheart.parking.client.google.data
 
 import java.net.URL
 import java.time.Instant
-import java.util.*
+import java.util.Locale
 
 data class PlaceReview(
-    val authorName: String,
-    val rating: Double,
-    val relativeTimeDescription: String,
-    val time: Instant,
-    val author: URL? = null,
-    val language: Locale? = null,
-    val originalLanguage: Locale? = null,
-    val profilePhoto: URL? = null,
-    val text: String? = null,
-    val translated: Boolean = false
+        val authorName: String,
+        val rating: Double,
+        val relativeTimeDescription: String,
+        val time: Instant,
+        val author: URL? = null,
+        val language: Locale? = null,
+        val originalLanguage: Locale? = null,
+        val profilePhoto: URL? = null,
+        val text: String? = null,
+        val translated: Boolean = false
 )

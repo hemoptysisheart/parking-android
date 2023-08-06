@@ -1,7 +1,7 @@
 package com.github.hemoptysisheart.parking.client.google.data
 
 enum class RankBy(
-    val code: String
+        val code: String
 ) {
     /**
      * 중요도. 사용할 경우, [NearbySearchParams.radius]를 설정해야 한다.

@@ -1,7 +1,7 @@
 package com.github.hemoptysisheart.parking.client.google.data
 
 enum class TransitRoutingPreference(
-    val code: String
+        val code: String
 ) {
     /**
      * `less_walking` indicates that the calculated route should prefer limited amounts of walking.

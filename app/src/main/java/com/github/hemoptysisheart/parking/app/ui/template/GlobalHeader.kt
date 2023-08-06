@@ -1,7 +1,11 @@
 package com.github.hemoptysisheart.parking.app.ui.template
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,8 +25,8 @@ import com.github.hemoptysisheart.parking.core.util.AndroidMessageException
 
 @Composable
 fun GlobalHeader(
-    interaction: GlobalHeaderInteraction,
-    viewModel: GlobalHeaderViewModel = hiltViewModel()
+        interaction: GlobalHeaderInteraction,
+        viewModel: GlobalHeaderViewModel = hiltViewModel()
 ) {
     val lifecycle = LocalLifecycleOwner.current.lifecycle
     DisposableEffect(GlobalHeaderViewModel::class) {
@@ -40,9 +44,9 @@ fun GlobalHeader(
 
 @Composable
 private fun GlobalHeaderContent(
-    progress: Boolean,
-    error: AndroidMessageException? = null,
-    onClearError: () -> Unit = {}
+        progress: Boolean,
+        error: AndroidMessageException? = null,
+        onClearError: () -> Unit = {}
 ) {
     if (null != error) {
         GlobalAlertDialog(error, onClearError)
@@ -52,10 +56,10 @@ private fun GlobalHeaderContent(
         LinearProgressIndicator(modifier = Modifier.fillMaxWidth(), trackColor = Color.Transparent)
     } else {
         Box(
-            modifier = Modifier
-                .background(Color.Transparent)
-                .fillMaxWidth()
-                .height(4.dp)
+                modifier = Modifier
+                        .background(Color.Transparent)
+                        .fillMaxWidth()
+                        .height(4.dp)
         )
     }
 }

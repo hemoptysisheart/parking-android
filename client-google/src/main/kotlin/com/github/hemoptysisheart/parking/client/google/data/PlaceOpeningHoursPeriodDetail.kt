@@ -6,10 +6,10 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 data class PlaceOpeningHoursPeriodDetail(
-    val day: DayOfWeek,
-    val time: LocalTime,
-    val date: LocalDate? = null,
-    val truncated: Boolean = false
+        val day: DayOfWeek,
+        val time: LocalTime,
+        val date: LocalDate? = null,
+        val truncated: Boolean = false
 ) {
     @Suppress("MemberVisibilityCanBePrivate")
     companion object {
@@ -34,9 +34,9 @@ data class PlaceOpeningHoursPeriodDetail(
     }
 
     constructor(day: Int, time: LocalTime, date: LocalDate?, truncated: Boolean) : this(
-        codeToDayOfWeek(day),
-        time,
-        date,
-        truncated
+            codeToDayOfWeek(day),
+            time,
+            date,
+            truncated
     )
 }

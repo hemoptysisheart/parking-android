@@ -16,271 +16,271 @@ import com.github.hemoptysisheart.parking.app.ui.theme.Typography
 
 @Composable
 fun TextDisplayLarge(
-    text: String,
-    modifier: Modifier = Modifier,
-    color: Color = Color.Unspecified,
-    fontWeight: FontWeight? = null,
-    textAlign: TextAlign? = null
+        text: String,
+        modifier: Modifier = Modifier,
+        color: Color = Color.Unspecified,
+        fontWeight: FontWeight? = null,
+        textAlign: TextAlign? = null
 ) {
     Text(
-        text = text,
-        modifier = modifier,
-        color = color,
-        fontWeight = fontWeight,
-        textAlign = textAlign,
-        style = Typography.displayLarge
+            text = text,
+            modifier = modifier,
+            color = color,
+            fontWeight = fontWeight,
+            textAlign = textAlign,
+            style = Typography.displayLarge
     )
 }
 
 @Composable
 fun TextDisplayMedium(
-    text: String,
-    modifier: Modifier = Modifier,
-    color: Color = Color.Unspecified,
-    fontWeight: FontWeight? = null,
-    textAlign: TextAlign? = null
+        text: String,
+        modifier: Modifier = Modifier,
+        color: Color = Color.Unspecified,
+        fontWeight: FontWeight? = null,
+        textAlign: TextAlign? = null
 ) {
     Text(
-        text = text,
-        modifier = modifier,
-        color = color,
-        fontWeight = fontWeight,
-        textAlign = textAlign,
-        style = Typography.displayMedium
+            text = text,
+            modifier = modifier,
+            color = color,
+            fontWeight = fontWeight,
+            textAlign = textAlign,
+            style = Typography.displayMedium
     )
 }
 
 @Composable
 fun TextDisplaySmall(
-    text: String,
-    modifier: Modifier = Modifier,
-    color: Color = Color.Unspecified,
-    fontWeight: FontWeight? = null,
-    textAlign: TextAlign? = null
+        text: String,
+        modifier: Modifier = Modifier,
+        color: Color = Color.Unspecified,
+        fontWeight: FontWeight? = null,
+        textAlign: TextAlign? = null
 ) {
     Text(
-        text = text,
-        modifier = modifier,
-        color = color,
-        fontWeight = fontWeight,
-        textAlign = textAlign,
-        style = Typography.displaySmall
+            text = text,
+            modifier = modifier,
+            color = color,
+            fontWeight = fontWeight,
+            textAlign = textAlign,
+            style = Typography.displaySmall
     )
 }
 
 @Composable
 fun TextHeadlineLarge(
-    text: String,
-    modifier: Modifier = Modifier,
-    color: Color = Color.Unspecified,
-    fontWeight: FontWeight? = null,
-    textAlign: TextAlign? = null
+        text: String,
+        modifier: Modifier = Modifier,
+        color: Color = Color.Unspecified,
+        fontWeight: FontWeight? = null,
+        textAlign: TextAlign? = null
 ) {
     Text(
-        text = text,
-        modifier = modifier,
-        color = color,
-        fontWeight = fontWeight,
-        textAlign = textAlign,
-        style = Typography.headlineLarge
+            text = text,
+            modifier = modifier,
+            color = color,
+            fontWeight = fontWeight,
+            textAlign = textAlign,
+            style = Typography.headlineLarge
     )
 }
 
 @Composable
 fun TextHeadlineMedium(
-    text: String,
-    modifier: Modifier = Modifier,
-    color: Color = Color.Unspecified,
-    fontWeight: FontWeight? = null,
-    textAlign: TextAlign? = null
+        text: String,
+        modifier: Modifier = Modifier,
+        color: Color = Color.Unspecified,
+        fontWeight: FontWeight? = null,
+        textAlign: TextAlign? = null
 ) {
     Text(
-        text = text,
-        modifier = modifier,
-        color = color,
-        fontWeight = fontWeight,
-        textAlign = textAlign,
-        style = Typography.headlineMedium
+            text = text,
+            modifier = modifier,
+            color = color,
+            fontWeight = fontWeight,
+            textAlign = textAlign,
+            style = Typography.headlineMedium
     )
 }
 
 @Composable
 fun TextHeadlineSmall(
-    text: String,
-    modifier: Modifier = Modifier,
-    color: Color = Color.Unspecified,
-    fontWeight: FontWeight? = null,
-    textAlign: TextAlign? = null
+        text: String,
+        modifier: Modifier = Modifier,
+        color: Color = Color.Unspecified,
+        fontWeight: FontWeight? = null,
+        textAlign: TextAlign? = null
 ) {
     Text(
-        text = text,
-        modifier = modifier,
-        color = color,
-        fontWeight = fontWeight,
-        textAlign = textAlign,
-        style = Typography.headlineSmall
+            text = text,
+            modifier = modifier,
+            color = color,
+            fontWeight = fontWeight,
+            textAlign = textAlign,
+            style = Typography.headlineSmall
     )
 }
 
 @Composable
 fun TextTitleLarge(
-    text: String,
-    modifier: Modifier = Modifier,
-    color: Color = Color.Unspecified,
-    fontWeight: FontWeight? = null,
-    textAlign: TextAlign? = null
+        text: String,
+        modifier: Modifier = Modifier,
+        color: Color = Color.Unspecified,
+        fontWeight: FontWeight? = null,
+        textAlign: TextAlign? = null
 ) {
     Text(
-        text = text,
-        modifier = modifier,
-        color = color,
-        fontWeight = fontWeight,
-        textAlign = textAlign,
-        style = Typography.titleLarge
+            text = text,
+            modifier = modifier,
+            color = color,
+            fontWeight = fontWeight,
+            textAlign = textAlign,
+            style = Typography.titleLarge
     )
 }
 
 @Composable
 fun TextTitleMedium(
-    text: String,
-    modifier: Modifier = Modifier,
-    color: Color = Color.Unspecified,
-    fontWeight: FontWeight? = null,
-    textAlign: TextAlign? = null
+        text: String,
+        modifier: Modifier = Modifier,
+        color: Color = Color.Unspecified,
+        fontWeight: FontWeight? = null,
+        textAlign: TextAlign? = null
 ) {
     Text(
-        text = text,
-        modifier = modifier,
-        color = color,
-        fontWeight = fontWeight,
-        textAlign = textAlign,
-        style = Typography.titleMedium
+            text = text,
+            modifier = modifier,
+            color = color,
+            fontWeight = fontWeight,
+            textAlign = textAlign,
+            style = Typography.titleMedium
     )
 }
 
 @Composable
 fun TextTitleSmall(
-    text: String,
-    modifier: Modifier = Modifier,
-    color: Color = Color.Unspecified,
-    fontWeight: FontWeight? = null,
-    textAlign: TextAlign? = null
+        text: String,
+        modifier: Modifier = Modifier,
+        color: Color = Color.Unspecified,
+        fontWeight: FontWeight? = null,
+        textAlign: TextAlign? = null
 ) {
     Text(
-        text = text,
-        modifier = modifier,
-        color = color,
-        fontWeight = fontWeight,
-        textAlign = textAlign,
-        style = Typography.titleSmall
+            text = text,
+            modifier = modifier,
+            color = color,
+            fontWeight = fontWeight,
+            textAlign = textAlign,
+            style = Typography.titleSmall
     )
 }
 
 @Composable
 fun TextLabelLarge(
-    text: String,
-    modifier: Modifier = Modifier,
-    color: Color = Color.Unspecified,
-    fontWeight: FontWeight? = null,
-    textAlign: TextAlign? = null
+        text: String,
+        modifier: Modifier = Modifier,
+        color: Color = Color.Unspecified,
+        fontWeight: FontWeight? = null,
+        textAlign: TextAlign? = null
 ) {
     Text(
-        text = text,
-        modifier = modifier,
-        color = color,
-        fontWeight = fontWeight,
-        textAlign = textAlign,
-        style = Typography.labelLarge
+            text = text,
+            modifier = modifier,
+            color = color,
+            fontWeight = fontWeight,
+            textAlign = textAlign,
+            style = Typography.labelLarge
     )
 }
 
 @Composable
 fun TextLabelMedium(
-    text: String,
-    modifier: Modifier = Modifier,
-    color: Color = Color.Unspecified,
-    fontWeight: FontWeight? = null,
-    textAlign: TextAlign? = null
+        text: String,
+        modifier: Modifier = Modifier,
+        color: Color = Color.Unspecified,
+        fontWeight: FontWeight? = null,
+        textAlign: TextAlign? = null
 ) {
     Text(
-        text = text,
-        modifier = modifier,
-        color = color,
-        fontWeight = fontWeight,
-        textAlign = textAlign,
-        style = Typography.labelMedium
+            text = text,
+            modifier = modifier,
+            color = color,
+            fontWeight = fontWeight,
+            textAlign = textAlign,
+            style = Typography.labelMedium
     )
 }
 
 @Composable
 fun TextLabelSmall(
-    text: String,
-    modifier: Modifier = Modifier,
-    color: Color = Color.Unspecified,
-    fontWeight: FontWeight? = null,
-    textAlign: TextAlign? = null
+        text: String,
+        modifier: Modifier = Modifier,
+        color: Color = Color.Unspecified,
+        fontWeight: FontWeight? = null,
+        textAlign: TextAlign? = null
 ) {
     Text(
-        text = text,
-        modifier = modifier,
-        color = color,
-        fontWeight = fontWeight,
-        textAlign = textAlign,
-        style = Typography.labelSmall
+            text = text,
+            modifier = modifier,
+            color = color,
+            fontWeight = fontWeight,
+            textAlign = textAlign,
+            style = Typography.labelSmall
     )
 }
 
 @Composable
 fun TextBodyLarge(
-    text: String,
-    modifier: Modifier = Modifier,
-    color: Color = Color.Unspecified,
-    fontWeight: FontWeight? = null,
-    textAlign: TextAlign? = null
+        text: String,
+        modifier: Modifier = Modifier,
+        color: Color = Color.Unspecified,
+        fontWeight: FontWeight? = null,
+        textAlign: TextAlign? = null
 ) {
     Text(
-        text = text,
-        modifier = modifier,
-        color = color,
-        fontWeight = fontWeight,
-        textAlign = textAlign,
-        style = Typography.bodyLarge
+            text = text,
+            modifier = modifier,
+            color = color,
+            fontWeight = fontWeight,
+            textAlign = textAlign,
+            style = Typography.bodyLarge
     )
 }
 
 @Composable
 fun TextBodyMedium(
-    text: String,
-    modifier: Modifier = Modifier,
-    color: Color = Color.Unspecified,
-    fontWeight: FontWeight? = null,
-    textAlign: TextAlign? = null
+        text: String,
+        modifier: Modifier = Modifier,
+        color: Color = Color.Unspecified,
+        fontWeight: FontWeight? = null,
+        textAlign: TextAlign? = null
 ) {
     Text(
-        text = text,
-        modifier = modifier,
-        color = color,
-        fontWeight = fontWeight,
-        textAlign = textAlign,
-        style = Typography.bodyMedium
+            text = text,
+            modifier = modifier,
+            color = color,
+            fontWeight = fontWeight,
+            textAlign = textAlign,
+            style = Typography.bodyMedium
     )
 }
 
 @Composable
 fun TextBodySmall(
-    text: String,
-    modifier: Modifier = Modifier,
-    color: Color = Color.Unspecified,
-    fontWeight: FontWeight? = null,
-    textAlign: TextAlign? = null
+        text: String,
+        modifier: Modifier = Modifier,
+        color: Color = Color.Unspecified,
+        fontWeight: FontWeight? = null,
+        textAlign: TextAlign? = null
 ) {
     Text(
-        text = text,
-        modifier = modifier,
-        color = color,
-        fontWeight = fontWeight,
-        textAlign = textAlign,
-        style = Typography.bodySmall
+            text = text,
+            modifier = modifier,
+            color = color,
+            fontWeight = fontWeight,
+            textAlign = textAlign,
+            style = Typography.bodySmall
     )
 }
 

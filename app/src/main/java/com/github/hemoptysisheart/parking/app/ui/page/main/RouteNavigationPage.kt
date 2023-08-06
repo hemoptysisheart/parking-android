@@ -1,6 +1,10 @@
 package com.github.hemoptysisheart.parking.app.ui.page.main
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -18,13 +22,13 @@ import com.github.hemoptysisheart.parking.app.ui.preview.PreviewPage
 fun RouteNavigationPage(interaction: RouteNavigationInteraction) {
     LOGGER.v("#RouteNavigationPage args : interaction=$interaction")
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(10.dp),
-        verticalArrangement = Arrangement.Center
+            modifier = Modifier
+                    .fillMaxSize()
+                    .padding(10.dp),
+            verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = """
+                text = """
                 - 경로 지도
                     - 남은 구간
                     - 현재 위치
@@ -32,9 +36,9 @@ fun RouteNavigationPage(interaction: RouteNavigationInteraction) {
                 - 현재 구간
                 - 다음 구간
             """.trimIndent(),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(10.dp)
+                modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(10.dp)
         )
 
         EasyButton(onClick = interaction::goBack, label = "돌아가기")

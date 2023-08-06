@@ -23,23 +23,23 @@ import com.github.hemoptysisheart.parking.core.util.AndroidMessageException
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun GlobalAlertDialog(
-    error: AndroidMessageException,
-    onClearError: () -> Unit = {}
+        error: AndroidMessageException,
+        onClearError: () -> Unit = {}
 ) {
     AlertDialog(onDismissRequest = onClearError) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(10.dp)
-                .background(MaterialTheme.colorScheme.surface, RoundedCornerShape(20.dp))
-                .padding(10.dp)
+                modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(10.dp)
+                        .background(MaterialTheme.colorScheme.surface, RoundedCornerShape(20.dp))
+                        .padding(10.dp)
         ) {
             Text(
-                text = error.title(),
-                color = MaterialTheme.colorScheme.onSurface,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center,
-                style = Typography.titleMedium
+                    text = error.title(),
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center,
+                    style = Typography.titleMedium
             )
             Spacer(modifier = Modifier.height(10.dp))
             Text(text = error.detail(), color = MaterialTheme.colorScheme.onSurface)

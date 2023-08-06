@@ -32,9 +32,9 @@ class LauncherActivity : ComponentActivity() {
         setContent {
             ParkingTheme {
                 LauncherPage(
-                    LauncherInteraction(
-                        BaseInteraction(this, rememberNavController(), LocalSoftwareKeyboardController.current)
-                    )
+                        LauncherInteraction(
+                                BaseInteraction(this, rememberNavController(), LocalSoftwareKeyboardController.current)
+                        )
                 )
             }
         }

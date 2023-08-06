@@ -13,8 +13,8 @@ fun PreviewPage(content: @Composable (BaseInteraction) -> Unit) {
     ParkingTheme {
         val baseInteraction = previewBaseInteraction()
         GlobalHeader(
-            interaction = GlobalHeaderInteraction(baseInteraction),
-            viewModel = previewGlobalHeaderViewModel()
+                interaction = GlobalHeaderInteraction(baseInteraction),
+                viewModel = previewGlobalHeaderViewModel()
         )
         content(baseInteraction)
     }

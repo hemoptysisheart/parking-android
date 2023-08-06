@@ -28,9 +28,9 @@ class AppModuleProvider {
     @Singleton
     fun provideMapsClient(): com.github.hemoptysisheart.parking.client.google.MapsClient {
         val config = com.github.hemoptysisheart.parking.client.google.PlacesClientConfig(
-            key = BuildConfig.GOOGLE_MAPS_PLATFORM_API_KEY,
-            useDefaultLocale = true,
-            debug = BuildConfig.DEBUG
+                key = BuildConfig.GOOGLE_MAPS_PLATFORM_API_KEY,
+                useDefaultLocale = true,
+                debug = BuildConfig.DEBUG
         )
         val client = com.github.hemoptysisheart.parking.client.google.MapsClientImpl(config)
 
@@ -54,11 +54,11 @@ class AppModuleProvider {
     @Singleton
     fun providePreferences(@ApplicationContext context: Context, timeProvider: TimeProvider): Preferences {
         val sharedPreferences = EncryptedSharedPreferences.create(
-            context,
-            "com.github.hemoptysisheart.parking.sharedPreferences",
-            MasterKey.Builder(context).setKeyScheme(MasterKey.KeyScheme.AES256_GCM).build(),
-            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+                context,
+                "com.github.hemoptysisheart.parking.sharedPreferences",
+                MasterKey.Builder(context).setKeyScheme(MasterKey.KeyScheme.AES256_GCM).build(),
+                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         )
 
         val model = PreferencesModel(sharedPreferences, timeProvider)

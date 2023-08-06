@@ -6,5 +6,5 @@ import com.github.hemoptysisheart.parking.core.model.GlobalChannelConsumer
 
 @Composable
 fun previewGlobalHeaderViewModel(
-    globalChannelConsumer: GlobalChannelConsumer = previewGlobalChannelConsumer()
+        globalChannelConsumer: GlobalChannelConsumer = previewGlobalChannelConsumer()
 ) = GlobalHeaderViewModel(globalChannelConsumer)

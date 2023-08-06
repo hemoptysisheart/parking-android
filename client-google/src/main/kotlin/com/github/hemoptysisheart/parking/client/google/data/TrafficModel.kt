@@ -4,7 +4,7 @@ package com.github.hemoptysisheart.parking.client.google.data
  * See [`traffic_model`](https://developers.google.com/maps/documentation/directions/get-directions#traffic_model)
  */
 enum class TrafficModel(
-    val code: String
+        val code: String
 ) {
     /**
      * `best_guess` (default) indicates that the returned duration_in_traffic should be the best estimate of travel

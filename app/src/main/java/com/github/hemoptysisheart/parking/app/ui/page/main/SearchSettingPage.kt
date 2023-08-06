@@ -1,6 +1,10 @@
 package com.github.hemoptysisheart.parking.app.ui.page.main
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -13,18 +17,18 @@ import com.github.hemoptysisheart.parking.app.ui.preview.PreviewPage
 
 @Composable
 fun SearchSettingPage(
-    interaction: SearchSettingInteraction
+        interaction: SearchSettingInteraction
 ) {
     LOGGER.v("#SearchSettingPage args : interaction=$interaction")
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(10.dp),
-        verticalArrangement = Arrangement.Center
+            modifier = Modifier
+                    .fillMaxSize()
+                    .padding(10.dp),
+            verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = """
+                text = """
                 - 목적지 검색 반경
                     - 기본 반경
                     - 지정
@@ -40,7 +44,7 @@ fun SearchSettingPage(
                 - 날짜 포맷
                 - 거리 단위
             """.trimIndent(),
-            modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth()
         )
 
         EasyButton(onClick = interaction::goBack, label = "닫기")

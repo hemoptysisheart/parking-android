@@ -1,7 +1,7 @@
 package com.github.hemoptysisheart.parking.client.google.data
 
 enum class PriceLevel(
-    val code: Int
+        val code: Int
 ) {
     FREE(0),
     INEXPENSIVE(1),

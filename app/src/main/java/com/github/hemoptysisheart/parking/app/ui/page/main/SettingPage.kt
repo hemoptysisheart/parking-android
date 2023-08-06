@@ -1,6 +1,10 @@
 package com.github.hemoptysisheart.parking.app.ui.page.main
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -16,13 +20,13 @@ fun SettingPage(interaction: SettingInteraction) {
     LOGGER.v("#SettingPage args : interaction=$interaction")
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(10.dp),
-        verticalArrangement = Arrangement.Center
+            modifier = Modifier
+                    .fillMaxSize()
+                    .padding(10.dp),
+            verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = """
+                text = """
                 각종 설정.
                 
                 - 목적지 검색 기본 필터.
@@ -30,9 +34,9 @@ fun SettingPage(interaction: SettingInteraction) {
                 - 실행 기록.
                 - 앱 정보.
             """.trimIndent(),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(10.dp)
+                modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(10.dp)
         )
 
         EasyButton(onClick = interaction::goBack, label = "돌아가기")

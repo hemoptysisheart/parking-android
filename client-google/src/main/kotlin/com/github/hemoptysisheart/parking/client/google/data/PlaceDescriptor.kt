@@ -6,7 +6,7 @@ package com.github.hemoptysisheart.parking.client.google.data
 sealed interface PlaceDescriptor
 
 class PlaceIdDescriptor(
-    val placeId: String
+        val placeId: String
 ) : PlaceDescriptor {
     init {
         when {
@@ -20,13 +20,13 @@ class PlaceIdDescriptor(
 
 @Suppress("MemberVisibilityCanBePrivate")
 class LatLngDescriptor(
-    val latLng: LatLng
+        val latLng: LatLng
 ) : PlaceDescriptor {
     override fun toString() = "$latLng"
 }
 
 class AddressDescriptor(
-    val address: String
+        val address: String
 ) : PlaceDescriptor {
     init {
         when {

@@ -8,7 +8,7 @@ import com.github.hemoptysisheart.parking.core.util.AndroidLogger
  * [경로 안내](https://www.figma.com/file/rKJxXjvDtDNprvdojVxaaN/Parking?type=whiteboard&node-id=526-693)
  */
 class RouteNavigationInteraction(
-    private val base: BaseInteraction
+        private val base: BaseInteraction
 ) : Interaction by base {
     companion object {
         private val LOGGER = AndroidLogger(RouteNavigationInteraction::class)

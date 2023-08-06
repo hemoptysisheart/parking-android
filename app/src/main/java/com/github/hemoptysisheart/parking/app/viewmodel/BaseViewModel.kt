@@ -11,7 +11,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import java.util.*
+import java.util.UUID
 import java.util.concurrent.atomic.AtomicInteger
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
@@ -28,10 +28,10 @@ open class BaseViewModel : ViewModel(), DefaultLifecycleObserver {
     lateinit var globalChannel: GlobalChannel
 
     fun launch(
-        progress: Boolean = false,
-        context: CoroutineContext = EmptyCoroutineContext,
-        start: CoroutineStart = CoroutineStart.DEFAULT,
-        block: suspend CoroutineScope.() -> Unit
+            progress: Boolean = false,
+            context: CoroutineContext = EmptyCoroutineContext,
+            start: CoroutineStart = CoroutineStart.DEFAULT,
+            block: suspend CoroutineScope.() -> Unit
     ): Job {
         logger.d("#launch args : progress=$progress, context=$context, start=$start, block=$block")
 

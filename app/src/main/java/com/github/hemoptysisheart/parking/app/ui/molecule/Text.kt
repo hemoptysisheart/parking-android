@@ -1,17 +1,16 @@
 package com.github.hemoptysisheart.parking.app.ui.molecule
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import com.github.hemoptysisheart.parking.app.ui.preview.PreviewComponent
+import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreview
+import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreviewContainer
 import com.github.hemoptysisheart.parking.app.ui.theme.Typography
 
 @Composable
@@ -284,39 +283,62 @@ fun TextBodySmall(
     )
 }
 
+@Composable
+@ComponentPreview
+fun TextDisplay() {
+    ComponentPreviewContainer {
+        Column(modifier = Modifier.background(MaterialTheme.colorScheme.background)) {
+            TextDisplayLarge(text = "Display Large", color = MaterialTheme.colorScheme.onBackground)
+            TextDisplayMedium(text = "Display Medium", color = MaterialTheme.colorScheme.onBackground)
+            TextDisplaySmall(text = "Display Small", color = MaterialTheme.colorScheme.onBackground)
+        }
+    }
+}
 
 @Composable
-@Preview(showBackground = true)
-fun Text() {
-    PreviewComponent {
-        Column {
-            TextDisplayLarge(text = "Display Large")
-            TextDisplayMedium(text = "Display Medium", fontWeight = FontWeight.Normal, textAlign = null)
-            TextDisplaySmall(text = "Display Small")
+@ComponentPreview
+fun TextHeadline() {
+    ComponentPreviewContainer {
+        Column(modifier = Modifier.background(MaterialTheme.colorScheme.background)) {
+            TextHeadlineLarge(text = "Headline Large", color = MaterialTheme.colorScheme.onBackground)
+            TextHeadlineMedium(text = "Headline Medium", color = MaterialTheme.colorScheme.onBackground)
+            TextHeadlineSmall(text = "Headline Small", color = MaterialTheme.colorScheme.onBackground)
+        }
+    }
+}
 
-            Spacer(modifier = Modifier.height(30.dp))
+@Composable
+@ComponentPreview
+fun TextTitle() {
+    ComponentPreviewContainer {
+        Column(modifier = Modifier.background(MaterialTheme.colorScheme.background)) {
+            TextTitleLarge(text = "Title Large", color = MaterialTheme.colorScheme.onBackground)
+            TextTitleMedium(text = "Title Medium", color = MaterialTheme.colorScheme.onBackground)
+            TextTitleSmall(text = "Title Small", color = MaterialTheme.colorScheme.onBackground)
+        }
+    }
+}
 
-            TextHeadlineLarge(text = "Headline Large")
-            TextHeadlineMedium(text = "Headline Medium")
-            TextHeadlineSmall(text = "Headline Small")
+@Composable
+@ComponentPreview
+fun TextLabel() {
+    ComponentPreviewContainer {
+        Column(modifier = Modifier.background(MaterialTheme.colorScheme.background)) {
+            TextLabelLarge(text = "Label Large", color = MaterialTheme.colorScheme.onBackground)
+            TextLabelMedium(text = "Label Medium", color = MaterialTheme.colorScheme.onBackground)
+            TextLabelSmall(text = "Label Small", color = MaterialTheme.colorScheme.onBackground)
+        }
+    }
+}
 
-            Spacer(modifier = Modifier.height(30.dp))
-
-            TextTitleLarge(text = "Title Large")
-            TextTitleMedium(text = "Title Medium")
-            TextTitleSmall(text = "Title Small")
-
-            Spacer(modifier = Modifier.height(30.dp))
-
-            TextLabelLarge(text = "Label Large")
-            TextLabelMedium(text = "Label Medium")
-            TextLabelSmall(text = "Label Small")
-
-            Spacer(modifier = Modifier.height(30.dp))
-
-            TextBodyLarge(text = "Body Large")
-            TextBodyMedium(text = "Body Medium")
-            TextBodySmall(text = "Body Small")
+@Composable
+@ComponentPreview
+fun TextBody() {
+    ComponentPreviewContainer {
+        Column(modifier = Modifier.background(MaterialTheme.colorScheme.background)) {
+            TextBodyLarge(text = "Body Large", color = MaterialTheme.colorScheme.onBackground)
+            TextBodyMedium(text = "Body Medium", color = MaterialTheme.colorScheme.onBackground)
+            TextBodySmall(text = "Body Small", color = MaterialTheme.colorScheme.onBackground)
         }
     }
 }

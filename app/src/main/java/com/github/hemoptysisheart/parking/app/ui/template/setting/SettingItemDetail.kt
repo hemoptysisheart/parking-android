@@ -1,7 +1,5 @@
 package com.github.hemoptysisheart.parking.app.ui.template.setting
 
-import android.content.res.Configuration.UI_MODE_NIGHT_NO
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.annotation.StringRes
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -15,10 +13,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.hemoptysisheart.parking.R
-import com.github.hemoptysisheart.parking.app.ui.preview.PreviewComponent
+import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreview
+import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreviewContainer
 
 /**
  * 설정 항목의 상세 화면.
@@ -53,10 +51,9 @@ fun SettingItemDetail(
 }
 
 @Composable
-@Preview(showSystemUi = true, uiMode = UI_MODE_NIGHT_NO)
-@Preview(showSystemUi = true, uiMode = UI_MODE_NIGHT_YES)
+@ComponentPreview
 fun PreviewApp_SettingItemDetail() {
-    PreviewComponent {
+    ComponentPreviewContainer {
         SettingItemDetail(
                 title = R.string.template_setting_item_distance_title,
                 onBack = { /*TODO*/ }

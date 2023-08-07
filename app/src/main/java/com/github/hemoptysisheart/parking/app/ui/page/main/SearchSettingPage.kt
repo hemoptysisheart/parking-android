@@ -1,7 +1,5 @@
 package com.github.hemoptysisheart.parking.app.ui.page.main
 
-import android.content.res.Configuration.UI_MODE_NIGHT_NO
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Divider
@@ -13,12 +11,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.hemoptysisheart.parking.R
 import com.github.hemoptysisheart.parking.app.interaction.main.SearchSettingInteraction
 import com.github.hemoptysisheart.parking.app.ui.molecule.InputDropdown
-import com.github.hemoptysisheart.parking.app.ui.preview.PreviewPage
+import com.github.hemoptysisheart.parking.app.ui.preview.PagePreview
+import com.github.hemoptysisheart.parking.app.ui.preview.PagePreviewContainer
 import com.github.hemoptysisheart.parking.app.ui.support.collect
 import com.github.hemoptysisheart.parking.app.ui.support.hiltBaseViewModel
 import com.github.hemoptysisheart.parking.app.ui.template.setting.DistanceSetting
@@ -96,10 +94,9 @@ internal fun SearchSettingPage(
 }
 
 @Composable
-@Preview(name = "light theme", showSystemUi = true, uiMode = UI_MODE_NIGHT_NO)
-@Preview(name = "dark theme", showSystemUi = true, uiMode = UI_MODE_NIGHT_YES)
+@PagePreview
 fun PreviewApp_SearchSettingPage() {
-    PreviewPage {
+    PagePreviewContainer {
         SearchSettingPage(SearchSettingInteraction(it))
     }
 }

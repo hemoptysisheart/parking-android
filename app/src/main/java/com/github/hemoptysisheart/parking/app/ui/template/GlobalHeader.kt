@@ -2,25 +2,22 @@ package com.github.hemoptysisheart.parking.app.ui.template
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.hemoptysisheart.parking.app.interaction.main.GlobalHeaderInteraction
-import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
+import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreviewContainer
+import com.github.hemoptysisheart.parking.app.ui.preview.PagePreview
 import com.github.hemoptysisheart.parking.app.viewmodel.GlobalHeaderViewModel
 import com.github.hemoptysisheart.parking.core.util.AndroidMessageException
 
@@ -70,15 +67,18 @@ private fun GlobalHeaderContent(
 }
 
 @Composable
-@Preview(showSystemUi = true)
-fun Preview_GlobalHeader() {
-    ParkingTheme {
-        Column(Modifier.fillMaxWidth()) {
-            Text(text = "true :")
-            GlobalHeaderContent(progress = true)
-            Spacer(modifier = Modifier.height(10.dp))
-            Text(text = "false :")
-            GlobalHeaderContent(progress = false)
-        }
+@PagePreview
+fun Preview_GlobalHeader_Progress() {
+    ComponentPreviewContainer {
+        GlobalHeaderContent(progress = true)
+    }
+}
+
+
+@Composable
+@PagePreview
+fun Preview_GlobalHeader_NotProgress() {
+    ComponentPreviewContainer {
+        GlobalHeaderContent(progress = false)
     }
 }

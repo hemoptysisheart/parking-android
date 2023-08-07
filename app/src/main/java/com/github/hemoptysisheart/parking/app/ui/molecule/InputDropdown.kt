@@ -1,17 +1,12 @@
 package com.github.hemoptysisheart.parking.app.ui.molecule
 
-import android.content.res.Configuration.UI_MODE_NIGHT_NO
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.ArrowDropUp
-import androidx.compose.material3.Divider
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
@@ -25,9 +20,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.hemoptysisheart.parking.app.ui.preview.PreviewComponent
+import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreview
+import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreviewContainer
 import java.time.temporal.ChronoUnit
 import java.time.temporal.TemporalUnit
 
@@ -89,8 +84,7 @@ fun <E> InputDropdown(
 }
 
 @Composable
-@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_NO)
-@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
+@ComponentPreview
 fun Preview_InputDropdown() {
     val values = listOf<Pair<TemporalUnit?, String>>(
             null to "(미설정)",
@@ -103,33 +97,16 @@ fun Preview_InputDropdown() {
             ChronoUnit.SECONDS to "초"
     )
 
-    PreviewComponent {
-        Column(Modifier
-                .background(MaterialTheme.colorScheme.background)
-                .padding(10.dp)) {
-            var e1 by remember("1") { mutableStateOf(false) }
-            var s1 by remember("1") { mutableStateOf<TemporalUnit?>(null) }
-            InputDropdown(
-                    label = "dropdown 입력",
-                    selected = s1,
-                    values = values,
-                    expanded = e1,
-                    onToggleExpendRequest = { e1 = it },
-                    onValueSelected = { s1 = it }
-            )
-
-            Divider(modifier = Modifier.padding(10.dp, 15.dp), thickness = 1.dp)
-
-            var e2 by remember("2") { mutableStateOf(false) }
-            var s2: TemporalUnit? by remember("2") { mutableStateOf(values.map { it.first }.filterNotNull().random()) }
-            InputDropdown(
-                    label = "dropdown 입력",
-                    selected = s2,
-                    values = values,
-                    expanded = e2,
-                    onToggleExpendRequest = { e2 = it },
-                    onValueSelected = { s2 = it }
-            )
-        }
+    ComponentPreviewContainer {
+        var expanded by remember { mutableStateOf(false) }
+        var selected by remember { mutableStateOf<TemporalUnit?>(null) }
+        InputDropdown(
+                label = "dropdown 입력",
+                selected = selected,
+                values = values,
+                expanded = expanded,
+                onToggleExpendRequest = { expanded = it },
+                onValueSelected = { selected = it }
+        )
     }
 }

@@ -7,12 +7,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.hemoptysisheart.parking.app.interaction.main.DeveloperSettingInteraction
 import com.github.hemoptysisheart.parking.app.ui.molecule.EasyButton
 import com.github.hemoptysisheart.parking.app.ui.page.LOGGER
-import com.github.hemoptysisheart.parking.app.ui.preview.PreviewPage
+import com.github.hemoptysisheart.parking.app.ui.preview.PagePreview
+import com.github.hemoptysisheart.parking.app.ui.preview.PagePreviewContainer
 
 @Composable
 fun DeveloperSettingPage(
@@ -38,10 +38,9 @@ fun DeveloperSettingPage(
 }
 
 @Composable
-@Preview(showSystemUi = true)
-
+@PagePreview
 fun Preview_DeveloperSettingPage() {
-    PreviewPage {
+    PagePreviewContainer {
         DeveloperSettingPage(DeveloperSettingInteraction(it))
     }
 }

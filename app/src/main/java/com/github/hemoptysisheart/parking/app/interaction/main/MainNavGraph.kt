@@ -38,9 +38,11 @@ fun MainNavGraph(baseInteraction: BaseInteraction) {
     val developerSetting = DeveloperSettingInteraction(baseInteraction)
 
     // ui
-    Column(Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)) {
+    Column(
+            modifier = Modifier
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.background)
+    ) {
         GlobalHeader(globalHeader)
 
         NavHost(

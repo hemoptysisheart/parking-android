@@ -25,7 +25,7 @@ fun LazyGridScope.preview(
                 horizontalAlignment = Alignment.CenterHorizontally
         ) {
             button(stringResource(label))
-            Text(text = stringResource(label))
+            Text(text = stringResource(label), color = MaterialTheme.colorScheme.onBackground)
         }
     }
 }

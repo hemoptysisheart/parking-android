@@ -1,7 +1,5 @@
 package com.github.hemoptysisheart.parking.app.ui.template
 
-import android.content.res.Configuration.UI_MODE_NIGHT_NO
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -11,9 +9,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.hemoptysisheart.parking.R
+import com.github.hemoptysisheart.parking.app.ui.preview.PagePreview
 import com.github.hemoptysisheart.parking.app.ui.support.detail
 import com.github.hemoptysisheart.parking.app.ui.support.title
 import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
@@ -52,16 +50,8 @@ fun GlobalAlertDialog(
 }
 
 @Composable
-@Preview(showSystemUi = true, uiMode = UI_MODE_NIGHT_NO)
-fun GlobalAlertDialogLight() {
-    ParkingTheme {
-        GlobalAlertDialog(error = AndroidMessageException(null, R.string.global_header_error_default_detail))
-    }
-}
-
-@Composable
-@Preview(showSystemUi = true, uiMode = UI_MODE_NIGHT_YES)
-fun GlobalAlertDialogDark() {
+@PagePreview
+fun GlobalAlertDialog() {
     ParkingTheme {
         GlobalAlertDialog(error = AndroidMessageException(null, R.string.global_header_error_default_detail))
     }

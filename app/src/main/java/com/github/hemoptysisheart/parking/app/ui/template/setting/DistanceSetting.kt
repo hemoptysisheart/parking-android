@@ -1,7 +1,5 @@
 package com.github.hemoptysisheart.parking.app.ui.template.setting
 
-import android.content.res.Configuration.UI_MODE_NIGHT_NO
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -25,14 +23,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.github.hemoptysisheart.parking.R
 import com.github.hemoptysisheart.parking.app.support.KEYBOARD_NUMBER
 import com.github.hemoptysisheart.parking.app.ui.molecule.InputDropdown
 import com.github.hemoptysisheart.parking.app.ui.molecule.TextBodyMedium
 import com.github.hemoptysisheart.parking.app.ui.molecule.TextLabelLarge
-import com.github.hemoptysisheart.parking.app.ui.preview.PreviewComponent
-import com.github.hemoptysisheart.parking.app.ui.preview.previewSearchSettingViewModel
+import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreview
+import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreviewContainer
+import com.github.hemoptysisheart.parking.app.ui.preview.previewBaseViewModel
 import com.github.hemoptysisheart.parking.app.ui.resource.DistanceUnitRes
 import com.github.hemoptysisheart.parking.app.ui.support.collect
 import com.github.hemoptysisheart.parking.app.ui.theme.Typography
@@ -130,10 +129,20 @@ fun DistanceSetting(
 }
 
 @Composable
-@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_NO)
-@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
+@ComponentPreview
 fun Preview_DistanceSetting() {
-    PreviewComponent {
-        DistanceSetting(previewSearchSettingViewModel().destination)
+    ComponentPreviewContainer {
+        DistanceSetting(
+                DistanceSettingViewModelet(
+                        previewBaseViewModel(),
+                        true,
+                        NonNegativeInt(123456789),
+                        DistanceUnit.values().random(),
+                        R.string.preview_template_distance_setting_label,
+                        R.string.preview_template_distance_setting_description,
+                        NonNegativeInt(12345),
+                        0..Int.MAX_VALUE
+                )
+        )
     }
 }

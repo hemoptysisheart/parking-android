@@ -21,6 +21,9 @@
     <string name="page_search_setting_parking_description">목적지 주변 %s %s 안에서 주차장을 찾습니다.
         거리는 도보 이동 거리가 아니라 직선거리 이므로 실제로 이동하는 거리는 더 멀어집니다.</string>
 
+    <string name="preview_template_distance_setting_label">거리 설정</string>
+    <string name="preview_template_distance_setting_description">어쩌고 저쩌고 어쩌고 저쩌고 %s %s 어쩌고 저쩌고 어쩌고 저쩌고</string>
+
     <!-- ========================================================================================================== -->
 
     <string name="domain_maneuver_turn_slight_left">약간 좌회전</string>

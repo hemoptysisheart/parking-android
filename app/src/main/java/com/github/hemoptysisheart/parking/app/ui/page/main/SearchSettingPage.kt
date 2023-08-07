@@ -1,10 +1,7 @@
 package com.github.hemoptysisheart.parking.app.ui.page.main
 
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Divider
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -75,21 +72,6 @@ internal fun SearchSettingPage(
                     languageExpand = false
                 }
         )
-
-        Divider(Modifier.padding(10.dp, 20.dp))
-        Text(
-                text = """
-                - 검색 언어
-                    - 위치 기반
-                    - 지정
-                - 검색 결과 없을 때 재검색 여부
-                - 날짜 포맷
-            """.trimIndent(),
-                modifier = Modifier.fillMaxWidth(),
-                color = MaterialTheme.colorScheme.onBackground
-        )
-        Divider(Modifier.padding(10.dp, 20.dp))
-        (1..20).forEach { Text(text = "$it", color = MaterialTheme.colorScheme.onBackground) }
     }
 }
 

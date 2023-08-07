@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="domain_locale_null_language_label">(지정 안함)</string>
+    <string name="domain_locale_null_locale_label">(지정 안함)</string>
+    <string name="domain_locale_system_language_label">OS 언어</string>
+    <string name="domain_locale_system_locale_label">OS</string>
     <string name="domain_property_id">ID</string>
-
-    <string name="domain_type_query">검색어</string>
     <string name="domain_property_query_query">검색어</string>
-
-    <string name="domain_type_recommend_item_query">추천 검색어</string>
-    <string name="domain_type_recommend_item_place">추천 장소</string>
-    <string name="domain_type_recommend_item_route">추천 경로</string>
+    <string name="domain_type_query">검색어</string>
     <string name="domain_type_place">장소</string>
+    <string name="domain_type_recommend_item_place">추천 장소</string>
+    <string name="domain_type_recommend_item_query">추천 검색어</string>
+    <string name="domain_type_recommend_item_route">추천 경로</string>
     <string name="domain_type_route">경로</string>
+
+    <!-- TODO ===================================================================================================== -->
+
+    <string name="label_search_language">검색 언어</string>
 </resources>

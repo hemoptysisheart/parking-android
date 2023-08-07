@@ -8,12 +8,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.github.hemoptysisheart.parking.R
 import com.github.hemoptysisheart.parking.app.interaction.main.SearchSettingInteraction
 import com.github.hemoptysisheart.parking.app.ui.molecule.InputDropdown
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreview
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreviewContainer
+import com.github.hemoptysisheart.parking.app.ui.resource.LocaleRes
 import com.github.hemoptysisheart.parking.app.ui.support.collect
 import com.github.hemoptysisheart.parking.app.ui.support.hiltBaseViewModel
 import com.github.hemoptysisheart.parking.app.ui.template.setting.DistanceSetting
@@ -57,12 +59,11 @@ internal fun SearchSettingPage(
         DistanceSetting(parking)
         Divider(Modifier.padding(10.dp, 20.dp))
         InputDropdown(
-                label = "검색 언어",
+                label = stringResource(com.github.hemoptysisheart.parking.core.R.string.label_search_language),
                 selected = language,
-                values = listOf(
-                        NullLocale to "(미지정)",
-                        SystemLocale to "OS 설정"
-                ),
+                values = listOf(NullLocale, SystemLocale).map {
+                    it to stringResource(LocaleRes[it].languageLabel)
+                },
                 expanded = languageExpand,
                 onToggleExpendRequest = { languageExpand = it },
                 onValueSelected = {

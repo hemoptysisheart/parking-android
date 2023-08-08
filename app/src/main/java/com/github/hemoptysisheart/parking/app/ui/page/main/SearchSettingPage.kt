@@ -15,6 +15,7 @@ import com.github.hemoptysisheart.parking.app.interaction.main.SearchSettingInte
 import com.github.hemoptysisheart.parking.app.ui.molecule.InputDropdown
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreview
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreviewContainer
+import com.github.hemoptysisheart.parking.app.ui.preview.previewSearchSettingViewModel
 import com.github.hemoptysisheart.parking.app.ui.resource.LocaleRes
 import com.github.hemoptysisheart.parking.app.ui.support.collect
 import com.github.hemoptysisheart.parking.app.ui.support.hiltBaseViewModel
@@ -80,6 +81,6 @@ internal fun SearchSettingPage(
 @PagePreview
 fun PreviewApp_SearchSettingPage() {
     PagePreviewContainer {
-        SearchSettingPage(SearchSettingInteraction(it))
+        SearchSettingPage(SearchSettingInteraction(it), previewSearchSettingViewModel())
     }
 }

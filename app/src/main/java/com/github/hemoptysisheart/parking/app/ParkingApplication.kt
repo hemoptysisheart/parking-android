@@ -6,7 +6,7 @@ import com.github.hemoptysisheart.parking.app.activity.LauncherActivity
 import com.github.hemoptysisheart.parking.app.activity.MainActivity
 import com.github.hemoptysisheart.parking.app.support.ActivityLifecycleCallbacksAdapter
 import com.github.hemoptysisheart.parking.core.logging.AndroidLoggingHandler
-import com.github.hemoptysisheart.parking.core.model.PreferencesModel.ExecutionPreferencesModel
+import com.github.hemoptysisheart.parking.core.model.app.PreferencesModel.ExecutionPreferencesModel
 import com.github.hemoptysisheart.parking.core.util.AndroidLogger
 import com.github.hemoptysisheart.parking.domain.app.ExecutionPreferences
 import com.github.hemoptysisheart.parking.domain.app.InstallPreferences

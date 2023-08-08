@@ -5,6 +5,7 @@ import com.github.hemoptysisheart.parking.app.viewmodel.BaseViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.GlobalHeaderViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.main.SearchSettingViewModel
 import com.github.hemoptysisheart.parking.core.model.GlobalChannelConsumer
+import com.github.hemoptysisheart.parking.domain.app.SearchPreferences
 import com.github.hemoptysisheart.util.TruncatedTimeProvider
 
 @Composable
@@ -20,4 +21,6 @@ fun previewBaseViewModel(): BaseViewModel {
     return vm
 }
 
-fun previewSearchSettingViewModel() = SearchSettingViewModel()
+fun previewSearchSettingViewModel(
+        searchPreferences: SearchPreferences = previewPreferencesModel().search
+) = SearchSettingViewModel(searchPreferences)

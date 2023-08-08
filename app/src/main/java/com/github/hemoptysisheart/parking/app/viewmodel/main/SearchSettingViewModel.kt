@@ -5,6 +5,7 @@ import com.github.hemoptysisheart.parking.app.viewmodel.BaseViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.DistanceSettingViewModelet
 import com.github.hemoptysisheart.parking.core.domain.common.NullLocale
 import com.github.hemoptysisheart.parking.core.util.AndroidLogger
+import com.github.hemoptysisheart.parking.domain.app.SearchPreferences
 import com.github.hemoptysisheart.parking.domain.common.DistanceUnit
 import com.github.hemoptysisheart.parking.domain.common.Locale
 import com.github.hemoptysisheart.util.NonNegativeInt
@@ -14,7 +15,9 @@ import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchSettingViewModel @Inject constructor() : BaseViewModel() {
+class SearchSettingViewModel @Inject constructor(
+        private val searchPreferences: SearchPreferences
+) : BaseViewModel() {
     companion object {
         private val LOGGER = AndroidLogger(SearchSettingViewModel::class)
     }
@@ -22,9 +25,9 @@ class SearchSettingViewModel @Inject constructor() : BaseViewModel() {
     @Suppress("LeakingThis")
     val destination = DistanceSettingViewModelet(
             base = this,
-            enabled = true,
-            distance = NonNegativeInt(100_000),
-            unit = DistanceUnit.KILOMETER,
+            enabled = searchPreferences.destination.enable,
+            distance = searchPreferences.destination.distance,
+            unit = searchPreferences.destination.unit,
             label = R.string.page_search_setting_distance_label,
             description = R.string.page_search_setting_distance_description,
             defaultDistance = NonNegativeInt(100_000),
@@ -55,6 +58,9 @@ class SearchSettingViewModel @Inject constructor() : BaseViewModel() {
         LOGGER.v("#postChange called.")
 
         // TODO 저장
+        searchPreferences.destination.enable = destination.enable.value
+        searchPreferences.destination.distance = destination.distance.value
+        searchPreferences.destination.unit = destination.unit.value
     }
 
     fun onChangeLanguage(language: Locale) {

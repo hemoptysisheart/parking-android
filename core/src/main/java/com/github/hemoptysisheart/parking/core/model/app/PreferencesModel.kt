@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.parking.core.model
+package com.github.hemoptysisheart.parking.core.model.app
 
 import android.content.SharedPreferences
 import com.github.hemoptysisheart.parking.core.util.AndroidLogger
@@ -15,7 +15,7 @@ class PreferencesModel(
         timeProvider: TimeProvider
 ) : Preferences {
     companion object {
-        private const val TAG = "PreferencesModel"
+        internal const val TAG = "PreferencesModel"
     }
 
     class InstallPreferencesModel internal constructor(
@@ -196,6 +196,8 @@ class PreferencesModel(
     override val execution = ExecutionPreferencesModel(sharedPreferences, timeProvider, editor)
 
     override val wizard = WizardPreferencesModel(sharedPreferences, timeProvider, editor)
+
+    override val search = SearchPreferencesModel(sharedPreferences, editor)
 
     init {
         editor.commit()

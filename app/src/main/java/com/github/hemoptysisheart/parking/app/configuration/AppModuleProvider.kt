@@ -5,6 +5,7 @@ import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.github.hemoptysisheart.parking.BuildConfig
 import com.github.hemoptysisheart.parking.core.model.*
+import com.github.hemoptysisheart.parking.core.model.app.PreferencesModel
 import com.github.hemoptysisheart.parking.core.util.AndroidLogger
 import com.github.hemoptysisheart.parking.domain.app.Preferences
 import com.github.hemoptysisheart.util.TimeProvider
@@ -77,4 +78,8 @@ class AppModuleProvider {
     @Provides
     @Singleton
     fun provideWizardPreferences(preferences: Preferences) = preferences.wizard
+
+    @Provides
+    @Singleton
+    fun provideSearchPreferences(preferences: Preferences) = preferences.search
 }

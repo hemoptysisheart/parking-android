@@ -32,6 +32,10 @@ class DistanceSettingViewModelet(
     private val _unit = MutableStateFlow(unit)
     val unit: StateFlow<DistanceUnit> = _unit
 
+    init {
+        logger.d("#init args : base=$base, enabled=$enabled, distance=$distance, unit=$unit")
+    }
+
     fun onToggleEnable(enable: Boolean) {
         logger.d("#onChangeEnabled($key) args : enable=$enable")
 

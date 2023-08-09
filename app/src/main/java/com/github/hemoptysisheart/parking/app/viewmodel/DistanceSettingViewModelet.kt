@@ -73,4 +73,8 @@ class DistanceSettingViewModelet(
             postChange()
         }
     }
+
+    override fun toString() = "DistanceSettingViewModelet(${super.toString()}, label=$label, " +
+            "description=$description, defaultDistance=$defaultDistance, distanceRange=$distanceRange, " +
+            "enable=${enable.value}, distance=${distance.value}, unit=${unit.value})"
 }

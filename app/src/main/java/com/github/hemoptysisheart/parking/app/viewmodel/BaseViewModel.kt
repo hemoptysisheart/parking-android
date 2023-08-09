@@ -34,6 +34,8 @@ open class BaseViewModel : ViewModel(), DefaultLifecycleObserver {
                 start: CoroutineStart = CoroutineStart.DEFAULT,
                 block: suspend CoroutineScope.() -> Unit
         ): Job = base.launch(progress, context, start, block)
+
+        override fun toString() = "base=$base, key=$key"
     }
 
     private val progressCounter = AtomicInteger()

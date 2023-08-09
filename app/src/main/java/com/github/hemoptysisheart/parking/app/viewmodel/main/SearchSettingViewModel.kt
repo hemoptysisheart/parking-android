@@ -3,10 +3,8 @@ package com.github.hemoptysisheart.parking.app.viewmodel.main
 import com.github.hemoptysisheart.parking.R
 import com.github.hemoptysisheart.parking.app.viewmodel.BaseViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.DistanceSettingViewModelet
-import com.github.hemoptysisheart.parking.core.domain.common.NullLocale
 import com.github.hemoptysisheart.parking.core.util.AndroidLogger
 import com.github.hemoptysisheart.parking.domain.app.SearchPreferences
-import com.github.hemoptysisheart.parking.domain.common.DistanceUnit
 import com.github.hemoptysisheart.parking.domain.common.Locale
 import com.github.hemoptysisheart.util.NonNegativeInt
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -30,25 +28,25 @@ class SearchSettingViewModel @Inject constructor(
             unit = searchPreferences.destination.unit,
             label = R.string.page_search_setting_distance_label,
             description = R.string.page_search_setting_distance_description,
-            defaultDistance = NonNegativeInt(100_000),
-            distanceRange = 0..1_000_000,
+            defaultDistance = NonNegativeInt(SearchPreferences.DESTINATION_DISTANCE_DEFAULT),
+            distanceRange = SearchPreferences.DESTINATION_DISTANCE_RANGE,
             postChange = this::postChange
     )
 
     @Suppress("LeakingThis", "LeakingThis")
     val parking = DistanceSettingViewModelet(
             base = this,
-            enabled = true,
-            distance = NonNegativeInt(200),
-            unit = DistanceUnit.METER,
+            enabled = searchPreferences.parking.enable,
+            distance = searchPreferences.parking.distance,
+            unit = searchPreferences.parking.unit,
             label = R.string.page_search_setting_parking_label,
             description = R.string.page_search_setting_parking_description,
-            defaultDistance = NonNegativeInt(200),
-            distanceRange = 0..5_000,
+            defaultDistance = NonNegativeInt(SearchPreferences.PARKING_DISTANCE_DEFAULT),
+            distanceRange = SearchPreferences.PARKING_DISTANCE_RANGE,
             postChange = this::postChange
     )
 
-    private val _language = MutableStateFlow<Locale>(NullLocale)
+    private val _language = MutableStateFlow(searchPreferences.language)
     val language: StateFlow<Locale> = _language
 
     /**
@@ -57,10 +55,15 @@ class SearchSettingViewModel @Inject constructor(
     suspend fun postChange() {
         LOGGER.v("#postChange called.")
 
-        // TODO 저장
         searchPreferences.destination.enable = destination.enable.value
         searchPreferences.destination.distance = destination.distance.value
         searchPreferences.destination.unit = destination.unit.value
+
+        searchPreferences.parking.enable = parking.enable.value
+        searchPreferences.parking.distance = parking.distance.value
+        searchPreferences.parking.unit = parking.unit.value
+
+        searchPreferences.language = language.value
     }
 
     fun onChangeLanguage(language: Locale) {

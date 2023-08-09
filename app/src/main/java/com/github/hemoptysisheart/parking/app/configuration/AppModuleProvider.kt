@@ -56,7 +56,7 @@ class AppModuleProvider {
     fun providePreferences(@ApplicationContext context: Context, timeProvider: TimeProvider): Preferences {
         val sharedPreferences = EncryptedSharedPreferences.create(
                 context,
-                "com.github.hemoptysisheart.parking.sharedPreferences",
+                "${BuildConfig.APPLICATION_ID}.sharedPreferences",
                 MasterKey.Builder(context).setKeyScheme(MasterKey.KeyScheme.AES256_GCM).build(),
                 EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
                 EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM

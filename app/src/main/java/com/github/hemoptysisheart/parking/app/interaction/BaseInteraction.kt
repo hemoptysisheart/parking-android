@@ -11,9 +11,9 @@ import com.github.hemoptysisheart.parking.core.util.AndroidLogger
 
 @OptIn(ExperimentalComposeUiApi::class)
 class BaseInteraction(
-    internal val activity: Activity,
-    val navController: NavHostController,
-    private val softwareKeyboardController: SoftwareKeyboardController?
+        internal val activity: Activity,
+        val navController: NavHostController,
+        private val softwareKeyboardController: SoftwareKeyboardController?
 ) : Interaction {
     companion object {
         private val LOGGER = AndroidLogger(BaseInteraction::class)

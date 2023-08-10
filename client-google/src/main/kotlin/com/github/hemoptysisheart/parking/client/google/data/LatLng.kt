@@ -1,8 +1,8 @@
 package com.github.hemoptysisheart.parking.client.google.data
 
 data class LatLng(
-    val latitude: Double,
-    val longitude: Double
+        val latitude: Double,
+        val longitude: Double
 ) {
     init {
         if (latitude < -90.0 || 90.0 < latitude) {

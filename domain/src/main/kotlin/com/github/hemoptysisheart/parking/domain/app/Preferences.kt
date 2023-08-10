@@ -18,4 +18,9 @@ interface Preferences {
      * 앱 가이드 설정.
      */
     val wizard: WizardPreferences
+
+    /**
+     * 검색 설정
+     */
+    val search: SearchPreferences
 }

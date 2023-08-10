@@ -1,7 +1,7 @@
 package com.github.hemoptysisheart.parking.client.google.data
 
 enum class TransportationMode(
-    val code: String
+        val code: String
 ) {
     /**
      * `driving` (default) indicates standard driving directions or distance using the road network.

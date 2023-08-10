@@ -10,7 +10,7 @@ import com.github.hemoptysisheart.parking.core.util.AndroidLogger
  * [마법사](https://www.figma.com/file/rKJxXjvDtDNprvdojVxaaN/Parking?type=whiteboard&node-id=526-649)
  */
 class InstructionInteraction(
-    private val base: BaseInteraction
+        private val base: BaseInteraction
 ) : Interaction by base {
     companion object {
         private val LOGGER = AndroidLogger(InstructionInteraction::class)

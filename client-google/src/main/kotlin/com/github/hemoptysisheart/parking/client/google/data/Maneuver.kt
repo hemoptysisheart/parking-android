@@ -1,7 +1,7 @@
 package com.github.hemoptysisheart.parking.client.google.data
 
 enum class Maneuver(
-    val code: String
+        val code: String
 ) {
     TURN_SLIGHT_LEFT("turn-slight-left"),
     TURN_SHARP_LEFT("turn-sharp-left"),

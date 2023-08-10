@@ -11,8 +11,8 @@ sealed interface LocationRestriction
  * `circle:radius@lat,lng`.
  */
 data class CircularRestriction(
-    val radius: Int,
-    val center: LatLng
+        val radius: Int,
+        val center: LatLng
 ) : LocationRestriction {
     init {
         when {
@@ -30,8 +30,8 @@ data class CircularRestriction(
  * wrapped to the range -180, 180, and north/south values are clamped to the range -90, 90.
  */
 data class RectangularRestriction(
-    val southWest: LatLng,
-    val northEast: LatLng
+        val southWest: LatLng,
+        val northEast: LatLng
 ) : LocationRestriction {
     override fun toString() = "rectangle:$southWest|$northEast"
 }

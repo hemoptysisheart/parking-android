@@ -5,6 +5,7 @@ object NumberValidators {
         override fun validate(value: Long) = when {
             0L > value ->
                 throw ValidationFailException("value is negative : value=$value")
+
             else ->
                 value
         }
@@ -14,8 +15,10 @@ object NumberValidators {
         override fun validate(value: Long): Long = when {
             0L > value ->
                 throw ValidationFailException("value is negative : value=$value")
+
             0L == value ->
                 throw ValidationFailException("value is zero : value=$value")
+
             else ->
                 value
         }

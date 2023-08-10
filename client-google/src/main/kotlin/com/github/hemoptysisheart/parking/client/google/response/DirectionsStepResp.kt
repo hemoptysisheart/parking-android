@@ -20,81 +20,81 @@ import com.google.gson.annotations.SerializedName
  * Walker", and "Turn left onto Innes Ave".
  */
 data class DirectionsStepResp(
-    /**
-     * Contains the typical time required to perform the step, until the next step. This field may be undefined if the
-     * duration is unknown.
-     *
-     * See [TextValueObject](https://developers.google.com/maps/documentation/directions/get-directions#TextValueObject)
-     * for more information.
-     */
-    @SerializedName("duration")
-    var duration: TextValueObjectResp? = null,
-    /**
-     * Contains the location of the last point of this step.
-     *
-     * See [LatLngLiteral](https://developers.google.com/maps/documentation/directions/get-directions#LatLngLiteral)
-     * for more information.
-     */
-    @SerializedName("end_location")
-    var endLocation: LatLngLiteralResp? = null,
-    /**
-     * Contains formatted instructions for this step, presented as an HTML text string. This content is meant to be
-     * read as-is. Do not programmatically parse this display-only content.
-     */
-    @SerializedName("html_instructions")
-    var html: String? = null,
-    /**
-     * Contains a single points object that holds an encoded polyline representation of the step. This polyline is an
-     * approximate (smoothed) path of the step.
-     *
-     * See [DirectionsPolyline](https://developers.google.com/maps/documentation/directions/get-directions#DirectionsPolyline)
-     * for more information.
-     */
-    @SerializedName("polyline")
-    var polyline: DirectionsPolylineResp? = null,
-    /**
-     * Contains the location of the starting point of this step.
-     *
-     * See [LatLngLiteral](https://developers.google.com/maps/documentation/directions/get-directions#LatLngLiteral)
-     * for more information.
-     */
-    @SerializedName("start_location")
-    var startLocation: LatLngLiteralResp? = null,
-    /**
-     * Contains the type of travel mode used.
-     *
-     * See [TravelMode](https://developers.google.com/maps/documentation/directions/get-directions#TravelMode)
-     * for more information.
-     */
-    @SerializedName("travel_mode")
-    var travelMode: String? = null,
-    /**
-     * Contains the distance covered by this step until the next step. This field may be undefined if the distance is
-     * unknown.
-     *
-     * See [TextValueObject](https://developers.google.com/maps/documentation/directions/get-directions#TextValueObject)
-     * for more information.
-     */
-    @SerializedName("distance")
-    var distance: TextValueObjectResp? = null,
-    /**
-     * Contains the action to take for the current step (turn left, merge, straight, etc.). Values are subject to
-     * change, and new values may be introduced without prior notice.
-     */
-    @SerializedName("maneuver")
-    var maneuver: String? = null,
-    /**
-     * Contains detailed directions for walking or driving steps in transit directions. Substeps are only available
-     * when `travel_mode` is set to "transit". The inner steps array is of the same type as steps.
-     */
-    @SerializedName("steps")
-    var steps: String? = null,
-    /**
-     * Details pertaining to this step if the travel mode is `TRANSIT`.
-     *
-     * See [DirectionsTransitDetails](https://developers.google.com/maps/documentation/directions/get-directions#DirectionsTransitDetails)
-     * for more information.
-     */
-    @SerializedName("transit_details")
-    var transitDetails: DirectionsTransitDetailsResp? = null
+        /**
+         * Contains the typical time required to perform the step, until the next step. This field may be undefined if the
+         * duration is unknown.
+         *
+         * See [TextValueObject](https://developers.google.com/maps/documentation/directions/get-directions#TextValueObject)
+         * for more information.
+         */
+        @SerializedName("duration")
+        var duration: TextValueObjectResp? = null,
+        /**
+         * Contains the location of the last point of this step.
+         *
+         * See [LatLngLiteral](https://developers.google.com/maps/documentation/directions/get-directions#LatLngLiteral)
+         * for more information.
+         */
+        @SerializedName("end_location")
+        var endLocation: LatLngLiteralResp? = null,
+        /**
+         * Contains formatted instructions for this step, presented as an HTML text string. This content is meant to be
+         * read as-is. Do not programmatically parse this display-only content.
+         */
+        @SerializedName("html_instructions")
+        var html: String? = null,
+        /**
+         * Contains a single points object that holds an encoded polyline representation of the step. This polyline is an
+         * approximate (smoothed) path of the step.
+         *
+         * See [DirectionsPolyline](https://developers.google.com/maps/documentation/directions/get-directions#DirectionsPolyline)
+         * for more information.
+         */
+        @SerializedName("polyline")
+        var polyline: DirectionsPolylineResp? = null,
+        /**
+         * Contains the location of the starting point of this step.
+         *
+         * See [LatLngLiteral](https://developers.google.com/maps/documentation/directions/get-directions#LatLngLiteral)
+         * for more information.
+         */
+        @SerializedName("start_location")
+        var startLocation: LatLngLiteralResp? = null,
+        /**
+         * Contains the type of travel mode used.
+         *
+         * See [TravelMode](https://developers.google.com/maps/documentation/directions/get-directions#TravelMode)
+         * for more information.
+         */
+        @SerializedName("travel_mode")
+        var travelMode: String? = null,
+        /**
+         * Contains the distance covered by this step until the next step. This field may be undefined if the distance is
+         * unknown.
+         *
+         * See [TextValueObject](https://developers.google.com/maps/documentation/directions/get-directions#TextValueObject)
+         * for more information.
+         */
+        @SerializedName("distance")
+        var distance: TextValueObjectResp? = null,
+        /**
+         * Contains the action to take for the current step (turn left, merge, straight, etc.). Values are subject to
+         * change, and new values may be introduced without prior notice.
+         */
+        @SerializedName("maneuver")
+        var maneuver: String? = null,
+        /**
+         * Contains detailed directions for walking or driving steps in transit directions. Substeps are only available
+         * when `travel_mode` is set to "transit". The inner steps array is of the same type as steps.
+         */
+        @SerializedName("steps")
+        var steps: String? = null,
+        /**
+         * Details pertaining to this step if the travel mode is `TRANSIT`.
+         *
+         * See [DirectionsTransitDetails](https://developers.google.com/maps/documentation/directions/get-directions#DirectionsTransitDetails)
+         * for more information.
+         */
+        @SerializedName("transit_details")
+        var transitDetails: DirectionsTransitDetailsResp? = null
 )

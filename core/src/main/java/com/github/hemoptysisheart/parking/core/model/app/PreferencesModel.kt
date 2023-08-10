@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.parking.core.model
+package com.github.hemoptysisheart.parking.core.model.app
 
 import android.content.SharedPreferences
 import com.github.hemoptysisheart.parking.core.util.AndroidLogger
@@ -8,19 +8,19 @@ import com.github.hemoptysisheart.parking.domain.app.Preferences
 import com.github.hemoptysisheart.parking.domain.app.WizardPreferences
 import com.github.hemoptysisheart.util.TimeProvider
 import java.time.Instant
-import java.util.*
+import java.util.UUID
 
 class PreferencesModel(
-    sharedPreferences: SharedPreferences,
-    timeProvider: TimeProvider
+        sharedPreferences: SharedPreferences,
+        timeProvider: TimeProvider
 ) : Preferences {
     companion object {
-        private const val TAG = "PreferencesModel"
+        internal const val TAG = "PreferencesModel"
     }
 
     class InstallPreferencesModel internal constructor(
-        sharedPreferences: SharedPreferences,
-        private val editor: SharedPreferences.Editor
+            sharedPreferences: SharedPreferences,
+            private val editor: SharedPreferences.Editor
     ) : InstallPreferences {
         companion object {
             private const val TAG = "${PreferencesModel.TAG}.InstallPreferences"
@@ -48,9 +48,9 @@ class PreferencesModel(
     }
 
     class ExecutionPreferencesModel internal constructor(
-        sharedPreferences: SharedPreferences,
-        timeProvider: TimeProvider,
-        private val editor: SharedPreferences.Editor
+            sharedPreferences: SharedPreferences,
+            timeProvider: TimeProvider,
+            private val editor: SharedPreferences.Editor
     ) : ExecutionPreferences {
         companion object {
             private const val TAG = "${PreferencesModel.TAG}.ExecutionPreferences"
@@ -69,7 +69,7 @@ class PreferencesModel(
             private set(value) {
                 LOGGER.v("#coldStartCount set : $value")
                 editor.putLong(COLD_START_COUNT, value)
-                    .apply()
+                        .apply()
                 field = value
             }
 
@@ -79,7 +79,7 @@ class PreferencesModel(
             private set(value) {
                 LOGGER.v("#lastColdStartAt set : $value")
                 editor.putLong(LAST_COLD_START_AT, value.toEpochMilli())
-                    .apply()
+                        .apply()
                 field = value
             }
 
@@ -87,7 +87,7 @@ class PreferencesModel(
             private set(value) {
                 LOGGER.v("#foregroundCount set : $value")
                 editor.putLong(FOREGROUND_COUNT, value)
-                    .apply()
+                        .apply()
                 field = value
             }
 
@@ -97,7 +97,7 @@ class PreferencesModel(
             private set(value) {
                 LOGGER.v("#lastForegroundAt set : $value")
                 editor.putLong(LAST_FOREGROUND_AT, value.toEpochMilli())
-                    .apply()
+                        .apply()
                 field = value
             }
 
@@ -127,9 +127,9 @@ class PreferencesModel(
     }
 
     class WizardPreferencesModel(
-        sharedPreferences: SharedPreferences,
-        private val timeProvider: TimeProvider,
-        private val editor: SharedPreferences.Editor
+            sharedPreferences: SharedPreferences,
+            private val timeProvider: TimeProvider,
+            private val editor: SharedPreferences.Editor
     ) : WizardPreferences {
         companion object {
             private const val TAG = "${PreferencesModel.TAG}.WizardPreferencesModel"
@@ -145,21 +145,21 @@ class PreferencesModel(
             set(value) {
                 LOGGER.v("#bootUpShow set : $value")
                 editor.putBoolean(BOOT_UP_SHOW, value)
-                    .apply()
+                        .apply()
                 field = value
             }
         override var showCount = sharedPreferences.getInt(USED_COUNT, 0)
             set(value) {
                 LOGGER.v("#usedCount set : $value")
                 editor.putInt(USED_COUNT, value)
-                    .apply()
+                        .apply()
                 field = value
             }
         override var lastShownAt = Instant.ofEpochMilli(sharedPreferences.getLong(LAST_USED_AT, 0L))
             set(value) {
                 LOGGER.v("#lastUsedAt set : $value")
                 editor.putLong(LAST_USED_AT, value.toEpochMilli())
-                    .apply()
+                        .apply()
                 field = value
             }
 
@@ -171,7 +171,7 @@ class PreferencesModel(
                 }
 
                 editor.putInt(LOCATION_PERMISSION_REQUESTED, value)
-                    .apply()
+                        .apply()
 
                 field = value
             }
@@ -196,6 +196,8 @@ class PreferencesModel(
     override val execution = ExecutionPreferencesModel(sharedPreferences, timeProvider, editor)
 
     override val wizard = WizardPreferencesModel(sharedPreferences, timeProvider, editor)
+
+    override val search = SearchPreferencesModel(sharedPreferences, editor)
 
     init {
         editor.commit()

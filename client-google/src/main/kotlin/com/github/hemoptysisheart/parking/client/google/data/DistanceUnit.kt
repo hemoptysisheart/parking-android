@@ -1,7 +1,7 @@
 package com.github.hemoptysisheart.parking.client.google.data
 
 enum class DistanceUnit(
-    val code: String
+        val code: String
 ) {
     /**
      * `metric` specifies usage of the metric system. Textual distances are returned using kilometers and meters.

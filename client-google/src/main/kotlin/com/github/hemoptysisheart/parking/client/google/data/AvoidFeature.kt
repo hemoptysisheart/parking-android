@@ -1,7 +1,7 @@
 package com.github.hemoptysisheart.parking.client.google.data
 
 enum class AvoidFeature(
-    val code: String
+        val code: String
 ) {
     /**
      * `tolls` indicates that the calculated route should avoid toll roads/bridges.

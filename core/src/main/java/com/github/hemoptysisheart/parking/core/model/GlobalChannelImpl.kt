@@ -22,5 +22,5 @@ class GlobalChannelImpl @Inject constructor() : GlobalChannel, GlobalChannelCons
     }
 
     override fun toString() =
-        "GlobalChannelImpl(progressConsumer=$progressConsumer, exceptionConsumer=$exceptionConsumer)"
+            "GlobalChannelImpl(progressConsumer=$progressConsumer, exceptionConsumer=$exceptionConsumer)"
 }

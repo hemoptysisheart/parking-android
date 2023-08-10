@@ -15,8 +15,8 @@ class DataConverterTest : BehaviorSpec() {
 
             `when`("파싱하면 0시 0분을 반환한다.") {
                 val localTime = LocalTime.parse(
-                    text,
-                    com.github.hemoptysisheart.parking.client.google.data.PlaceOpeningHoursPeriodDetail.TIME_FORMATTER
+                        text,
+                        com.github.hemoptysisheart.parking.client.google.data.PlaceOpeningHoursPeriodDetail.TIME_FORMATTER
                 )
                 logger.info("[WHEN] localTime=$localTime")
 

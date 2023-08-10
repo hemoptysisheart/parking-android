@@ -19,7 +19,7 @@ class AndroidLoggingHandler : Handler() {
     }
 
     override fun isLoggable(record: LogRecord?): Boolean =
-        super.isLoggable(record) // && BuildConfig.DEBUG
+            super.isLoggable(record) // && BuildConfig.DEBUG
 
     override fun close() {
         // ignore
@@ -44,12 +44,12 @@ class AndroidLoggingHandler : Handler() {
     }
 
     private fun getAndroidLevel(level: Level): Int =
-        when (level.intValue()) {
-            Level.SEVERE.intValue() -> Log.ERROR
-            Level.WARNING.intValue() -> Log.WARN
-            Level.INFO.intValue() -> Log.INFO
-            Level.FINE.intValue() -> Log.DEBUG
-            Level.FINEST.intValue() -> Log.VERBOSE
-            else -> Log.DEBUG
-        }
+            when (level.intValue()) {
+                Level.SEVERE.intValue() -> Log.ERROR
+                Level.WARNING.intValue() -> Log.WARN
+                Level.INFO.intValue() -> Log.INFO
+                Level.FINE.intValue() -> Log.DEBUG
+                Level.FINEST.intValue() -> Log.VERBOSE
+                else -> Log.DEBUG
+            }
 }

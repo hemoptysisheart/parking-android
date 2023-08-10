@@ -23,9 +23,9 @@ import com.google.gson.annotations.SerializedName
  * -180.00000), this results in the need for a 32 bit signed binary integer value.
  */
 data class DirectionsPolylineResp(
-    /**
-     * A single string representation of the polyline.
-     */
-    @SerializedName("points")
-    var points: String? = null
+        /**
+         * A single string representation of the polyline.
+         */
+        @SerializedName("points")
+        var points: String? = null
 )

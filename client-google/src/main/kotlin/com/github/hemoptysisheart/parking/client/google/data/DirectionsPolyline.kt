@@ -21,8 +21,8 @@ package com.github.hemoptysisheart.parking.client.google.data
  * -180.00000), this results in the need for a 32 bit signed binary integer value.
  */
 data class DirectionsPolyline(
-    /**
-     * A single string representation of the polyline.
-     */
-    val points: List<LatLng>
+        /**
+         * A single string representation of the polyline.
+         */
+        val points: List<LatLng>
 )

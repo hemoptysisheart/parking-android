@@ -1,13 +1,22 @@
 package com.github.hemoptysisheart.parking.app.interaction.main
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.github.hemoptysisheart.parking.app.interaction.BaseInteraction
-import com.github.hemoptysisheart.parking.app.ui.page.main.*
+import com.github.hemoptysisheart.parking.app.ui.page.main.DestinationSearchPage
+import com.github.hemoptysisheart.parking.app.ui.page.main.DeveloperSettingPage
+import com.github.hemoptysisheart.parking.app.ui.page.main.LandingMapPage
+import com.github.hemoptysisheart.parking.app.ui.page.main.RouteNavigationPage
+import com.github.hemoptysisheart.parking.app.ui.page.main.SearchSettingPage
+import com.github.hemoptysisheart.parking.app.ui.page.main.SelectParkingPage
+import com.github.hemoptysisheart.parking.app.ui.page.main.SelectRoutePage
+import com.github.hemoptysisheart.parking.app.ui.page.main.SettingPage
 import com.github.hemoptysisheart.parking.app.ui.template.GlobalHeader
 
 /**
@@ -20,22 +29,26 @@ fun MainNavGraph(baseInteraction: BaseInteraction) {
 
     val landingMap = LandingMapInteraction(baseInteraction)
     val destinationSearch = DestinationSearchInteraction(baseInteraction)
-    val selectParking = SelectParingInteraction(baseInteraction)
+    val selectParking = SelectParkingInteraction(baseInteraction)
     val selectRoute = SelectRouteInteraction(baseInteraction)
     val routeNavigation = RouteNavigationInteraction(baseInteraction)
 
     val setting = SettingInteraction(baseInteraction)
-    val searchDestinationFilter = SearchDestinationFilterInteraction(baseInteraction)
+    val searchDestinationFilter = SearchSettingInteraction(baseInteraction)
     val developerSetting = DeveloperSettingInteraction(baseInteraction)
 
     // ui
-    Column(Modifier.fillMaxSize()) {
+    Column(
+            modifier = Modifier
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.background)
+    ) {
         GlobalHeader(globalHeader)
 
         NavHost(
-            navController = baseInteraction.navController,
-            startDestination = LandingMapInteraction.ROUTE_PATTERN,
-            modifier = Modifier.fillMaxSize()
+                navController = baseInteraction.navController,
+                startDestination = LandingMapInteraction.ROUTE_PATTERN,
+                modifier = Modifier.fillMaxSize()
         ) {
             composable(LandingMapInteraction.ROUTE_PATTERN) {
                 LandingMapPage(landingMap)
@@ -46,7 +59,7 @@ fun MainNavGraph(baseInteraction: BaseInteraction) {
             composable(SettingInteraction.ROUTE_PATTERN) {
                 SettingPage(setting)
             }
-            composable(SelectParingInteraction.ROUTE_PATTERN) {
+            composable(SelectParkingInteraction.ROUTE_PATTERN) {
                 SelectParkingPage(selectParking)
             }
             composable(SelectRouteInteraction.ROUTE_PATTERN) {
@@ -55,8 +68,8 @@ fun MainNavGraph(baseInteraction: BaseInteraction) {
             composable(RouteNavigationInteraction.ROUTE_PATTERN) {
                 RouteNavigationPage(routeNavigation)
             }
-            composable(SearchDestinationFilterInteraction.ROUTE_PATTERN) {
-                SearchDestinationFilterPage(searchDestinationFilter)
+            composable(SearchSettingInteraction.ROUTE_PATTERN) {
+                SearchSettingPage(searchDestinationFilter)
             }
             composable(DeveloperSettingInteraction.ROUTE_PATTERN) {
                 DeveloperSettingPage(developerSetting)

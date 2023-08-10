@@ -13,7 +13,7 @@ class IdentifierTest : BehaviorSpec() {
 
     init {
         listOf(
-            ""
+                ""
         ).forAll { key ->
             given("사용 불가능한 키(key=$key)로") {
                 logger.info("[GIVEN] key=$key")

@@ -5,7 +5,7 @@ import com.github.hemoptysisheart.parking.core.R
 import com.github.hemoptysisheart.parking.domain.common.Type
 
 enum class Types(
-    @StringRes val label: Int
+        @StringRes val label: Int
 ) : Type {
     RECOMMEND_ITEM_SEARCH_QUERY(R.string.domain_type_recommend_item_query),
     RECOMMEND_ITEM_PLACE(R.string.domain_type_recommend_item_place),

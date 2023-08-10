@@ -4,7 +4,7 @@ package com.github.hemoptysisheart.parking.client.google.data
  * See [`transit_mode`](https://developers.google.com/maps/documentation/directions/get-directions?hl=ko#transit_mode)
  */
 enum class TransitMode(
-    val code: String
+        val code: String
 ) {
     /**
      * `bus` indicates that the calculated route should prefer travel by bus.

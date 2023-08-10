@@ -5,14 +5,14 @@ import com.github.hemoptysisheart.parking.core.util.AndroidLogger.Level.*
 import kotlin.reflect.KClass
 
 class AndroidLogger(
-    val name: String
+        val name: String
 ) {
     enum class Level {
         V, D, I, W, E;
     }
 
     data class Option(
-        val levelOverwrite: Map<Level, Level> = mapOf()
+            val levelOverwrite: Map<Level, Level> = mapOf()
     )
 
     @Suppress("MemberVisibilityCanBePrivate")
@@ -25,6 +25,8 @@ class AndroidLogger(
     }
 
     constructor(clazz: KClass<*>) : this(clazz.simpleName!!)
+
+    constructor(clazz: KClass<*>, vararg keys: Any) : this("${clazz.simpleName!!}@${keys.contentToString()}")
 
     init {
         when {

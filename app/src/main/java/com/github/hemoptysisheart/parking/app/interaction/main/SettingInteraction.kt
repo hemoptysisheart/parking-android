@@ -7,18 +7,18 @@ import com.github.hemoptysisheart.parking.app.interaction.Interaction
 import com.github.hemoptysisheart.parking.core.util.AndroidLogger
 
 class SettingInteraction(
-    private val base: BaseInteraction
+        private val base: BaseInteraction
 ) : Interaction by base {
     companion object {
         private val LOGGER = AndroidLogger(SettingInteraction::class)
-        const val ROUTE_PATTERN = "setting"
+        const val ROUTE_PATTERN = "main/setting"
 
     }
 
-    fun gotoSearchDestinationFilter() {
-        LOGGER.i("#gotoSearchDestinationFilter called.")
+    fun gotoSearchSetting() {
+        LOGGER.i("#gotoSearchSetting called.")
 
-        base.navController.navigate(SearchDestinationFilterInteraction.ROUTE_PATTERN)
+        base.navController.navigate(SearchSettingInteraction.ROUTE_PATTERN)
     }
 
     fun gotoWizard() {

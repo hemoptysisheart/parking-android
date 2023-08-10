@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GlobalHeaderViewModel @Inject constructor(
-    private val globalChannelConsumer: GlobalChannelConsumer,
+        private val globalChannelConsumer: GlobalChannelConsumer,
 ) : ViewModel(), DefaultLifecycleObserver {
     companion object {
         private val LOGGER = AndroidLogger(GlobalHeaderViewModel::class)

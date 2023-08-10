@@ -1,39 +1,44 @@
 package com.github.hemoptysisheart.parking.app.ui.page.main
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.PreviewActivity
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.hemoptysisheart.parking.app.interaction.baseInteraction
-import com.github.hemoptysisheart.parking.app.interaction.main.SelectParingInteraction
-import com.github.hemoptysisheart.parking.app.ui.molcule.EasyButton
-import com.github.hemoptysisheart.parking.app.ui.theme.ParkingTheme
+import com.github.hemoptysisheart.parking.app.interaction.main.SelectParkingInteraction
+import com.github.hemoptysisheart.parking.app.ui.molecule.EasyButton
+import com.github.hemoptysisheart.parking.app.ui.page.LOGGER
+import com.github.hemoptysisheart.parking.app.ui.preview.PagePreview
+import com.github.hemoptysisheart.parking.app.ui.preview.PagePreviewContainer
 
 /**
  * [주차장 선택](https://www.figma.com/file/rKJxXjvDtDNprvdojVxaaN/Parking?type=whiteboard&node-id=526-673)
  */
 @Composable
-fun SelectParkingPage(interaction: SelectParingInteraction) {
+fun SelectParkingPage(interaction: SelectParkingInteraction) {
+    LOGGER.v("#SelectParkingPage args : interaction=$interaction")
+
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(10.dp),
-        verticalArrangement = Arrangement.Center
+            modifier = Modifier
+                    .fillMaxSize()
+                    .padding(10.dp),
+            verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = """
+                text = """
                 - 목적지 근처 지도
                     - 목적지
                     - 후보 주차장
                     - 경로
                 - 현재 선택한 주차장 상세 정보
             """.trimIndent(),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(10.dp)
+                modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(10.dp)
         )
 
         EasyButton(onClick = interaction::goBack, label = "돌아가기")
@@ -43,9 +48,9 @@ fun SelectParkingPage(interaction: SelectParingInteraction) {
 }
 
 @Composable
-@Preview(showSystemUi = true)
+@PagePreview
 fun Preview_SelectParkingPage() {
-    ParkingTheme {
-        SelectParkingPage(SelectParingInteraction(baseInteraction(PreviewActivity())))
+    PagePreviewContainer {
+        SelectParkingPage(SelectParkingInteraction(it))
     }
 }

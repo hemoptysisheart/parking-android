@@ -1,6 +1,6 @@
 package com.github.hemoptysisheart.util.support
 
-import java.util.*
+import java.util.Random
 import java.util.concurrent.ThreadLocalRandom
 
 /**

@@ -8,14 +8,14 @@ import com.google.gson.annotations.SerializedName
  * An object containing a numeric value and its formatted text representation.
  */
 data class TextValueObjectResp(
-    /**
-     * String value.
-     */
-    @SerializedName("text")
-    var text: String? = null,
-    /**
-     * Numeric value.
-     */
-    @SerializedName("value")
-    var value: Double? = null
+        /**
+         * String value.
+         */
+        @SerializedName("text")
+        var text: String? = null,
+        /**
+         * Numeric value.
+         */
+        @SerializedName("value")
+        var value: Double? = null
 )

@@ -48,9 +48,9 @@ class LandingMapViewModel @Inject constructor() : BaseViewModel() {
             when (ThreadLocalRandom.current().nextInt(2)) {
                 0 -> throw AndroidMessageException(null, R.string.global_header_error_exp_case_simple_detail)
                 1 -> throw AndroidMessageException(
-                    R.string.global_header_error_exp_case_full_title,
-                    R.string.global_header_error_exp_case_full_detail_template,
-                    ZonedDateTime.now()
+                        R.string.global_header_error_exp_case_full_title,
+                        R.string.global_header_error_exp_case_full_detail_template,
+                        ZonedDateTime.now()
                 )
             }
         }

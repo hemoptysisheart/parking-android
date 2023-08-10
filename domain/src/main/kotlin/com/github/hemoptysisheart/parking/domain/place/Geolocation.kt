@@ -6,15 +6,15 @@ import com.github.hemoptysisheart.util.ToSimpleString
  * 좌표
  */
 data class Geolocation(
-    /**
-     * 위도
-     */
-    val latitude: Double,
+        /**
+         * 위도
+         */
+        val latitude: Double,
 
-    /**
-     * 경도
-     */
-    val longitude: Double
+        /**
+         * 경도
+         */
+        val longitude: Double
 ) : ToSimpleString {
     @Suppress("MemberVisibilityCanBePrivate")
     companion object {

@@ -8,12 +8,12 @@ import com.github.hemoptysisheart.parking.core.util.AndroidLogger
  * [랜딩 맵](https://www.figma.com/file/rKJxXjvDtDNprvdojVxaaN/Parking?type=whiteboard&node-id=526-645)
  */
 class LandingMapInteraction(
-    private val base: BaseInteraction
+        private val base: BaseInteraction
 ) : Interaction by base {
     companion object {
         private val LOGGER = AndroidLogger(LandingMapInteraction::class)
 
-        const val ROUTE_PATTERN = "landingMap"
+        const val ROUTE_PATTERN = "main/landingMap"
     }
 
     fun gotoDestinationSearch() {

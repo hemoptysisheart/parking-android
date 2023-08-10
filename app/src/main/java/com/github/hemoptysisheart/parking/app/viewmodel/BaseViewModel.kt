@@ -11,13 +11,33 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import java.util.*
+import java.util.UUID
 import java.util.concurrent.atomic.AtomicInteger
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
+/**
+ * [ViewModel] 확장 기능.
+ */
 open class BaseViewModel : ViewModel(), DefaultLifecycleObserver {
+    /**
+     * 여러개의 속성이 긴밀하게 연동되는 UI를 구현해야 할 때, 관련 기능을 묶어서 구현할 수 있도록 도와주는 [ViewModel] 유틸리티 클래스.
+     */
+    abstract class ViewModelet(
+            val base: BaseViewModel,
+            val key: UUID = UUID.randomUUID()!!
+    ) {
+        protected fun launch(
+                progress: Boolean = false,
+                context: CoroutineContext = EmptyCoroutineContext,
+                start: CoroutineStart = CoroutineStart.DEFAULT,
+                block: suspend CoroutineScope.() -> Unit
+        ): Job = base.launch(progress, context, start, block)
+
+        override fun toString() = "base=$base, key=$key"
+    }
+
     private val progressCounter = AtomicInteger()
     protected val logger = AndroidLogger(this::class)
 
@@ -28,10 +48,10 @@ open class BaseViewModel : ViewModel(), DefaultLifecycleObserver {
     lateinit var globalChannel: GlobalChannel
 
     fun launch(
-        progress: Boolean = false,
-        context: CoroutineContext = EmptyCoroutineContext,
-        start: CoroutineStart = CoroutineStart.DEFAULT,
-        block: suspend CoroutineScope.() -> Unit
+            progress: Boolean = false,
+            context: CoroutineContext = EmptyCoroutineContext,
+            start: CoroutineStart = CoroutineStart.DEFAULT,
+            block: suspend CoroutineScope.() -> Unit
     ): Job {
         logger.d("#launch args : progress=$progress, context=$context, start=$start, block=$block")
 

@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.parking.app.ui.molcule
+package com.github.hemoptysisheart.parking.app.ui.molecule
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -17,9 +17,10 @@ import com.github.hemoptysisheart.parking.app.ui.theme.Typography
 @Composable
 fun EasyButton(onClick: () -> Unit, label: String, padding: Int = 10) {
     Button(
-        onClick = onClick, modifier = Modifier
-            .fillMaxWidth()
-            .padding(padding.dp)
+            onClick = onClick,
+            modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(padding.dp)
     ) {
         Text(text = label, style = Typography.labelMedium)
     }

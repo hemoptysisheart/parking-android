@@ -1,6 +1,12 @@
 package com.github.hemoptysisheart.parking.client.google
 
-import com.github.hemoptysisheart.parking.client.google.data.*
+import com.github.hemoptysisheart.parking.client.google.data.AutocompleteParams
+import com.github.hemoptysisheart.parking.client.google.data.DirectionsParams
+import com.github.hemoptysisheart.parking.client.google.data.DirectionsRoute
+import com.github.hemoptysisheart.parking.client.google.data.NearbySearchParams
+import com.github.hemoptysisheart.parking.client.google.data.Place
+import com.github.hemoptysisheart.parking.client.google.data.PlaceAutocompletePrediction
+import com.github.hemoptysisheart.parking.client.google.data.PlaceParams
 
 /**
  * [Places API](https://console.cloud.google.com/apis/library/places-backend.googleapis.com)

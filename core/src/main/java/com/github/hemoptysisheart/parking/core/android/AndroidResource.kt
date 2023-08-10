@@ -13,17 +13,17 @@ sealed interface AndroidResource
  * 도메인 오브젝트 리소스.
  */
 class DomainObjectResource(
-    /**
-     * 도메인 오브젝트 타입.
-     */
-    val type: KClass<*>,
-    /**
-     * 이름
-     */
-    @StringRes val name: Int
+        /**
+         * 도메인 오브젝트 타입.
+         */
+        val type: KClass<*>,
+        /**
+         * 이름
+         */
+        @StringRes val name: Int
 ) : AndroidResource
 
 class DomainPropertyResource(
-    val property: KProperty<*>,
-    @StringRes val name: Int
+        val property: KProperty<*>,
+        @StringRes val name: Int
 ) : AndroidResource

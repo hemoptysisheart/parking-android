@@ -15,8 +15,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.github.hemoptysisheart.parking.app.interaction.wizard.LocationInteraction
-import com.github.hemoptysisheart.parking.app.ui.molecule.EasyButton
 import com.github.hemoptysisheart.parking.app.ui.molecule.TextBodyMedium
+import com.github.hemoptysisheart.parking.app.ui.molecule.TextLabelMedium
 import com.github.hemoptysisheart.parking.app.ui.page.LOGGER
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreview
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreviewContainer
@@ -26,7 +26,6 @@ import com.github.hemoptysisheart.parking.app.ui.support.collect
 import com.github.hemoptysisheart.parking.app.ui.support.hiltBaseViewModel
 import com.github.hemoptysisheart.parking.app.ui.support.requestPermission
 import com.github.hemoptysisheart.parking.app.ui.template.WizardFooter
-import com.github.hemoptysisheart.parking.app.ui.theme.Typography
 import com.github.hemoptysisheart.parking.app.viewmodel.wizard.LocationViewModel
 import com.github.hemoptysisheart.parking.core.domain.place.toLatLng
 import com.github.hemoptysisheart.parking.domain.place.Geolocation
@@ -47,12 +46,20 @@ fun LocationPage(
     LOGGER.v("#LocationPage args : interaction=$interaction")
 
     val granted = viewModel.granted.collect()
+    val permissionRequestCount = viewModel.permissionRequestCount.collect()
+    val location = viewModel.location.collect()
+
+    val launchRequestDialog = requestPermission(permission = ACCESS_FINE_LOCATION)
 
     LocationPageContent(
             interaction = interaction,
             granted = granted,
-            location = viewModel.location,
-            onRequestPermission = requestPermission(ACCESS_FINE_LOCATION)
+            location = location,
+            permissionRequestCount = permissionRequestCount,
+            onRequestPermission = {
+                viewModel.onClickRequestPermission()
+                launchRequestDialog()
+            }
     )
 }
 
@@ -61,9 +68,14 @@ internal fun LocationPageContent(
         interaction: LocationInteraction,
         granted: Boolean,
         location: Geolocation?,
+        permissionRequestCount: Int,
         onRequestPermission: () -> Unit = { }
 ) {
-    Column(Modifier.fillMaxSize()) {
+    LOGGER.v("#LocationPageContent args : granted=$granted, location=$location, permissionRequestCount=$permissionRequestCount")
+
+    Column(Modifier
+            .fillMaxSize()
+            .padding(20.dp, 0.dp)) {
         if (granted) {
             location?.toLatLng()?.let { latLng ->
                 val cameraPositionState = rememberCameraPositionState(LocationViewModel::class.qualifiedName) {
@@ -71,7 +83,7 @@ internal fun LocationPageContent(
                 }
                 GoogleMap(
                         modifier = Modifier
-                                .padding(20.dp)
+                                .padding(0.dp, 40.dp)
                                 .fillMaxWidth()
                                 .height(400.dp),
                         cameraPositionState = cameraPositionState,
@@ -110,24 +122,19 @@ internal fun LocationPageContent(
         Button(
                 onClick = onRequestPermission,
                 modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(20.dp)
+                        .fillMaxWidth(),
+                enabled = null == location && 2 > permissionRequestCount
         ) {
             TextBodyMedium(text = "권한 요청하기")
         }
 
-        Text(
-                text = """
-                1. 위치정보 권한을 요청한다.
-                2. 위치정보를 얻지 못한 경우, 앱 설정으로 안내한다.
-                3. 마법사를 종료한다.
-                """.trimIndent(),
-                modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(10.dp),
-                style = Typography.bodyLarge
-        )
-        EasyButton(onClick = interaction::openAppSetting, label = "앱 설정 열기")
+        if (!granted && 2 <= permissionRequestCount) {
+            TextLabelMedium(text = "위치정보 권한을 얻지 못했습니다. 만약 위치정보 권한을 요청해도 승인 다이얼로그 보이지 않는다면 앱 설정에서 권한을 주기 바랍니다.")
+
+            Button(onClick = interaction::openAppSetting, modifier = Modifier.fillMaxWidth()) {
+                TextBodyMedium(text = "앱 설정 열기")
+            }
+        }
         Spacer(modifier = Modifier.weight(1F))
         WizardFooter(onClose = interaction::close, onNext = interaction::close)
     }

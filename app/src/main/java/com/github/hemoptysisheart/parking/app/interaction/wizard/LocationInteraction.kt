@@ -1,6 +1,8 @@
 package com.github.hemoptysisheart.parking.app.interaction.wizard
 
 import android.content.Intent
+import android.net.Uri
+import android.provider.Settings
 import com.github.hemoptysisheart.parking.app.activity.MainActivity
 import com.github.hemoptysisheart.parking.app.interaction.BaseInteraction
 import com.github.hemoptysisheart.parking.app.interaction.Interaction
@@ -20,6 +22,10 @@ class LocationInteraction(
 
     fun openAppSetting() {
         LOGGER.i("#openAppSetting called.")
+
+        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+        intent.data = Uri.fromParts("package", base.activity.packageName, null)
+        base.activity.startActivity(intent)
     }
 
     fun close() {

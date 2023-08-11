@@ -5,7 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.location.Location
-import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.checkSelfPermission
 import com.github.hemoptysisheart.parking.core.util.AndroidLogger
 import com.github.hemoptysisheart.parking.domain.place.Geolocation
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -23,7 +23,11 @@ class LocationModelImpl(
     }
 
     override var granted: Boolean = false
-        get() = PERMISSION_GRANTED == ContextCompat.checkSelfPermission(context, ACCESS_FINE_LOCATION)
+        get() {
+            val g = PERMISSION_GRANTED == checkSelfPermission(context, ACCESS_FINE_LOCATION)
+            LOGGER.v("#granted return : $g")
+            return g
+        }
         private set
 
     override var location: Geolocation = Geolocation(0.0, 0.0)
@@ -31,6 +35,7 @@ class LocationModelImpl(
             if (!granted) {
                 throw IllegalStateException("not granted.")
             }
+            LOGGER.v("#location return : $field")
             return field
         }
         private set

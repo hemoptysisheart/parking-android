@@ -30,4 +30,4 @@ fun previewSearchSettingViewModel(
 
 fun previewLocationViewModel(
         locationModel: LocationModel = previewLocationModel(geolocation = Geolocation(0.0, 0.0))
-) = LocationViewModel(locationModel)
+) = LocationViewModel(locationModel, previewPreferencesModel().wizard)

@@ -11,6 +11,7 @@
 
     <string name="global_close_label">닫기</string>
     <string name="global_next_label">다음</string>
+    <string name="global_open_app_detail_settings">앱 설정 열기</string>
 
     <string name="molecule_input_button_back_label">돌아가기</string>
     <string name="molecule_input_button_drop_down_label">열기</string>
@@ -23,6 +24,9 @@
     <string name="page_search_setting_parking_label">주차장 검색 반경</string>
     <string name="page_search_setting_parking_description">목적지 주변 %s %s 안에서 주차장을 찾습니다.
         거리는 도보 이동 거리가 아니라 직선거리 이므로 실제로 이동하는 거리는 더 멀어집니다.</string>
+    <string name="page_wizard_location_denied">위치정보 권한을 얻지 못했습니다. 만약 위치정보 권한을 요청해도 승인 다이얼로그 보이지 않는다면 앱 설정에서 권한을 주기 바랍니다.</string>
+    <string name="page_wizard_location_granted">위치정보 권한을 획득했습니다.</string>
+    <string name="page_wizard_location_request_permission_label">권한 요청하기</string>
 
     <string name="preview_template_distance_setting_label">거리 설정</string>
     <string name="preview_template_distance_setting_description">어쩌고 저쩌고 어쩌고 저쩌고 %s %s 어쩌고 저쩌고 어쩌고 저쩌고</string>

@@ -9,6 +9,9 @@
     <string name="global_header_error_default_detail">알 수 없는 에러가 발생했습니다. 잠시 후 다시 시도하기 바랍니다.</string>
     <string name="global_header_close_alert_dialog">닫기</string>
 
+    <string name="global_close_label">닫기</string>
+    <string name="global_next_label">다음</string>
+
     <string name="molecule_input_button_back_label">돌아가기</string>
     <string name="molecule_input_button_drop_down_label">열기</string>
     <string name="molecule_input_button_drop_up_label">닫기</string>

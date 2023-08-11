@@ -14,14 +14,26 @@ import com.github.hemoptysisheart.parking.app.ui.molecule.EasyButton
 import com.github.hemoptysisheart.parking.app.ui.page.LOGGER
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreview
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreviewContainer
+import com.github.hemoptysisheart.parking.app.ui.support.hiltBaseViewModel
+import com.github.hemoptysisheart.parking.app.ui.template.WizardFooter
 import com.github.hemoptysisheart.parking.app.ui.theme.Typography
+import com.github.hemoptysisheart.parking.app.viewmodel.wizard.InstructionViewModel
 
 /**
  * [마법사](https://www.figma.com/file/rKJxXjvDtDNprvdojVxaaN/Parking?type=whiteboard&node-id=526-649)
  */
 @Composable
-fun InstructionPage(interaction: InstructionInteraction) {
+fun InstructionPage(
+        interaction: InstructionInteraction,
+        viewModel: InstructionViewModel = hiltBaseViewModel()
+) {
     LOGGER.v("#InstructionPage args : interaction=$interaction")
+
+    InstructionPageContent(interaction = interaction)
+}
+
+@Composable
+internal fun InstructionPageContent(interaction: InstructionInteraction) {
 
     Column(Modifier.fillMaxSize()) {
         Spacer(modifier = Modifier.weight(1F))
@@ -37,6 +49,7 @@ fun InstructionPage(interaction: InstructionInteraction) {
         EasyButton(onClick = interaction::close, label = "마법사 종료")
         EasyButton(onClick = interaction::gotoLocation, label = "다음")
         Spacer(modifier = Modifier.weight(1F))
+        WizardFooter(onClose = interaction::close, onNext = interaction::gotoLocation)
     }
 }
 

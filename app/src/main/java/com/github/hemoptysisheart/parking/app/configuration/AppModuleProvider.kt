@@ -10,6 +10,7 @@ import com.github.hemoptysisheart.parking.core.util.AndroidLogger
 import com.github.hemoptysisheart.parking.domain.app.Preferences
 import com.github.hemoptysisheart.util.TimeProvider
 import com.github.hemoptysisheart.util.TruncatedTimeProvider
+import com.google.android.gms.location.LocationServices
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -82,4 +83,13 @@ class AppModuleProvider {
     @Provides
     @Singleton
     fun provideSearchPreferences(preferences: Preferences) = preferences.search
+
+    @Provides
+    @Singleton
+    fun provideLocationModel(@ApplicationContext context: Context): LocationModel {
+        val client = LocationServices.getFusedLocationProviderClient(context)
+        val model = LocationModelImpl(context, client)
+        LOGGER.i("#provideLocationModel return : $model")
+        return model
+    }
 }

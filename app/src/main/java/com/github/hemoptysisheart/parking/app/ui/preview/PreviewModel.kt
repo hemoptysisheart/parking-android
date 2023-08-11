@@ -6,6 +6,7 @@ import com.github.hemoptysisheart.parking.core.domain.common.SystemLocale
 import com.github.hemoptysisheart.parking.core.model.GlobalChannel
 import com.github.hemoptysisheart.parking.core.model.GlobalChannelConsumer
 import com.github.hemoptysisheart.parking.core.model.GlobalChannelImpl
+import com.github.hemoptysisheart.parking.core.model.LocationModel
 import com.github.hemoptysisheart.parking.domain.app.ExecutionPreferences
 import com.github.hemoptysisheart.parking.domain.app.InstallPreferences
 import com.github.hemoptysisheart.parking.domain.app.Preferences
@@ -14,6 +15,7 @@ import com.github.hemoptysisheart.parking.domain.app.SearchPreferences.Companion
 import com.github.hemoptysisheart.parking.domain.app.WizardPreferences
 import com.github.hemoptysisheart.parking.domain.common.DistanceUnit
 import com.github.hemoptysisheart.parking.domain.common.Locale
+import com.github.hemoptysisheart.parking.domain.place.Geolocation
 import com.github.hemoptysisheart.util.NonNegativeInt
 import com.github.hemoptysisheart.util.truncateToMillis
 import java.time.Instant
@@ -71,4 +73,15 @@ fun previewPreferencesModel(): Preferences = object : Preferences {
 
         override var language: Locale = SystemLocale
     }
+}
+
+fun previewLocationModel(
+        granted: Boolean = true,
+        geolocation: Geolocation = Geolocation(0.0, 0.0)
+) = object : LocationModel {
+    override val granted: Boolean = granted
+
+    override val location: Geolocation = geolocation
+
+    override fun reset() {}
 }

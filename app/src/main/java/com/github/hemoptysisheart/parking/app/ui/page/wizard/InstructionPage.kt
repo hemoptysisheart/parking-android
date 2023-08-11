@@ -10,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.github.hemoptysisheart.parking.app.interaction.wizard.InstructionInteraction
-import com.github.hemoptysisheart.parking.app.ui.molecule.EasyButton
 import com.github.hemoptysisheart.parking.app.ui.page.LOGGER
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreview
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreviewContainer
@@ -46,8 +45,6 @@ internal fun InstructionPageContent(interaction: InstructionInteraction) {
                         .padding(10.dp),
                 style = Typography.bodyLarge
         )
-        EasyButton(onClick = interaction::close, label = "마법사 종료")
-        EasyButton(onClick = interaction::gotoLocation, label = "다음")
         Spacer(modifier = Modifier.weight(1F))
         WizardFooter(onClose = interaction::close, onNext = interaction::gotoLocation)
     }

@@ -39,7 +39,8 @@ fun LocationPageContent(
         granted: Boolean,
         location: Geolocation?,
         permissionRequestCount: Int,
-        onRequestPermission: () -> Unit = { }
+        onRequestPermission: () -> Unit = { },
+        onClose: () -> Unit = { }
 ) {
     LOGGER.v("#LocationPageContent args : granted=$granted, location=$location, permissionRequestCount=$permissionRequestCount")
 
@@ -119,7 +120,7 @@ fun LocationPageContent(
             }
         }
         Spacer(modifier = Modifier.weight(1F))
-        WizardFooter(onClose = interaction::close, onNext = interaction::close)
+        WizardFooter(onClose = onClose, onNext = interaction::close)
     }
 }
 

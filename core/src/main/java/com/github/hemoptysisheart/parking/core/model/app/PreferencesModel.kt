@@ -146,6 +146,7 @@ class PreferencesModel(
         override var bootUpShow = sharedPreferences.getBoolean(KEY_BOOT_UP_SHOW, true)
             set(value) {
                 LOGGER.v("#bootUpShow set : $value")
+
                 editor.putBoolean(KEY_BOOT_UP_SHOW, value)
                         .apply()
                 field = value
@@ -153,6 +154,7 @@ class PreferencesModel(
         override var showCount = sharedPreferences.getInt(KEY_USED_COUNT, 0)
             set(value) {
                 LOGGER.v("#usedCount set : $value")
+
                 editor.putInt(KEY_USED_COUNT, value)
                         .apply()
                 field = value
@@ -160,6 +162,7 @@ class PreferencesModel(
         override var lastShownAt = Instant.ofEpochMilli(sharedPreferences.getLong(KEY_LAST_USED_AT, 0L))
             set(value) {
                 LOGGER.v("#lastUsedAt set : $value")
+
                 editor.putLong(KEY_LAST_USED_AT, value.toEpochMilli())
                         .apply()
                 field = value

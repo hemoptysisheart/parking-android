@@ -13,6 +13,7 @@ import com.github.hemoptysisheart.parking.app.interaction.wizard.InstructionInte
 import com.github.hemoptysisheart.parking.app.ui.page.LOGGER
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreview
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreviewContainer
+import com.github.hemoptysisheart.parking.app.ui.preview.previewInstructionViewModel
 import com.github.hemoptysisheart.parking.app.ui.support.hiltBaseViewModel
 import com.github.hemoptysisheart.parking.app.ui.template.WizardFooter
 import com.github.hemoptysisheart.parking.app.ui.theme.Typography
@@ -28,13 +29,22 @@ fun InstructionPage(
 ) {
     LOGGER.v("#InstructionPage args : interaction=$interaction")
 
-    InstructionPageContent(interaction = interaction)
+    InstructionPageContent(
+            interaction = interaction,
+            onClose = interaction::close,
+            onNext = interaction::gotoLocation
+    )
 }
 
 @Composable
-internal fun InstructionPageContent(interaction: InstructionInteraction) {
-
-    Column(Modifier.fillMaxSize()) {
+internal fun InstructionPageContent(
+        interaction: InstructionInteraction,
+        onClose: () -> Unit = { },
+        onNext: () -> Unit = {}
+) {
+    Column(Modifier
+            .fillMaxSize()
+            .padding(20.dp, 0.dp)) {
         Spacer(modifier = Modifier.weight(1F))
         Text(
                 text = """
@@ -46,7 +56,10 @@ internal fun InstructionPageContent(interaction: InstructionInteraction) {
                 style = Typography.bodyLarge
         )
         Spacer(modifier = Modifier.weight(1F))
-        WizardFooter(onClose = interaction::close, onNext = interaction::gotoLocation)
+        WizardFooter(
+                onClose = onClose,
+                onNext = onNext
+        )
     }
 }
 
@@ -54,6 +67,6 @@ internal fun InstructionPageContent(interaction: InstructionInteraction) {
 @PagePreview
 fun Preview_InstructionPage() {
     PagePreviewContainer {
-        InstructionPage(InstructionInteraction(it))
+        InstructionPage(interaction = InstructionInteraction(it), viewModel = previewInstructionViewModel())
     }
 }

@@ -16,6 +16,7 @@
     <string name="molecule_input_button_back_label">돌아가기</string>
     <string name="molecule_input_button_drop_down_label">열기</string>
     <string name="molecule_input_button_drop_up_label">닫기</string>
+    <string name="molecule_input_button_settings_label">설정</string>
 
     <string name="template_setting_item_distance_title">검색 설정</string>
 

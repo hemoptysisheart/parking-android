@@ -36,7 +36,8 @@ fun LocationPage(
             onRequestPermission = {
                 viewModel.onClickRequestPermission()
                 launchRequestDialog()
-            }
+            },
+            onClose = interaction::close
     )
 }
 

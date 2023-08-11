@@ -9,12 +9,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import com.github.hemoptysisheart.parking.app.activity.MainActivity
+import com.github.hemoptysisheart.parking.app.activity.WizardActivity
 import com.github.hemoptysisheart.parking.app.interaction.launcher.LauncherInteraction
 import com.github.hemoptysisheart.parking.app.ui.molecule.EasyButton
 import com.github.hemoptysisheart.parking.app.ui.page.LOGGER
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreview
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreviewContainer
+import com.github.hemoptysisheart.parking.app.ui.support.collect
+import com.github.hemoptysisheart.parking.app.ui.support.hiltBaseViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.launcher.LauncherViewModel
 
 /**
@@ -23,9 +26,17 @@ import com.github.hemoptysisheart.parking.app.viewmodel.launcher.LauncherViewMod
 @Composable
 fun LauncherPage(
         interaction: LauncherInteraction,
-        viewModel: LauncherViewModel = hiltViewModel()
+        viewModel: LauncherViewModel = hiltBaseViewModel()
 ) {
     LOGGER.v("#LauncherPage args : interaction=$interaction")
+
+    val target = viewModel.target.collect()
+    LOGGER.i("#LauncherPage : target=$target")
+    when (target) {
+        WizardActivity::class -> interaction.gotoWizard()
+        MainActivity::class -> interaction.gotoLandingMap()
+        else -> {}
+    }
 
     Column(
             modifier = Modifier.fillMaxSize(),

@@ -3,12 +3,15 @@ package com.github.hemoptysisheart.parking.app.ui.preview
 import androidx.compose.runtime.Composable
 import com.github.hemoptysisheart.parking.app.viewmodel.BaseViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.GlobalHeaderViewModel
+import com.github.hemoptysisheart.parking.app.viewmodel.launcher.LauncherViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.main.SearchSettingViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.wizard.InstructionViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.wizard.LocationViewModel
 import com.github.hemoptysisheart.parking.core.model.GlobalChannelConsumer
 import com.github.hemoptysisheart.parking.core.model.LocationModel
+import com.github.hemoptysisheart.parking.domain.app.ExecutionPreferences
 import com.github.hemoptysisheart.parking.domain.app.SearchPreferences
+import com.github.hemoptysisheart.parking.domain.app.WizardPreferences
 import com.github.hemoptysisheart.parking.domain.place.Geolocation
 import com.github.hemoptysisheart.util.TruncatedTimeProvider
 
@@ -24,6 +27,12 @@ fun previewBaseViewModel(): BaseViewModel {
     vm.globalChannel = previewGlobalChannel()
     return vm
 }
+
+fun previewLauncherViewModel(
+        executionPreferences: ExecutionPreferences = previewPreferencesModel().execution,
+        wizardPreferences: WizardPreferences = previewPreferencesModel().wizard,
+        locationModel: LocationModel = previewLocationModel()
+) = LauncherViewModel(executionPreferences, wizardPreferences, locationModel)
 
 fun previewSearchSettingViewModel(
         searchPreferences: SearchPreferences = previewPreferencesModel().search

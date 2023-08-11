@@ -16,6 +16,7 @@ import com.github.hemoptysisheart.parking.app.ui.molecule.EasyButton
 import com.github.hemoptysisheart.parking.app.ui.page.LOGGER
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreview
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreviewContainer
+import com.github.hemoptysisheart.parking.app.ui.preview.previewLauncherViewModel
 import com.github.hemoptysisheart.parking.app.ui.support.collect
 import com.github.hemoptysisheart.parking.app.ui.support.hiltBaseViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.launcher.LauncherViewModel
@@ -61,6 +62,9 @@ fun LauncherPage(
 @PagePreview
 fun Preview_LauncherPage() {
     PagePreviewContainer {
-        LauncherPage(LauncherInteraction(it))
+        LauncherPage(
+                interaction = LauncherInteraction(it),
+                viewModel = previewLauncherViewModel()
+        )
     }
 }

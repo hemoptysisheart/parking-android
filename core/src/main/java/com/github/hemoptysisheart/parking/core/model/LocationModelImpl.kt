@@ -7,19 +7,23 @@ import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.location.Location
 import androidx.core.content.ContextCompat.checkSelfPermission
 import com.github.hemoptysisheart.parking.core.util.AndroidLogger
+import com.github.hemoptysisheart.parking.domain.app.WizardPreferences
 import com.github.hemoptysisheart.parking.domain.place.Geolocation
 import com.google.android.gms.location.FusedLocationProviderClient
 
 class LocationModelImpl(
         private val context: Context,
-        private val client: FusedLocationProviderClient
+        private val client: FusedLocationProviderClient,
+        private val wizardPreferences: WizardPreferences
 ) : LocationModel {
     companion object {
         private val LOGGER = AndroidLogger(LocationModelImpl::class)
     }
 
     private val locationCallback: (Location) -> Unit = {
-        this@LocationModelImpl.location = Geolocation(it.latitude, it.longitude)
+        val g = Geolocation(it.latitude, it.longitude)
+        this@LocationModelImpl.location = g
+        wizardPreferences.lastLocation(g)
     }
 
     override var granted: Boolean = false
@@ -30,11 +34,8 @@ class LocationModelImpl(
         }
         private set
 
-    override var location: Geolocation = Geolocation(0.0, 0.0)
+    override var location: Geolocation? = wizardPreferences.lastLocation
         get() {
-            if (!granted) {
-                throw IllegalStateException("not granted.")
-            }
             LOGGER.v("#location return : $field")
             return field
         }

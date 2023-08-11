@@ -12,9 +12,9 @@ interface LocationModel {
     val granted: Boolean
 
     /**
-     * 현재 위치
+     * 현재 위치. 위치정보 권한이 없으면 `null`.
      */
-    val location: Geolocation
+    val location: Geolocation?
 
     /**
      * [LocationModel] 재설정.

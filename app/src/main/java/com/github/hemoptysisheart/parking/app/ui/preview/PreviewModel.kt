@@ -49,6 +49,7 @@ fun previewPreferencesModel(): Preferences = object : Preferences {
         override var showCount: Int = 0
         override val lastShownAt: Instant = Instant.now().truncateToMillis()
         override var locationPermissionRequestCount: Int = 0
+        override var lastLocation: Geolocation? = null
 
         override fun increaseShowCount() {
             showCount++
@@ -56,6 +57,10 @@ fun previewPreferencesModel(): Preferences = object : Preferences {
 
         override fun locationPermissionRequested() {
             locationPermissionRequestCount++
+        }
+
+        override fun lastLocation(location: Geolocation) {
+            lastLocation = location
         }
     }
     override val search = object : SearchPreferences {

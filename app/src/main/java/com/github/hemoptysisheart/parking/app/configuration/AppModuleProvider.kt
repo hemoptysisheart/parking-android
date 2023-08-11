@@ -8,6 +8,7 @@ import com.github.hemoptysisheart.parking.core.model.*
 import com.github.hemoptysisheart.parking.core.model.app.PreferencesModel
 import com.github.hemoptysisheart.parking.core.util.AndroidLogger
 import com.github.hemoptysisheart.parking.domain.app.Preferences
+import com.github.hemoptysisheart.parking.domain.app.WizardPreferences
 import com.github.hemoptysisheart.util.TimeProvider
 import com.github.hemoptysisheart.util.TruncatedTimeProvider
 import com.google.android.gms.location.LocationServices
@@ -86,9 +87,9 @@ class AppModuleProvider {
 
     @Provides
     @Singleton
-    fun provideLocationModel(@ApplicationContext context: Context): LocationModel {
+    fun provideLocationModel(@ApplicationContext context: Context, wizardPreferences: WizardPreferences): LocationModel {
         val client = LocationServices.getFusedLocationProviderClient(context)
-        val model = LocationModelImpl(context, client)
+        val model = LocationModelImpl(context, client, wizardPreferences)
         LOGGER.i("#provideLocationModel return : $model")
         return model
     }

@@ -7,6 +7,7 @@ import com.github.hemoptysisheart.parking.core.util.AndroidLogger
 import com.github.hemoptysisheart.parking.domain.app.WizardPreferences
 import com.github.hemoptysisheart.parking.domain.place.Geolocation
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
@@ -43,8 +44,10 @@ class LocationViewModel @Inject constructor(
         locationModel.reset()
 
         launch {
-            _granted.emit(locationModel.granted)
             _permissionRequestCount.emit(wizardPreferences.locationPermissionRequestCount)
+
+            delay(100)
+            _granted.emit(locationModel.granted)
             if (locationModel.granted) {
                 _location.emit(locationModel.location)
             }

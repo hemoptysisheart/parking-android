@@ -6,6 +6,7 @@ import com.github.hemoptysisheart.parking.domain.app.ExecutionPreferences
 import com.github.hemoptysisheart.parking.domain.app.InstallPreferences
 import com.github.hemoptysisheart.parking.domain.app.Preferences
 import com.github.hemoptysisheart.parking.domain.app.WizardPreferences
+import com.github.hemoptysisheart.parking.domain.place.Geolocation
 import com.github.hemoptysisheart.util.TimeProvider
 import java.time.Instant
 import java.util.UUID
@@ -135,44 +136,53 @@ class PreferencesModel(
             private const val TAG = "${PreferencesModel.TAG}.WizardPreferencesModel"
             private val LOGGER = AndroidLogger(TAG)
 
-            const val BOOT_UP_SHOW = "$TAG.bootUpShow"
-            const val USED_COUNT = "$TAG.usedCount"
-            const val LAST_USED_AT = "$TAG.lastUsedAt"
-            const val LOCATION_PERMISSION_REQUESTED = "$TAG.locationPermissionRequested"
+            const val KEY_BOOT_UP_SHOW = "$TAG.bootUpShow"
+            const val KEY_USED_COUNT = "$TAG.usedCount"
+            const val KEY_LAST_USED_AT = "$TAG.lastUsedAt"
+            const val KEY_LOCATION_PERMISSION_REQUESTED = "$TAG.locationPermissionRequested"
+            const val KEY_LAST_LOCATION = "$TAG.lastLocation"
         }
 
-        override var bootUpShow = sharedPreferences.getBoolean(BOOT_UP_SHOW, true)
+        override var bootUpShow = sharedPreferences.getBoolean(KEY_BOOT_UP_SHOW, true)
             set(value) {
                 LOGGER.v("#bootUpShow set : $value")
-                editor.putBoolean(BOOT_UP_SHOW, value)
+                editor.putBoolean(KEY_BOOT_UP_SHOW, value)
                         .apply()
                 field = value
             }
-        override var showCount = sharedPreferences.getInt(USED_COUNT, 0)
+        override var showCount = sharedPreferences.getInt(KEY_USED_COUNT, 0)
             set(value) {
                 LOGGER.v("#usedCount set : $value")
-                editor.putInt(USED_COUNT, value)
+                editor.putInt(KEY_USED_COUNT, value)
                         .apply()
                 field = value
             }
-        override var lastShownAt = Instant.ofEpochMilli(sharedPreferences.getLong(LAST_USED_AT, 0L))
+        override var lastShownAt = Instant.ofEpochMilli(sharedPreferences.getLong(KEY_LAST_USED_AT, 0L))
             set(value) {
                 LOGGER.v("#lastUsedAt set : $value")
-                editor.putLong(LAST_USED_AT, value.toEpochMilli())
+                editor.putLong(KEY_LAST_USED_AT, value.toEpochMilli())
                         .apply()
                 field = value
             }
 
-        override var locationPermissionRequestCount: Int = sharedPreferences.getInt(LOCATION_PERMISSION_REQUESTED, 0)
+        override var locationPermissionRequestCount = sharedPreferences.getInt(KEY_LOCATION_PERMISSION_REQUESTED, 0)
             set(value) {
                 LOGGER.v("#locationPermissionRequested set : $value")
                 if (0 >= value) {
                     throw IllegalArgumentException("value is less than zero : value=$value")
                 }
 
-                editor.putInt(LOCATION_PERMISSION_REQUESTED, value)
+                editor.putInt(KEY_LOCATION_PERMISSION_REQUESTED, value)
                         .apply()
 
+                field = value
+            }
+        override var lastLocation = sharedPreferences.getString(KEY_LAST_LOCATION, null)?.let { Geolocation.parse(it) }
+            private set(value) {
+                LOGGER.v("#lastLocation set : $value")
+
+                editor.putString(KEY_LAST_LOCATION, value?.toSimpleString())
+                        .apply()
                 field = value
             }
 
@@ -185,8 +195,12 @@ class PreferencesModel(
             locationPermissionRequestCount++
         }
 
+        override fun lastLocation(location: Geolocation) {
+            lastLocation = location
+        }
+
         override fun toString() = "$TAG(bootUpShow=$bootUpShow, showCount=$showCount, lastShownAt=$lastShownAt, " +
-                "locationPermissionRequestCount=$locationPermissionRequestCount)"
+                "locationPermissionRequestCount=$locationPermissionRequestCount, lastLocation=$lastLocation)"
     }
 
     private val editor = sharedPreferences.edit()

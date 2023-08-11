@@ -1,5 +1,6 @@
 package com.github.hemoptysisheart.parking.domain.app
 
+import com.github.hemoptysisheart.parking.domain.place.Geolocation
 import java.time.Instant
 
 /**
@@ -27,6 +28,11 @@ interface WizardPreferences {
     val locationPermissionRequestCount: Int
 
     /**
+     * 마지막으로 획득한 위치정보.
+     */
+    val lastLocation: Geolocation?
+
+    /**
      * [WizardPreferences.showCount]를 1 증가시키고 [WizardPreferences.lastShownAt]를 현재 시각으로 갱신한다.
      */
     fun increaseShowCount()
@@ -35,4 +41,9 @@ interface WizardPreferences {
      * [WizardPreferences.locationPermissionRequestCount]을 1 증가시킨다.
      */
     fun locationPermissionRequested()
+
+    /**
+     * [WizardPreferences.lastLocation]을 갱신한다.
+     */
+    fun lastLocation(location: Geolocation)
 }

@@ -25,6 +25,11 @@ data class Geolocation(
         const val LONGITUDE_MIN = -180.0
         const val LONGITUDE_MAX = 180.0
         val LONGITUDE_RANGE = LONGITUDE_MIN..LONGITUDE_MAX
+
+        fun parse(string: String): Geolocation {
+            val tokens = string.split("(", ",", ")")
+            return Geolocation(tokens[0].toDouble(), tokens[1].toDouble())
+        }
     }
 
     init {

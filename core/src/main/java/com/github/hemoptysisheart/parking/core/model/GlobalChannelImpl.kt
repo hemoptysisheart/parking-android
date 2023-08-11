@@ -14,10 +14,12 @@ class GlobalChannelImpl @Inject constructor() : GlobalChannel, GlobalChannelCons
     override lateinit var exceptionConsumer: GlobalChannelConsumer.Consumer<AndroidMessageException>
 
     override fun reportProgress(weight: Int) {
+        LOGGER.v("#reportProgress args : weight=$weight")
         progressConsumer(weight)
     }
 
     override fun reportException(exception: AndroidMessageException) {
+        LOGGER.v("#reportException args : exception=$exception")
         exceptionConsumer(exception)
     }
 

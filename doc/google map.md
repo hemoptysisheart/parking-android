@@ -61,11 +61,53 @@
         - 권한 추가 : `android.permission.ACCESS_FINE_LOCATION`, `android.permission.ACCESS_NETWORK_STATE`
           , `android.permission.INTERNET`
         - 키 추가 : `<meta-data android:name="com.google.android.geo.API_KEY" android:value="${GOOGLE_MAPS_API_KEY}" />`
-    3. 키 설정 추가 : [`sample-local.properties`](../sample-local.properties) 파일을 복사해서 `local.properties` 파일을 만들고, 설정을 변경.
-       ![로컬 키 설정](asset/gcp/maps%20local%20config.png)
+   3. 키 설정 추가 : [`sample-local.properties`](../sample-local.properties) 파일을 복사해서 `local.properties` 파일을 만들고, 설정을 변경.
+      ![로컬 키 설정](asset/gcp/maps%20local%20config.png)
 7. 지도 표시
     1. 의존성 추가 : `com.google.maps.android:maps-compose`, `com.google.android.gms:play-services-maps`
     2. UI 추가 : [`MapLayout()`](../app/src/main/java/com/github/hemoptysisheart/parking/app/activity/MapActivity.kt)
+
+## Trouble Shooting
+
+### `SecurityException`
+
+만약 `Caused by: java.lang.SecurityException: GoogleCertificatesRslt: not allowed` 에러로 지도가 표시되지 않는다면 다음 조치를 취한다.
+
+1. Android Studio 캐시 삭제.
+2. API 키 재발급.
+
+```
+Unable to update local snapshot for com.google.android.libraries.consentverifier#com.github.hemoptysisheart.parking, may result in stale flags.
+java.util.concurrent.ExecutionException: java.lang.SecurityException: GoogleCertificatesRslt: not allowed: pkg=com.github.hemoptysisheart.parking, sha256=[8489853f8dda1efd4b138a3254330953d06fb845a6aeefdd542ee8af0d4adaeb], atk=false, ver=233013044.true (go/gsrlt)
+	at m.ank.s(:com.google.android.gms.dynamite_mapsdynamite@233013044@23.30.13 (190400-0):21)
+	at m.ank.get(:com.google.android.gms.dynamite_mapsdynamite@233013044@23.30.13 (190400-0):5)
+	at m.app.a(:com.google.android.gms.dynamite_mapsdynamite@233013044@23.30.13 (190400-0):2)
+	at m.aou.h(:com.google.android.gms.dynamite_mapsdynamite@233013044@23.30.13 (190400-0):7)
+	at m.zm.c(:com.google.android.gms.dynamite_mapsdynamite@233013044@23.30.13 (190400-0):1)
+	at m.zo.run(:com.google.android.gms.dynamite_mapsdynamite@233013044@23.30.13 (190400-0):5)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:463)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:307)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1137)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:637)
+	at java.lang.Thread.run(Thread.java:1012)
+Caused by: java.lang.SecurityException: GoogleCertificatesRslt: not allowed: pkg=com.github.hemoptysisheart.parking, sha256=[8489853f8dda1efd4b138a3254330953d06fb845a6aeefdd542ee8af0d4adaeb], atk=false, ver=233013044.true (go/gsrlt)
+	at android.os.Parcel.createExceptionOrNull(Parcel.java:3011)
+	at android.os.Parcel.createException(Parcel.java:2995)
+	at android.os.Parcel.readException(Parcel.java:2978)
+	at android.os.Parcel.readException(Parcel.java:2920)
+	at m.fh.c(:com.google.android.gms.dynamite_mapsdynamite@233013044@23.30.13 (190400-0):11)
+	at m.sb.a(:com.google.android.gms.dynamite_mapsdynamite@233013044@23.30.13 (190400-0):39)
+	at m.jo.e(:com.google.android.gms.dynamite_mapsdynamite@233013044@23.30.13 (190400-0):11)
+	at m.km.t(:com.google.android.gms.dynamite_mapsdynamite@233013044@23.30.13 (190400-0):10)
+	at m.km.u(:com.google.android.gms.dynamite_mapsdynamite@233013044@23.30.13 (190400-0):22)
+	at m.km.e(:com.google.android.gms.dynamite_mapsdynamite@233013044@23.30.13 (190400-0):16)
+	at m.kq.handleMessage(:com.google.android.gms.dynamite_mapsdynamite@233013044@23.30.13 (190400-0):774)
+	at android.os.Handler.dispatchMessage(Handler.java:102)
+	at android.os.Looper.loopOnce(Looper.java:201)
+	at android.os.Looper.loop(Looper.java:288)
+	at android.os.HandlerThread.run(HandlerThread.java:67)
+```
 
 ## 참고
 

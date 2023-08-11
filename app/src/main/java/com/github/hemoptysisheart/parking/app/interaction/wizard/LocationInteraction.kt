@@ -18,10 +18,6 @@ class LocationInteraction(
         const val ROUTE_PATTERN = "wizard/location"
     }
 
-    fun requestPermission() {
-        LOGGER.i("#requestPermission called.")
-    }
-
     fun openAppSetting() {
         LOGGER.i("#openAppSetting called.")
     }

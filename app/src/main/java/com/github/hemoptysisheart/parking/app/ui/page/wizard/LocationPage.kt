@@ -1,11 +1,13 @@
 package com.github.hemoptysisheart.parking.app.ui.page.wizard
 
+import android.Manifest.permission.ACCESS_FINE_LOCATION
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -14,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.github.hemoptysisheart.parking.app.interaction.wizard.LocationInteraction
 import com.github.hemoptysisheart.parking.app.ui.molecule.EasyButton
+import com.github.hemoptysisheart.parking.app.ui.molecule.TextBodyMedium
 import com.github.hemoptysisheart.parking.app.ui.page.LOGGER
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreview
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreviewContainer
@@ -21,6 +24,7 @@ import com.github.hemoptysisheart.parking.app.ui.preview.previewLocationModel
 import com.github.hemoptysisheart.parking.app.ui.preview.previewLocationViewModel
 import com.github.hemoptysisheart.parking.app.ui.support.collect
 import com.github.hemoptysisheart.parking.app.ui.support.hiltBaseViewModel
+import com.github.hemoptysisheart.parking.app.ui.support.requestPermission
 import com.github.hemoptysisheart.parking.app.ui.template.WizardFooter
 import com.github.hemoptysisheart.parking.app.ui.theme.Typography
 import com.github.hemoptysisheart.parking.app.viewmodel.wizard.LocationViewModel
@@ -47,7 +51,8 @@ fun LocationPage(
     LocationPageContent(
             interaction = interaction,
             granted = granted,
-            location = viewModel.location
+            location = viewModel.location,
+            onRequestPermission = requestPermission(ACCESS_FINE_LOCATION)
     )
 }
 
@@ -55,7 +60,8 @@ fun LocationPage(
 internal fun LocationPageContent(
         interaction: LocationInteraction,
         granted: Boolean,
-        location: Geolocation? = null
+        location: Geolocation?,
+        onRequestPermission: () -> Unit = { }
 ) {
     Column(Modifier.fillMaxSize()) {
         if (granted) {
@@ -100,6 +106,16 @@ internal fun LocationPageContent(
                     lineHeight = 200.sp
             )
         }
+
+        Button(
+                onClick = onRequestPermission,
+                modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(20.dp)
+        ) {
+            TextBodyMedium(text = "권한 요청하기")
+        }
+
         Text(
                 text = """
                 1. 위치정보 권한을 요청한다.
@@ -111,7 +127,6 @@ internal fun LocationPageContent(
                         .padding(10.dp),
                 style = Typography.bodyLarge
         )
-        EasyButton(onClick = interaction::requestPermission, label = "시스템 위치 권한 요청")
         EasyButton(onClick = interaction::openAppSetting, label = "앱 설정 열기")
         Spacer(modifier = Modifier.weight(1F))
         WizardFooter(onClose = interaction::close, onNext = interaction::close)

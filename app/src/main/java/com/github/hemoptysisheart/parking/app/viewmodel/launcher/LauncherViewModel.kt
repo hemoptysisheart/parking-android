@@ -28,7 +28,7 @@ class LauncherViewModel @Inject constructor(
     companion object {
         private val LOGGER = AndroidLogger(LauncherViewModel::class)
 
-        const val LAUNCHER_DELAY = 5_000L
+        const val LAUNCHER_DELAY = 3_000L
     }
 
     private val _target = MutableStateFlow<KClass<*>?>(null)
@@ -54,12 +54,10 @@ class LauncherViewModel @Inject constructor(
             } else {
                 MainActivity::class
             }
-            _target.emit(target)
 
             val remain = Duration.between(before, timeProvider.instant())
-            LOGGER.d("#onStart : remain=$remain")
             if (LAUNCHER_DELAY > remain.toMillis()) {
-                delay(remain.toMillis())
+                delay(LAUNCHER_DELAY - remain.toMillis())
             }
             _target.emit(target)
         }

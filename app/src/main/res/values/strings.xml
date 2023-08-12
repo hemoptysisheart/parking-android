@@ -21,6 +21,7 @@
 
     <string name="template_setting_item_distance_title">검색 설정</string>
 
+    <string name="page_landingmap_header_label">목적지를 검색하세요.</string>
     <string name="page_launcher_slogan">운전은\nParking\n부터</string>
     <string name="page_search_setting_distance_label">목적지 검색 반경</string>
     <string name="page_search_setting_distance_description">현재 위치 혹은 지도 중심을 기준으로 반경 %s %s 안에서 목적지를 찾습니다.</string>

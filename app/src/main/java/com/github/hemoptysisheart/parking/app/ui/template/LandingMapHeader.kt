@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,7 +35,6 @@ fun LandingMapHeader(
             modifier = Modifier
                     .fillMaxWidth()
                     .background(Color.Transparent)
-                    .clickable { gotoDestinationSearch() }
                     .padding(10.dp, 10.dp),
             verticalAlignment = Alignment.CenterVertically
     ) {
@@ -42,11 +42,16 @@ fun LandingMapHeader(
                 value = "",
                 onValueChange = { },
                 modifier = Modifier
-                        .weight(1F),
+                        .weight(1F)
+                        .clickable { gotoDestinationSearch() },
                 readOnly = true,
                 leadingIcon = { SearchButton() },
                 placeholder = { TextBodyMedium(text = text) },
-                shape = RoundedCornerShape(30.dp)
+                shape = RoundedCornerShape(30.dp),
+                colors = OutlinedTextFieldDefaults.colors(
+                        focusedContainerColor = MaterialTheme.colorScheme.background,
+                        unfocusedContainerColor = MaterialTheme.colorScheme.background
+                )
         )
         Spacer(modifier = Modifier.width(10.dp))
         SettingsButton(onClick = gotoSetting, color = MaterialTheme.colorScheme.onBackground)

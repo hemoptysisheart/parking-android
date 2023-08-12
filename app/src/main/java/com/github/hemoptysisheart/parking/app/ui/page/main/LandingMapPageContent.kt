@@ -23,18 +23,22 @@ fun LandingMapPageContent(
         interaction: LandingMapInteraction,
         headerText: String,
         center: Geolocation,
-        zoom: Float
+        zoom: Float,
+        showOverlay: Boolean,
+        toggleOverlay: () -> Unit = { }
 ) {
     Box(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.TopCenter
     ) {
-        LandingMap(center = center, zoom = zoom)
-        LandingMapHeader(
-                text = headerText,
-                gotoDestinationSearch = interaction::gotoDestinationSearch,
-                gotoSetting = interaction::gotoSetting
-        )
+        LandingMap(center = center, zoom = zoom, toggleOverlay)
+        if (showOverlay) {
+            LandingMapHeader(
+                    text = headerText,
+                    gotoDestinationSearch = interaction::gotoDestinationSearch,
+                    gotoSetting = interaction::gotoSetting
+            )
+        }
     }
 }
 
@@ -47,7 +51,8 @@ fun Preview_LandingMapPageContent() {
                 LandingMapInteraction(it),
                 stringResource(R.string.page_landingmap_header_label),
                 GEOLOCATION_시부야역,
-                17F
+                17F,
+                true
         )
     }
 }

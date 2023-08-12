@@ -20,7 +20,11 @@ import com.google.maps.android.compose.rememberCameraPositionState
  * [`map`](https://www.figma.com/file/4ddVw1GJttHudAFojZRj1s/Parking?type=design&node-id=54303-34810&mode=design)
  */
 @Composable
-fun LandingMap(center: Geolocation, zoom: Float) {
+fun LandingMap(
+        center: Geolocation,
+        zoom: Float,
+        toggleOverlay: () -> Unit = { }
+) {
     val cameraPositionState = rememberCameraPositionState(LandingMapViewModel::class.qualifiedName) {
         position = CameraPosition.fromLatLngZoom(center.toLatLng(), zoom)
     }
@@ -38,7 +42,8 @@ fun LandingMap(center: Geolocation, zoom: Float) {
             modifier = Modifier.fillMaxSize(),
             cameraPositionState = cameraPositionState,
             properties = properties,
-            uiSettings = uiSettings
+            uiSettings = uiSettings,
+            onMapClick = { toggleOverlay() }
     )
 }
 

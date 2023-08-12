@@ -13,6 +13,9 @@ import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreview
 import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreviewContainer
 import com.github.hemoptysisheart.parking.app.ui.theme.Typography
 
+/**
+ * [`text/display/large`](https://www.figma.com/file/4ddVw1GJttHudAFojZRj1s/Parking?type=design&node-id=54321-573&mode=design)
+ */
 @Composable
 fun TextDisplayLarge(
         text: String,
@@ -31,6 +34,9 @@ fun TextDisplayLarge(
     )
 }
 
+/**
+ * [`text/display/medium`](https://www.figma.com/file/4ddVw1GJttHudAFojZRj1s/Parking?type=design&node-id=54321-574&mode=design)
+ */
 @Composable
 fun TextDisplayMedium(
         text: String,
@@ -49,6 +55,9 @@ fun TextDisplayMedium(
     )
 }
 
+/**
+ * [`text/display/small`](https://www.figma.com/file/4ddVw1GJttHudAFojZRj1s/Parking?type=design&node-id=54321-575&mode=design)
+ */
 @Composable
 fun TextDisplaySmall(
         text: String,
@@ -67,6 +76,9 @@ fun TextDisplaySmall(
     )
 }
 
+/**
+ * [`style/headline/large`](https://www.figma.com/file/4ddVw1GJttHudAFojZRj1s/Parking?type=design&node-id=54321-569&mode=design)
+ */
 @Composable
 fun TextHeadlineLarge(
         text: String,
@@ -85,6 +97,9 @@ fun TextHeadlineLarge(
     )
 }
 
+/**
+ * [`style/headline/medium`](https://www.figma.com/file/4ddVw1GJttHudAFojZRj1s/Parking?type=design&node-id=54321-570&mode=design)
+ */
 @Composable
 fun TextHeadlineMedium(
         text: String,
@@ -103,6 +118,9 @@ fun TextHeadlineMedium(
     )
 }
 
+/**
+ * [`style/headline/small`](https://www.figma.com/file/4ddVw1GJttHudAFojZRj1s/Parking?type=design&node-id=54321-571&mode=design)
+ */
 @Composable
 fun TextHeadlineSmall(
         text: String,
@@ -121,6 +139,9 @@ fun TextHeadlineSmall(
     )
 }
 
+/**
+ * [`text/title/large`](https://www.figma.com/file/4ddVw1GJttHudAFojZRj1s/Parking?type=design&node-id=54321-559&mode=design)
+ */
 @Composable
 fun TextTitleLarge(
         text: String,
@@ -139,6 +160,9 @@ fun TextTitleLarge(
     )
 }
 
+/**
+ * [`style/title/medium`](https://www.figma.com/file/4ddVw1GJttHudAFojZRj1s/Parking?type=design&node-id=54321-562&mode=design)
+ */
 @Composable
 fun TextTitleMedium(
         text: String,
@@ -157,6 +181,9 @@ fun TextTitleMedium(
     )
 }
 
+/**
+ * [`style/title/small`](https://www.figma.com/file/4ddVw1GJttHudAFojZRj1s/Parking?type=design&node-id=54321-565&mode=design)
+ */
 @Composable
 fun TextTitleSmall(
         text: String,
@@ -175,6 +202,9 @@ fun TextTitleSmall(
     )
 }
 
+/**
+ * [`text/label/large`](https://www.figma.com/file/4ddVw1GJttHudAFojZRj1s/Parking?type=design&node-id=54321-532&mode=design)
+ */
 @Composable
 fun TextLabelLarge(
         text: String,
@@ -193,6 +223,9 @@ fun TextLabelLarge(
     )
 }
 
+/**
+ * [`text/label/medium`](https://www.figma.com/file/4ddVw1GJttHudAFojZRj1s/Parking?type=design&node-id=54321-531&mode=design)
+ */
 @Composable
 fun TextLabelMedium(
         text: String,
@@ -211,6 +244,9 @@ fun TextLabelMedium(
     )
 }
 
+/**
+ * [`text/label/small`](https://www.figma.com/file/4ddVw1GJttHudAFojZRj1s/Parking?type=design&node-id=54321-530&mode=design)
+ */
 @Composable
 fun TextLabelSmall(
         text: String,
@@ -229,6 +265,9 @@ fun TextLabelSmall(
     )
 }
 
+/**
+ * [`text/body/large`](https://www.figma.com/file/4ddVw1GJttHudAFojZRj1s/Parking?type=design&node-id=54320-746&mode=design)
+ */
 @Composable
 fun TextBodyLarge(
         text: String,
@@ -247,6 +286,9 @@ fun TextBodyLarge(
     )
 }
 
+/**
+ * [`text/body/medium`](https://www.figma.com/file/4ddVw1GJttHudAFojZRj1s/Parking?type=design&node-id=54320-747&mode=design)
+ */
 @Composable
 fun TextBodyMedium(
         text: String,
@@ -265,6 +307,9 @@ fun TextBodyMedium(
     )
 }
 
+/**
+ * [`text/body/small`](https://www.figma.com/file/4ddVw1GJttHudAFojZRj1s/Parking?type=design&node-id=54320-748&mode=design)
+ */
 @Composable
 fun TextBodySmall(
         text: String,

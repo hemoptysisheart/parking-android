@@ -8,6 +8,9 @@ import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreview
 import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreviewContainer
 import com.github.hemoptysisheart.parking.app.ui.support.rememberProgress
 
+/**
+ * [`input/slider`](https://www.figma.com/file/4ddVw1GJttHudAFojZRj1s/Parking?type=design&node-id=54316-25174&mode=design)
+ */
 @Composable
 fun ProgressIndicator(show: Boolean = rememberProgress()) {
     LOGGER.v("#ProgressIndicator args : show=$show")

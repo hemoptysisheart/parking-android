@@ -7,6 +7,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.ArrowDropUp
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -86,6 +87,24 @@ fun SettingsButton(
     }
 }
 
+/**
+ * [`button/icon/search`]()
+ */
+@Composable
+fun SearchButton(
+        description: String? = null,
+        color: Color = LocalContentColor.current,
+        onClick: () -> Unit = { }
+) {
+    IconButton(onClick = onClick) {
+        Icon(
+                imageVector = Icons.Default.Search,
+                contentDescription = description,
+                tint = color
+        )
+    }
+}
+
 @Composable
 @ComponentPreview
 fun Preview_InputButton() {
@@ -109,6 +128,10 @@ fun Preview_InputButton() {
 
             preview(R.string.molecule_input_button_settings_label) {
                 SettingsButton(description = it, color = MaterialTheme.colorScheme.onBackground)
+            }
+
+            preview(R.string.molecule_input_button_search_label) {
+                SearchButton(description = it, color = MaterialTheme.colorScheme.onBackground)
             }
         }
     }

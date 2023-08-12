@@ -1,18 +1,26 @@
 package com.github.hemoptysisheart.parking.app.ui.page.launcher
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.github.hemoptysisheart.parking.R
 import com.github.hemoptysisheart.parking.app.activity.MainActivity
 import com.github.hemoptysisheart.parking.app.activity.WizardActivity
 import com.github.hemoptysisheart.parking.app.interaction.launcher.LauncherInteraction
-import com.github.hemoptysisheart.parking.app.ui.molecule.EasyButton
+import com.github.hemoptysisheart.parking.app.ui.molecule.TextDisplayLarge
 import com.github.hemoptysisheart.parking.app.ui.page.LOGGER
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreview
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreviewContainer
@@ -40,21 +48,28 @@ fun LauncherPage(
     }
 
     Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.background)
+                    .padding(20.dp, 0.dp),
             verticalArrangement = Arrangement.Center
     ) {
-        Text(
-                text = """
-                - 로고
-                - 카피라이트
-            """.trimIndent(),
+        Spacer(modifier = Modifier.weight(1F))
+        Image(
+                painter = painterResource(R.drawable.logo),
+                contentDescription = "logo",
+                modifier = Modifier.fillMaxWidth(),
+                contentScale = ContentScale.Fit
+        )
+        TextDisplayLarge(
+                text = stringResource(R.string.page_launcher_slogan),
                 modifier = Modifier
                         .fillMaxWidth()
-                        .padding(10.dp)
+                        .padding(40.dp, 0.dp),
+                color = MaterialTheme.colorScheme.onBackground,
+                textAlign = TextAlign.Center
         )
-
-        EasyButton(onClick = interaction::gotoWizard, label = "마법사")
-        EasyButton(onClick = interaction::gotoLandingMap, label = "랜딩맵")
+        Spacer(modifier = Modifier.weight(2F))
     }
 }
 

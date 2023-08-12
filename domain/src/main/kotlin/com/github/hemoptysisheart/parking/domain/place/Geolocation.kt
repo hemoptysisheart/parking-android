@@ -28,7 +28,7 @@ data class Geolocation(
 
         fun parse(string: String): Geolocation {
             val tokens = string.split("(", ",", ")")
-            return Geolocation(tokens[0].toDouble(), tokens[1].toDouble())
+            return Geolocation(tokens[1].toDouble(), tokens[2].toDouble())
         }
     }
 

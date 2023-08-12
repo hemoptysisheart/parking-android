@@ -36,7 +36,7 @@ fun SettingItemDetail(
             verticalArrangement = Arrangement.Top
     ) {
         stickyHeader {
-            SettingHeader(
+            Header(
                     title = title,
                     onBack = onBack
             )

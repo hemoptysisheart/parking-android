@@ -33,13 +33,21 @@ import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.rememberCameraPositionState
 
+/**
+ * 마법사 - 위치정보 권한
+ *
+ * - https://www.figma.com/file/4ddVw1GJttHudAFojZRj1s/Parking?type=design&node-id=54365-25110&mode=design
+ * - https://www.figma.com/file/4ddVw1GJttHudAFojZRj1s/Parking?type=design&node-id=54310-34814&mode=design
+ * - https://www.figma.com/file/rKJxXjvDtDNprvdojVxaaN/Parking?type=whiteboard&node-id=526-649
+ */
 @Composable
 fun LocationPageContent(
         interaction: LocationInteraction,
         granted: Boolean,
         location: Geolocation?,
         permissionRequestCount: Int,
-        onRequestPermission: () -> Unit = { }
+        onRequestPermission: () -> Unit = { },
+        onClose: () -> Unit = { }
 ) {
     LOGGER.v("#LocationPageContent args : granted=$granted, location=$location, permissionRequestCount=$permissionRequestCount")
 
@@ -119,7 +127,7 @@ fun LocationPageContent(
             }
         }
         Spacer(modifier = Modifier.weight(1F))
-        WizardFooter(onClose = interaction::close, onNext = interaction::close)
+        WizardFooter(onClose = onClose, onNext = interaction::close)
     }
 }
 

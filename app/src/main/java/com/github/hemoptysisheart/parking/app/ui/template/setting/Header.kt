@@ -18,8 +18,11 @@ import com.github.hemoptysisheart.parking.app.ui.molecule.TextTitleMedium
 import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreview
 import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreviewContainer
 
+/**
+ * [`setting/header`](https://www.figma.com/file/4ddVw1GJttHudAFojZRj1s/Parking?type=design&node-id=54319-25258&mode=design)
+ */
 @Composable
-fun SettingHeader(
+fun Header(
         @StringRes title: Int,
         onBack: () -> Unit = {}
 ) {
@@ -41,8 +44,8 @@ fun SettingHeader(
 
 @Composable
 @ComponentPreview
-fun SettingHeader() {
+fun Preview_Header() {
     ComponentPreviewContainer {
-        SettingHeader(title = R.string.template_setting_item_distance_title)
+        Header(title = R.string.template_setting_item_distance_title)
     }
 }

@@ -13,7 +13,11 @@ import com.github.hemoptysisheart.parking.app.ui.support.requestPermission
 import com.github.hemoptysisheart.parking.app.viewmodel.wizard.LocationViewModel
 
 /**
- * [마법사](https://www.figma.com/file/rKJxXjvDtDNprvdojVxaaN/Parking?type=whiteboard&node-id=526-649)
+ * 마법사 - 위치정보 권한(`wizard/location`)
+ *
+ * - https://www.figma.com/file/4ddVw1GJttHudAFojZRj1s/Parking?type=design&node-id=54365-25110&mode=design
+ * - https://www.figma.com/file/4ddVw1GJttHudAFojZRj1s/Parking?type=design&node-id=54310-34814&mode=design
+ * - https://www.figma.com/file/rKJxXjvDtDNprvdojVxaaN/Parking?type=whiteboard&node-id=526-649
  */
 @Composable
 fun LocationPage(
@@ -36,7 +40,8 @@ fun LocationPage(
             onRequestPermission = {
                 viewModel.onClickRequestPermission()
                 launchRequestDialog()
-            }
+            },
+            onClose = interaction::close
     )
 }
 

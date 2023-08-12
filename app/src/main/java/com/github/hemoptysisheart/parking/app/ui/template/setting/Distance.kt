@@ -40,9 +40,12 @@ import com.github.hemoptysisheart.parking.domain.common.DistanceUnit
 import com.github.hemoptysisheart.util.NonNegativeInt
 import java.util.UUID
 
+/**
+ * [`setting/search/distance`](https://www.figma.com/file/4ddVw1GJttHudAFojZRj1s/Parking?type=design&node-id=54316-25212&mode=design)
+ */
 @Composable
-fun DistanceSetting(viewModelet: DistanceSettingViewModelet) {
-    DistanceSetting(
+fun Distance(viewModelet: DistanceSettingViewModelet) {
+    Distance(
             key = viewModelet.key,
             label = viewModelet.label,
             description = viewModelet.description,
@@ -56,8 +59,11 @@ fun DistanceSetting(viewModelet: DistanceSettingViewModelet) {
     )
 }
 
+/**
+ * [`setting/search/distance`](https://www.figma.com/file/4ddVw1GJttHudAFojZRj1s/Parking?type=design&node-id=54316-25212&mode=design)
+ */
 @Composable
-fun DistanceSetting(
+fun Distance(
         key: UUID,
         @StringRes label: Int,
         @StringRes description: Int,
@@ -130,9 +136,9 @@ fun DistanceSetting(
 
 @Composable
 @ComponentPreview
-fun Preview_DistanceSetting() {
+fun Preview_Distance() {
     ComponentPreviewContainer {
-        DistanceSetting(
+        Distance(
                 DistanceSettingViewModelet(
                         previewBaseViewModel(),
                         true,

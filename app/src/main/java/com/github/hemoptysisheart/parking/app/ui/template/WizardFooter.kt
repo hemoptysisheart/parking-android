@@ -16,6 +16,9 @@ import com.github.hemoptysisheart.parking.app.ui.molecule.TextButton
 import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreview
 import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreviewContainer
 
+/**
+ * [`wizard/footer`](https://www.figma.com/file/4ddVw1GJttHudAFojZRj1s/Parking?type=design&node-id=54365-25089&mode=design)
+ */
 @Composable
 fun WizardFooter(
         onClose: () -> Unit,

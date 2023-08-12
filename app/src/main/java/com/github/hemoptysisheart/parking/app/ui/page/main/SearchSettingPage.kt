@@ -19,7 +19,7 @@ import com.github.hemoptysisheart.parking.app.ui.preview.previewSearchSettingVie
 import com.github.hemoptysisheart.parking.app.ui.resource.LocaleRes
 import com.github.hemoptysisheart.parking.app.ui.support.collect
 import com.github.hemoptysisheart.parking.app.ui.support.hiltBaseViewModel
-import com.github.hemoptysisheart.parking.app.ui.template.setting.DistanceSetting
+import com.github.hemoptysisheart.parking.app.ui.template.setting.Distance
 import com.github.hemoptysisheart.parking.app.ui.template.setting.SettingItemDetail
 import com.github.hemoptysisheart.parking.app.viewmodel.DistanceSettingViewModelet
 import com.github.hemoptysisheart.parking.app.viewmodel.main.SearchSettingViewModel
@@ -55,9 +55,9 @@ internal fun SearchSettingPage(
             title = R.string.template_setting_item_distance_title,
             onBack = interaction::goBack
     ) {
-        DistanceSetting(destination)
+        Distance(destination)
         Divider(Modifier.padding(10.dp, 20.dp))
-        DistanceSetting(parking)
+        Distance(parking)
         Divider(Modifier.padding(10.dp, 20.dp))
         InputDropdown(
                 label = stringResource(com.github.hemoptysisheart.parking.core.R.string.label_search_language),

@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 /**
- * [com.github.hemoptysisheart.parking.app.ui.template.setting.DistanceSetting]용 VM.
+ * [com.github.hemoptysisheart.parking.app.ui.template.setting.Distance]용 VM.
  */
 class DistanceSettingViewModelet(
         base: BaseViewModel,

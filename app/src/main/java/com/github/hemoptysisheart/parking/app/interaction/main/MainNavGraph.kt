@@ -16,7 +16,7 @@ import com.github.hemoptysisheart.parking.app.ui.page.main.RouteNavigationPage
 import com.github.hemoptysisheart.parking.app.ui.page.main.SearchSettingPage
 import com.github.hemoptysisheart.parking.app.ui.page.main.SelectParkingPage
 import com.github.hemoptysisheart.parking.app.ui.page.main.SelectRoutePage
-import com.github.hemoptysisheart.parking.app.ui.page.main.SettingPage
+import com.github.hemoptysisheart.parking.app.ui.page.main.SettingsPage
 import com.github.hemoptysisheart.parking.app.ui.template.GlobalHeader
 
 /**
@@ -33,7 +33,7 @@ fun MainNavGraph(baseInteraction: BaseInteraction) {
     val selectRoute = SelectRouteInteraction(baseInteraction)
     val routeNavigation = RouteNavigationInteraction(baseInteraction)
 
-    val setting = SettingInteraction(baseInteraction)
+    val setting = SettingsInteraction(baseInteraction)
     val searchDestinationFilter = SearchSettingInteraction(baseInteraction)
     val developerSetting = DeveloperSettingInteraction(baseInteraction)
 
@@ -56,8 +56,8 @@ fun MainNavGraph(baseInteraction: BaseInteraction) {
             composable(DestinationSearchInteraction.ROUTE_PATTERN) {
                 DestinationSearchPage(destinationSearch)
             }
-            composable(SettingInteraction.ROUTE_PATTERN) {
-                SettingPage(setting)
+            composable(SettingsInteraction.ROUTE_PATTERN) {
+                SettingsPage(setting)
             }
             composable(SelectParkingInteraction.ROUTE_PATTERN) {
                 SelectParkingPage(selectParking)

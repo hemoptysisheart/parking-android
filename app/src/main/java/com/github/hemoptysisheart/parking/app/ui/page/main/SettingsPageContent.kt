@@ -9,13 +9,19 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.github.hemoptysisheart.parking.app.interaction.main.SettingInteraction
+import com.github.hemoptysisheart.parking.app.interaction.main.SettingsInteraction
 import com.github.hemoptysisheart.parking.app.ui.molecule.EasyButton
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreview
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreviewContainer
 
+/**
+ * `main/settings`
+ *
+ * - https://www.figma.com/file/4ddVw1GJttHudAFojZRj1s/Parking?type=design&node-id=54310-34798&mode=design
+ * - https://www.figma.com/file/4ddVw1GJttHudAFojZRj1s/Parking?type=design&node-id=54406-992&mode=design
+ */
 @Composable
-fun SettingPage(interaction: SettingInteraction) {
+fun SettingsPageContent(interaction: SettingsInteraction) {
     Column(
             modifier = Modifier
                     .fillMaxSize()
@@ -43,10 +49,11 @@ fun SettingPage(interaction: SettingInteraction) {
     }
 }
 
+
 @Composable
 @PagePreview
-fun Preview_SettingPage() {
+fun Preview_SettingsPageContent() {
     PagePreviewContainer {
-        SettingPage(SettingInteraction(it))
+        SettingsPageContent(SettingsInteraction(it))
     }
 }

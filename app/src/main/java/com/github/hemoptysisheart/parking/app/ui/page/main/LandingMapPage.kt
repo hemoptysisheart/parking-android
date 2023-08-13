@@ -1,23 +1,18 @@
 package com.github.hemoptysisheart.parking.app.ui.page.main
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.stringResource
+import com.github.hemoptysisheart.parking.R
 import com.github.hemoptysisheart.parking.app.interaction.main.LandingMapInteraction
-import com.github.hemoptysisheart.parking.app.ui.molecule.EasyButton
 import com.github.hemoptysisheart.parking.app.ui.page.LOGGER
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreview
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreviewContainer
+import com.github.hemoptysisheart.parking.app.ui.preview.previewLandingMapViewModel
+import com.github.hemoptysisheart.parking.app.ui.support.collect
 import com.github.hemoptysisheart.parking.app.ui.support.hiltBaseViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.LandingMapViewModel
 
@@ -31,47 +26,26 @@ fun LandingMapPage(
 ) {
     LOGGER.v("#LandingMapPage args : interaction=$interaction, viewModel=$viewModel")
 
-    val count by viewModel.count.collectAsStateWithLifecycle()
+    val center = viewModel.center.collect()
 
-    Column(
-            modifier = Modifier
-                    .fillMaxSize()
-                    .padding(10.dp),
-            verticalArrangement = Arrangement.Center
-    ) {
-        Text(
-                text = """
-                지도, 현재 위치, 오버레이 표시.
-                
-                목적지를 선택했을 경우와 비슷한 오버레이를 활용해서 사용자에게 정보를 전달하고 다음 행동을 유도한다.
-            """.trimIndent(),
-                modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(10.dp)
-        )
-
-        EasyButton(onClick = interaction::gotoDestinationSearch, label = "목적지 검색")
-        EasyButton(onClick = interaction::gotoSetting, label = "설정")
-
-        Spacer(modifier = Modifier.height(30.dp))
-
-        Text(
-                text = "onResume : $count 회", modifier = Modifier
-                .fillMaxWidth()
-                .padding(10.dp)
-        )
-        EasyButton(onClick = viewModel::onProgress, label = "작업 시작")
-
-        Spacer(modifier = Modifier.height(30.dp))
-
-        EasyButton(onClick = viewModel::onError, label = "에러 발생")
+    var showOverlay by remember(LandingMapViewModel::class) {
+        mutableStateOf(true)
     }
+
+    LandingMapPageContent(
+            interaction = interaction,
+            headerText = stringResource(R.string.page_landingmap_header_label),
+            center = center,
+            zoom = LandingMapViewModel.DEFAULT_ZOOM,
+            showOverlay = showOverlay,
+            toggleOverlay = { showOverlay = !showOverlay }
+    )
 }
 
 @Composable
 @PagePreview
 fun LandingMapPage() {
     PagePreviewContainer {
-        LandingMapPage(LandingMapInteraction(it))
+        LandingMapPage(LandingMapInteraction(it), previewLandingMapViewModel())
     }
 }

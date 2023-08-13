@@ -1,34 +1,36 @@
 package com.github.hemoptysisheart.parking.app.viewmodel
 
 import androidx.lifecycle.LifecycleOwner
-import com.github.hemoptysisheart.parking.R
-import com.github.hemoptysisheart.parking.core.util.AndroidMessageException
+import com.github.hemoptysisheart.parking.core.model.LocationModel
+import com.github.hemoptysisheart.parking.domain.place.Geolocation
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
-import java.time.ZonedDateTime
-import java.util.concurrent.ThreadLocalRandom
-import java.util.concurrent.atomic.AtomicInteger
+import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 /**
  * [랜딩 맵](https://www.figma.com/file/rKJxXjvDtDNprvdojVxaaN/Parking?type=whiteboard&node-id=526-645)
  */
 @HiltViewModel
-class LandingMapViewModel @Inject constructor() : BaseViewModel() {
-    private val showCounter = AtomicInteger()
-    val count = MutableStateFlow(0)
-
-    init {
-        logger.i("#init called.")
+class LandingMapViewModel @Inject constructor(
+        private val locationModel: LocationModel
+) : BaseViewModel() {
+    companion object {
+        const val DEFAULT_ZOOM = 17F
     }
 
-    fun onProgress() {
-        logger.d("#onProgress called.")
+    /**
+     * 지도 중심.
+     */
+    private val _center = MutableStateFlow(locationModel.location!!)
+    val center: StateFlow<Geolocation> = _center
 
-        launch(true) {
-            delay(ThreadLocalRandom.current().nextLong(1_000, 10_000))
+    init {
+        if (!locationModel.granted) {
+            throw IllegalStateException("location permission does not granted.")
         }
+
+        logger.i("#init complete.")
     }
 
     override fun onResume(owner: LifecycleOwner) {
@@ -36,22 +38,8 @@ class LandingMapViewModel @Inject constructor() : BaseViewModel() {
         super.onResume(owner)
 
         launch {
-            count.emit(showCounter.incrementAndGet())
-        }
-    }
-
-    fun onError() {
-        logger.d("#onError called.")
-
-        launch {
-            delay(1500L)
-            when (ThreadLocalRandom.current().nextInt(2)) {
-                0 -> throw AndroidMessageException(null, R.string.global_header_error_exp_case_simple_detail)
-                1 -> throw AndroidMessageException(
-                        R.string.global_header_error_exp_case_full_title,
-                        R.string.global_header_error_exp_case_full_detail_template,
-                        ZonedDateTime.now()
-                )
+            if (locationModel.granted) {
+                _center.emit(locationModel.location!!)
             }
         }
     }

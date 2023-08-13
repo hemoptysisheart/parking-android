@@ -7,6 +7,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.ArrowDropUp
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -20,6 +21,9 @@ import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreview
 import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreviewContainer
 import com.github.hemoptysisheart.parking.app.ui.preview.preview
 
+/**
+ * [`button/icon/back`](https://www.figma.com/file/4ddVw1GJttHudAFojZRj1s/Parking?type=design&node-id=54319-25236&mode=design&t=KO0iRhHsEzhk5ImB-4)
+ */
 @Composable
 fun BackButton(
         description: String? = null,
@@ -65,6 +69,9 @@ fun DropUpButton(
     }
 }
 
+/**
+ * [`button/icon/settings`](https://www.figma.com/file/4ddVw1GJttHudAFojZRj1s/Parking?type=design&node-id=54394-25013&mode=design)
+ */
 @Composable
 fun SettingsButton(
         description: String? = null,
@@ -74,6 +81,24 @@ fun SettingsButton(
     IconButton(onClick = onClick) {
         Icon(
                 imageVector = Icons.Default.Settings,
+                contentDescription = description,
+                tint = color
+        )
+    }
+}
+
+/**
+ * [`button/icon/search`]()
+ */
+@Composable
+fun SearchButton(
+        description: String? = null,
+        color: Color = LocalContentColor.current,
+        onClick: () -> Unit = { }
+) {
+    IconButton(onClick = onClick) {
+        Icon(
+                imageVector = Icons.Default.Search,
                 contentDescription = description,
                 tint = color
         )
@@ -103,6 +128,10 @@ fun Preview_InputButton() {
 
             preview(R.string.molecule_input_button_settings_label) {
                 SettingsButton(description = it, color = MaterialTheme.colorScheme.onBackground)
+            }
+
+            preview(R.string.molecule_input_button_search_label) {
+                SearchButton(description = it, color = MaterialTheme.colorScheme.onBackground)
             }
         }
     }

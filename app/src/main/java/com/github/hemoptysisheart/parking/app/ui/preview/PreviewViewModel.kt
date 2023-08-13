@@ -3,6 +3,7 @@ package com.github.hemoptysisheart.parking.app.ui.preview
 import androidx.compose.runtime.Composable
 import com.github.hemoptysisheart.parking.app.viewmodel.BaseViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.GlobalHeaderViewModel
+import com.github.hemoptysisheart.parking.app.viewmodel.LandingMapViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.launcher.LauncherViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.main.SearchSettingViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.wizard.InstructionViewModel
@@ -28,18 +29,21 @@ fun previewBaseViewModel(): BaseViewModel {
     return vm
 }
 
+fun previewInstructionViewModel() = InstructionViewModel(previewPreferencesModel().wizard)
+
+fun previewLandingMapViewModel(locationModel: LocationModel = previewLocationModel()) =
+        LandingMapViewModel(locationModel)
+
 fun previewLauncherViewModel(
         executionPreferences: ExecutionPreferences = previewPreferencesModel().execution,
         wizardPreferences: WizardPreferences = previewPreferencesModel().wizard,
         locationModel: LocationModel = previewLocationModel()
 ) = LauncherViewModel(executionPreferences, wizardPreferences, locationModel)
 
-fun previewSearchSettingViewModel(
-        searchPreferences: SearchPreferences = previewPreferencesModel().search
-) = SearchSettingViewModel(searchPreferences)
-
-fun previewInstructionViewModel() = InstructionViewModel(previewPreferencesModel().wizard)
-
 fun previewLocationViewModel(
         locationModel: LocationModel = previewLocationModel(geolocation = Geolocation(0.0, 0.0))
 ) = LocationViewModel(locationModel, previewPreferencesModel().wizard)
+
+fun previewSearchSettingViewModel(
+        searchPreferences: SearchPreferences = previewPreferencesModel().search
+) = SearchSettingViewModel(searchPreferences)

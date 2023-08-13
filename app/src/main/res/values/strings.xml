@@ -16,9 +16,12 @@
     <string name="molecule_input_button_back_label">돌아가기</string>
     <string name="molecule_input_button_drop_down_label">열기</string>
     <string name="molecule_input_button_drop_up_label">닫기</string>
+    <string name="molecule_input_button_open_in_full_label">전체보기</string>
     <string name="molecule_input_button_search_label">검색</string>
     <string name="molecule_input_button_settings_label">설정</string>
 
+    <string name="page_about_app_title">앱 정보</string>
+    <string name="page_developer_setting_title">개발자 설정</string>
     <string name="page_landingmap_header_label">목적지를 검색하세요.</string>
     <string name="page_launcher_slogan">운전은\nParking\n부터</string>
     <string name="page_search_setting_distance_label">목적지 검색 반경</string>
@@ -33,6 +36,7 @@
     <string name="page_wizard_location_denied">위치정보 권한을 얻지 못했습니다. 만약 위치정보 권한을 요청해도 승인 다이얼로그 보이지 않는다면 앱 설정에서 권한을 주기 바랍니다.</string>
     <string name="page_wizard_location_granted">위치정보 권한을 획득했습니다.</string>
     <string name="page_wizard_location_request_permission_label">권한 요청하기</string>
+    <string name="page_wizard_title">마법사</string>
 
     <string name="preview_template_distance_setting_label">거리 설정</string>
     <string name="preview_template_distance_setting_description">어쩌고 저쩌고 어쩌고 저쩌고 %s %s 어쩌고 저쩌고 어쩌고 저쩌고</string>
@@ -90,7 +94,4 @@
 
     <string name="permission_location">위치 정보</string>
     <string name="permission_location_description">%s은 주차 문제를 고려해서 현재 위치에서 목적지까지 경로를 안내 해줍니다. 현재 위치부터 도중에도 어떤 방향으로 가야 하는지는 알려주기 위해서 지금 어디 있는지 알아야 합니다. 위치 정보 권한을 허용해주시기 바랍니다.</string>
-    <string name="page_wizard_title">마법사</string>
-    <string name="page_developer_setting_title">개발자 설정</string>
-    <string name="page_about_app_title">앱 정보</string>
 </resources>

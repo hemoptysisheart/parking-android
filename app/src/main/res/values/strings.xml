@@ -21,6 +21,7 @@
     <string name="molecule_input_button_settings_label">설정</string>
 
     <string name="page_about_app_title">앱 정보</string>
+    <string name="page_destination_search_query_placeholder">목적지 검색어를 입력하세요.</string>
     <string name="page_developer_setting_title">개발자 설정</string>
     <string name="page_landingmap_header_label">목적지를 검색하세요.</string>
     <string name="page_launcher_slogan">운전은\nParking\n부터</string>

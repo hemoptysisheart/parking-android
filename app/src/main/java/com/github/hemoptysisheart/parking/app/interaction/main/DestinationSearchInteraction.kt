@@ -24,8 +24,8 @@ class DestinationSearchInteraction(private val base: BaseInteraction) : Interact
         base.navController.navigate(SelectParkingInteraction.ROUTE_PATTERN)
     }
 
-    fun gotoDestinationSearchFilterSetting() {
-        LOGGER.i("#gotoDestinationSearchFilterSetting called.")
+    fun gotoSearchSetting() {
+        LOGGER.i("#gotoSearchSetting called.")
 
         base.navController.navigate(SearchSettingInteraction.ROUTE_PATTERN)
     }

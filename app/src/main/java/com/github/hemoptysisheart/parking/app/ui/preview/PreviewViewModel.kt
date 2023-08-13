@@ -6,6 +6,7 @@ import com.github.hemoptysisheart.parking.app.viewmodel.GlobalHeaderViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.LandingMapViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.SettingsViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.launcher.LauncherViewModel
+import com.github.hemoptysisheart.parking.app.viewmodel.main.DestinationSearchViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.main.SearchSettingViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.wizard.InstructionViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.wizard.LocationViewModel
@@ -29,6 +30,8 @@ fun previewBaseViewModel(): BaseViewModel {
     vm.globalChannel = previewGlobalChannel()
     return vm
 }
+
+fun previewDestinationSearchViewModel() = DestinationSearchViewModel()
 
 fun previewInstructionViewModel() = InstructionViewModel(previewPreferencesModel().wizard)
 

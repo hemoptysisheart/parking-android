@@ -2,6 +2,8 @@ package com.github.hemoptysisheart.parking.app.viewmodel.main
 
 import com.github.hemoptysisheart.parking.app.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 /**
@@ -13,7 +15,17 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class DestinationSearchViewModel @Inject constructor() : BaseViewModel() {
+    /**
+     * 목적지 검색어
+     */
+    private val _query = MutableStateFlow("")
+    val query: StateFlow<String> = _query
+
     init {
         logger.d("#init complete.")
+    }
+
+    fun onChangeQuery(query: String) {
+        logger.d("#onChangeQuery args : query=$query")
     }
 }

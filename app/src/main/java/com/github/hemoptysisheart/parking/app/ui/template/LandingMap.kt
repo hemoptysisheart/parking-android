@@ -18,6 +18,10 @@ import com.google.maps.android.compose.rememberCameraPositionState
 
 /**
  * [`map`](https://www.figma.com/file/4ddVw1GJttHudAFojZRj1s/Parking?type=design&node-id=54303-34810&mode=design)
+ *
+ * @param center 지도 중심.
+ * @param zoom 지도 확대 수준.
+ * @param toggleOverlay 지도 클릭으로 오버레이 표시/숨김 전환.
  */
 @Composable
 fun LandingMap(
@@ -25,10 +29,12 @@ fun LandingMap(
         zoom: Float,
         toggleOverlay: () -> Unit = { }
 ) {
-    val cameraPositionState = rememberCameraPositionState(LandingMapViewModel::class.qualifiedName) {
-        position = CameraPosition.fromLatLngZoom(center.toLatLng(), zoom)
+    val cameraPositionState = rememberCameraPositionState(LandingMapViewModel::class.qualifiedName)
+    cameraPositionState.position = CameraPosition.fromLatLngZoom(center.toLatLng(), zoom)
+
+    val properties = remember(LandingMapViewModel::class) {
+        MapProperties(isBuildingEnabled = true, isMyLocationEnabled = true)
     }
-    val properties = remember(LandingMapViewModel::class) { MapProperties(isBuildingEnabled = true) }
     val uiSettings = remember(LandingMapViewModel::class) {
         MapUiSettings(
                 compassEnabled = false,

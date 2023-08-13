@@ -1,5 +1,6 @@
 package com.github.hemoptysisheart.parking.app.viewmodel
 
+import androidx.lifecycle.LifecycleOwner
 import com.github.hemoptysisheart.parking.core.model.LocationModel
 import com.github.hemoptysisheart.parking.domain.place.Geolocation
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -30,5 +31,16 @@ class LandingMapViewModel @Inject constructor(
         }
 
         logger.i("#init complete.")
+    }
+
+    override fun onResume(owner: LifecycleOwner) {
+        logger.d("#onResume args : owner=$owner")
+        super.onResume(owner)
+
+        launch {
+            if (locationModel.granted) {
+                _center.emit(locationModel.location!!)
+            }
+        }
     }
 }

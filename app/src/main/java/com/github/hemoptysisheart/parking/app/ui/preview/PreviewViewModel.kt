@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import com.github.hemoptysisheart.parking.app.viewmodel.BaseViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.GlobalHeaderViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.LandingMapViewModel
+import com.github.hemoptysisheart.parking.app.viewmodel.SettingsViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.launcher.LauncherViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.main.SearchSettingViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.wizard.InstructionViewModel
@@ -47,3 +48,5 @@ fun previewLocationViewModel(
 fun previewSearchSettingViewModel(
         searchPreferences: SearchPreferences = previewPreferencesModel().search
 ) = SearchSettingViewModel(searchPreferences)
+
+fun previewSettingsViewModel() = SettingsViewModel()

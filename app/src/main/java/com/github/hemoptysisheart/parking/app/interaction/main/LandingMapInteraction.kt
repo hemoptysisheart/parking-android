@@ -25,6 +25,6 @@ class LandingMapInteraction(
     fun gotoSetting() {
         LOGGER.i("#gotoSetting called.")
 
-        base.navController.navigate(SettingInteraction.ROUTE_PATTERN)
+        base.navController.navigate(SettingsInteraction.ROUTE_PATTERN)
     }
 }

@@ -52,7 +52,7 @@ internal fun SearchSettingPage(
     var languageExpand by remember { mutableStateOf(false) }
 
     SettingItemDetail(
-            title = R.string.template_setting_item_distance_title,
+            title = R.string.page_search_setting_title,
             onBack = interaction::goBack
     ) {
         Distance(destination)

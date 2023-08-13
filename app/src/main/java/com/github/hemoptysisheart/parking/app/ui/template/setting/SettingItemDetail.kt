@@ -38,7 +38,7 @@ fun SettingItemDetail(
         stickyHeader {
             Header(
                     title = title,
-                    onBack = onBack
+                    onClickBack = onBack
             )
         }
 
@@ -55,8 +55,8 @@ fun SettingItemDetail(
 fun PreviewApp_SettingItemDetail() {
     ComponentPreviewContainer {
         SettingItemDetail(
-                title = R.string.template_setting_item_distance_title,
-                onBack = { /*TODO*/ }
+                title = R.string.page_search_setting_title,
+                onBack = { }
         ) {
             (1..50).forEach {
                 Text(text = "$it", color = MaterialTheme.colorScheme.onBackground)

@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.github.hemoptysisheart.parking.app.interaction.BaseInteraction
+import com.github.hemoptysisheart.parking.app.ui.page.main.AboutAppPage
 import com.github.hemoptysisheart.parking.app.ui.page.main.DestinationSearchPage
 import com.github.hemoptysisheart.parking.app.ui.page.main.DeveloperSettingPage
 import com.github.hemoptysisheart.parking.app.ui.page.main.LandingMapPage
@@ -36,6 +37,7 @@ fun MainNavGraph(baseInteraction: BaseInteraction) {
     val setting = SettingsInteraction(baseInteraction)
     val searchDestinationFilter = SearchSettingInteraction(baseInteraction)
     val developerSetting = DeveloperSettingInteraction(baseInteraction)
+    val aboutAppInteraction = AboutAppInteraction(baseInteraction)
 
     // ui
     Column(
@@ -56,9 +58,6 @@ fun MainNavGraph(baseInteraction: BaseInteraction) {
             composable(DestinationSearchInteraction.ROUTE_PATTERN) {
                 DestinationSearchPage(destinationSearch)
             }
-            composable(SettingsInteraction.ROUTE_PATTERN) {
-                SettingsPage(setting)
-            }
             composable(SelectParkingInteraction.ROUTE_PATTERN) {
                 SelectParkingPage(selectParking)
             }
@@ -68,11 +67,17 @@ fun MainNavGraph(baseInteraction: BaseInteraction) {
             composable(RouteNavigationInteraction.ROUTE_PATTERN) {
                 RouteNavigationPage(routeNavigation)
             }
+            composable(SettingsInteraction.ROUTE_PATTERN) {
+                SettingsPage(setting)
+            }
             composable(SearchSettingInteraction.ROUTE_PATTERN) {
                 SearchSettingPage(searchDestinationFilter)
             }
             composable(DeveloperSettingInteraction.ROUTE_PATTERN) {
                 DeveloperSettingPage(developerSetting)
+            }
+            composable(AboutAppInteraction.ROUTE_PATTERN) {
+                AboutAppPage(aboutAppInteraction)
             }
         }
     }

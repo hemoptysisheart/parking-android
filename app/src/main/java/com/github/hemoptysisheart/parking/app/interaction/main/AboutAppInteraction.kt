@@ -4,12 +4,12 @@ import com.github.hemoptysisheart.parking.app.interaction.BaseInteraction
 import com.github.hemoptysisheart.parking.app.interaction.Interaction
 import com.github.hemoptysisheart.parking.core.util.AndroidLogger
 
-class DeveloperSettingInteraction(
+class AboutAppInteraction(
         private val base: BaseInteraction
 ) : Interaction by base {
     companion object {
-        private val LOGGER = AndroidLogger(DeveloperSettingInteraction::class)
+        private val LOGGER = AndroidLogger(AboutAppInteraction::class)
 
-        const val ROUTE_PATTERN = "${SettingsInteraction.ROUTE_PATTERN}/developer"
+        const val ROUTE_PATTERN = "${SettingsInteraction.ROUTE_PATTERN}/keySetting"
     }
 }

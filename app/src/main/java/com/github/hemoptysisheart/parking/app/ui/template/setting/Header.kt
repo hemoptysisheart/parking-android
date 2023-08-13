@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -24,11 +26,21 @@ import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreviewContain
 @Composable
 fun Header(
         @StringRes title: Int,
-        onBack: () -> Unit = {}
+        onClickBack: () -> Unit = {}
 ) {
-    Box(modifier = Modifier
-            .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.background)) {
+    val bottomColor = MaterialTheme.colorScheme.outlineVariant
+    Box(
+            Modifier
+                    .fillMaxWidth()
+                    .background(MaterialTheme.colorScheme.background)
+                    .drawBehind {
+                        drawLine(
+                                color = bottomColor,
+                                start = Offset(0F, size.height),
+                                end = Offset(size.width, size.height)
+                        )
+                    }
+    ) {
         TextTitleMedium(
                 text = stringResource(title),
                 modifier = Modifier
@@ -38,7 +50,7 @@ fun Header(
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center
         )
-        BackButton(color = MaterialTheme.colorScheme.onBackground, onClick = onBack)
+        BackButton(color = MaterialTheme.colorScheme.onBackground, onClick = onClickBack)
     }
 }
 
@@ -46,6 +58,6 @@ fun Header(
 @ComponentPreview
 fun Preview_Header() {
     ComponentPreviewContainer {
-        Header(title = R.string.template_setting_item_distance_title)
+        Header(title = R.string.page_search_setting_title)
     }
 }

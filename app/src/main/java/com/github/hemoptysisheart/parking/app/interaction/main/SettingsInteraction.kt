@@ -38,4 +38,10 @@ class SettingsInteraction(
 
         base.navController.navigate(DeveloperSettingInteraction.ROUTE_PATTERN)
     }
+
+    fun gotoAboutApp() {
+        LOGGER.i("#gotoAboutApp called.")
+
+        base.navController.navigate(AboutAppInteraction.ROUTE_PATTERN)
+    }
 }

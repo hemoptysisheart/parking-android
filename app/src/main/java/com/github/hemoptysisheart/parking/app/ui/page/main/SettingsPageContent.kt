@@ -1,18 +1,19 @@
 package com.github.hemoptysisheart.parking.app.ui.page.main
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.github.hemoptysisheart.parking.R
 import com.github.hemoptysisheart.parking.app.interaction.main.SettingsInteraction
-import com.github.hemoptysisheart.parking.app.ui.molecule.EasyButton
+import com.github.hemoptysisheart.parking.app.ui.molecule.Divider
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreview
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreviewContainer
+import com.github.hemoptysisheart.parking.app.ui.template.setting.Header
+import com.github.hemoptysisheart.parking.app.ui.template.setting.SettingItem
 
 /**
  * `main/settings`
@@ -22,36 +23,26 @@ import com.github.hemoptysisheart.parking.app.ui.preview.PagePreviewContainer
  */
 @Composable
 fun SettingsPageContent(interaction: SettingsInteraction) {
+    Header(R.string.page_settings_title, interaction::goBack)
     Column(
             modifier = Modifier
                     .fillMaxSize()
-                    .padding(10.dp),
-            verticalArrangement = Arrangement.Center
     ) {
-        Text(
-                text = """
-                각종 설정.
-                
-                - 목적지 검색 기본 필터.
-                - GMP 키 설정.
-                - 실행 기록.
-                - 앱 정보.
-            """.trimIndent(),
-                modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(10.dp)
-        )
-
-        EasyButton(onClick = interaction::goBack, label = "돌아가기")
-        EasyButton(onClick = interaction::gotoSearchSetting, label = "검색 설정")
-        EasyButton(onClick = interaction::gotoWizard, label = "마법사")
-        EasyButton(onClick = interaction::gotoDeveloperSetting, label = "개발자 설정")
+        Spacer(modifier = Modifier.height(50.dp))
+        SettingItem(text = R.string.page_search_setting_title, onClick = interaction::gotoSearchSetting)
+        Divider()
+        SettingItem(text = R.string.page_wizard_title, onClick = interaction::gotoWizard)
+        Divider()
+        SettingItem(text = R.string.page_developer_setting_title, onClick = interaction::gotoDeveloperSetting)
+        Divider()
+        SettingItem(text = R.string.page_about_app_title, onClick = interaction::gotoAboutApp)
     }
 }
 
 
 @Composable
 @PagePreview
+//@Preview(showSystemUi = true)
 fun Preview_SettingsPageContent() {
     PagePreviewContainer {
         SettingsPageContent(SettingsInteraction(it))

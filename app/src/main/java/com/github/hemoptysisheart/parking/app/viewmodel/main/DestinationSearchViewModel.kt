@@ -37,8 +37,8 @@ class DestinationSearchViewModel @Inject constructor(
     /**
      * 검색 결과를 포함한 추천 목록.
      */
-    private val _recommendItemList = MutableStateFlow(emptyList<RecommendItem<*>>())
-    val recommendItemList: StateFlow<List<RecommendItem<*>>> = _recommendItemList
+    private val _recommendItemList = MutableStateFlow<List<RecommendItem<*>>?>(null)
+    val recommendItemList: StateFlow<List<RecommendItem<*>>?> = _recommendItemList
 
     init {
         logger.d("#init complete.")

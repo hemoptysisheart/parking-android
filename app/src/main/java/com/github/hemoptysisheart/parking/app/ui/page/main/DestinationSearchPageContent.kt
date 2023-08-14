@@ -1,22 +1,25 @@
 package com.github.hemoptysisheart.parking.app.ui.page.main
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material3.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.github.hemoptysisheart.parking.app.interaction.main.DestinationSearchInteraction
 import com.github.hemoptysisheart.parking.app.ui.molecule.Divider
+import com.github.hemoptysisheart.parking.app.ui.molecule.TextTitleLarge
 import com.github.hemoptysisheart.parking.app.ui.page.LOGGER
+import com.github.hemoptysisheart.parking.app.ui.preview.PagePreview
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreviewContainer
 import com.github.hemoptysisheart.parking.app.ui.template.search.Header
 import com.github.hemoptysisheart.parking.app.ui.template.search.RecommendItem
+import com.github.hemoptysisheart.parking.domain.place.Place
 import com.github.hemoptysisheart.parking.domain.search.RecommendItem
 
 /**
@@ -34,7 +37,7 @@ import com.github.hemoptysisheart.parking.domain.search.RecommendItem
 fun DestinationSearchPageContent(
         interaction: DestinationSearchInteraction,
         query: String,
-        recommendItemList: List<RecommendItem<*>>,
+        recommendItemList: List<RecommendItem<*>>?,
         onChangeQuery: (String) -> Unit = { }
 ) {
     LOGGER.v("#DestinationSearchPageContent args : query=$query, recommendItemList=$recommendItemList")
@@ -47,43 +50,113 @@ fun DestinationSearchPageContent(
                 gotoSearchSetting = interaction::gotoSearchSetting
         )
 
-        LazyColumn(Modifier.fillMaxSize()) {
-            when {
-                query.isEmpty() && recommendItemList.isEmpty() -> // 초기 상태
-                    item {
-                        Text(text = "초기상태")
-                    }
+        when {
+            null == recommendItemList -> // 초기 상태
+                DestinationSearchPageContentInit()
 
-                query.isNotEmpty() && recommendItemList.isEmpty() -> // 검색 결과 없음
-                    item {
-                        Text(text = "결과가 없습니다.")
-                    }
+            recommendItemList.isEmpty() -> // 검색 결과 없음
+                DestinationSearchPageContentEmpty()
 
-                else -> // 검색 결과 있음.
-                    itemsIndexed(recommendItemList) { idx, item ->
-                        if (0 < idx) {
-                            Divider()
-                        }
-                        RecommendItem(item = item, gotoSelectParking = interaction::gotoSelectParking)
-                    }
+            else ->  // 검색 결과 있음.
+                DestinationSearchPageContentResult(recommendItemList, interaction::gotoSelectParking)
+        }
+    }
+}
+
+/**
+ * 화면 실행 초기 상태.
+ */
+@Composable
+private fun DestinationSearchPageContentInit() {
+    Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        TextTitleLarge(
+                text = "TODO 초기상태",
+                color = MaterialTheme.colorScheme.onBackground,
+                fontWeight = FontWeight.Bold
+        )
+    }
+}
+
+/**
+ * 검색 결과 없음.
+ */
+@Composable
+private fun DestinationSearchPageContentEmpty() {
+    Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        TextTitleLarge(
+                text = "TODO 결과가 없습니다.",
+                color = MaterialTheme.colorScheme.onBackground,
+                fontWeight = FontWeight.Bold
+        )
+    }
+}
+
+/**
+ * 검색 결과.
+ */
+@Composable
+private fun DestinationSearchPageContentResult(
+        recommendItemList: List<RecommendItem<*>>,
+        gotoSelectParking: (Place) -> Unit
+) {
+    LazyColumn(Modifier
+            .fillMaxSize()
+            .padding(0.dp, 20.dp)) {
+        recommendItemList.forEachIndexed { index, item ->
+            if (0 < index) {
+                item { Divider() }
             }
 
             item {
-                Spacer(modifier = Modifier.height(20.dp))
+                RecommendItem(item = item, gotoSelectParking = gotoSelectParking)
             }
         }
     }
 }
 
-
 @Composable
-@Preview(showSystemUi = true)
-fun Preview_DestinationSearchPageContent() {
+@PagePreview
+//@Preview(showSystemUi = true)
+fun Preview_DestinationSearchPageContentInit() {
     PagePreviewContainer {
         DestinationSearchPageContent(
                 interaction = DestinationSearchInteraction(it),
-                query = "검색어 검색어 검색어",
+                query = "",
                 recommendItemList = emptyList()
+        )
+    }
+}
+
+@Composable
+@PagePreview
+//@Preview(showSystemUi = true)
+fun Preview_DestinationSearchPageContentEmpty() {
+    PagePreviewContainer {
+        DestinationSearchPageContent(
+                interaction = DestinationSearchInteraction(it),
+                query = "결과 없음",
+                recommendItemList = emptyList()
+        )
+    }
+}
+
+@Composable
+@PagePreview
+//@Preview(showSystemUi = true)
+fun Preview_DestinationSearchPageContentResult() {
+    PagePreviewContainer {
+        DestinationSearchPageContent(
+                interaction = DestinationSearchInteraction(it),
+                query = "검색어 검색어",
+                recommendItemList = emptyList() // TODO 데이터 추가
         )
     }
 }

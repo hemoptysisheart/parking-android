@@ -1,5 +1,6 @@
 package com.github.hemoptysisheart.parking.app.ui.template.search
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -25,7 +26,10 @@ import com.github.hemoptysisheart.parking.domain.search.RecommendItemPlace
  * [`destinationSearch/item`](https://www.figma.com/file/4ddVw1GJttHudAFojZRj1s/Parking?type=design&node-id=54416-1396&mode=design)
  */
 @Composable
-fun <T> RecommendItem(item: RecommendItem<T>, gotoSelectParking: (Place) -> Unit = { }) {
+fun <T> RecommendItem(
+        item: RecommendItem<T>,
+        gotoSelectParking: (Place) -> Unit = { }
+) {
     LOGGER.v("#RecommendItem args : item=$item")
     when (item) {
         is RecommendItemPlaceImpl ->
@@ -43,7 +47,11 @@ fun RecommendItem(item: RecommendItemPlace, gotoSelectParking: (Place) -> Unit =
                     .fillMaxWidth()
                     .padding(20.dp, 10.dp)
     ) {
-        Column(modifier = Modifier.weight(1F)) {
+        Column(
+                Modifier
+                        .weight(1F)
+                        .clickable { gotoSelectParking(item.item) }
+        ) {
             TextLabelMedium(text = item.name)
             Spacer(modifier = Modifier.height(10.dp))
             item.description?.let {
@@ -55,10 +63,9 @@ fun RecommendItem(item: RecommendItemPlace, gotoSelectParking: (Place) -> Unit =
     }
 }
 
-
 @Composable
 @ComponentPreview
-fun Preview_Item() {
+fun Preview_RecommendItem() {
     ComponentPreviewContainer {
         //Item()
     }

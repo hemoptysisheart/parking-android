@@ -10,7 +10,7 @@ enum class Types(
     RECOMMEND_ITEM_SEARCH_QUERY(R.string.domain_type_recommend_item_query),
     RECOMMEND_ITEM_PLACE(R.string.domain_type_recommend_item_place),
     RECOMMEND_ITEM_ROUTE(R.string.domain_type_recommend_item_route),
-    PLACE_GMP(R.string.domain_type_place),
+    PLACE_GMP(R.string.domain_type_place_gmp),
     QUERY(R.string.domain_type_query),
     ROUTE(R.string.domain_type_route);
 

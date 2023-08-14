@@ -51,10 +51,14 @@ class DestinationSearchViewModel @Inject constructor(
         searchJob = launch(progress = true) {
             _query.emit(query)
 
-            val q = Query(query, locationModel.location!!, searchPreferences.destination.distance)
-            val list = placeModel.searchDestination(q)
-                    .map { RecommendItemPlaceImpl(it) }
-            _recommendItemList.emit(list)
+            if (query.isEmpty()) {
+                _recommendItemList.emit(emptyList())
+            } else {
+                val list = placeModel.searchDestination(
+                        Query(query, locationModel.location!!, searchPreferences.destination.distance)
+                ).map { RecommendItemPlaceImpl(it) }
+                _recommendItemList.emit(list)
+            }
         }
     }
 }

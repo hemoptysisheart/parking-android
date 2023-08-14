@@ -1,8 +1,8 @@
 package com.github.hemoptysisheart.parking.core.domain.place
 
+import com.github.hemoptysisheart.parking.core.domain.common.AbstractObject
 import com.github.hemoptysisheart.parking.core.domain.common.Types.PLACE_GMP
 import com.github.hemoptysisheart.parking.domain.common.Identifier
-import com.github.hemoptysisheart.parking.domain.place.Geolocation
 import com.github.hemoptysisheart.parking.domain.place.Place
 
 /**
@@ -10,24 +10,26 @@ import com.github.hemoptysisheart.parking.domain.place.Place
  */
 class PlaceGooglePlace(
         place: com.github.hemoptysisheart.parking.client.google.data.Place
-) : Place {
-    override val id = Identifier(PLACE_GMP, place.placeId ?: throw IllegalArgumentException("placeId is null."))
-
+) : AbstractObject(
+        Identifier(PLACE_GMP, place.placeId ?: throw IllegalArgumentException("placeId is null."))
+), Place {
     override val name: String
 
     override val address: String
 
-    override val geolocation: Geolocation = place.geometry?.toGeolocation()
-            ?: throw IllegalArgumentException("geometry is null.")
+    override val geolocation = place.geometry?.toGeolocation() ?: throw IllegalArgumentException("geometry is null.")
 
     init {
-        listOfNotNull(place.name, place.formattedAddress, place.placeId).let {
-            name = it[0]
-            address = it[1]
-        }
+        listOfNotNull(place.name, place.formattedAddress, place.vicinity, place.plusCode?.compoundCode, place.placeId)
+                .filter { it.isNotEmpty() }
+                .let {
+                    name = it[0]
+                    address = it[1]
+                }
     }
 
-    override fun toSimpleString() = "($id, $name, $address)"
+    override fun toSimpleString() = "($id, $name)"
 
-    override fun toString() = "PlaceGooglePlace(id=$id, name='$name', address='$address', geolocation=$geolocation)"
+    override fun toString() =
+            "PlaceGooglePlace(id=$id, name='$name', address='$address', geolocation=${geolocation.toSimpleString()})"
 }

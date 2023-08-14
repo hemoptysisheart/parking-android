@@ -14,5 +14,8 @@ interface RecommendItem<T> {
      */
     val description: String?
 
+    /**
+     * 추천 아이템
+     */
     val item: T
 }

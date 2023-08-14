@@ -3,6 +3,7 @@ package com.github.hemoptysisheart.parking.app.interaction.main
 import com.github.hemoptysisheart.parking.app.interaction.BaseInteraction
 import com.github.hemoptysisheart.parking.app.interaction.Interaction
 import com.github.hemoptysisheart.parking.core.util.AndroidLogger
+import com.github.hemoptysisheart.parking.domain.place.Place
 
 /**
  * 목적지 검색
@@ -18,8 +19,8 @@ class DestinationSearchInteraction(private val base: BaseInteraction) : Interact
         const val ROUTE_PATTERN = "main/destinationSearch"
     }
 
-    fun gotoSelectParking() {
-        LOGGER.i("#gotoSelectParking called.")
+    fun gotoSelectParking(place: Place) {
+        LOGGER.i("#gotoSelectParking args : place=$place")
 
         base.navController.navigate(SelectParkingInteraction.ROUTE_PATTERN)
     }

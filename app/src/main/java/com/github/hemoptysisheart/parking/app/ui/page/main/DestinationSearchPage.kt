@@ -25,10 +25,12 @@ fun DestinationSearchPage(
     LOGGER.v("#DestinationSearchPage args : interaction=$interaction, viewModel=$viewModel")
 
     val query = viewModel.query.collect()
+    val recommendItemList = viewModel.recommendItemList.collect()
 
     DestinationSearchPageContent(
             interaction = interaction,
             query = query,
+            recommendItemList = recommendItemList,
             onChangeQuery = viewModel::onChangeQuery
     )
 }

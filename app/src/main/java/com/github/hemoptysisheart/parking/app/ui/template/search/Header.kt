@@ -66,7 +66,10 @@ fun Header(
                 },
                 singleLine = true,
                 shape = RoundedCornerShape(30.dp),
-                colors = OutlinedTextFieldDefaults.colors()
+                colors = OutlinedTextFieldDefaults.colors(
+                        unfocusedPlaceholderColor = MaterialTheme.colorScheme.outlineVariant,
+                        focusedPlaceholderColor = MaterialTheme.colorScheme.outlineVariant
+                )
         )
         Spacer(modifier = Modifier.width(10.dp))
         SettingsButton(onClick = gotoSearchSetting, color = MaterialTheme.colorScheme.onBackground)

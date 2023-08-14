@@ -12,10 +12,10 @@ import com.github.hemoptysisheart.parking.app.viewmodel.wizard.InstructionViewMo
 import com.github.hemoptysisheart.parking.app.viewmodel.wizard.LocationViewModel
 import com.github.hemoptysisheart.parking.core.model.GlobalChannelConsumer
 import com.github.hemoptysisheart.parking.core.model.LocationModel
+import com.github.hemoptysisheart.parking.core.model.PlaceModel
 import com.github.hemoptysisheart.parking.domain.app.ExecutionPreferences
 import com.github.hemoptysisheart.parking.domain.app.SearchPreferences
 import com.github.hemoptysisheart.parking.domain.app.WizardPreferences
-import com.github.hemoptysisheart.parking.domain.place.Geolocation
 import com.github.hemoptysisheart.util.TruncatedTimeProvider
 
 @Composable
@@ -31,7 +31,11 @@ fun previewBaseViewModel(): BaseViewModel {
     return vm
 }
 
-fun previewDestinationSearchViewModel() = DestinationSearchViewModel()
+fun previewDestinationSearchViewModel(
+        searchPreferences: SearchPreferences = previewPreferencesModel().search,
+        locationModel: LocationModel = previewLocationModel(),
+        placeModel: PlaceModel = previewPlaceModel()
+) = DestinationSearchViewModel(searchPreferences, locationModel, placeModel)
 
 fun previewInstructionViewModel() = InstructionViewModel(previewPreferencesModel().wizard)
 
@@ -45,7 +49,7 @@ fun previewLauncherViewModel(
 ) = LauncherViewModel(executionPreferences, wizardPreferences, locationModel)
 
 fun previewLocationViewModel(
-        locationModel: LocationModel = previewLocationModel(geolocation = Geolocation(0.0, 0.0))
+        locationModel: LocationModel = previewLocationModel()
 ) = LocationViewModel(locationModel, previewPreferencesModel().wizard)
 
 fun previewSearchSettingViewModel(

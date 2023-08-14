@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreview
 import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreviewContainer
 import com.github.hemoptysisheart.parking.app.ui.theme.Typography
@@ -22,7 +23,10 @@ fun TextDisplayLarge(
         modifier: Modifier = Modifier,
         color: Color = Color.Unspecified,
         fontWeight: FontWeight? = null,
-        textAlign: TextAlign? = null
+        textAlign: TextAlign? = null,
+        overflow: TextOverflow = TextOverflow.Clip,
+        maxLines: Int = Int.MAX_VALUE,
+        minLines: Int = 1
 ) {
     Text(
             text = text,
@@ -30,6 +34,9 @@ fun TextDisplayLarge(
             color = color,
             fontWeight = fontWeight,
             textAlign = textAlign,
+            overflow = overflow,
+            maxLines = maxLines,
+            minLines = minLines,
             style = Typography.displayLarge
     )
 }
@@ -43,7 +50,10 @@ fun TextDisplayMedium(
         modifier: Modifier = Modifier,
         color: Color = Color.Unspecified,
         fontWeight: FontWeight? = null,
-        textAlign: TextAlign? = null
+        textAlign: TextAlign? = null,
+        overflow: TextOverflow = TextOverflow.Clip,
+        maxLines: Int = Int.MAX_VALUE,
+        minLines: Int = 1
 ) {
     Text(
             text = text,
@@ -51,6 +61,9 @@ fun TextDisplayMedium(
             color = color,
             fontWeight = fontWeight,
             textAlign = textAlign,
+            overflow = overflow,
+            maxLines = maxLines,
+            minLines = minLines,
             style = Typography.displayMedium
     )
 }
@@ -64,7 +77,10 @@ fun TextDisplaySmall(
         modifier: Modifier = Modifier,
         color: Color = Color.Unspecified,
         fontWeight: FontWeight? = null,
-        textAlign: TextAlign? = null
+        textAlign: TextAlign? = null,
+        overflow: TextOverflow = TextOverflow.Clip,
+        maxLines: Int = Int.MAX_VALUE,
+        minLines: Int = 1
 ) {
     Text(
             text = text,
@@ -72,6 +88,9 @@ fun TextDisplaySmall(
             color = color,
             fontWeight = fontWeight,
             textAlign = textAlign,
+            overflow = overflow,
+            maxLines = maxLines,
+            minLines = minLines,
             style = Typography.displaySmall
     )
 }
@@ -85,7 +104,10 @@ fun TextHeadlineLarge(
         modifier: Modifier = Modifier,
         color: Color = Color.Unspecified,
         fontWeight: FontWeight? = null,
-        textAlign: TextAlign? = null
+        textAlign: TextAlign? = null,
+        overflow: TextOverflow = TextOverflow.Clip,
+        maxLines: Int = Int.MAX_VALUE,
+        minLines: Int = 1
 ) {
     Text(
             text = text,
@@ -93,6 +115,9 @@ fun TextHeadlineLarge(
             color = color,
             fontWeight = fontWeight,
             textAlign = textAlign,
+            overflow = overflow,
+            maxLines = maxLines,
+            minLines = minLines,
             style = Typography.headlineLarge
     )
 }
@@ -106,7 +131,10 @@ fun TextHeadlineMedium(
         modifier: Modifier = Modifier,
         color: Color = Color.Unspecified,
         fontWeight: FontWeight? = null,
-        textAlign: TextAlign? = null
+        textAlign: TextAlign? = null,
+        overflow: TextOverflow = TextOverflow.Clip,
+        maxLines: Int = Int.MAX_VALUE,
+        minLines: Int = 1
 ) {
     Text(
             text = text,
@@ -114,6 +142,9 @@ fun TextHeadlineMedium(
             color = color,
             fontWeight = fontWeight,
             textAlign = textAlign,
+            overflow = overflow,
+            maxLines = maxLines,
+            minLines = minLines,
             style = Typography.headlineMedium
     )
 }
@@ -127,7 +158,10 @@ fun TextHeadlineSmall(
         modifier: Modifier = Modifier,
         color: Color = Color.Unspecified,
         fontWeight: FontWeight? = null,
-        textAlign: TextAlign? = null
+        textAlign: TextAlign? = null,
+        overflow: TextOverflow = TextOverflow.Clip,
+        maxLines: Int = Int.MAX_VALUE,
+        minLines: Int = 1
 ) {
     Text(
             text = text,
@@ -135,6 +169,9 @@ fun TextHeadlineSmall(
             color = color,
             fontWeight = fontWeight,
             textAlign = textAlign,
+            overflow = overflow,
+            maxLines = maxLines,
+            minLines = minLines,
             style = Typography.headlineSmall
     )
 }
@@ -148,7 +185,10 @@ fun TextTitleLarge(
         modifier: Modifier = Modifier,
         color: Color = Color.Unspecified,
         fontWeight: FontWeight? = null,
-        textAlign: TextAlign? = null
+        textAlign: TextAlign? = null,
+        overflow: TextOverflow = TextOverflow.Clip,
+        maxLines: Int = Int.MAX_VALUE,
+        minLines: Int = 1
 ) {
     Text(
             text = text,
@@ -156,6 +196,9 @@ fun TextTitleLarge(
             color = color,
             fontWeight = fontWeight,
             textAlign = textAlign,
+            overflow = overflow,
+            maxLines = maxLines,
+            minLines = minLines,
             style = Typography.titleLarge
     )
 }
@@ -169,7 +212,10 @@ fun TextTitleMedium(
         modifier: Modifier = Modifier,
         color: Color = Color.Unspecified,
         fontWeight: FontWeight? = null,
-        textAlign: TextAlign? = null
+        textAlign: TextAlign? = null,
+        overflow: TextOverflow = TextOverflow.Clip,
+        maxLines: Int = Int.MAX_VALUE,
+        minLines: Int = 1
 ) {
     Text(
             text = text,
@@ -177,6 +223,9 @@ fun TextTitleMedium(
             color = color,
             fontWeight = fontWeight,
             textAlign = textAlign,
+            overflow = overflow,
+            maxLines = maxLines,
+            minLines = minLines,
             style = Typography.titleMedium
     )
 }
@@ -190,7 +239,10 @@ fun TextTitleSmall(
         modifier: Modifier = Modifier,
         color: Color = Color.Unspecified,
         fontWeight: FontWeight? = null,
-        textAlign: TextAlign? = null
+        textAlign: TextAlign? = null,
+        overflow: TextOverflow = TextOverflow.Clip,
+        maxLines: Int = Int.MAX_VALUE,
+        minLines: Int = 1
 ) {
     Text(
             text = text,
@@ -198,6 +250,9 @@ fun TextTitleSmall(
             color = color,
             fontWeight = fontWeight,
             textAlign = textAlign,
+            overflow = overflow,
+            maxLines = maxLines,
+            minLines = minLines,
             style = Typography.titleSmall
     )
 }
@@ -211,7 +266,10 @@ fun TextLabelLarge(
         modifier: Modifier = Modifier,
         color: Color = Color.Unspecified,
         fontWeight: FontWeight? = null,
-        textAlign: TextAlign? = null
+        textAlign: TextAlign? = null,
+        overflow: TextOverflow = TextOverflow.Clip,
+        maxLines: Int = Int.MAX_VALUE,
+        minLines: Int = 1
 ) {
     Text(
             text = text,
@@ -219,6 +277,9 @@ fun TextLabelLarge(
             color = color,
             fontWeight = fontWeight,
             textAlign = textAlign,
+            overflow = overflow,
+            maxLines = maxLines,
+            minLines = minLines,
             style = Typography.labelLarge
     )
 }
@@ -232,7 +293,10 @@ fun TextLabelMedium(
         modifier: Modifier = Modifier,
         color: Color = Color.Unspecified,
         fontWeight: FontWeight? = null,
-        textAlign: TextAlign? = null
+        textAlign: TextAlign? = null,
+        overflow: TextOverflow = TextOverflow.Clip,
+        maxLines: Int = Int.MAX_VALUE,
+        minLines: Int = 1
 ) {
     Text(
             text = text,
@@ -240,6 +304,9 @@ fun TextLabelMedium(
             color = color,
             fontWeight = fontWeight,
             textAlign = textAlign,
+            overflow = overflow,
+            maxLines = maxLines,
+            minLines = minLines,
             style = Typography.labelMedium
     )
 }
@@ -253,7 +320,10 @@ fun TextLabelSmall(
         modifier: Modifier = Modifier,
         color: Color = Color.Unspecified,
         fontWeight: FontWeight? = null,
-        textAlign: TextAlign? = null
+        textAlign: TextAlign? = null,
+        overflow: TextOverflow = TextOverflow.Clip,
+        maxLines: Int = Int.MAX_VALUE,
+        minLines: Int = 1
 ) {
     Text(
             text = text,
@@ -261,6 +331,9 @@ fun TextLabelSmall(
             color = color,
             fontWeight = fontWeight,
             textAlign = textAlign,
+            overflow = overflow,
+            maxLines = maxLines,
+            minLines = minLines,
             style = Typography.labelSmall
     )
 }
@@ -274,7 +347,10 @@ fun TextBodyLarge(
         modifier: Modifier = Modifier,
         color: Color = Color.Unspecified,
         fontWeight: FontWeight? = null,
-        textAlign: TextAlign? = null
+        textAlign: TextAlign? = null,
+        overflow: TextOverflow = TextOverflow.Clip,
+        maxLines: Int = Int.MAX_VALUE,
+        minLines: Int = 1
 ) {
     Text(
             text = text,
@@ -282,6 +358,9 @@ fun TextBodyLarge(
             color = color,
             fontWeight = fontWeight,
             textAlign = textAlign,
+            overflow = overflow,
+            maxLines = maxLines,
+            minLines = minLines,
             style = Typography.bodyLarge
     )
 }
@@ -295,7 +374,10 @@ fun TextBodyMedium(
         modifier: Modifier = Modifier,
         color: Color = Color.Unspecified,
         fontWeight: FontWeight? = null,
-        textAlign: TextAlign? = null
+        textAlign: TextAlign? = null,
+        overflow: TextOverflow = TextOverflow.Clip,
+        maxLines: Int = Int.MAX_VALUE,
+        minLines: Int = 1
 ) {
     Text(
             text = text,
@@ -303,6 +385,9 @@ fun TextBodyMedium(
             color = color,
             fontWeight = fontWeight,
             textAlign = textAlign,
+            overflow = overflow,
+            maxLines = maxLines,
+            minLines = minLines,
             style = Typography.bodyMedium
     )
 }
@@ -316,7 +401,10 @@ fun TextBodySmall(
         modifier: Modifier = Modifier,
         color: Color = Color.Unspecified,
         fontWeight: FontWeight? = null,
-        textAlign: TextAlign? = null
+        textAlign: TextAlign? = null,
+        overflow: TextOverflow = TextOverflow.Clip,
+        maxLines: Int = Int.MAX_VALUE,
+        minLines: Int = 1
 ) {
     Text(
             text = text,
@@ -324,6 +412,9 @@ fun TextBodySmall(
             color = color,
             fontWeight = fontWeight,
             textAlign = textAlign,
+            overflow = overflow,
+            maxLines = maxLines,
+            minLines = minLines,
             style = Typography.bodySmall
     )
 }

@@ -16,6 +16,7 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.github.hemoptysisheart.parking.R
 import com.github.hemoptysisheart.parking.app.ui.molecule.BackButton
@@ -58,7 +59,9 @@ fun Header(
                 placeholder = {
                     TextBodyMedium(
                             text = stringResource(R.string.page_destination_search_query_placeholder),
-                            color = Color.Unspecified
+                            color = Color.Unspecified,
+                            overflow = TextOverflow.Ellipsis,
+                            maxLines = 1
                     )
                 },
                 leadingIcon = {

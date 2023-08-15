@@ -5,6 +5,8 @@ import com.github.hemoptysisheart.parking.core.model.GlobalChannelConsumer
 import com.github.hemoptysisheart.parking.core.model.GlobalChannelImpl
 import com.github.hemoptysisheart.parking.core.model.PlaceModel
 import com.github.hemoptysisheart.parking.core.model.PlaceModelImpl
+import com.github.hemoptysisheart.parking.core.repository.PlaceRepository
+import com.github.hemoptysisheart.parking.core.repository.PlaceRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -24,5 +26,9 @@ abstract class AppModuleBinder {
 
     @Binds
     @Singleton
-    abstract fun bindPlaceModelImpl(model: PlaceModelImpl): PlaceModel
+    abstract fun bindPlaceModel(model: PlaceModelImpl): PlaceModel
+
+    @Binds
+    @Singleton
+    abstract fun bindPlaceRepository(repository: PlaceRepositoryImpl): PlaceRepository
 }

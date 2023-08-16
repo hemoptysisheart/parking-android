@@ -34,7 +34,7 @@ import com.github.hemoptysisheart.parking.domain.search.RecommendItem
  * @param interaction 목적지 검색 확면의 인터랙션.
  * @param query 검색어
  * @param onChangeQuery 검색어 입력 처리
- * @param showPlaceDetail 목적지 검색 결과 상세 보기
+ * @param showItemDetail 목적지 검색 결과 상세 보기
  */
 @Composable
 fun DestinationSearchPageContent(
@@ -42,7 +42,7 @@ fun DestinationSearchPageContent(
         query: String,
         recommendItemList: List<RecommendItem<*>>?,
         onChangeQuery: (String) -> Unit = { },
-        showPlaceDetail: (Place) -> Unit = { }
+        showItemDetail: (RecommendItem<*>) -> Unit = { }
 ) {
     LOGGER.v("#DestinationSearchPageContent args : query=$query, recommendItemList=$recommendItemList")
 
@@ -62,7 +62,7 @@ fun DestinationSearchPageContent(
                 DestinationSearchPageContentEmpty()
 
             else ->  // 검색 결과 있음.
-                DestinationSearchPageContentResult(recommendItemList, interaction::gotoSelectParking, showPlaceDetail)
+                DestinationSearchPageContentResult(recommendItemList, interaction::gotoSelectParking, showItemDetail)
         }
     }
 }
@@ -110,7 +110,7 @@ private fun DestinationSearchPageContentEmpty() {
 private fun DestinationSearchPageContentResult(
         recommendItemList: List<RecommendItem<*>>,
         gotoSelectParking: (Place) -> Unit,
-        showPlaceDetail: (Place) -> Unit
+        showItemDetail: (RecommendItem<*>) -> Unit
 ) {
     LazyColumn(Modifier
             .fillMaxSize()
@@ -121,7 +121,7 @@ private fun DestinationSearchPageContentResult(
             }
 
             item {
-                RecommendItem(item = item, gotoSelectParking = gotoSelectParking, showPlaceDetail = showPlaceDetail)
+                RecommendItem(item = item, gotoSelectParking = gotoSelectParking, showItemDetail = showItemDetail)
             }
         }
     }

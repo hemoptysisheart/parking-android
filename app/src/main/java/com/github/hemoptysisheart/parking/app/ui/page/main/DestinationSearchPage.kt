@@ -8,6 +8,7 @@ import com.github.hemoptysisheart.parking.app.ui.preview.PagePreviewContainer
 import com.github.hemoptysisheart.parking.app.ui.preview.previewDestinationSearchViewModel
 import com.github.hemoptysisheart.parking.app.ui.support.collect
 import com.github.hemoptysisheart.parking.app.ui.support.hiltBaseViewModel
+import com.github.hemoptysisheart.parking.app.ui.template.search.RecommendItemDialog
 import com.github.hemoptysisheart.parking.app.viewmodel.main.DestinationSearchViewModel
 
 /**
@@ -26,13 +27,18 @@ fun DestinationSearchPage(
 
     val query = viewModel.query.collect()
     val recommendItemList = viewModel.recommendItemList.collect()
+    val detail = viewModel.detail.collect()
+
+    detail?.let {
+        RecommendItemDialog(item = it, onDismissRequest = viewModel::clearDetail)
+    }
 
     DestinationSearchPageContent(
             interaction = interaction,
             query = query,
             recommendItemList = recommendItemList,
             onChangeQuery = viewModel::onChangeQuery,
-            showPlaceDetail = viewModel::showDetail
+            showItemDetail = viewModel::showDetail
     )
 }
 

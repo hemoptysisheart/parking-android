@@ -17,7 +17,6 @@ import com.github.hemoptysisheart.parking.app.ui.molecule.TextLabelMedium
 import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreview
 import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreviewContainer
 import com.github.hemoptysisheart.parking.app.ui.template.LOGGER
-import com.github.hemoptysisheart.parking.core.domain.search.RecommendItemPlaceImpl
 import com.github.hemoptysisheart.parking.domain.place.Place
 import com.github.hemoptysisheart.parking.domain.search.RecommendItem
 import com.github.hemoptysisheart.parking.domain.search.RecommendItemPlace
@@ -29,12 +28,16 @@ import com.github.hemoptysisheart.parking.domain.search.RecommendItemPlace
 fun <T> RecommendItem(
         item: RecommendItem<T>,
         gotoSelectParking: (Place) -> Unit = { },
-        showPlaceDetail: (Place) -> Unit
+        showItemDetail: (RecommendItem<T>) -> Unit
 ) {
     LOGGER.v("#RecommendItem args : item=$item")
     when (item) {
-        is RecommendItemPlaceImpl ->
-            RecommendItemPlace(item = item, gotoSelectParking = gotoSelectParking, showDetail = showPlaceDetail)
+        is RecommendItemPlace ->
+            RecommendItemPlace(
+                    item = item,
+                    gotoSelectParking = gotoSelectParking,
+                    showPlaceDetail = { showItemDetail(item) }
+            )
 
         else ->
             throw IllegalArgumentException("unsupported type : item.type=${item::class}, item=$item")
@@ -42,10 +45,10 @@ fun <T> RecommendItem(
 }
 
 @Composable
-fun RecommendItemPlace(
-        item: RecommendItemPlace,
+private fun RecommendItemPlace(
+        item: RecommendItem<Place>,
         gotoSelectParking: (Place) -> Unit = { },
-        showDetail: (Place) -> Unit = { }
+        showPlaceDetail: (RecommendItem<Place>) -> Unit = { }
 ) {
     Row(
             Modifier
@@ -67,7 +70,7 @@ fun RecommendItemPlace(
         OpenInFullButton(
                 color = MaterialTheme.colorScheme.outlineVariant,
                 onClick = {
-                    showDetail(item.item)
+                    showPlaceDetail(item)
                 }
         )
     }

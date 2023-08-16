@@ -6,7 +6,6 @@ import com.github.hemoptysisheart.parking.core.domain.search.RecommendItemPlaceI
 import com.github.hemoptysisheart.parking.core.model.LocationModel
 import com.github.hemoptysisheart.parking.core.model.PlaceModel
 import com.github.hemoptysisheart.parking.domain.app.SearchPreferences
-import com.github.hemoptysisheart.parking.domain.place.Place
 import com.github.hemoptysisheart.parking.domain.search.RecommendItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -41,6 +40,9 @@ class DestinationSearchViewModel @Inject constructor(
     private val _recommendItemList = MutableStateFlow<List<RecommendItem<*>>?>(null)
     val recommendItemList: StateFlow<List<RecommendItem<*>>?> = _recommendItemList
 
+    private val _detail = MutableStateFlow<RecommendItem<*>?>(null)
+    val detail: StateFlow<RecommendItem<*>?> = _detail
+
     init {
         logger.d("#init complete.")
     }
@@ -63,7 +65,19 @@ class DestinationSearchViewModel @Inject constructor(
         }
     }
 
-    fun showDetail(place: Place) {
-        logger.d("#showDetail args : place=$place")
+    fun showDetail(item: RecommendItem<*>) {
+        logger.d("#showDetail args : item=$item")
+
+        launch {
+            _detail.emit(item)
+        }
+    }
+
+    fun clearDetail() {
+        logger.d("#clearDetail called.")
+
+        launch {
+            _detail.emit(null)
+        }
     }
 }

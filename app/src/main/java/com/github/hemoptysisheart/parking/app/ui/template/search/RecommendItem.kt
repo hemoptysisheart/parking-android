@@ -28,12 +28,13 @@ import com.github.hemoptysisheart.parking.domain.search.RecommendItemPlace
 @Composable
 fun <T> RecommendItem(
         item: RecommendItem<T>,
-        gotoSelectParking: (Place) -> Unit = { }
+        gotoSelectParking: (Place) -> Unit = { },
+        showPlaceDetail: (Place) -> Unit
 ) {
     LOGGER.v("#RecommendItem args : item=$item")
     when (item) {
         is RecommendItemPlaceImpl ->
-            RecommendItem(item = item, gotoSelectParking)
+            RecommendItemPlace(item = item, gotoSelectParking = gotoSelectParking, showDetail = showPlaceDetail)
 
         else ->
             throw IllegalArgumentException("unsupported type : item.type=${item::class}, item=$item")
@@ -41,7 +42,11 @@ fun <T> RecommendItem(
 }
 
 @Composable
-fun RecommendItem(item: RecommendItemPlace, gotoSelectParking: (Place) -> Unit = { }) {
+fun RecommendItemPlace(
+        item: RecommendItemPlace,
+        gotoSelectParking: (Place) -> Unit = { },
+        showDetail: (Place) -> Unit = { }
+) {
     Row(
             Modifier
                     .fillMaxWidth()
@@ -59,7 +64,12 @@ fun RecommendItem(item: RecommendItemPlace, gotoSelectParking: (Place) -> Unit =
             }
         }
 
-        OpenInFullButton(color = MaterialTheme.colorScheme.outlineVariant)
+        OpenInFullButton(
+                color = MaterialTheme.colorScheme.outlineVariant,
+                onClick = {
+                    showDetail(item.item)
+                }
+        )
     }
 }
 

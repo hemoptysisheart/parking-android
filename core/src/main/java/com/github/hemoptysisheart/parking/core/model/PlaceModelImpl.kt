@@ -24,7 +24,6 @@ class PlaceModelImpl @Inject constructor(
 
         val list = placeRepository.list(query.query, query.center, query.distance, searchPreferences.language)
 
-        LOGGER.e("#searchDestination : placeRepository=$placeRepository")
         LOGGER.v("#searchDestination return : $list")
         return list
     }

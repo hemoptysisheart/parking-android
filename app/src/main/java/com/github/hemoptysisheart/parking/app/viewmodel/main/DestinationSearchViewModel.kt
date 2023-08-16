@@ -6,6 +6,7 @@ import com.github.hemoptysisheart.parking.core.domain.search.RecommendItemPlaceI
 import com.github.hemoptysisheart.parking.core.model.LocationModel
 import com.github.hemoptysisheart.parking.core.model.PlaceModel
 import com.github.hemoptysisheart.parking.domain.app.SearchPreferences
+import com.github.hemoptysisheart.parking.domain.place.Place
 import com.github.hemoptysisheart.parking.domain.search.RecommendItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -60,5 +61,9 @@ class DestinationSearchViewModel @Inject constructor(
                 _recommendItemList.emit(list)
             }
         }
+    }
+
+    fun showDetail(place: Place) {
+        logger.d("#showDetail args : place=$place")
     }
 }

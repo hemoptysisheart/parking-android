@@ -31,7 +31,8 @@ fun DestinationSearchPage(
             interaction = interaction,
             query = query,
             recommendItemList = recommendItemList,
-            onChangeQuery = viewModel::onChangeQuery
+            onChangeQuery = viewModel::onChangeQuery,
+            showPlaceDetail = viewModel::showDetail
     )
 }
 

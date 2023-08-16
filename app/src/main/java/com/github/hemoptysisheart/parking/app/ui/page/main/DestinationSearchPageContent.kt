@@ -9,8 +9,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.github.hemoptysisheart.parking.R
 import com.github.hemoptysisheart.parking.app.interaction.main.DestinationSearchInteraction
 import com.github.hemoptysisheart.parking.app.ui.molecule.Divider
 import com.github.hemoptysisheart.parking.app.ui.molecule.TextTitleLarge
@@ -32,13 +34,15 @@ import com.github.hemoptysisheart.parking.domain.search.RecommendItem
  * @param interaction 목적지 검색 확면의 인터랙션.
  * @param query 검색어
  * @param onChangeQuery 검색어 입력 처리
+ * @param showPlaceDetail 목적지 검색 결과 상세 보기
  */
 @Composable
 fun DestinationSearchPageContent(
         interaction: DestinationSearchInteraction,
         query: String,
         recommendItemList: List<RecommendItem<*>>?,
-        onChangeQuery: (String) -> Unit = { }
+        onChangeQuery: (String) -> Unit = { },
+        showPlaceDetail: (Place) -> Unit = { }
 ) {
     LOGGER.v("#DestinationSearchPageContent args : query=$query, recommendItemList=$recommendItemList")
 
@@ -58,7 +62,7 @@ fun DestinationSearchPageContent(
                 DestinationSearchPageContentEmpty()
 
             else ->  // 검색 결과 있음.
-                DestinationSearchPageContentResult(recommendItemList, interaction::gotoSelectParking)
+                DestinationSearchPageContentResult(recommendItemList, interaction::gotoSelectParking, showPlaceDetail)
         }
     }
 }
@@ -74,7 +78,7 @@ private fun DestinationSearchPageContentInit() {
             horizontalAlignment = Alignment.CenterHorizontally
     ) {
         TextTitleLarge(
-                text = "TODO 초기상태",
+                text = stringResource(R.string.page_destination_search_init_label),
                 color = MaterialTheme.colorScheme.onBackground,
                 fontWeight = FontWeight.Bold
         )
@@ -92,7 +96,7 @@ private fun DestinationSearchPageContentEmpty() {
             horizontalAlignment = Alignment.CenterHorizontally
     ) {
         TextTitleLarge(
-                text = "TODO 결과가 없습니다.",
+                text = stringResource(R.string.page_destination_search_no_result_label),
                 color = MaterialTheme.colorScheme.onBackground,
                 fontWeight = FontWeight.Bold
         )
@@ -105,7 +109,8 @@ private fun DestinationSearchPageContentEmpty() {
 @Composable
 private fun DestinationSearchPageContentResult(
         recommendItemList: List<RecommendItem<*>>,
-        gotoSelectParking: (Place) -> Unit
+        gotoSelectParking: (Place) -> Unit,
+        showPlaceDetail: (Place) -> Unit
 ) {
     LazyColumn(Modifier
             .fillMaxSize()
@@ -116,7 +121,7 @@ private fun DestinationSearchPageContentResult(
             }
 
             item {
-                RecommendItem(item = item, gotoSelectParking = gotoSelectParking)
+                RecommendItem(item = item, gotoSelectParking = gotoSelectParking, showPlaceDetail = showPlaceDetail)
             }
         }
     }

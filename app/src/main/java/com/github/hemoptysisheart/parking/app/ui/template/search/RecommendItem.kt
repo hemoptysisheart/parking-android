@@ -17,6 +17,7 @@ import com.github.hemoptysisheart.parking.app.ui.molecule.TextLabelMedium
 import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreview
 import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreviewContainer
 import com.github.hemoptysisheart.parking.app.ui.template.LOGGER
+import com.github.hemoptysisheart.parking.domain.common.Object
 import com.github.hemoptysisheart.parking.domain.place.Place
 import com.github.hemoptysisheart.parking.domain.search.RecommendItem
 import com.github.hemoptysisheart.parking.domain.search.RecommendItemPlace
@@ -25,7 +26,7 @@ import com.github.hemoptysisheart.parking.domain.search.RecommendItemPlace
  * [`destinationSearch/item`](https://www.figma.com/file/4ddVw1GJttHudAFojZRj1s/Parking?type=design&node-id=54416-1396&mode=design)
  */
 @Composable
-fun <T> RecommendItem(
+fun <T : Object> RecommendItem(
         item: RecommendItem<T>,
         gotoSelectParking: (Place) -> Unit = { },
         showItemDetail: (RecommendItem<T>) -> Unit

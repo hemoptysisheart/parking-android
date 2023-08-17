@@ -17,13 +17,14 @@ import com.github.hemoptysisheart.parking.R
 import com.github.hemoptysisheart.parking.app.ui.molecule.TextBodyMedium
 import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreview
 import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreviewContainer
+import com.github.hemoptysisheart.parking.domain.common.Object
 import com.github.hemoptysisheart.parking.domain.search.RecommendItem
 
 /**
  * [``]()
  */
 @Composable
-fun <T> RecommendItemDialog(
+fun <T : Object> RecommendItemDialog(
         item: RecommendItem<T>,
         onDismissRequest: () -> Unit = { }
 ) {

@@ -21,6 +21,7 @@ import com.github.hemoptysisheart.parking.app.ui.preview.PagePreview
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreviewContainer
 import com.github.hemoptysisheart.parking.app.ui.template.search.Header
 import com.github.hemoptysisheart.parking.app.ui.template.search.RecommendItem
+import com.github.hemoptysisheart.parking.domain.common.Object
 import com.github.hemoptysisheart.parking.domain.place.Place
 import com.github.hemoptysisheart.parking.domain.search.RecommendItem
 
@@ -40,9 +41,9 @@ import com.github.hemoptysisheart.parking.domain.search.RecommendItem
 fun DestinationSearchPageContent(
         interaction: DestinationSearchInteraction,
         query: String,
-        recommendItemList: List<RecommendItem<*>>?,
+        recommendItemList: List<RecommendItem<out Object>>?,
         onChangeQuery: (String) -> Unit = { },
-        showItemDetail: (RecommendItem<*>) -> Unit = { }
+        showItemDetail: (RecommendItem<out Object>) -> Unit = { }
 ) {
     LOGGER.v("#DestinationSearchPageContent args : query=$query, recommendItemList=$recommendItemList")
 

@@ -9,6 +9,8 @@ import com.github.hemoptysisheart.parking.app.ui.molecule.TextBodyMedium
 import com.github.hemoptysisheart.parking.app.ui.molecule.TextLabelLarge
 import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreview
 import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreviewContainer
+import com.github.hemoptysisheart.parking.app.ui.preview.PLACE_로손편의점_오사키_1_11_2
+import com.github.hemoptysisheart.parking.app.ui.template.LOGGER
 import com.github.hemoptysisheart.parking.core.domain.place.toLatLng
 import com.github.hemoptysisheart.parking.domain.place.Place
 import com.google.android.gms.maps.model.CameraPosition
@@ -23,6 +25,7 @@ import com.google.maps.android.compose.rememberCameraPositionState
  */
 @Composable
 fun PlaceDialogContent(place: Place) {
+    LOGGER.v("#PlaceDialogContent args : place=$place")
     val state = rememberCameraPositionState("${place.id}") {
         position = CameraPosition.fromLatLngZoom(place.toLatLng(), 17F)
     }
@@ -53,6 +56,6 @@ fun PlaceDialogContent(place: Place) {
 @ComponentPreview
 fun Preview_PlaceDialogContent() {
     ComponentPreviewContainer {
-        //PlaceDialog()
+        PlaceDialogContent(place = PLACE_로손편의점_오사키_1_11_2)
     }
 }

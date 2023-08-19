@@ -3,7 +3,7 @@ package com.github.hemoptysisheart.parking.core.repository
 import com.github.hemoptysisheart.parking.client.google.MapsClient
 import com.github.hemoptysisheart.parking.client.google.data.NearbySearchParams
 import com.github.hemoptysisheart.parking.client.google.data.PlaceTypeResultOnly
-import com.github.hemoptysisheart.parking.core.domain.place.PlaceGooglePlace
+import com.github.hemoptysisheart.parking.core.domain.place.toDomain
 import com.github.hemoptysisheart.parking.core.util.AndroidLogger
 import com.github.hemoptysisheart.parking.domain.common.Identifier
 import com.github.hemoptysisheart.parking.domain.common.Locale
@@ -21,6 +21,9 @@ class PlaceRepositoryImpl @Inject constructor(
         private val LOGGER = AndroidLogger(PlaceRepositoryImpl::class)
     }
 
+    /**
+     * [cache] write lock.
+     */
     private val cacheLock = Mutex()
     private val cache = mutableMapOf<Identifier, Place>()
 
@@ -41,7 +44,7 @@ class PlaceRepositoryImpl @Inject constructor(
                 type = PlaceTypeResultOnly.POINT_OF_INTEREST
         )
         val list = client.nearBy(params)
-                .map { PlaceGooglePlace(it) }
+                .map { it.toDomain() }
 
         cacheLock.withLock {
             for (p in list) {

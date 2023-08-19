@@ -16,6 +16,7 @@ import androidx.compose.ui.window.Dialog
 import com.github.hemoptysisheart.parking.R
 import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreview
 import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreviewContainer
+import com.github.hemoptysisheart.parking.app.ui.preview.RECOMMEND_ITEM_로손편의점_스미요시_2_22
 import com.github.hemoptysisheart.parking.domain.common.Object
 import com.github.hemoptysisheart.parking.domain.place.Place
 
@@ -57,6 +58,6 @@ fun <T : Object> RecommendItemDialog(
 @ComponentPreview
 fun Preview_RecommendItemDialog() {
     ComponentPreviewContainer {
-        // RecommendItemDialog()
+        RecommendItemDialog(item = RECOMMEND_ITEM_로손편의점_스미요시_2_22.item)
     }
 }

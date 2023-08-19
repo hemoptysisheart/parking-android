@@ -19,6 +19,10 @@ import com.github.hemoptysisheart.parking.app.ui.molecule.TextTitleLarge
 import com.github.hemoptysisheart.parking.app.ui.page.LOGGER
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreview
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreviewContainer
+import com.github.hemoptysisheart.parking.app.ui.preview.RECOMMEND_ITEM_로손오오테센터빌딩점_1_1_3
+import com.github.hemoptysisheart.parking.app.ui.preview.RECOMMEND_ITEM_로손편의점_니시신주쿠_7_10_19
+import com.github.hemoptysisheart.parking.app.ui.preview.RECOMMEND_ITEM_로손편의점_스미요시_2_22
+import com.github.hemoptysisheart.parking.app.ui.preview.RECOMMEND_ITEM_로손편의점_오사키_1_11_2
 import com.github.hemoptysisheart.parking.app.ui.template.search.Header
 import com.github.hemoptysisheart.parking.app.ui.template.search.RecommendItem
 import com.github.hemoptysisheart.parking.domain.common.Object
@@ -162,7 +166,12 @@ fun Preview_DestinationSearchPageContentResult() {
         DestinationSearchPageContent(
                 interaction = DestinationSearchInteraction(it),
                 query = "검색어 검색어",
-                recommendItemList = emptyList() // TODO 데이터 추가
+                recommendItemList = listOf(
+                        RECOMMEND_ITEM_로손편의점_니시신주쿠_7_10_19,
+                        RECOMMEND_ITEM_로손편의점_오사키_1_11_2,
+                        RECOMMEND_ITEM_로손오오테센터빌딩점_1_1_3,
+                        RECOMMEND_ITEM_로손편의점_스미요시_2_22
+                )
         )
     }
 }

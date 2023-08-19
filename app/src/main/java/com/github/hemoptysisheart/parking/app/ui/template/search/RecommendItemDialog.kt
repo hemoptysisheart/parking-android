@@ -14,10 +14,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.github.hemoptysisheart.parking.R
-import com.github.hemoptysisheart.parking.app.ui.molecule.TextBodyMedium
 import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreview
 import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreviewContainer
 import com.github.hemoptysisheart.parking.domain.common.Object
+import com.github.hemoptysisheart.parking.domain.place.Place
 
 /**
  * [``]()
@@ -31,14 +31,16 @@ fun <T : Object> RecommendItemDialog(
         Column(
                 Modifier
                         .fillMaxWidth()
-                        .background(MaterialTheme.colorScheme.surface, RoundedCornerShape(20.dp))
-                        .padding(20.dp)
+                        .background(MaterialTheme.colorScheme.surface, RoundedCornerShape(10.dp))
+                        .padding(10.dp)
         ) {
-            TextBodyMedium(
-                    text = item.toString(),
-                    modifier = Modifier.padding(0.dp, 10.dp),
-                    color = MaterialTheme.colorScheme.onSurface
-            )
+            when (item) {
+                is Place ->
+                    PlaceDialogContent(place = item)
+
+                else ->
+                    throw IllegalArgumentException("unsupported item type : item.type=${item::class}, item=$item")
+            }
 
             Button(onClick = onDismissRequest, modifier = Modifier
                     .fillMaxWidth()

@@ -18,14 +18,13 @@ import com.github.hemoptysisheart.parking.app.ui.molecule.TextBodyMedium
 import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreview
 import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreviewContainer
 import com.github.hemoptysisheart.parking.domain.common.Object
-import com.github.hemoptysisheart.parking.domain.search.RecommendItem
 
 /**
  * [``]()
  */
 @Composable
 fun <T : Object> RecommendItemDialog(
-        item: RecommendItem<T>,
+        item: T,
         onDismissRequest: () -> Unit = { }
 ) {
     Dialog(onDismissRequest = onDismissRequest) {
@@ -36,7 +35,7 @@ fun <T : Object> RecommendItemDialog(
                         .padding(20.dp)
         ) {
             TextBodyMedium(
-                    text = item.item.toString(),
+                    text = item.toString(),
                     modifier = Modifier.padding(0.dp, 10.dp),
                     color = MaterialTheme.colorScheme.onSurface
             )

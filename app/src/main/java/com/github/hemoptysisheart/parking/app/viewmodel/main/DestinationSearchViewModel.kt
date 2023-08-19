@@ -1,11 +1,11 @@
 package com.github.hemoptysisheart.parking.app.viewmodel.main
 
 import com.github.hemoptysisheart.parking.app.viewmodel.BaseViewModel
-import com.github.hemoptysisheart.parking.core.domain.search.Query
 import com.github.hemoptysisheart.parking.core.domain.search.RecommendItemPlaceImpl
 import com.github.hemoptysisheart.parking.core.model.LocationModel
 import com.github.hemoptysisheart.parking.core.model.PlaceModel
 import com.github.hemoptysisheart.parking.domain.app.SearchPreferences
+import com.github.hemoptysisheart.parking.domain.common.Object
 import com.github.hemoptysisheart.parking.domain.search.RecommendItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -37,11 +37,11 @@ class DestinationSearchViewModel @Inject constructor(
     /**
      * 검색 결과를 포함한 추천 목록.
      */
-    private val _recommendItemList = MutableStateFlow<List<RecommendItem<*>>?>(null)
-    val recommendItemList: StateFlow<List<RecommendItem<*>>?> = _recommendItemList
+    private val _recommendItemList = MutableStateFlow<List<RecommendItem<out Object>>?>(null)
+    val recommendItemList: StateFlow<List<RecommendItem<out Object>>?> = _recommendItemList
 
-    private val _detail = MutableStateFlow<RecommendItem<*>?>(null)
-    val detail: StateFlow<RecommendItem<*>?> = _detail
+    private val _detail = MutableStateFlow<Object?>(null)
+    val detail: StateFlow<Object?> = _detail
 
     init {
         logger.d("#init complete.")
@@ -57,19 +57,24 @@ class DestinationSearchViewModel @Inject constructor(
             if (query.isEmpty()) {
                 _recommendItemList.emit(emptyList())
             } else {
+                // TODO 인자를 풀어쓰는 방식으로 변경.
                 val list = placeModel.searchDestination(
-                        Query(query, locationModel.location!!, searchPreferences.destination.distance)
+                        com.github.hemoptysisheart.parking.core.domain.search.Query(
+                                query = query,
+                                center = locationModel.location!!,
+                                distance = searchPreferences.destination.distance
+                        )
                 ).map { RecommendItemPlaceImpl(it) }
                 _recommendItemList.emit(list)
             }
         }
     }
 
-    fun showDetail(item: RecommendItem<*>) {
-        logger.d("#showDetail args : item=$item")
+    fun showDetail(obj: Object) {
+        logger.d("#showDetail args : obj=$obj")
 
         launch {
-            _detail.emit(item)
+            _detail.emit(obj)
         }
     }
 

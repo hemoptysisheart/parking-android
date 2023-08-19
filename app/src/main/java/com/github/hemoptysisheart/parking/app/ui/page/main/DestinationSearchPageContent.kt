@@ -43,7 +43,7 @@ fun DestinationSearchPageContent(
         query: String,
         recommendItemList: List<RecommendItem<out Object>>?,
         onChangeQuery: (String) -> Unit = { },
-        showItemDetail: (RecommendItem<out Object>) -> Unit = { }
+        showItemDetail: (Object) -> Unit = { }
 ) {
     LOGGER.v("#DestinationSearchPageContent args : query=$query, recommendItemList=$recommendItemList")
 
@@ -109,9 +109,9 @@ private fun DestinationSearchPageContentEmpty() {
  */
 @Composable
 private fun DestinationSearchPageContentResult(
-        recommendItemList: List<RecommendItem<*>>,
+        recommendItemList: List<RecommendItem<out Object>>,
         gotoSelectParking: (Place) -> Unit,
-        showItemDetail: (RecommendItem<*>) -> Unit
+        showItemDetail: (Object) -> Unit
 ) {
     LazyColumn(Modifier
             .fillMaxSize()

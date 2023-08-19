@@ -20,36 +20,37 @@ import com.github.hemoptysisheart.parking.app.ui.template.LOGGER
 import com.github.hemoptysisheart.parking.domain.common.Object
 import com.github.hemoptysisheart.parking.domain.place.Place
 import com.github.hemoptysisheart.parking.domain.search.RecommendItem
-import com.github.hemoptysisheart.parking.domain.search.RecommendItemPlace
 
 /**
  * [`destinationSearch/item`](https://www.figma.com/file/4ddVw1GJttHudAFojZRj1s/Parking?type=design&node-id=54416-1396&mode=design)
  */
 @Composable
-fun <T : Object> RecommendItem(
-        item: RecommendItem<T>,
+fun RecommendItem(
+        item: RecommendItem<out Object>,
         gotoSelectParking: (Place) -> Unit = { },
-        showItemDetail: (RecommendItem<T>) -> Unit
+        showItemDetail: (Object) -> Unit
 ) {
     LOGGER.v("#RecommendItem args : item=$item")
-    when (item) {
-        is RecommendItemPlace ->
-            RecommendItemPlace(
-                    item = item,
-                    gotoSelectParking = gotoSelectParking,
-                    showPlaceDetail = { showItemDetail(item) }
-            )
+    item.item.let {
+        when (it) {
+            is Place ->
+                RecommendItemPlace(
+                        item = it,
+                        gotoSelectParking = gotoSelectParking,
+                        showPlaceDetail = showItemDetail
+                )
 
-        else ->
-            throw IllegalArgumentException("unsupported type : item.type=${item::class}, item=$item")
+            else ->
+                throw IllegalArgumentException("unsupported type : item.type=${item::class}, item=$item")
+        }
     }
 }
 
 @Composable
 private fun RecommendItemPlace(
-        item: RecommendItem<Place>,
+        item: Place,
         gotoSelectParking: (Place) -> Unit = { },
-        showPlaceDetail: (RecommendItem<Place>) -> Unit = { }
+        showPlaceDetail: (Place) -> Unit = { }
 ) {
     Row(
             Modifier
@@ -59,20 +60,18 @@ private fun RecommendItemPlace(
         Column(
                 Modifier
                         .weight(1F)
-                        .clickable { gotoSelectParking(item.item) }
+                        .clickable { gotoSelectParking(item) }
         ) {
             TextLabelMedium(text = item.name)
             Spacer(modifier = Modifier.height(10.dp))
-            item.description?.let {
+            item.address.let {
                 TextBodyMedium(text = it, color = MaterialTheme.colorScheme.outline)
             }
         }
 
         OpenInFullButton(
                 color = MaterialTheme.colorScheme.outlineVariant,
-                onClick = {
-                    showPlaceDetail(item)
-                }
+                onClick = { showPlaceDetail(item) }
         )
     }
 }

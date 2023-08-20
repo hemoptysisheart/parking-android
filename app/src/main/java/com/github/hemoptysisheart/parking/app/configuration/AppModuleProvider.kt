@@ -32,7 +32,6 @@ class AppModuleProvider {
     fun provideMapsClient(): com.github.hemoptysisheart.parking.client.google.MapsClient {
         val config = com.github.hemoptysisheart.parking.client.google.PlacesClientConfig(
                 key = BuildConfig.GOOGLE_MAPS_PLATFORM_API_KEY,
-                useDefaultLocale = true,
                 debug = BuildConfig.DEBUG
         )
         val client = com.github.hemoptysisheart.parking.client.google.MapsClientImpl(config)

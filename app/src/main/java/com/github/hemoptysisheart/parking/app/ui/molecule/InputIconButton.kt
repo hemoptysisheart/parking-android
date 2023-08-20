@@ -7,6 +7,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.ArrowDropUp
+import androidx.compose.material.icons.filled.OpenInFull
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
@@ -88,7 +89,7 @@ fun SettingsButton(
 }
 
 /**
- * [`button/icon/search`]()
+ * [`button/icon/search`](https://www.figma.com/file/4ddVw1GJttHudAFojZRj1s/Parking?type=design&node-id=54396-25046&mode=design)
  */
 @Composable
 fun SearchButton(
@@ -99,6 +100,24 @@ fun SearchButton(
     IconButton(onClick = onClick) {
         Icon(
                 imageVector = Icons.Default.Search,
+                contentDescription = description,
+                tint = color
+        )
+    }
+}
+
+/**
+ * [`button/icon/open_in_full`](https://www.figma.com/file/4ddVw1GJttHudAFojZRj1s/Parking?type=design&node-id=54416-1569&mode=design)
+ */
+@Composable
+fun OpenInFullButton(
+        description: String? = null,
+        color: Color = LocalContentColor.current,
+        onClick: () -> Unit = { }
+) {
+    IconButton(onClick = onClick) {
+        Icon(
+                imageVector = Icons.Default.OpenInFull,
                 contentDescription = description,
                 tint = color
         )
@@ -132,6 +151,10 @@ fun Preview_InputButton() {
 
             preview(R.string.molecule_input_button_search_label) {
                 SearchButton(description = it, color = MaterialTheme.colorScheme.onBackground)
+            }
+
+            preview(R.string.molecule_input_button_open_in_full_label) {
+                OpenInFullButton(description = it, color = MaterialTheme.colorScheme.onBackground)
             }
         }
     }

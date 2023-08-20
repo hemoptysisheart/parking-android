@@ -28,6 +28,8 @@ sealed interface Locale : com.github.hemoptysisheart.parking.domain.common.Local
  */
 object NullLocale : Locale {
     override val locale: java.util.Locale? = null
+
+    override fun toString() = "null"
 }
 
 /**
@@ -36,6 +38,8 @@ object NullLocale : Locale {
 object SystemLocale : Locale {
     override val locale: java.util.Locale
         get() = java.util.Locale.getDefault()
+
+    override fun toString() = locale.toString()
 }
 
 /**

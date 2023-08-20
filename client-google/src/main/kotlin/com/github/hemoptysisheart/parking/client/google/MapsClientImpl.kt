@@ -21,8 +21,6 @@ class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
     }
 
     private val key = config.key
-    private val locale = config.locale
-    private val useDefaultLocale = config.useDefaultLocale
 
     private val api: ApiSpec
 
@@ -75,7 +73,8 @@ class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
                 locationRestriction = params.locationRestriction?.toString(),
                 offset = params.offset,
                 origin = params.origin?.toString(),
-                region = params.region, sessionToken = params.sessionToken,
+                region = params.region,
+                sessionToken = params.sessionToken,
                 strictBounds = params.strictBounds,
                 types = params.types?.joinToString("|", "", "") { it.code }
         )
@@ -94,8 +93,7 @@ class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
         val response = api.nearBy(
                 keyword = params.keyword,
                 location = "${params.latitude},${params.longitude}",
-                language = params.locale?.language
-                        ?: if (useDefaultLocale) this.locale.language else null,
+                language = params.locale?.language,
                 minPrice = params.minPrice,
                 maxPrice = params.maxPrice,
                 open = params.open,
@@ -123,7 +121,7 @@ class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
                 arrivalTime = params.arrivalTime?.epochSecond,
                 avoid = params.avoid?.joinToString("|"),
                 departureTime = params.departureTime?.epochSecond,
-                language = params.locale?.language ?: locale.language,
+                language = params.locale?.language,
                 mode = params.transportationMode?.code,
                 region = params.region,
                 trafficModel = params.trafficModel?.code,
@@ -138,5 +136,5 @@ class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
         return routes
     }
 
-    override fun toString() = "$TAG(key=[ PROTECTED ], locale=$locale, useDefaultLocale=$useDefaultLocale, api=$api)"
+    override fun toString() = "$TAG(key=[ PROTECTED ], api=$api)"
 }

@@ -7,7 +7,7 @@
     <string name="domain_property_id">ID</string>
     <string name="domain_property_query_query">검색어</string>
     <string name="domain_type_query">검색어</string>
-    <string name="domain_type_place">장소</string>
+    <string name="domain_type_place_gmp">장소</string>
     <string name="domain_type_recommend_item_place">추천 장소</string>
     <string name="domain_type_recommend_item_query">추천 검색어</string>
     <string name="domain_type_recommend_item_route">추천 경로</string>

@@ -1,7 +1,6 @@
 package com.github.hemoptysisheart.parking.domain.common
 
-import java.net.URLEncoder
-import java.nio.charset.StandardCharsets.UTF_8
+import java.net.URI
 
 data class Identifier(
         val type: Type,
@@ -17,5 +16,7 @@ data class Identifier(
         }
     }
 
-    override fun toString() = URLEncoder.encode("$SCHEME:$type/$key", UTF_8)!!
+    fun toURI() = URI(SCHEME, "$type", "/$key", null)
+
+    override fun toString() = toURI().toString()
 }

@@ -11,7 +11,7 @@ interface Query : Object {
     /**
      * 검색어.
      */
-    val query: String
+    val query: String?
 
     val center: Geolocation
 

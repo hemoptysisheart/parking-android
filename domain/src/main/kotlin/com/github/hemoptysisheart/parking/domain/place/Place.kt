@@ -6,6 +6,8 @@ import com.github.hemoptysisheart.parking.domain.common.Object
  * 장소
  */
 interface Place : Object {
+    val type: PlaceType
+
     /**
      * 이름
      */

@@ -5,6 +5,8 @@ import com.github.hemoptysisheart.parking.core.util.AndroidLogger
 import com.github.hemoptysisheart.parking.domain.app.SearchPreferences
 import com.github.hemoptysisheart.parking.domain.common.Identifier
 import com.github.hemoptysisheart.parking.domain.place.Place
+import com.github.hemoptysisheart.parking.domain.place.PlaceType.DESTINATION
+import com.github.hemoptysisheart.parking.domain.place.PlaceType.PARKING
 import com.github.hemoptysisheart.parking.domain.search.Query
 import javax.inject.Inject
 
@@ -32,9 +34,30 @@ class PlaceModelImpl @Inject constructor(
     override suspend fun searchDestination(query: Query): List<Place> {
         LOGGER.v("#searchDestination args : query=$query")
 
-        val list = placeRepository.list(query.query, query.center, query.distance, searchPreferences.language)
+        val list = placeRepository.list(
+                query = query.query,
+                center = query.center,
+                radius = query.distance,
+                language = searchPreferences.language,
+                type = DESTINATION
+        )
 
         LOGGER.v("#searchDestination return : $list")
+        return list
+    }
+
+    override suspend fun searchParking(query: Query): List<Place> {
+        LOGGER.v("#searchParking args : query=$query")
+
+        val list = placeRepository.list(
+                query = null,
+                center = query.center,
+                radius = query.distance,
+                language = searchPreferences.language,
+                type = PARKING
+        )
+
+        LOGGER.v("#searchParking return : $list")
         return list
     }
 }

@@ -31,7 +31,8 @@ fun SelectParkingPage(
     LOGGER.v("#SelectParkingPage args : viewModel=$viewModel")
 
     val destination = viewModel.destination.collect()
-    LOGGER.d("#SelectParkingPage : destination=$destination")
+    val parkingList = viewModel.parkingList.collect()
+    LOGGER.d("#SelectParkingPage : destination=$destination, parkingList=$parkingList")
 
     Column(
             modifier = Modifier
@@ -42,13 +43,12 @@ fun SelectParkingPage(
         destination?.let {
             Text(text = "$it", color = MaterialTheme.colorScheme.onBackground)
         }
+        Text(text = "$parkingList", color = MaterialTheme.colorScheme.onBackground)
 
         Text(
                 text = """
                 - 목적지 근처 지도
-                    - 목적지
-                    - 후보 주차장
-                    - 경로
+                    - 도보 경로
                 - 현재 선택한 주차장 상세 정보
             """.trimIndent(),
                 modifier = Modifier

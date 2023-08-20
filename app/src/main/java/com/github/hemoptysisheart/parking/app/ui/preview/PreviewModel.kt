@@ -102,5 +102,7 @@ fun previewPlaceModel(
         return null
     }
 
+    override suspend fun searchParking(query: Query): List<Place> = emptyList()
+
     override suspend fun searchDestination(query: Query) = searchList()
 }

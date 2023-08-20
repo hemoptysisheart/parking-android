@@ -2,13 +2,14 @@ package com.github.hemoptysisheart.parking.core.repository
 
 import com.github.hemoptysisheart.parking.client.google.MapsClient
 import com.github.hemoptysisheart.parking.client.google.data.NearbySearchParams
-import com.github.hemoptysisheart.parking.client.google.data.PlaceTypeResultOnly
 import com.github.hemoptysisheart.parking.core.domain.place.toDomain
+import com.github.hemoptysisheart.parking.core.domain.place.toGmp
 import com.github.hemoptysisheart.parking.core.util.AndroidLogger
 import com.github.hemoptysisheart.parking.domain.common.Identifier
 import com.github.hemoptysisheart.parking.domain.common.Locale
 import com.github.hemoptysisheart.parking.domain.place.Geolocation
 import com.github.hemoptysisheart.parking.domain.place.Place
+import com.github.hemoptysisheart.parking.domain.place.PlaceType
 import com.github.hemoptysisheart.util.NonNegativeInt
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -37,12 +38,13 @@ class PlaceRepositoryImpl @Inject constructor(
     }
 
     override suspend fun list(
-            query: String,
+            query: String?,
             center: Geolocation,
             radius: NonNegativeInt,
-            language: Locale?
+            language: Locale?,
+            type: PlaceType?
     ): List<Place> {
-        LOGGER.v("#list args : query=$query, center=$center, radius=$radius, language=$language")
+        LOGGER.v("#list args : query=$query, center=$center, radius=$radius, language=$language, type=$type")
 
         val params = NearbySearchParams(
                 center.longitude,
@@ -50,10 +52,10 @@ class PlaceRepositoryImpl @Inject constructor(
                 radius = radius.value,
                 keyword = query,
                 locale = language?.locale,
-                type = PlaceTypeResultOnly.POINT_OF_INTEREST
+                type = type?.toGmp()
         )
         val list = client.nearBy(params)
-                .map { it.toDomain() }
+                .map { it.toDomain(type ?: PlaceType.UNSPECIFIED) }
 
         cacheLock.withLock {
             for (p in list) {

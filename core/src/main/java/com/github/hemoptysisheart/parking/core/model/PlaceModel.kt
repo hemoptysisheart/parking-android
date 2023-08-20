@@ -17,4 +17,9 @@ interface PlaceModel {
      * 목적지 검색하기. 검색 결과가 없으면 빈 배열.
      */
     suspend fun searchDestination(query: Query): List<Place>
+
+    /**
+     * 주차장 검색하기. 중심을 기준으로 주차장을 검색한다.
+     */
+    suspend fun searchParking(query: Query): List<Place>
 }

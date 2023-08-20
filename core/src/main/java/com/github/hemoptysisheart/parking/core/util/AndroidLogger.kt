@@ -2,11 +2,12 @@ package com.github.hemoptysisheart.parking.core.util
 
 import android.util.Log
 import com.github.hemoptysisheart.parking.core.util.AndroidLogger.Level.*
+import com.github.hemoptysisheart.util.Logger
 import kotlin.reflect.KClass
 
 class AndroidLogger(
         val name: String
-) {
+) : Logger {
     enum class Level {
         V, D, I, W, E;
     }
@@ -38,101 +39,353 @@ class AndroidLogger(
         }
     }
 
-    fun v(message: String) = when (option.levelOverwrite[V]) {
-        null,
-        V -> Log.v(name, message)
+    override fun v(message: String) {
+        when (option.levelOverwrite[V]) {
+            null,
+            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+                Log.v(name, message)
+            }
 
-        D -> Log.d(name, message)
-        I -> Log.i(name, message)
-        W -> Log.w(name, message)
-        E -> Log.e(name, message)
+            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+                Log.d(name, message)
+            }
+
+            I -> Log.i(name, message)
+            W -> Log.w(name, message)
+            E -> Log.e(name, message)
+        }
     }
 
-    fun v(message: String, e: Throwable) = when (option.levelOverwrite[V]) {
-        null,
-        V -> Log.v(name, message, e)
+    override fun v(message: () -> String) {
+        when (option.levelOverwrite[V]) {
+            null,
+            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+                Log.v(name, message())
+            }
 
-        D -> Log.d(name, message, e)
-        I -> Log.i(name, message, e)
-        W -> Log.w(name, message, e)
-        E -> Log.e(name, message, e)
+            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+                Log.d(name, message())
+            }
+
+            I -> Log.i(name, message())
+            W -> Log.w(name, message())
+            E -> Log.e(name, message())
+        }
     }
 
-    fun d(message: String) = when (option.levelOverwrite[D]) {
-        V -> Log.v(name, message)
-        null,
-        D -> Log.d(name, message)
+    override fun v(message: String, e: Throwable) {
+        when (option.levelOverwrite[V]) {
+            null,
+            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+                Log.v(name, message, e)
+            }
 
-        I -> Log.i(name, message)
-        W -> Log.w(name, message)
-        E -> Log.e(name, message)
+            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+                Log.d(name, message, e)
+            }
+
+            I -> Log.i(name, message, e)
+            W -> Log.w(name, message, e)
+            E -> Log.e(name, message, e)
+        }
     }
 
-    fun d(message: String, e: Throwable) = when (option.levelOverwrite[D]) {
-        V -> Log.v(name, message, e)
-        null,
-        D -> Log.d(name, message, e)
+    override fun v(message: () -> String, e: Throwable) {
+        if (Log.isLoggable(name, Log.VERBOSE)) {
+        }
+        when (option.levelOverwrite[V]) {
+            null,
+            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+                Log.v(name, message(), e)
+            }
 
-        I -> Log.i(name, message, e)
-        W -> Log.w(name, message, e)
-        E -> Log.e(name, message, e)
+            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+                Log.d(name, message(), e)
+            }
+
+            I -> Log.i(name, message(), e)
+            W -> Log.w(name, message(), e)
+            E -> Log.e(name, message(), e)
+        }
     }
 
-    fun i(message: String) = when (option.levelOverwrite[I]) {
-        V -> Log.v(name, message)
-        D -> Log.d(name, message)
-        null,
-        I -> Log.i(name, message)
+    override fun d(message: String) {
+        when (option.levelOverwrite[D]) {
+            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+                Log.v(name, message)
+            }
 
-        W -> Log.w(name, message)
-        E -> Log.e(name, message)
+            null,
+            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+                Log.d(name, message)
+            }
+
+            I -> Log.i(name, message)
+            W -> Log.w(name, message)
+            E -> Log.e(name, message)
+        }
     }
 
-    fun i(message: String, e: Throwable) = when (option.levelOverwrite[I]) {
-        V -> Log.v(name, message, e)
-        D -> Log.d(name, message, e)
-        null,
-        I -> Log.i(name, message, e)
+    override fun d(message: () -> String) {
+        when (option.levelOverwrite[D]) {
+            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+                Log.v(name, message())
+            }
 
-        W -> Log.w(name, message, e)
-        E -> Log.e(name, message, e)
+            null,
+            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+                Log.d(name, message())
+            }
+
+            I -> Log.i(name, message())
+            W -> Log.w(name, message())
+            E -> Log.e(name, message())
+        }
     }
 
-    fun w(message: String) = when (option.levelOverwrite[W]) {
-        V -> Log.v(name, message)
-        D -> Log.d(name, message)
-        I -> Log.i(name, message)
-        null,
-        W -> Log.w(name, message)
+    override fun d(message: String, e: Throwable) {
+        when (option.levelOverwrite[D]) {
+            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+                Log.v(name, message, e)
+            }
 
-        E -> Log.e(name, message)
+            null,
+            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+                Log.d(name, message, e)
+            }
+
+            I -> Log.i(name, message, e)
+            W -> Log.w(name, message, e)
+            E -> Log.e(name, message, e)
+        }
     }
 
-    fun w(message: String, e: Throwable) = when (option.levelOverwrite[W]) {
-        V -> Log.v(name, message, e)
-        D -> Log.d(name, message, e)
-        I -> Log.i(name, message, e)
-        null,
-        W -> Log.w(name, message, e)
+    override fun d(message: () -> String, e: Throwable) {
+        when (option.levelOverwrite[D]) {
+            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+                Log.v(name, message(), e)
+            }
 
-        E -> Log.e(name, message, e)
+            null,
+            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+                Log.d(name, message(), e)
+            }
+
+            I -> Log.i(name, message(), e)
+            W -> Log.w(name, message(), e)
+            E -> Log.e(name, message(), e)
+        }
     }
 
-    fun e(message: String) = when (option.levelOverwrite[E]) {
-        V -> Log.v(name, message)
-        D -> Log.d(name, message)
-        I -> Log.i(name, message)
-        W -> Log.w(name, message)
-        null,
-        E -> Log.e(name, message)
+    override fun i(message: String) {
+        when (option.levelOverwrite[I]) {
+            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+                Log.v(name, message)
+            }
+
+            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+                Log.d(name, message)
+            }
+
+            null,
+            I -> Log.i(name, message)
+
+            W -> Log.w(name, message)
+            E -> Log.e(name, message)
+        }
     }
 
-    fun e(message: String, e: Throwable) = when (option.levelOverwrite[E]) {
-        V -> Log.v(name, message, e)
-        D -> Log.d(name, message, e)
-        I -> Log.i(name, message, e)
-        W -> Log.w(name, message, e)
-        null,
-        E -> Log.e(name, message, e)
+    override fun i(message: () -> String) {
+        when (option.levelOverwrite[I]) {
+            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+                Log.v(name, message())
+            }
+
+            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+                Log.d(name, message())
+            }
+
+            null,
+            I -> Log.i(name, message())
+
+            W -> Log.w(name, message())
+            E -> Log.e(name, message())
+        }
+    }
+
+    override fun i(message: String, e: Throwable) {
+        when (option.levelOverwrite[I]) {
+            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+                Log.v(name, message, e)
+            }
+
+            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+                Log.d(name, message, e)
+            }
+
+            null,
+            I -> Log.i(name, message, e)
+
+            W -> Log.w(name, message, e)
+            E -> Log.e(name, message, e)
+        }
+    }
+
+    override fun i(message: () -> String, e: Throwable) {
+        when (option.levelOverwrite[I]) {
+            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+                Log.v(name, message(), e)
+            }
+
+            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+                Log.d(name, message(), e)
+            }
+
+            null,
+            I -> Log.i(name, message(), e)
+
+            W -> Log.w(name, message(), e)
+            E -> Log.e(name, message(), e)
+        }
+    }
+
+    override fun w(message: String) {
+        when (option.levelOverwrite[W]) {
+            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+                Log.v(name, message)
+            }
+
+            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+                Log.d(name, message)
+            }
+
+            I -> Log.i(name, message)
+            null,
+            W -> Log.w(name, message)
+
+            E -> Log.e(name, message)
+        }
+    }
+
+    override fun w(message: () -> String) {
+        when (option.levelOverwrite[W]) {
+            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+                Log.v(name, message())
+            }
+
+            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+                Log.d(name, message())
+            }
+
+            I -> Log.i(name, message())
+            null,
+            W -> Log.w(name, message())
+
+            E -> Log.e(name, message())
+        }
+    }
+
+    override fun w(message: String, e: Throwable) {
+        when (option.levelOverwrite[W]) {
+            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+                Log.v(name, message, e)
+            }
+
+            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+                Log.d(name, message, e)
+            }
+
+            I -> Log.i(name, message, e)
+            null,
+            W -> Log.w(name, message, e)
+
+            E -> Log.e(name, message, e)
+        }
+    }
+
+    override fun w(message: () -> String, e: Throwable) {
+        when (option.levelOverwrite[W]) {
+            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+                Log.v(name, message(), e)
+            }
+
+            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+                Log.d(name, message(), e)
+            }
+
+            I -> Log.i(name, message(), e)
+            null,
+            W -> Log.w(name, message(), e)
+
+            E -> Log.e(name, message(), e)
+        }
+    }
+
+    override fun e(message: String) {
+        when (option.levelOverwrite[E]) {
+            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+                Log.v(name, message)
+            }
+
+            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+                Log.d(name, message)
+            }
+
+            I -> Log.i(name, message)
+            W -> Log.w(name, message)
+            null,
+            E -> Log.e(name, message)
+        }
+    }
+
+    override fun e(message: () -> String) {
+        when (option.levelOverwrite[E]) {
+            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+                Log.v(name, message())
+            }
+
+            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+                Log.d(name, message())
+            }
+
+            I -> Log.i(name, message())
+            W -> Log.w(name, message())
+            null,
+            E -> Log.e(name, message())
+        }
+    }
+
+    override fun e(message: String, e: Throwable) {
+        when (option.levelOverwrite[E]) {
+            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+                Log.v(name, message, e)
+            }
+
+            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+                Log.d(name, message, e)
+            }
+
+            I -> Log.i(name, message, e)
+            W -> Log.w(name, message, e)
+            null,
+            E -> Log.e(name, message, e)
+        }
+    }
+
+    override fun e(message: () -> String, e: Throwable) {
+        when (option.levelOverwrite[E]) {
+            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+                Log.v(name, message(), e)
+            }
+
+            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+                Log.d(name, message(), e)
+            }
+
+            I -> Log.i(name, message(), e)
+            W -> Log.w(name, message(), e)
+            null,
+            E -> Log.e(name, message(), e)
+        }
     }
 }

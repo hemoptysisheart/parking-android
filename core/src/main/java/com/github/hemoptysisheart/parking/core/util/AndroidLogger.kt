@@ -1,6 +1,7 @@
 package com.github.hemoptysisheart.parking.core.util
 
 import android.util.Log
+import com.github.hemoptysisheart.parking.core.ModuleConfig
 import com.github.hemoptysisheart.parking.core.util.AndroidLogger.Level.*
 import com.github.hemoptysisheart.util.Logger
 import kotlin.reflect.KClass
@@ -42,11 +43,11 @@ class AndroidLogger(
     override fun v(message: String) {
         when (option.levelOverwrite[V]) {
             null,
-            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+            V -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.VERBOSE)) {
                 Log.v(name, message)
             }
 
-            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+            D -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.DEBUG)) {
                 Log.d(name, message)
             }
 
@@ -59,11 +60,11 @@ class AndroidLogger(
     override fun v(message: () -> String) {
         when (option.levelOverwrite[V]) {
             null,
-            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+            V -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.VERBOSE)) {
                 Log.v(name, message())
             }
 
-            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+            D -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.DEBUG)) {
                 Log.d(name, message())
             }
 
@@ -76,11 +77,11 @@ class AndroidLogger(
     override fun v(message: String, e: Throwable) {
         when (option.levelOverwrite[V]) {
             null,
-            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+            V -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.VERBOSE)) {
                 Log.v(name, message, e)
             }
 
-            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+            D -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.DEBUG)) {
                 Log.d(name, message, e)
             }
 
@@ -91,15 +92,13 @@ class AndroidLogger(
     }
 
     override fun v(message: () -> String, e: Throwable) {
-        if (Log.isLoggable(name, Log.VERBOSE)) {
-        }
         when (option.levelOverwrite[V]) {
             null,
-            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+            V -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.VERBOSE)) {
                 Log.v(name, message(), e)
             }
 
-            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+            D -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.DEBUG)) {
                 Log.d(name, message(), e)
             }
 
@@ -111,12 +110,12 @@ class AndroidLogger(
 
     override fun d(message: String) {
         when (option.levelOverwrite[D]) {
-            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+            V -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.VERBOSE)) {
                 Log.v(name, message)
             }
 
             null,
-            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+            D -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.DEBUG)) {
                 Log.d(name, message)
             }
 
@@ -128,12 +127,12 @@ class AndroidLogger(
 
     override fun d(message: () -> String) {
         when (option.levelOverwrite[D]) {
-            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+            V -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.VERBOSE)) {
                 Log.v(name, message())
             }
 
             null,
-            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+            D -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.DEBUG)) {
                 Log.d(name, message())
             }
 
@@ -145,12 +144,12 @@ class AndroidLogger(
 
     override fun d(message: String, e: Throwable) {
         when (option.levelOverwrite[D]) {
-            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+            V -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.VERBOSE)) {
                 Log.v(name, message, e)
             }
 
             null,
-            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+            D -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.DEBUG)) {
                 Log.d(name, message, e)
             }
 
@@ -162,12 +161,12 @@ class AndroidLogger(
 
     override fun d(message: () -> String, e: Throwable) {
         when (option.levelOverwrite[D]) {
-            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+            V -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.VERBOSE)) {
                 Log.v(name, message(), e)
             }
 
             null,
-            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+            D -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.DEBUG)) {
                 Log.d(name, message(), e)
             }
 
@@ -179,11 +178,11 @@ class AndroidLogger(
 
     override fun i(message: String) {
         when (option.levelOverwrite[I]) {
-            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+            V -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.VERBOSE)) {
                 Log.v(name, message)
             }
 
-            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+            D -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.DEBUG)) {
                 Log.d(name, message)
             }
 
@@ -197,11 +196,11 @@ class AndroidLogger(
 
     override fun i(message: () -> String) {
         when (option.levelOverwrite[I]) {
-            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+            V -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.VERBOSE)) {
                 Log.v(name, message())
             }
 
-            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+            D -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.DEBUG)) {
                 Log.d(name, message())
             }
 
@@ -215,11 +214,11 @@ class AndroidLogger(
 
     override fun i(message: String, e: Throwable) {
         when (option.levelOverwrite[I]) {
-            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+            V -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.VERBOSE)) {
                 Log.v(name, message, e)
             }
 
-            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+            D -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.DEBUG)) {
                 Log.d(name, message, e)
             }
 
@@ -233,11 +232,11 @@ class AndroidLogger(
 
     override fun i(message: () -> String, e: Throwable) {
         when (option.levelOverwrite[I]) {
-            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+            V -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.VERBOSE)) {
                 Log.v(name, message(), e)
             }
 
-            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+            D -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.DEBUG)) {
                 Log.d(name, message(), e)
             }
 
@@ -251,11 +250,11 @@ class AndroidLogger(
 
     override fun w(message: String) {
         when (option.levelOverwrite[W]) {
-            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+            V -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.VERBOSE)) {
                 Log.v(name, message)
             }
 
-            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+            D -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.DEBUG)) {
                 Log.d(name, message)
             }
 
@@ -269,11 +268,11 @@ class AndroidLogger(
 
     override fun w(message: () -> String) {
         when (option.levelOverwrite[W]) {
-            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+            V -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.VERBOSE)) {
                 Log.v(name, message())
             }
 
-            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+            D -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.DEBUG)) {
                 Log.d(name, message())
             }
 
@@ -287,11 +286,11 @@ class AndroidLogger(
 
     override fun w(message: String, e: Throwable) {
         when (option.levelOverwrite[W]) {
-            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+            V -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.VERBOSE)) {
                 Log.v(name, message, e)
             }
 
-            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+            D -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.DEBUG)) {
                 Log.d(name, message, e)
             }
 
@@ -305,11 +304,11 @@ class AndroidLogger(
 
     override fun w(message: () -> String, e: Throwable) {
         when (option.levelOverwrite[W]) {
-            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+            V -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.VERBOSE)) {
                 Log.v(name, message(), e)
             }
 
-            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+            D -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.DEBUG)) {
                 Log.d(name, message(), e)
             }
 
@@ -323,11 +322,11 @@ class AndroidLogger(
 
     override fun e(message: String) {
         when (option.levelOverwrite[E]) {
-            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+            V -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.VERBOSE)) {
                 Log.v(name, message)
             }
 
-            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+            D -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.DEBUG)) {
                 Log.d(name, message)
             }
 
@@ -340,11 +339,11 @@ class AndroidLogger(
 
     override fun e(message: () -> String) {
         when (option.levelOverwrite[E]) {
-            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+            V -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.VERBOSE)) {
                 Log.v(name, message())
             }
 
-            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+            D -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.DEBUG)) {
                 Log.d(name, message())
             }
 
@@ -357,11 +356,11 @@ class AndroidLogger(
 
     override fun e(message: String, e: Throwable) {
         when (option.levelOverwrite[E]) {
-            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+            V -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.VERBOSE)) {
                 Log.v(name, message, e)
             }
 
-            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+            D -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.DEBUG)) {
                 Log.d(name, message, e)
             }
 
@@ -374,11 +373,11 @@ class AndroidLogger(
 
     override fun e(message: () -> String, e: Throwable) {
         when (option.levelOverwrite[E]) {
-            V -> if (Log.isLoggable(name, Log.VERBOSE)) {
+            V -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.VERBOSE)) {
                 Log.v(name, message(), e)
             }
 
-            D -> if (Log.isLoggable(name, Log.DEBUG)) {
+            D -> if (ModuleConfig.DEBUG || Log.isLoggable(name, Log.DEBUG)) {
                 Log.d(name, message(), e)
             }
 

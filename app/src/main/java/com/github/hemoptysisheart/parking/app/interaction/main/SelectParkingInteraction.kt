@@ -1,8 +1,11 @@
 package com.github.hemoptysisheart.parking.app.interaction.main
 
+import androidx.lifecycle.SavedStateHandle
 import com.github.hemoptysisheart.parking.app.interaction.BaseInteraction
 import com.github.hemoptysisheart.parking.app.interaction.Interaction
+import com.github.hemoptysisheart.parking.core.domain.common.toIdentifier
 import com.github.hemoptysisheart.parking.core.util.AndroidLogger
+import com.github.hemoptysisheart.parking.domain.common.Identifier
 import com.github.hemoptysisheart.parking.domain.place.Place
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets.UTF_8
@@ -24,6 +27,17 @@ class SelectParkingInteraction(
             val route = "$ROUTE_PREFIX/${URLEncoder.encode("${place.id.toURI()}", UTF_8)}"
             LOGGER.d("#route : $place => $route")
             return route
+        }
+
+        fun args(savedStateHandle: SavedStateHandle): Identifier {
+            LOGGER.d { "#args args : savedStateHandle=$savedStateHandle" }
+
+            val id: String = savedStateHandle[ARG_DESTINATION]
+                    ?: throw IllegalArgumentException("$ARG_DESTINATION is null.")
+            val identifier = id.toIdentifier()
+
+            LOGGER.d("#args : $id => $identifier")
+            return identifier
         }
     }
 

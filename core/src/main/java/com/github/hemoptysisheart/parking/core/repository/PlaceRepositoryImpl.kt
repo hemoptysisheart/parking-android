@@ -27,6 +27,15 @@ class PlaceRepositoryImpl @Inject constructor(
     private val cacheLock = Mutex()
     private val cache = mutableMapOf<Identifier, Place>()
 
+    override suspend fun read(id: Identifier): Place? {
+        LOGGER.v("#read args : id=$id")
+
+        val place = cache[id]
+
+        LOGGER.v("#read return : $place")
+        return place
+    }
+
     override suspend fun list(
             query: String,
             center: Geolocation,
@@ -50,6 +59,7 @@ class PlaceRepositoryImpl @Inject constructor(
             for (p in list) {
                 cache[p.id] = p
             }
+            LOGGER.d("#list : cache=$cache")
         }
 
         LOGGER.v("#list return : $list")

@@ -1,6 +1,7 @@
 package com.github.hemoptysisheart.parking.app.ui.preview
 
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.SavedStateHandle
 import com.github.hemoptysisheart.parking.app.viewmodel.BaseViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.GlobalHeaderViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.LandingMapViewModel
@@ -8,6 +9,7 @@ import com.github.hemoptysisheart.parking.app.viewmodel.SettingsViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.launcher.LauncherViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.main.DestinationSearchViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.main.SearchSettingViewModel
+import com.github.hemoptysisheart.parking.app.viewmodel.main.SelectParkingViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.wizard.InstructionViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.wizard.LocationViewModel
 import com.github.hemoptysisheart.parking.core.model.GlobalChannelConsumer
@@ -57,3 +59,8 @@ fun previewSearchSettingViewModel(
 ) = SearchSettingViewModel(searchPreferences)
 
 fun previewSettingsViewModel() = SettingsViewModel()
+
+fun previewSelectParkingViewModel(
+        savedStateHandle: SavedStateHandle = SavedStateHandle(),
+        placeModel: PlaceModel = previewPlaceModel()
+) = SelectParkingViewModel(savedStateHandle, placeModel)

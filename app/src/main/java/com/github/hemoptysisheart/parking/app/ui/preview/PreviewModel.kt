@@ -15,6 +15,7 @@ import com.github.hemoptysisheart.parking.domain.app.SearchPreferences
 import com.github.hemoptysisheart.parking.domain.app.SearchPreferences.Companion.DESTINATION_DISTANCE_DEFAULT
 import com.github.hemoptysisheart.parking.domain.app.WizardPreferences
 import com.github.hemoptysisheart.parking.domain.common.DistanceUnit
+import com.github.hemoptysisheart.parking.domain.common.Identifier
 import com.github.hemoptysisheart.parking.domain.common.Locale
 import com.github.hemoptysisheart.parking.domain.place.Geolocation
 import com.github.hemoptysisheart.parking.domain.place.Place
@@ -97,5 +98,9 @@ fun previewLocationModel(
 fun previewPlaceModel(
         searchList: () -> List<Place> = { emptyList() }
 ) = object : PlaceModel {
+    override suspend fun read(id: Identifier): Place? {
+        return null
+    }
+
     override suspend fun searchDestination(query: Query) = searchList()
 }

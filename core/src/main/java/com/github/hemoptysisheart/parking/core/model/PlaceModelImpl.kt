@@ -3,6 +3,7 @@ package com.github.hemoptysisheart.parking.core.model
 import com.github.hemoptysisheart.parking.core.repository.PlaceRepository
 import com.github.hemoptysisheart.parking.core.util.AndroidLogger
 import com.github.hemoptysisheart.parking.domain.app.SearchPreferences
+import com.github.hemoptysisheart.parking.domain.common.Identifier
 import com.github.hemoptysisheart.parking.domain.place.Place
 import com.github.hemoptysisheart.parking.domain.search.Query
 import javax.inject.Inject
@@ -17,6 +18,15 @@ class PlaceModelImpl @Inject constructor(
 
     init {
         LOGGER.i("#init complete.")
+    }
+
+    override suspend fun read(id: Identifier): Place? {
+        LOGGER.v("#read args : id=$id")
+
+        val place = placeRepository.read(id)
+
+        LOGGER.v("#read return : $place")
+        return place
     }
 
     override suspend fun searchDestination(query: Query): List<Place> {

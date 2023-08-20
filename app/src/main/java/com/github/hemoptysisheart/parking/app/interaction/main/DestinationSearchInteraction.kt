@@ -22,7 +22,7 @@ class DestinationSearchInteraction(private val base: BaseInteraction) : Interact
     fun gotoSelectParking(place: Place) {
         LOGGER.i("#gotoSelectParking args : place=$place")
 
-        base.navController.navigate(SelectParkingInteraction.ROUTE_PATTERN)
+        base.navController.navigate(SelectParkingInteraction.route(place))
     }
 
     fun gotoSearchSetting() {

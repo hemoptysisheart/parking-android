@@ -1,5 +1,7 @@
 package com.github.hemoptysisheart.parking.domain.common
 
+import java.net.URI
+
 data class Identifier(
         val type: Type,
         val key: String
@@ -14,5 +16,7 @@ data class Identifier(
         }
     }
 
-    override fun toString() = "$SCHEME:$type/$key"
+    fun toURI() = URI(SCHEME, "$type", "/$key", null)
+
+    override fun toString() = toURI().toString()
 }

@@ -14,7 +14,6 @@ import com.github.hemoptysisheart.parking.core.domain.place.toLatLng
 import com.github.hemoptysisheart.parking.domain.place.Place
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.maps.android.compose.GoogleMap
-import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.rememberCameraPositionState
@@ -34,25 +33,20 @@ fun SelectParkingPageContent(
             cameraPositionState = rememberCameraPositionState {
                 position = CameraPosition.fromLatLngZoom(destination.toLatLng(), 16F)
             },
-            properties = MapProperties(
-                    isBuildingEnabled = true,
-                    isMyLocationEnabled = true
-            ),
             uiSettings = MapUiSettings(indoorLevelPickerEnabled = false)
     ) {
         Marker(
                 state = rememberMarkerState("${destination.id.toURI()}", destination.toLatLng()),
-                icon = drawableResource(R.drawable.ic_flag).toBitmapDescriptor()
+                icon = drawableResource(R.drawable.marker_destination).toBitmapDescriptor()
         )
         for (p in parkingList) {
             Marker(
                     state = rememberMarkerState("${p.id.toURI()}", p.toLatLng()),
-                    icon = drawableResource(R.drawable.ic_local_parking).toBitmapDescriptor()
+                    icon = drawableResource(R.drawable.marker_parking).toBitmapDescriptor()
             )
         }
     }
 }
-
 
 @Composable
 @PagePreview

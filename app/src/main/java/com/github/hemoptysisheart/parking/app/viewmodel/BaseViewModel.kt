@@ -48,7 +48,7 @@ open class BaseViewModel : ViewModel(), DefaultLifecycleObserver {
     @Inject
     lateinit var globalChannel: GlobalChannel
 
-    fun launch(
+    protected fun launch(
             progress: Boolean = false,
             context: CoroutineContext = EmptyCoroutineContext,
             start: CoroutineStart = CoroutineStart.DEFAULT,
@@ -67,8 +67,11 @@ open class BaseViewModel : ViewModel(), DefaultLifecycleObserver {
 
                 block()
             } catch (e: AndroidMessageException) {
-                logger.w("#launch error occur.", e)
+                logger.w("#launch exception occurred.", e)
                 globalChannel.reportException(e)
+            } catch (e: Exception) {
+                logger.w("#launch error occurred.", e)
+                // TODO report error.
             } finally {
                 if (progress) {
                     logger.v("#launch decrease progress : key=$launchKey, now=${timeProvider.instant()}")

@@ -1,6 +1,7 @@
 package com.github.hemoptysisheart.parking.app.viewmodel
 
 import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.hemoptysisheart.parking.core.model.GlobalChannel
@@ -76,6 +77,36 @@ open class BaseViewModel : ViewModel(), DefaultLifecycleObserver {
                 }
             }
         }
+    }
+
+    override fun onCreate(owner: LifecycleOwner) {
+        logger.d("#onCreate args : owner=$owner")
+        super.onCreate(owner)
+    }
+
+    override fun onStart(owner: LifecycleOwner) {
+        logger.d("#onStart args : owner=$owner")
+        super.onStart(owner)
+    }
+
+    override fun onResume(owner: LifecycleOwner) {
+        logger.d("#onResume args : owner=$owner")
+        super.onResume(owner)
+    }
+
+    override fun onPause(owner: LifecycleOwner) {
+        logger.d("#onPause args : owner=$owner")
+        super.onPause(owner)
+    }
+
+    override fun onStop(owner: LifecycleOwner) {
+        logger.d("#onStop args : owner=$owner")
+        super.onStop(owner)
+    }
+
+    override fun onDestroy(owner: LifecycleOwner) {
+        logger.d("#onDestroy args : owner=$owner")
+        super.onDestroy(owner)
     }
 
     override fun onCleared() {

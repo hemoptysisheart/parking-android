@@ -3,10 +3,13 @@ package com.github.hemoptysisheart.parking.app.ui.page.main
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import com.github.hemoptysisheart.parking.R
 import com.github.hemoptysisheart.parking.app.interaction.main.SelectParkingInteraction
 import com.github.hemoptysisheart.parking.app.ui.preview.PLACE_로손편의점_스미요시_2_22
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreview
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreviewContainer
+import com.github.hemoptysisheart.parking.app.ui.resource.toBitmapDescriptor
 import com.github.hemoptysisheart.parking.core.domain.place.toLatLng
 import com.github.hemoptysisheart.parking.domain.place.Place
 import com.google.android.gms.maps.model.CameraPosition
@@ -26,6 +29,7 @@ fun SelectParkingPageContent(
         destination: Place,
         parkingList: List<Place>
 ) {
+    val context = LocalContext.current
     GoogleMap(
             modifier = Modifier.fillMaxSize(),
             cameraPositionState = rememberCameraPositionState {
@@ -35,14 +39,17 @@ fun SelectParkingPageContent(
                     isBuildingEnabled = true,
                     isMyLocationEnabled = true
             ),
-            uiSettings = MapUiSettings(
-                    indoorLevelPickerEnabled = false,
-                    zoomGesturesEnabled = false
-            )
+            uiSettings = MapUiSettings(indoorLevelPickerEnabled = false)
     ) {
-        Marker(state = rememberMarkerState("${destination.id.toURI()}", destination.toLatLng()))
+        Marker(
+                state = rememberMarkerState("${destination.id.toURI()}", destination.toLatLng()),
+                icon = context.getDrawable(R.drawable.ic_flag)?.toBitmapDescriptor()
+        )
         for (p in parkingList) {
-            Marker(state = rememberMarkerState("${p.id.toURI()}", p.toLatLng()))
+            Marker(
+                    state = rememberMarkerState("${p.id.toURI()}", p.toLatLng()),
+                    icon = context.getDrawable(R.drawable.ic_local_parking)?.toBitmapDescriptor()
+            )
         }
     }
 }

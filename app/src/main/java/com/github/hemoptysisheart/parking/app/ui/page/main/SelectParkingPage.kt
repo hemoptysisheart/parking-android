@@ -1,6 +1,10 @@
 package com.github.hemoptysisheart.parking.app.ui.page.main
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import com.github.hemoptysisheart.parking.app.interaction.main.SelectParkingInteraction
 import com.github.hemoptysisheart.parking.app.ui.page.LOGGER
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreview
@@ -22,13 +26,19 @@ fun SelectParkingPage(
 
     val destination = viewModel.destination.collect()
     val parkingList = viewModel.parkingList.collect()
-    LOGGER.d("#SelectParkingPage : destination=$destination, parkingList=$parkingList")
+    LOGGER.v("#SelectParkingPage : destination=$destination, parkingList=$parkingList")
+
+    var showOverlay by remember(SelectParkingViewModel::class) {
+        mutableStateOf(true)
+    }
 
     destination?.let {
         SelectParkingPageContent(
                 interaction = interaction,
                 destination = it,
-                parkingList = parkingList
+                parkingList = parkingList,
+                showOverlay = showOverlay,
+                toggleOverlay = { showOverlay = !showOverlay }
         )
     }
 }

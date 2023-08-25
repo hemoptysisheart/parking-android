@@ -13,6 +13,7 @@ import com.github.hemoptysisheart.parking.app.ui.preview.previewSelectParkingVie
 import com.github.hemoptysisheart.parking.app.ui.support.collect
 import com.github.hemoptysisheart.parking.app.ui.support.hiltBaseViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.main.SelectParkingViewModel
+import com.github.hemoptysisheart.parking.domain.place.Geolocation
 
 /**
  * [주차장 선택](https://www.figma.com/file/rKJxXjvDtDNprvdojVxaaN/Parking?type=whiteboard&node-id=526-673)
@@ -24,23 +25,26 @@ fun SelectParkingPage(
 ) {
     LOGGER.v("#SelectParkingPage args : viewModel=$viewModel")
 
-    val destination = viewModel.destination.collect()
+    val here = viewModel.here.collect()
+    val destination = viewModel.destination
     val parkingList = viewModel.parkingList.collect()
-    LOGGER.v("#SelectParkingPage : destination=$destination, parkingList=$parkingList")
+    LOGGER.v("#SelectParkingPage : here=$here, destination=$destination, parkingList=$parkingList")
 
     var showOverlay by remember(SelectParkingViewModel::class) {
         mutableStateOf(true)
     }
 
-    destination?.let {
-        SelectParkingPageContent(
-                interaction = interaction,
-                destination = it,
-                parkingList = parkingList,
-                showOverlay = showOverlay,
-                toggleOverlay = { showOverlay = !showOverlay }
-        )
-    }
+    SelectParkingPageContent(
+            interaction = interaction,
+            here = here,
+            destination = destination,
+            parkingList = parkingList,
+            showOverlay = showOverlay,
+            toggleOverlay = { showOverlay = !showOverlay },
+            onMoveCamera = { latLng, zoom ->
+                viewModel.onMoveCamera(Geolocation(latLng.latitude, latLng.longitude), zoom)
+            }
+    )
 }
 
 @Composable

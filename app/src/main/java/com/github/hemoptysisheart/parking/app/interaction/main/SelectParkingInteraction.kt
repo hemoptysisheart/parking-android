@@ -42,8 +42,14 @@ class SelectParkingInteraction(
     }
 
     fun gotoSelectRoute() {
-        LOGGER.i("#gotoSelectRoute called.")
+        LOGGER.d("#gotoSelectRoute called.")
 
         base.navController.navigate(SelectRouteInteraction.ROUTE_PATTERN)
+    }
+
+    fun gotoSetting() {
+        LOGGER.d("#gotoSetting called.")
+
+        base.navController.navigate(SearchSettingInteraction.ROUTE_PATTERN)
     }
 }

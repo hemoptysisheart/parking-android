@@ -8,21 +8,16 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Flag
-import androidx.compose.material.icons.filled.MyLocation
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.github.hemoptysisheart.parking.R
+import com.github.hemoptysisheart.parking.app.interaction.main.SelectParkingInteraction
 import com.github.hemoptysisheart.parking.app.ui.molecule.BackButton
+import com.github.hemoptysisheart.parking.app.ui.molecule.SettingsButton
 import com.github.hemoptysisheart.parking.app.ui.molecule.TextBodySmall
 import com.github.hemoptysisheart.parking.app.ui.molecule.TextLabelMedium
 import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreview
@@ -38,10 +33,8 @@ import com.github.hemoptysisheart.parking.domain.place.Place
  */
 @Composable
 fun SelectParkingHeader(
-        destination: Place,
-        onClickGoBack: () -> Unit = { },
-        onClickDestination: () -> Unit = { },
-        onClickHere: () -> Unit = { }
+        interaction: SelectParkingInteraction,
+        destination: Place
 ) {
     Row(
             modifier = Modifier
@@ -50,7 +43,7 @@ fun SelectParkingHeader(
                     .padding(5.dp),
             verticalAlignment = Alignment.CenterVertically
     ) {
-        BackButton(onClick = onClickGoBack, color = MaterialTheme.colorScheme.onBackground)
+        BackButton(onClick = interaction::goBack, color = MaterialTheme.colorScheme.onBackground)
         Column(
                 modifier = Modifier
                         .weight(1F)
@@ -67,25 +60,13 @@ fun SelectParkingHeader(
             )
             TextBodySmall(
                     text = destination.address,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    color = MaterialTheme.colorScheme.onBackground,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1
             )
         }
-        IconButton(onClick = onClickDestination) {
-            Icon(
-                    imageVector = Icons.Default.Flag,
-                    contentDescription = stringResource(R.string.page_select_parking_label_destination),
-                    tint = MaterialTheme.colorScheme.primary
-            )
-        }
-        IconButton(onClick = onClickHere) {
-            Icon(
-                    imageVector = Icons.Default.MyLocation,
-                    contentDescription = stringResource(R.string.page_select_parking_label_here),
-                    tint = MaterialTheme.colorScheme.secondary
-            )
-        }
+
+        SettingsButton(color = MaterialTheme.colorScheme.onBackground, onClick = interaction::gotoSetting)
     }
 }
 
@@ -95,6 +76,6 @@ fun SelectParkingHeader(
 @OptIn(ExperimentalComposeUiApi::class)
 fun Preview_SelectParkingHeader() {
     ComponentPreviewContainer {
-        SelectParkingHeader(PLACE_로손편의점_스미요시_2_22)
+        SelectParkingHeader(SelectParkingInteraction(it), PLACE_로손편의점_스미요시_2_22)
     }
 }

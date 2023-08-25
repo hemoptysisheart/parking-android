@@ -63,5 +63,6 @@ fun previewSettingsViewModel() = SettingsViewModel()
 fun previewSelectParkingViewModel(
         savedStateHandle: SavedStateHandle = SavedStateHandle(),
         placeModel: PlaceModel = previewPlaceModel(),
+        locationModel: LocationModel = previewLocationModel(),
         searchPreferences: SearchPreferences = previewPreferencesModel().search
-) = SelectParkingViewModel(savedStateHandle, placeModel, searchPreferences)
+) = SelectParkingViewModel(savedStateHandle, placeModel, locationModel, searchPreferences)

@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.github.hemoptysisheart.parking.app.interaction.main.SelectParkingInteraction
 import com.github.hemoptysisheart.parking.app.ui.page.LOGGER
+import com.github.hemoptysisheart.parking.app.ui.preview.GEOLOCATION_시부야역
 import com.github.hemoptysisheart.parking.app.ui.preview.PLACE_OTEMACHIONE_BIKE_LOCKER
 import com.github.hemoptysisheart.parking.app.ui.preview.PLACE_OTEMACHI_BUILDING_PARKING
 import com.github.hemoptysisheart.parking.app.ui.preview.PLACE_OTEMACHI_FIRST_SQARE_PARKING_LOT
@@ -21,7 +22,9 @@ import com.github.hemoptysisheart.parking.app.ui.preview.PagePreviewContainer
 import com.github.hemoptysisheart.parking.app.ui.template.selectparking.Map
 import com.github.hemoptysisheart.parking.app.ui.template.selectparking.ParkingList
 import com.github.hemoptysisheart.parking.app.ui.template.selectparking.SelectParkingHeader
+import com.github.hemoptysisheart.parking.domain.place.Geolocation
 import com.github.hemoptysisheart.parking.domain.place.Place
+import com.google.android.gms.maps.model.LatLng
 
 /**
  * [주차장 선택](https://www.figma.com/file/rKJxXjvDtDNprvdojVxaaN/Parking?type=whiteboard&node-id=526-673)
@@ -30,12 +33,15 @@ import com.github.hemoptysisheart.parking.domain.place.Place
 @OptIn(ExperimentalMaterial3Api::class)
 fun SelectParkingPageContent(
         interaction: SelectParkingInteraction,
+        here: Geolocation,
         destination: Place,
         parkingList: List<Place>,
         showOverlay: Boolean,
-        toggleOverlay: () -> Unit = { }
+        toggleOverlay: () -> Unit = { },
+        onMoveCamera: (LatLng, Float) -> Unit = { _, _ -> }
 ) {
-    LOGGER.v("#SelectParkingPageContent args : destination=$destination, parkingList=$parkingList, showOverlay=$showOverlay")
+    LOGGER.v("#SelectParkingPageContent args : here=$here, destination=$destination, parkingList=$parkingList, " +
+            "showOverlay=$showOverlay")
     BottomSheetScaffold(
             sheetContent = {
                 if (showOverlay) {
@@ -49,9 +55,9 @@ fun SelectParkingPageContent(
             }
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
-            Map(destination, parkingList, toggleOverlay)
+            Map(here, destination, parkingList, toggleOverlay, onMoveCamera)
             if (showOverlay) {
-                SelectParkingHeader(destination, interaction::goBack)
+                SelectParkingHeader(interaction, destination)
             }
         }
     }
@@ -63,6 +69,7 @@ fun Preview_SelectParkingPageContent() {
     PagePreviewContainer {
         SelectParkingPageContent(
                 interaction = SelectParkingInteraction(it),
+                here = GEOLOCATION_시부야역,
                 destination = PLACE_로손편의점_스미요시_2_22,
                 parkingList = listOf(
                         PLACE_PALACE_BLDG_PARKING_LOT,

@@ -9,7 +9,7 @@ private val LOGGER = AndroidLogger(Identifier::class)
 fun String.toIdentifier(): Identifier {
     val uri = Uri.parse(this)
     val id = Identifier(
-            type = Types[uri.host ?: throw IllegalArgumentException("host is null.")],
+            type = Types.ofHost(uri.host ?: throw IllegalArgumentException("host is null.")),
             key = uri.path?.substring(1) ?: throw IllegalArgumentException("path is null.")
     )
     LOGGER.v("#toIdentifier : $this => $id")

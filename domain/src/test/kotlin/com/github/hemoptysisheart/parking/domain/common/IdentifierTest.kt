@@ -12,6 +12,8 @@ class IdentifierTest : BehaviorSpec() {
     private val logger = KotlinLogging.logger { }
 
     private val type = object : Type {
+        override val hostname: String = "unittest"
+
         override fun toString() = "unit-test"
     }
 

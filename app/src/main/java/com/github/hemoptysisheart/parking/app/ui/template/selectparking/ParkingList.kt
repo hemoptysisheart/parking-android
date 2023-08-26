@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -20,21 +19,23 @@ import com.github.hemoptysisheart.parking.app.ui.preview.PLACE_丸の内ガー�
 import com.github.hemoptysisheart.parking.domain.place.Place
 
 /**
+ * 목적지 주변의 주차장 목록.
  */
 @Composable
 fun ParkingList(
         parkingList: List<Place>
 ) {
-    LazyColumn(modifier = Modifier.fillMaxWidth()) {
+    LazyColumn(modifier = Modifier
+            .fillMaxWidth()
+            .padding(10.dp, 0.dp)) {
         itemsIndexed(parkingList) { index, parking ->
             if (0 < index) {
                 Divider()
             }
-            Text(text = "$parking", modifier = Modifier.padding(10.dp))
+            ParkingListItem(parking)
         }
     }
 }
-
 
 @Composable
 @ComponentPreview

@@ -29,9 +29,11 @@ import com.github.hemoptysisheart.parking.app.ui.resource.toBitmapDescriptor
 import com.github.hemoptysisheart.parking.core.domain.place.toLatLng
 import com.github.hemoptysisheart.parking.domain.place.Geolocation
 import com.github.hemoptysisheart.parking.domain.place.Place
+import com.github.hemoptysisheart.util.NonNegativeInt
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
+import com.google.maps.android.compose.Circle
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapUiSettings
@@ -46,6 +48,7 @@ import com.google.maps.android.compose.rememberMarkerState
 fun Map(
         here: Geolocation,
         destination: Place,
+        parkingRadius: NonNegativeInt,
         parkingList: List<Place>,
         onClick: () -> Unit = { },
         onMoveCamera: (LatLng, Float) -> Unit = { _, _ -> }
@@ -72,6 +75,13 @@ fun Map(
                 uiSettings = MapUiSettings(indoorLevelPickerEnabled = false, myLocationButtonEnabled = false),
                 onMapClick = { onClick() }
         ) {
+            Circle(
+                    center = destination.toLatLng(),
+                    fillColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4F),
+                    radius = parkingRadius.value.toDouble(),
+                    strokeColor = MaterialTheme.colorScheme.primaryContainer,
+                    strokeWidth = 3F
+            )
             Marker(
                     state = rememberMarkerState("${destination.id.toURI()}", destination.toLatLng()),
                     icon = drawableResource(R.drawable.marker_destination).toBitmapDescriptor()
@@ -125,6 +135,7 @@ fun Preview_Map() {
         Map(
                 here = PLACE_로손편의점_니시신주쿠_7_10_19.geolocation,
                 destination = PLACE_로손편의점_니시신주쿠_7_10_19,
+                parkingRadius = NonNegativeInt(200),
                 parkingList = listOf(
                         PLACE_PALACE_BLDG_PARKING_LOT,
                         PLACE_OTEMACHI_FIRST_SQARE_PARKING_LOT,

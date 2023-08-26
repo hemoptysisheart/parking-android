@@ -12,6 +12,7 @@ import com.github.hemoptysisheart.parking.core.model.PlaceModel
 import com.github.hemoptysisheart.parking.domain.app.SearchPreferences
 import com.github.hemoptysisheart.parking.domain.place.Geolocation
 import com.github.hemoptysisheart.parking.domain.place.Place
+import com.github.hemoptysisheart.util.NonNegativeInt
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
@@ -28,6 +29,9 @@ final class SelectParkingViewModel @Inject constructor(
         private val searchPreferences: SearchPreferences
 ) : BaseViewModel() {
     val destination: Place
+
+    val parkingRadius: NonNegativeInt
+        get() = searchPreferences.parking.distance
 
     private val _parkingList = MutableStateFlow(emptyList<Place>())
     val parkingList: StateFlow<List<Place>> = _parkingList

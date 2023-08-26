@@ -27,8 +27,9 @@ fun SelectParkingPage(
 
     val here = viewModel.here.collect()
     val destination = viewModel.destination
+    val parkingRadius = viewModel.parkingRadius
     val parkingList = viewModel.parkingList.collect()
-    LOGGER.v("#SelectParkingPage : here=$here, destination=$destination, parkingList=$parkingList")
+    LOGGER.v("#SelectParkingPage : here=$here, destination=$destination, parkingRadius=$parkingRadius, parkingList=$parkingList")
 
     var showOverlay by remember(SelectParkingViewModel::class) {
         mutableStateOf(true)
@@ -38,6 +39,7 @@ fun SelectParkingPage(
             interaction = interaction,
             here = here,
             destination = destination,
+            parkingRadius = parkingRadius,
             parkingList = parkingList,
             showOverlay = showOverlay,
             toggleOverlay = { showOverlay = !showOverlay },

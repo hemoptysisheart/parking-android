@@ -24,6 +24,7 @@ import com.github.hemoptysisheart.parking.app.ui.template.selectparking.ParkingL
 import com.github.hemoptysisheart.parking.app.ui.template.selectparking.SelectParkingHeader
 import com.github.hemoptysisheart.parking.domain.place.Geolocation
 import com.github.hemoptysisheart.parking.domain.place.Place
+import com.github.hemoptysisheart.util.NonNegativeInt
 import com.google.android.gms.maps.model.LatLng
 
 /**
@@ -35,6 +36,7 @@ fun SelectParkingPageContent(
         interaction: SelectParkingInteraction,
         here: Geolocation,
         destination: Place,
+        parkingRadius: NonNegativeInt,
         parkingList: List<Place>,
         showOverlay: Boolean,
         toggleOverlay: () -> Unit = { },
@@ -55,7 +57,7 @@ fun SelectParkingPageContent(
             }
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
-            Map(here, destination, parkingList, toggleOverlay, onMoveCamera)
+            Map(here, destination, parkingRadius, parkingList, toggleOverlay, onMoveCamera)
             if (showOverlay) {
                 SelectParkingHeader(interaction, destination)
             }
@@ -71,6 +73,7 @@ fun Preview_SelectParkingPageContent() {
                 interaction = SelectParkingInteraction(it),
                 here = GEOLOCATION_시부야역,
                 destination = PLACE_로손편의점_스미요시_2_22,
+                parkingRadius = NonNegativeInt(200),
                 parkingList = listOf(
                         PLACE_PALACE_BLDG_PARKING_LOT,
                         PLACE_OTEMACHI_FIRST_SQARE_PARKING_LOT,

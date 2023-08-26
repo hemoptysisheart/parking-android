@@ -27,8 +27,8 @@ data class Geolocation(
         val LONGITUDE_RANGE = LONGITUDE_MIN..LONGITUDE_MAX
 
         fun parse(string: String): Geolocation {
-            val tokens = string.split("(", ",", ")")
-            return Geolocation(tokens[1].toDouble(), tokens[2].toDouble())
+            val tokens = string.split(',')
+            return Geolocation(tokens[0].toDouble(), tokens[1].toDouble())
         }
     }
 
@@ -41,5 +41,5 @@ data class Geolocation(
         }
     }
 
-    override fun toSimpleString() = "($latitude,$longitude)"
+    override fun toSimpleString() = "$latitude,$longitude"
 }

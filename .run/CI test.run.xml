@@ -10,11 +10,11 @@
       </option>
       <option name="taskNames">
         <list>
-          <option value="clean" />
-          <option value=":util:test" />
-          <option value=":domain:test" />
+            <option value="clean" />
+            <option value=":util:test" />
+            <option value=":domain:test" />
             <option value=":client-google:test" />
-          <option value="testDebugUnitTest" />
+            <option value=":core:test" />
         </list>
       </option>
       <option name="vmOptions" />

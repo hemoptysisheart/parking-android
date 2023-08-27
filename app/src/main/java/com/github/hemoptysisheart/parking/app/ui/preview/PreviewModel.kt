@@ -86,7 +86,7 @@ fun previewPreferencesModel(): Preferences = object : Preferences {
 
 fun previewLocationModel(
         granted: () -> Boolean = { true },
-        geolocation: () -> Geolocation = { Geolocation(0.0, 0.0) }
+        geolocation: () -> Geolocation = { GEOLOCATION_시부야역 }
 ) = object : LocationModel {
     override val granted: Boolean = granted()
 
@@ -98,6 +98,20 @@ fun previewLocationModel(
 fun previewPlaceModel(
         searchList: () -> List<Place> = { emptyList() }
 ) = object : PlaceModel {
+    val places = listOf(
+            PLACE_로손편의점_니시신주쿠_7_10_19,
+            PLACE_로손편의점_오사키_1_11_2,
+            PLACE_로손오오테센터빌딩점_1_1_3,
+            PLACE_로손편의점_스미요시_2_22,
+            PLACE_PALACE_BLDG_PARKING_LOT,
+            PLACE_OTEMACHI_FIRST_SQARE_PARKING_LOT,
+            PLACE_丸の内ガーデンタワー_バイク駐車場,
+            PLACE_TIMES_NIHON_SEIMEI_MARUNOUCHI_GARDEN_TOWER,
+            PLACE_OTEMACHI_BUILDING_PARKING,
+            PLACE_OTEMACHIONE_BIKE_LOCKER
+    ).associateBy { it.id }
+            .toMutableMap()
+
     override suspend fun read(id: Identifier): Place? {
         return null
     }

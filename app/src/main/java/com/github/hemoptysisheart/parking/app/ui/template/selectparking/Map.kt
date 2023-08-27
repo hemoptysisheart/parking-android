@@ -72,7 +72,11 @@ fun Map(
                         },
                 cameraPositionState = cameraPosition,
                 properties = MapProperties(isMyLocationEnabled = true),
-                uiSettings = MapUiSettings(indoorLevelPickerEnabled = false, myLocationButtonEnabled = false),
+                uiSettings = MapUiSettings(
+                        indoorLevelPickerEnabled = false,
+                        mapToolbarEnabled = false,
+                        myLocationButtonEnabled = false
+                ),
                 onMapClick = { onClick() }
         ) {
             Circle(

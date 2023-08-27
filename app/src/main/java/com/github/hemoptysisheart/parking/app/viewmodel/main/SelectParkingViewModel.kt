@@ -41,6 +41,7 @@ final class SelectParkingViewModel @Inject constructor(
 
     init {
         val id = SelectParkingInteraction.args(savedStateHandle)
+        logger.d("#init : id=$id")
         if (Types.PLACE_GMP != id.type) {
             throw IllegalArgumentException("unsupported type : id=$id")
         }
@@ -49,7 +50,7 @@ final class SelectParkingViewModel @Inject constructor(
                     ?: throw IllegalArgumentException("destination does not exist : id=$id")
         }.getCompleted()
 
-        launch {
+        val job = launch {
             val query = Query(
                     query = null,
                     center = destination.geolocation,
@@ -58,6 +59,11 @@ final class SelectParkingViewModel @Inject constructor(
             val parkingList = placeModel.searchParking(query)
             logger.d("#onStart : parkingList=$parkingList")
             _parkingList.emit(parkingList)
+        }
+
+        launch {
+            job.join()
+            logger.d("#init complete.")
         }
     }
 

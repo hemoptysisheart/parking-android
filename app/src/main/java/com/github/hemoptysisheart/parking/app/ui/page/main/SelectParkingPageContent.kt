@@ -3,10 +3,11 @@ package com.github.hemoptysisheart.parking.app.ui.page.main
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.BottomSheetScaffold
+import androidx.compose.material3.BottomSheetScaffoldState
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.github.hemoptysisheart.parking.app.interaction.main.SelectParkingInteraction
 import com.github.hemoptysisheart.parking.app.ui.page.LOGGER
 import com.github.hemoptysisheart.parking.app.ui.preview.GEOLOCATION_시부야역
@@ -34,6 +35,7 @@ import com.google.android.gms.maps.model.LatLng
 @OptIn(ExperimentalMaterial3Api::class)
 fun SelectParkingPageContent(
         interaction: SelectParkingInteraction,
+        scaffoldState: BottomSheetScaffoldState,
         here: Geolocation,
         destination: Place,
         parkingRadius: NonNegativeInt,
@@ -44,17 +46,14 @@ fun SelectParkingPageContent(
 ) {
     LOGGER.v("#SelectParkingPageContent args : here=$here, destination=$destination, parkingList=$parkingList, " +
             "showOverlay=$showOverlay")
+
     BottomSheetScaffold(
             sheetContent = {
                 if (showOverlay) {
                     ParkingList(parkingList)
                 }
             },
-            sheetPeekHeight = if (showOverlay) {
-                200.dp
-            } else {
-                0.dp
-            }
+            scaffoldState = scaffoldState
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
             Map(here, destination, parkingRadius, parkingList, toggleOverlay, onMoveCamera)
@@ -66,11 +65,13 @@ fun SelectParkingPageContent(
 }
 
 @Composable
+@OptIn(ExperimentalMaterial3Api::class)
 @PagePreview
 fun Preview_SelectParkingPageContent() {
     PagePreviewContainer {
         SelectParkingPageContent(
                 interaction = SelectParkingInteraction(it),
+                scaffoldState = rememberBottomSheetScaffoldState(),
                 here = GEOLOCATION_시부야역,
                 destination = PLACE_로손편의점_스미요시_2_22,
                 parkingRadius = NonNegativeInt(200),

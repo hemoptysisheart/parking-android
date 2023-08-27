@@ -11,6 +11,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import com.github.hemoptysisheart.parking.app.interaction.main.SelectParkingInteraction
+import com.github.hemoptysisheart.parking.app.interaction.main.SelectParkingInteraction.Companion.ARG_DESTINATION
 import com.github.hemoptysisheart.parking.app.ui.page.LOGGER
 import com.github.hemoptysisheart.parking.app.ui.preview.PLACE_로손오오테센터빌딩점_1_1_3
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreview
@@ -20,10 +21,9 @@ import com.github.hemoptysisheart.parking.app.ui.support.collect
 import com.github.hemoptysisheart.parking.app.ui.support.hiltBaseViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.main.SelectParkingViewModel
 import com.github.hemoptysisheart.parking.domain.place.Geolocation
+import com.github.hemoptysisheart.parking.domain.place.Place
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.launch
-import java.net.URLEncoder
-import java.nio.charset.StandardCharsets.UTF_8
 
 /**
  * [주차장 선택](https://www.figma.com/file/rKJxXjvDtDNprvdojVxaaN/Parking?type=whiteboard&node-id=526-673)
@@ -58,6 +58,9 @@ fun SelectParkingPage(
         }
         // TODO sheetPeekHeight 등을 설정해서  하단 시트를 완전히 숨기기.
     }
+    val onClickSelectRoute: (Place) -> Unit = { parking ->
+        interaction.gotoSelectRoute(parking, destination)
+    }
     val onMoveCamera: (LatLng, Float) -> Unit = { latLng, zoom ->
         viewModel.onMoveCamera(Geolocation(latLng.latitude, latLng.longitude), zoom)
     }
@@ -71,6 +74,7 @@ fun SelectParkingPage(
             parkingList = parkingList,
             showOverlay = showOverlay,
             toggleOverlay = toggleOverlay,
+            onClickSelectRoute = onClickSelectRoute,
             onMoveCamera = onMoveCamera
     )
 }
@@ -79,7 +83,8 @@ fun SelectParkingPage(
 @PagePreview
 fun Preview_SelectParkingPage() {
     val savedStateHandle = SavedStateHandle()
-    savedStateHandle[URLEncoder.encode("${PLACE_로손오오테센터빌딩점_1_1_3.id.toURI()}", UTF_8)] = PLACE_로손오오테센터빌딩점_1_1_3
+    savedStateHandle[ARG_DESTINATION] = PLACE_로손오오테센터빌딩점_1_1_3
+
     PagePreviewContainer {
         SelectParkingPage(SelectParkingInteraction(it), previewSelectParkingViewModel(savedStateHandle))
     }

@@ -52,7 +52,7 @@ fun SelectParkingPageContent(
     BottomSheetScaffold(
             sheetContent = {
                 if (showOverlay) {
-                    ParkingList(parkingList)
+                    ParkingList(parkingList, onClickSelectRoute)
                 }
             },
             scaffoldState = scaffoldState

@@ -23,7 +23,8 @@ import com.github.hemoptysisheart.parking.domain.place.Place
  */
 @Composable
 fun ParkingList(
-        parkingList: List<Place>
+        parkingList: List<Place>,
+        onClickSelectRoute: (Place) -> Unit = { }
 ) {
     LazyColumn(modifier = Modifier
             .fillMaxWidth()
@@ -32,7 +33,7 @@ fun ParkingList(
             if (0 < index) {
                 Divider()
             }
-            ParkingListItem(parking)
+            ParkingListItem(parking, onClickSelectRoute)
         }
     }
 }

@@ -6,8 +6,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.github.hemoptysisheart.parking.app.interaction.BaseInteraction
 import com.github.hemoptysisheart.parking.app.ui.page.main.AboutAppPage
 import com.github.hemoptysisheart.parking.app.ui.page.main.DestinationSearchPage
@@ -58,10 +60,30 @@ fun MainNavGraph(baseInteraction: BaseInteraction) {
             composable(DestinationSearchInteraction.ROUTE_PATTERN) {
                 DestinationSearchPage(destinationSearch)
             }
-            composable(SelectParkingInteraction.ROUTE_PATTERN) {
+            composable(
+                    route = SelectParkingInteraction.ROUTE_PATTERN,
+                    arguments = listOf(
+                            navArgument(SelectParkingInteraction.ARG_DESTINATION) {
+                                nullable = false
+                                type = NavType.StringType
+                            }
+                    )
+            ) {
                 SelectParkingPage(selectParking)
             }
-            composable(SelectRouteInteraction.ROUTE_PATTERN) {
+            composable(
+                    route = SelectRouteInteraction.ROUTE_PATTERN,
+                    arguments = listOf(
+                            navArgument(SelectRouteInteraction.ARG_PARKING) {
+                                nullable = false
+                                type = NavType.StringType
+                            },
+                            navArgument(SelectRouteInteraction.ARG_DESTINATION) {
+                                nullable = false
+                                type = NavType.StringType
+                            }
+                    )
+            ) {
                 SelectRoutePage(selectRoute)
             }
             composable(RouteNavigationInteraction.ROUTE_PATTERN) {

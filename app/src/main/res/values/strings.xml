@@ -33,8 +33,6 @@
     <string name="page_search_setting_parking_description">목적지 주변 %s %s 안에서 주차장을 찾습니다.
         거리는 도보 이동 거리가 아니라 직선거리 이므로 실제로 이동하는 거리는 더 멀어집니다.</string>
     <string name="page_search_setting_title">검색 설정</string>
-    <string name="page_select_parking_label_destination">목적지</string>
-    <string name="page_select_parking_label_here">현재위치</string>
     <string name="page_settings_title">설정</string>
     <string name="page_wizard_instruction_title">Parking은</string>
     <string name="page_wizard_instruction_detail">Parking은 목적지 주변의 주차장을 찾아줍니다. 처음 방문하는 곳이나 주차 문제가 중요할 때 사용하세요.</string>

@@ -111,7 +111,8 @@ fun previewPlaceModel(
             PLACE_丸の内ガーデンタワー_バイク駐車場,
             PLACE_TIMES_NIHON_SEIMEI_MARUNOUCHI_GARDEN_TOWER,
             PLACE_OTEMACHI_BUILDING_PARKING,
-            PLACE_OTEMACHIONE_BIKE_LOCKER
+            PLACE_OTEMACHIONE_BIKE_LOCKER,
+            PLACE_MODE_GAKUEN_COCOON_TOWER_PARKING_LOT
     ).associateBy { it.id }.toMutableMap()
 
     override suspend fun read(id: Identifier) = places[id]

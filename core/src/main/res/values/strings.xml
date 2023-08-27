@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="domain_geolocation_here">현위치</string>
     <string name="domain_locale_null_language_label">(지정 안함)</string>
     <string name="domain_locale_null_locale_label">(지정 안함)</string>
     <string name="domain_locale_system_language_label">OS 언어</string>
     <string name="domain_locale_system_locale_label">OS</string>
+    <string name="domain_place_type_destination">목적지</string>
+    <string name="domain_place_type_parking">주차장</string>
     <string name="domain_property_id">ID</string>
     <string name="domain_property_query_query">검색어</string>
     <string name="domain_type_query">검색어</string>

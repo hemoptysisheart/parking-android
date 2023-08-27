@@ -10,6 +10,7 @@ import com.github.hemoptysisheart.parking.app.ui.page.LOGGER
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreview
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreviewContainer
 import com.github.hemoptysisheart.parking.app.ui.preview.previewSelectRouteViewModel
+import com.github.hemoptysisheart.parking.app.ui.support.collect
 import com.github.hemoptysisheart.parking.app.ui.support.hiltBaseViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.main.SelectRouteViewModel
 
@@ -30,9 +31,16 @@ fun SelectRoutePage(
     val destination = viewModel.destination
     LOGGER.v("#SelectRoutePage : parking=$parking, destination=$destination")
 
+    val here = viewModel.here.collect()
+    LOGGER.v("#SelectRoutePage : here=$here")
+
     var showOverlay by remember(SelectRouteViewModel::class) { mutableStateOf(true) }
 
-    SelectRoutePageContent(interaction)
+    val toggleOverlay = {
+        showOverlay = !showOverlay
+    }
+
+    SelectRoutePageContent(interaction, showOverlay, here, parking, destination, toggleOverlay)
 }
 
 @Composable

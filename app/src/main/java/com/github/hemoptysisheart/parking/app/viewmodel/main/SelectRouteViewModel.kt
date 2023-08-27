@@ -6,10 +6,13 @@ import com.github.hemoptysisheart.parking.app.interaction.main.SelectRouteIntera
 import com.github.hemoptysisheart.parking.app.viewmodel.BaseViewModel
 import com.github.hemoptysisheart.parking.core.model.LocationModel
 import com.github.hemoptysisheart.parking.core.model.PlaceModel
+import com.github.hemoptysisheart.parking.domain.place.Geolocation
 import com.github.hemoptysisheart.parking.domain.place.Place
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 /**
@@ -30,6 +33,9 @@ class SelectRouteViewModel @Inject constructor(
     final lateinit var destination: Place
         private set
 
+    private val _here = MutableStateFlow(locationModel.location!!)
+    val here: StateFlow<Geolocation> = _here
+
     init {
         val args = SelectRouteInteraction.args(savedStateHandle)
         logger.v("#init : args=$args")
@@ -44,5 +50,5 @@ class SelectRouteViewModel @Inject constructor(
         logger.d("#init complete.")
     }
 
-    override fun toString() = "SelectRouteViewModel(parking=$parking, destination=$destination)"
+    override fun toString() = "SelectRouteViewModel(parking=$parking, destination=$destination, here=${here.value})"
 }

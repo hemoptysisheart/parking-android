@@ -85,6 +85,14 @@ val PLACE_OTEMACHIONE_BIKE_LOCKER = PlaceGooglePlace(
         geolocation = Geolocation(35.6876366, 139.7623328)
 )
 
+val PLACE_MODE_GAKUEN_COCOON_TOWER_PARKING_LOT = PlaceGooglePlace(
+        key = "ChIJGexMltaMGGARDMM0_XIdmBU",
+        type = PlaceType.PARKING,
+        name = "Mode Gakuen Cocoon Tower Parking Lot",
+        address = "1-chōme-7-3 Nishishinjuku, Shinjuku City",
+        geolocation = Geolocation(35.6918517, 139.697363)
+)
+
 val RECOMMEND_ITEM_로손편의점_니시신주쿠_7_10_19 = RecommendItemPlaceImpl(PLACE_로손편의점_니시신주쿠_7_10_19)
 
 val RECOMMEND_ITEM_로손편의점_오사키_1_11_2 = RecommendItemPlaceImpl(PLACE_로손편의점_오사키_1_11_2)

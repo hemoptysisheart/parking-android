@@ -1,49 +1,61 @@
 package com.github.hemoptysisheart.parking.app.ui.page.main
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
+import androidx.compose.material3.BottomSheetScaffold
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.github.hemoptysisheart.parking.app.interaction.main.SelectRouteInteraction
-import com.github.hemoptysisheart.parking.app.ui.molecule.EasyButton
-import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreview
-import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreviewContainer
+import com.github.hemoptysisheart.parking.app.ui.preview.GEOLOCATION_시부야역
+import com.github.hemoptysisheart.parking.app.ui.preview.PLACE_MODE_GAKUEN_COCOON_TOWER_PARKING_LOT
+import com.github.hemoptysisheart.parking.app.ui.preview.PLACE_로손편의점_니시신주쿠_7_10_19
+import com.github.hemoptysisheart.parking.app.ui.preview.PagePreview
+import com.github.hemoptysisheart.parking.app.ui.preview.PagePreviewContainer
+import com.github.hemoptysisheart.parking.app.ui.template.selectroute.SelectRouteHeader
+import com.github.hemoptysisheart.parking.app.ui.template.selectroute.SelectRouteMap
+import com.github.hemoptysisheart.parking.domain.place.Geolocation
+import com.github.hemoptysisheart.parking.domain.place.Place
 
 /**
+ * 경로 선택
+ *
+ * - https://www.figma.com/file/rKJxXjvDtDNprvdojVxaaN/Parking?type=whiteboard&node-id=526-681
+ * - https://www.figma.com/file/4ddVw1GJttHudAFojZRj1s/Parking?type=design&node-id=54312-34855&mode=design
  */
 @Composable
-fun SelectRoutePageContent(interaction: SelectRouteInteraction) {
-
-    Column(
-            modifier = Modifier
-                    .fillMaxSize()
-                    .padding(10.dp),
-            verticalArrangement = Arrangement.Center
-    ) {
-        Text(
-                text = """
-                주차장을 거쳐가는 경로를 비교해보고 선택할 수 있다.
-            """.trimIndent(),
-                modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(10.dp)
-        )
-
-        EasyButton(onClick = interaction::goBack, label = "돌아가기")
-        EasyButton(onClick = interaction::gotoRouteNavigation, label = "안내 시작")
+@OptIn(ExperimentalMaterial3Api::class)
+fun SelectRoutePageContent(
+        interaction: SelectRouteInteraction,
+        showOverlay: Boolean,
+        here: Geolocation,
+        parking: Place,
+        destination: Place,
+        toggleOverlay: () -> Unit = { }
+) {
+    BottomSheetScaffold(sheetContent = {
+    }) {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter) {
+            SelectRouteMap(here, parking, destination, toggleOverlay)
+            if (showOverlay) {
+                SelectRouteHeader(destination, interaction::goBack)
+            }
+        }
     }
 }
 
 
 @Composable
-@ComponentPreview
+@PagePreview
 fun Preview_SelectRoutePageContent() {
-    ComponentPreviewContainer {
-        SelectRoutePageContent(SelectRouteInteraction(it))
+    PagePreviewContainer {
+        SelectRoutePageContent(
+                SelectRouteInteraction(it),
+                true,
+                GEOLOCATION_시부야역,
+                PLACE_MODE_GAKUEN_COCOON_TOWER_PARKING_LOT,
+                PLACE_로손편의점_니시신주쿠_7_10_19
+        )
     }
 }

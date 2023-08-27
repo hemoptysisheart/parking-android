@@ -12,12 +12,14 @@ class IdentifierTest : BehaviorSpec() {
     private val logger = KotlinLogging.logger { }
 
     private val type = object : Type {
+        override val hostname: String = "unittest"
+
         override fun toString() = "unit-test"
     }
 
     init {
-        listOf(
-                ""
+        listOf<String>(
+                // TODO 빈 문자열을 불허해야 하나? 빈 문자열은 쿼리 생성할 수 없다고 해야 하나?
         ).forAll { key ->
             given("사용 불가능한 키(key=$key)로") {
                 logger.info("[GIVEN] key=$key")
@@ -44,7 +46,7 @@ class IdentifierTest : BehaviorSpec() {
 
                 then("변환된다.") {
                     uri.scheme shouldBe Identifier.SCHEME
-                    uri.host shouldBe "$type"
+                    uri.host shouldBe type.hostname
                     uri.path shouldBe "/$key"
                 }
             }

@@ -8,7 +8,7 @@ class RecommendItemQuery(
 ) : com.github.hemoptysisheart.parking.domain.search.RecommendItemQuery {
     override val item = query
 
-    override val name: String = item.query
+    override val name: String = item.query ?: ""
 
     override val description: String? = null
 

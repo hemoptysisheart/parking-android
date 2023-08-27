@@ -1,20 +1,16 @@
 package com.github.hemoptysisheart.parking.app.ui.template
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.hemoptysisheart.parking.app.interaction.main.GlobalHeaderInteraction
 import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreviewContainer
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreview
@@ -34,8 +30,8 @@ fun GlobalHeader(
         }
     }
 
-    val progress by viewModel.progress.collectAsStateWithLifecycle()
-    val error by viewModel.error.collectAsStateWithLifecycle()
+    val progress by viewModel.progress.collectAsState()
+    val error by viewModel.error.collectAsState()
 
     GlobalHeaderContent(progress, error, viewModel::onClearError)
 }
@@ -55,13 +51,6 @@ private fun GlobalHeaderContent(
                 modifier = Modifier.fillMaxWidth(),
                 color = MaterialTheme.colorScheme.primary,
                 trackColor = Color.Transparent
-        )
-    } else {
-        Box(
-                modifier = Modifier
-                        .background(Color.Transparent)
-                        .fillMaxWidth()
-                        .height(4.dp)
         )
     }
 }

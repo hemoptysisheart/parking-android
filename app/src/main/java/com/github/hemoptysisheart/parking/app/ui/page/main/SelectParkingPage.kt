@@ -1,56 +1,91 @@
 package com.github.hemoptysisheart.parking.app.ui.page.main
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.rememberBottomSheetScaffoldState
+import androidx.compose.material3.rememberStandardBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
+import androidx.lifecycle.SavedStateHandle
 import com.github.hemoptysisheart.parking.app.interaction.main.SelectParkingInteraction
-import com.github.hemoptysisheart.parking.app.ui.molecule.EasyButton
+import com.github.hemoptysisheart.parking.app.interaction.main.SelectParkingInteraction.Companion.ARG_DESTINATION
 import com.github.hemoptysisheart.parking.app.ui.page.LOGGER
+import com.github.hemoptysisheart.parking.app.ui.preview.PLACE_로손오오테센터빌딩점_1_1_3
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreview
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreviewContainer
+import com.github.hemoptysisheart.parking.app.ui.preview.previewSelectParkingViewModel
+import com.github.hemoptysisheart.parking.app.ui.support.collect
+import com.github.hemoptysisheart.parking.app.ui.support.hiltBaseViewModel
+import com.github.hemoptysisheart.parking.app.viewmodel.main.SelectParkingViewModel
+import com.github.hemoptysisheart.parking.domain.place.Geolocation
+import com.github.hemoptysisheart.parking.domain.place.Place
+import com.google.android.gms.maps.model.LatLng
+import kotlinx.coroutines.launch
 
 /**
  * [주차장 선택](https://www.figma.com/file/rKJxXjvDtDNprvdojVxaaN/Parking?type=whiteboard&node-id=526-673)
  */
 @Composable
-fun SelectParkingPage(interaction: SelectParkingInteraction) {
-    LOGGER.v("#SelectParkingPage args : interaction=$interaction")
+@OptIn(ExperimentalMaterial3Api::class)
+fun SelectParkingPage(
+        interaction: SelectParkingInteraction,
+        viewModel: SelectParkingViewModel = hiltBaseViewModel()
+) {
+    LOGGER.v("#SelectParkingPage args : viewModel=$viewModel")
 
-    Column(
-            modifier = Modifier
-                    .fillMaxSize()
-                    .padding(10.dp),
-            verticalArrangement = Arrangement.Center
-    ) {
-        Text(
-                text = """
-                - 목적지 근처 지도
-                    - 목적지
-                    - 후보 주차장
-                    - 경로
-                - 현재 선택한 주차장 상세 정보
-            """.trimIndent(),
-                modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(10.dp)
-        )
+    val here = viewModel.here.collect()
+    val destination = viewModel.destination
+    val parkingRadius = viewModel.parkingRadius
+    val parkingList = viewModel.parkingList.collect()
+    LOGGER.v("#SelectParkingPage : here=$here, destination=$destination, parkingRadius=$parkingRadius, parkingList=$parkingList")
 
-        EasyButton(onClick = interaction::goBack, label = "돌아가기")
-        EasyButton(onClick = { /*TODO*/ }, label = "주차장(경로) 선택")
-        EasyButton(onClick = interaction::gotoSelectRoute, label = "경로 선택")
+    val coroutineScope = rememberCoroutineScope()
+    val bottomSheetState = rememberStandardBottomSheetState(skipHiddenState = false)
+    val scaffoldState = rememberBottomSheetScaffoldState(bottomSheetState = bottomSheetState)
+    var showOverlay by remember(SelectParkingViewModel::class) { mutableStateOf(true) }
+    val toggleOverlay: () -> Unit = {
+        showOverlay = !showOverlay
+
+        coroutineScope.launch {
+            if (showOverlay) {
+                scaffoldState.bottomSheetState.show()
+            } else {
+                scaffoldState.bottomSheetState.hide()
+            }
+        }
+        // TODO sheetPeekHeight 등을 설정해서  하단 시트를 완전히 숨기기.
     }
+    val onClickSelectRoute: (Place) -> Unit = { parking ->
+        interaction.gotoSelectRoute(parking, destination)
+    }
+    val onMoveCamera: (LatLng, Float) -> Unit = { latLng, zoom ->
+        viewModel.onMoveCamera(Geolocation(latLng.latitude, latLng.longitude), zoom)
+    }
+
+    SelectParkingPageContent(
+            interaction = interaction,
+            scaffoldState = scaffoldState,
+            here = here,
+            destination = destination,
+            parkingRadius = parkingRadius,
+            parkingList = parkingList,
+            showOverlay = showOverlay,
+            toggleOverlay = toggleOverlay,
+            onClickSelectRoute = onClickSelectRoute,
+            onMoveCamera = onMoveCamera
+    )
 }
 
 @Composable
 @PagePreview
 fun Preview_SelectParkingPage() {
+    val savedStateHandle = SavedStateHandle()
+    savedStateHandle[ARG_DESTINATION] = PLACE_로손오오테센터빌딩점_1_1_3
+
     PagePreviewContainer {
-        SelectParkingPage(SelectParkingInteraction(it))
+        SelectParkingPage(SelectParkingInteraction(it), previewSelectParkingViewModel(savedStateHandle))
     }
 }

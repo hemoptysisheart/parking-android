@@ -10,13 +10,7 @@ data class Identifier(
         const val SCHEME = "parking"
     }
 
-    init {
-        if (key.isEmpty()) {
-            throw IllegalArgumentException("key is empty.")
-        }
-    }
-
-    fun toURI() = URI(SCHEME, "$type", "/$key", null)
+    fun toURI() = URI(SCHEME, type.hostname, "/$key", null)
 
     override fun toString() = toURI().toString()
 }

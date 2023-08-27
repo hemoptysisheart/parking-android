@@ -5,12 +5,14 @@ import com.github.hemoptysisheart.parking.core.domain.common.Types.PLACE_GMP
 import com.github.hemoptysisheart.parking.domain.common.Identifier
 import com.github.hemoptysisheart.parking.domain.place.Geolocation
 import com.github.hemoptysisheart.parking.domain.place.Place
+import com.github.hemoptysisheart.parking.domain.place.PlaceType
 
 /**
  * Google Maps Platform - Places API 장소 데이터
  */
 class PlaceGooglePlace(
         key: String,
+        override val type: PlaceType,
         override val name: String,
         override val address: String,
         override val geolocation: Geolocation

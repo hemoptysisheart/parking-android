@@ -33,10 +33,12 @@ fun PagePreviewContainer(content: @Composable (BaseInteraction) -> Unit) {
 }
 
 @Composable
-fun ComponentPreviewContainer(content: @Composable () -> Unit) {
+@OptIn(ExperimentalComposeUiApi::class)
+fun ComponentPreviewContainer(content: @Composable (BaseInteraction) -> Unit) {
+    val baseInteraction = previewBaseInteraction()
     ParkingTheme {
         Box(modifier = Modifier.background(MaterialTheme.colorScheme.background)) {
-            content()
+            content(baseInteraction)
         }
     }
 }

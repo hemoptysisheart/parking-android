@@ -41,6 +41,7 @@ fun previewPreferencesModel(): Preferences = object : Preferences {
     override val install = object : InstallPreferences {
         override val installId = UUID.randomUUID()
     }
+
     override val execution = object : ExecutionPreferences {
         override val initStartAt = Instant.now().truncatedTo(ChronoUnit.MILLIS)
         override val coldStartCount: Long = 1L
@@ -48,6 +49,7 @@ fun previewPreferencesModel(): Preferences = object : Preferences {
         override val foregroundCount: Long = 1L
         override val lastForegroundAt: Instant = initStartAt
     }
+
     override val wizard = object : WizardPreferences {
         override var bootUpShow: Boolean = true
         override var showCount: Int = 0
@@ -67,6 +69,7 @@ fun previewPreferencesModel(): Preferences = object : Preferences {
             lastLocation = location
         }
     }
+
     override val search = object : SearchPreferences {
         override val destination = object : SearchPreferences.Distance {
             override var enable: Boolean = true
@@ -109,12 +112,9 @@ fun previewPlaceModel(
             PLACE_TIMES_NIHON_SEIMEI_MARUNOUCHI_GARDEN_TOWER,
             PLACE_OTEMACHI_BUILDING_PARKING,
             PLACE_OTEMACHIONE_BIKE_LOCKER
-    ).associateBy { it.id }
-            .toMutableMap()
+    ).associateBy { it.id }.toMutableMap()
 
-    override suspend fun read(id: Identifier): Place? {
-        return null
-    }
+    override suspend fun read(id: Identifier) = places[id]
 
     override suspend fun searchParking(query: Query): List<Place> = emptyList()
 

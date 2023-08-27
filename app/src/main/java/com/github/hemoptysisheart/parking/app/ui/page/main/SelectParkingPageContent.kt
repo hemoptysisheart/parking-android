@@ -33,6 +33,7 @@ import com.google.android.gms.maps.model.LatLng
  */
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
+@Suppress("UNUSED_ANONYMOUS_PARAMETER")
 fun SelectParkingPageContent(
         interaction: SelectParkingInteraction,
         scaffoldState: BottomSheetScaffoldState,
@@ -42,7 +43,8 @@ fun SelectParkingPageContent(
         parkingList: List<Place>,
         showOverlay: Boolean,
         toggleOverlay: () -> Unit = { },
-        onMoveCamera: (LatLng, Float) -> Unit = { _, _ -> }
+        onClickSelectRoute: (Place) -> Unit = { parking -> },
+        onMoveCamera: (LatLng, Float) -> Unit = { position, zoom -> }
 ) {
     LOGGER.v("#SelectParkingPageContent args : here=$here, destination=$destination, parkingList=$parkingList, " +
             "showOverlay=$showOverlay")

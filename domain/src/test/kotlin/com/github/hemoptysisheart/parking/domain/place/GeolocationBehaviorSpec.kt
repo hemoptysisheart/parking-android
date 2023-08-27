@@ -14,8 +14,10 @@ class GeolocationBehaviorSpec : BehaviorSpec() {
     init {
         table(
                 headers("string", "latitude", "longitude"),
-                row("(0.0,0.0)", 0.0, 0.0),
-                row("(1.2,3.4)", 1.2, 3.4)
+                row("0.0,0.0", 0.0, 0.0),
+                row("90.0,180.0", 90.0, 180.0),
+                row("-90.0,-180.0", -90.0, -180.0),
+                row("1.2,3.4", 1.2, 3.4)
         ).forAll { string, latitude, longitude ->
             given("좌표 문자열을(string=$string)") {
                 logger.info("[GIVEN] string=$string, latitude=$latitude, longitude=$longitude")

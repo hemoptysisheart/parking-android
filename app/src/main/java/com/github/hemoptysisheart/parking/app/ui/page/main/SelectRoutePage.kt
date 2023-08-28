@@ -5,8 +5,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.SavedStateHandle
 import com.github.hemoptysisheart.parking.app.interaction.main.SelectRouteInteraction
+import com.github.hemoptysisheart.parking.app.interaction.main.SelectRouteInteraction.Companion.ARG_DESTINATION
+import com.github.hemoptysisheart.parking.app.interaction.main.SelectRouteInteraction.Companion.ARG_PARKING
 import com.github.hemoptysisheart.parking.app.ui.page.LOGGER
+import com.github.hemoptysisheart.parking.app.ui.preview.PLACE_MODE_GAKUEN_COCOON_TOWER_PARKING_LOT
+import com.github.hemoptysisheart.parking.app.ui.preview.PLACE_로손편의점_니시신주쿠_7_10_19
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreview
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreviewContainer
 import com.github.hemoptysisheart.parking.app.ui.preview.previewSelectRouteViewModel
@@ -46,7 +51,10 @@ fun SelectRoutePage(
 @Composable
 @PagePreview
 fun Preview_SelectRoutePage() {
+    val savedStateHandle = SavedStateHandle()
+    savedStateHandle[ARG_PARKING] = PLACE_MODE_GAKUEN_COCOON_TOWER_PARKING_LOT
+    savedStateHandle[ARG_DESTINATION] = PLACE_로손편의점_니시신주쿠_7_10_19
     PagePreviewContainer {
-        SelectRoutePage(SelectRouteInteraction(it), previewSelectRouteViewModel())
+        SelectRoutePage(SelectRouteInteraction(it), previewSelectRouteViewModel(savedStateHandle = savedStateHandle))
     }
 }

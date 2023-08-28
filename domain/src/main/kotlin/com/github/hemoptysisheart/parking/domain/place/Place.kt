@@ -1,11 +1,12 @@
 package com.github.hemoptysisheart.parking.domain.place
 
 import com.github.hemoptysisheart.parking.domain.common.Object
+import com.github.hemoptysisheart.parking.domain.route.Waypoint
 
 /**
  * 장소
  */
-interface Place : Object {
+interface Place : Object, Waypoint {
     val type: PlaceType
 
     /**
@@ -17,9 +18,4 @@ interface Place : Object {
      * 주소
      */
     val address: String
-
-    /**
-     * 좌표
-     */
-    val geolocation: Geolocation
 }

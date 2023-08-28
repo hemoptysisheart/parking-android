@@ -44,5 +44,5 @@ data class Geolocation(
 
     override val geolocation: Geolocation = this
 
-    override fun toSimpleString() = "$latitude,$longitude"
+    override fun toSimpleString() = "%.5f,%.5f".format(latitude, longitude)
 }

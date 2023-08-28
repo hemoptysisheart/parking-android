@@ -30,6 +30,7 @@ import com.github.hemoptysisheart.parking.core.R.string.domain_place_type_parkin
 import com.github.hemoptysisheart.parking.core.domain.place.toLatLng
 import com.github.hemoptysisheart.parking.domain.place.Geolocation
 import com.github.hemoptysisheart.parking.domain.place.Place
+import com.github.hemoptysisheart.parking.domain.route.Route
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.maps.android.compose.GoogleMap
@@ -44,6 +45,7 @@ fun SelectRouteMap(
         here: Geolocation,
         parking: Place,
         destination: Place,
+        routeList: List<Route>,
         toggleOverlay: () -> Unit = { }
 ) {
     val cameraPosition = rememberCameraPositionState {
@@ -78,6 +80,9 @@ fun SelectRouteMap(
                     state = rememberMarkerState("${parking.id.toURI()}", parking.toLatLng()),
                     icon = drawableResource(marker_parking).toBitmapDescriptor()
             )
+            for (route in routeList) {
+                // TODO 경로 그리기.
+            }
         }
 
         IconButton(
@@ -134,7 +139,8 @@ fun Preview_RouteMap() {
         SelectRouteMap(
                 GEOLOCATION_시부야역,
                 PLACE_MODE_GAKUEN_COCOON_TOWER_PARKING_LOT,
-                PLACE_로손편의점_니시신주쿠_7_10_19
+                PLACE_로손편의점_니시신주쿠_7_10_19,
+                emptyList()
         )
     }
 }

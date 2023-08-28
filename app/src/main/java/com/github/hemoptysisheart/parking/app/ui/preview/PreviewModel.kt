@@ -8,6 +8,7 @@ import com.github.hemoptysisheart.parking.core.model.GlobalChannelConsumer
 import com.github.hemoptysisheart.parking.core.model.GlobalChannelImpl
 import com.github.hemoptysisheart.parking.core.model.LocationModel
 import com.github.hemoptysisheart.parking.core.model.PlaceModel
+import com.github.hemoptysisheart.parking.core.model.RouteModel
 import com.github.hemoptysisheart.parking.domain.app.ExecutionPreferences
 import com.github.hemoptysisheart.parking.domain.app.InstallPreferences
 import com.github.hemoptysisheart.parking.domain.app.Preferences
@@ -19,6 +20,9 @@ import com.github.hemoptysisheart.parking.domain.common.Identifier
 import com.github.hemoptysisheart.parking.domain.common.Locale
 import com.github.hemoptysisheart.parking.domain.place.Geolocation
 import com.github.hemoptysisheart.parking.domain.place.Place
+import com.github.hemoptysisheart.parking.domain.route.SubRoute
+import com.github.hemoptysisheart.parking.domain.route.Transportation
+import com.github.hemoptysisheart.parking.domain.route.Waypoint
 import com.github.hemoptysisheart.parking.domain.search.Query
 import com.github.hemoptysisheart.util.NonNegativeInt
 import com.github.hemoptysisheart.util.truncateToMillis
@@ -120,4 +124,10 @@ fun previewPlaceModel(
     override suspend fun searchParking(query: Query): List<Place> = emptyList()
 
     override suspend fun searchDestination(query: Query) = searchList()
+}
+
+fun previewRouteModel(): RouteModel = object : RouteModel {
+    override suspend fun search(start: Waypoint, end: Waypoint, transportation: Transportation): List<SubRoute> {
+        TODO("Not yet implemented")
+    }
 }

@@ -1,13 +1,19 @@
 package com.github.hemoptysisheart.parking.app.viewmodel.main
 
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.github.hemoptysisheart.parking.app.interaction.main.SelectRouteInteraction
 import com.github.hemoptysisheart.parking.app.viewmodel.BaseViewModel
+import com.github.hemoptysisheart.parking.core.domain.route.RouteImpl
 import com.github.hemoptysisheart.parking.core.model.LocationModel
 import com.github.hemoptysisheart.parking.core.model.PlaceModel
+import com.github.hemoptysisheart.parking.core.model.RouteModel
 import com.github.hemoptysisheart.parking.domain.place.Geolocation
 import com.github.hemoptysisheart.parking.domain.place.Place
+import com.github.hemoptysisheart.parking.domain.route.Route
+import com.github.hemoptysisheart.parking.domain.route.Transportation.DRIVING
+import com.github.hemoptysisheart.parking.domain.route.Transportation.WALKING
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
@@ -26,7 +32,8 @@ import javax.inject.Inject
 class SelectRouteViewModel @Inject constructor(
         savedStateHandle: SavedStateHandle,
         private val locationModel: LocationModel,
-        private val placeModel: PlaceModel
+        private val placeModel: PlaceModel,
+        private val routeModel: RouteModel
 ) : BaseViewModel() {
     final lateinit var parking: Place
         private set
@@ -35,6 +42,9 @@ class SelectRouteViewModel @Inject constructor(
 
     private val _here = MutableStateFlow(locationModel.location!!)
     val here: StateFlow<Geolocation> = _here
+
+    private val _routeList = MutableStateFlow(listOf<Route>())
+    val routeList: StateFlow<List<Route>> = _routeList
 
     init {
         val args = SelectRouteInteraction.args(savedStateHandle)
@@ -47,7 +57,29 @@ class SelectRouteViewModel @Inject constructor(
                     ?: throw IllegalArgumentException("destination does not exist : args=$args")
         }.getCompleted()
 
+        launch(requestSignal = true) {
+            val here = locationModel.location!!
+            val driveList = routeModel.search(here, parking.geolocation, WALKING)
+            val walkList = routeModel.search(parking.geolocation, destination.geolocation, DRIVING)
+
+            val routeList = mutableListOf<RouteImpl>()
+            for (drive in driveList) {
+                for (walk in walkList) {
+                    routeList.add(RouteImpl(here, parking, destination, drive, walk))
+                }
+            }
+            _routeList.emit(routeList.toList())
+        }
+
         logger.d("#init complete.")
+    }
+
+    override fun onResume(owner: LifecycleOwner) {
+        super.onResume(owner)
+
+        launch {
+            _here.emit(locationModel.location!!)
+        }
     }
 
     override fun toString() = "SelectRouteViewModel(parking=$parking, destination=$destination, here=${here.value})"

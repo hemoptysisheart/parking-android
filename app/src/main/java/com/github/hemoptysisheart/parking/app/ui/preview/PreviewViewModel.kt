@@ -16,6 +16,7 @@ import com.github.hemoptysisheart.parking.app.viewmodel.wizard.LocationViewModel
 import com.github.hemoptysisheart.parking.core.model.GlobalChannelConsumer
 import com.github.hemoptysisheart.parking.core.model.LocationModel
 import com.github.hemoptysisheart.parking.core.model.PlaceModel
+import com.github.hemoptysisheart.parking.core.model.RouteModel
 import com.github.hemoptysisheart.parking.domain.app.ExecutionPreferences
 import com.github.hemoptysisheart.parking.domain.app.SearchPreferences
 import com.github.hemoptysisheart.parking.domain.app.WizardPreferences
@@ -71,5 +72,6 @@ fun previewSelectParkingViewModel(
 fun previewSelectRouteViewModel(
         savedStateHandle: SavedStateHandle = SavedStateHandle(),
         locationModel: LocationModel = previewLocationModel(),
-        placeModel: PlaceModel = previewPlaceModel()
-) = SelectRouteViewModel(savedStateHandle, locationModel, placeModel)
+        placeModel: PlaceModel = previewPlaceModel(),
+        routeModel: RouteModel = previewRouteModel()
+) = SelectRouteViewModel(savedStateHandle, locationModel, placeModel, routeModel)

@@ -37,6 +37,7 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.Marker
+import com.google.maps.android.compose.Polyline
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.google.maps.android.compose.rememberMarkerState
 
@@ -81,7 +82,16 @@ fun SelectRouteMap(
                     icon = drawableResource(marker_parking).toBitmapDescriptor()
             )
             for (route in routeList) {
-                // TODO 경로 그리기.
+                Polyline(
+                        points = route.drive.overview.map { it.toLatLng() },
+                        color = MaterialTheme.colorScheme.primary.copy(alpha = 0.6F),
+                        width = 10F
+                )
+                Polyline(
+                        points = route.walk.overview.map { it.toLatLng() },
+                        color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.4F),
+                        width = 10F
+                )
             }
         }
 

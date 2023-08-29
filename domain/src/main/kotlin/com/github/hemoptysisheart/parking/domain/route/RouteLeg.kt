@@ -1,6 +1,7 @@
 package com.github.hemoptysisheart.parking.domain.route
 
 import com.github.hemoptysisheart.parking.domain.place.Geolocation
+import java.time.Duration
 
 /**
  * 경로 구간
@@ -16,4 +17,10 @@ interface RouteLeg {
     val end: Geolocation
 
     val stepList: List<RouteStep>
+
+    val overview: List<Geolocation>
+
+    val distance: Long
+
+    val duration: Duration
 }

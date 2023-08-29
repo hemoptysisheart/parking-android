@@ -9,18 +9,17 @@ import java.time.Duration
 data class RouteLegImpl(
         override val start: Geolocation,
         override val end: Geolocation,
-        override val stepList: List<RouteStep>
+        override val stepList: List<RouteStep>,
+        override val distance: Long?,
+        override val duration: Duration?
 ) : RouteLeg {
     override val overview: List<Geolocation> = stepList.flatMap { it.overview }
-
-    override val distance = stepList.sumOf { it.distance ?: 0L }
-
-    override val duration = stepList.sumOf { it.duration?.toSeconds() ?: 0L }
-            .run { Duration.ofSeconds(this) }!!
 }
 
 fun DirectionsLeg.toRouteLeg() = RouteLegImpl(
         start = Geolocation(startLocation.latitude, startLocation.longitude),
         end = Geolocation(endLocation.latitude, endLocation.longitude),
-        stepList = steps.map { it.toRouteStep() }
+        stepList = steps.map { it.toRouteStep() },
+        distance = distance?.number?.toLong(),
+        duration = duration?.let { Duration.ofSeconds(it.number.toLong()) }
 )

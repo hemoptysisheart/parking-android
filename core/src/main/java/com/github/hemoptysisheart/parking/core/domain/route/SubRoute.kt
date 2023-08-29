@@ -16,9 +16,9 @@ data class SubRouteImpl(
 ) : SubRoute {
     override val overview: List<Geolocation> = legList.flatMap { it.overview }
 
-    override val distance: Long = legList.sumOf { it.distance }
+    override val distance: Long = legList.sumOf { it.distance ?: 0L }
 
-    override val duration = legList.sumOf { it.duration.toSeconds() }
+    override val duration = legList.sumOf { it.duration?.toSeconds() ?: 0L }
             .run { Duration.ofSeconds(this) }!!
 }
 

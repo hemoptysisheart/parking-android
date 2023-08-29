@@ -20,7 +20,7 @@ interface RouteLeg {
 
     val overview: List<Geolocation>
 
-    val distance: Long
+    val distance: Long?
 
-    val duration: Duration
+    val duration: Duration?
 }

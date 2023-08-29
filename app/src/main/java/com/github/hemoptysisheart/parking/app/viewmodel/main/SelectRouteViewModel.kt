@@ -59,16 +59,16 @@ class SelectRouteViewModel @Inject constructor(
 
         launch(requestSignal = true) {
             val here = locationModel.location!!
-            val driveList = routeModel.search(here, parking.geolocation, WALKING)
-            val walkList = routeModel.search(parking.geolocation, destination.geolocation, DRIVING)
+            val driveList = routeModel.search(here, parking.geolocation, DRIVING)
+            val walkList = routeModel.search(parking.geolocation, destination.geolocation, WALKING)
 
             val routeList = mutableListOf<RouteImpl>()
             for (drive in driveList) {
                 for (walk in walkList) {
                     routeList.add(RouteImpl(here, parking, destination, drive, walk))
+                    _routeList.emit(routeList.toList())
                 }
             }
-            _routeList.emit(routeList.toList())
         }
 
         logger.d("#init complete.")

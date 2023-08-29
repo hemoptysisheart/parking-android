@@ -19,7 +19,7 @@ class RouteModelImpl @Inject constructor(
 
         val routeList = routeRepository.search(start, end, transportation)
 
-        LOGGER.e("#search return : $routeList")
+        LOGGER.v("#search return : $routeList")
         return routeList
     }
 }

@@ -16,7 +16,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.github.hemoptysisheart.parking.app.ui.molecule.TextBodyMedium
+import com.github.hemoptysisheart.parking.app.ui.molecule.Distance
+import com.github.hemoptysisheart.parking.app.ui.molecule.Duration
 import com.github.hemoptysisheart.parking.app.ui.molecule.TextLabelMedium
 import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreview
 import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreviewContainer
@@ -45,13 +46,13 @@ fun RouteListItem(route: Route, onClickStartNavigation: (Route) -> Unit = { }) {
                         tint = MaterialTheme.colorScheme.primary
                 )
 
-                TextBodyMedium(
-                        text = "${route.drive.distance} m",
+                Distance(
+                        distance = route.drive.distance,
                         modifier = Modifier.padding(5.dp, 0.dp),
                         color = MaterialTheme.colorScheme.primary
                 )
-                TextBodyMedium(
-                        text = "${route.drive.duration}",
+                Duration(
+                        duration = route.drive.duration,
                         modifier = Modifier.padding(5.dp, 0.dp),
                         color = MaterialTheme.colorScheme.primary
                 )
@@ -62,13 +63,13 @@ fun RouteListItem(route: Route, onClickStartNavigation: (Route) -> Unit = { }) {
                         contentDescription = stringResource(domain_transport_walk),
                         tint = MaterialTheme.colorScheme.secondary
                 )
-                TextBodyMedium(
-                        text = "${route.walk.distance} m",
+                Distance(
+                        distance = route.walk.distance,
                         modifier = Modifier.padding(5.dp, 0.dp),
                         color = MaterialTheme.colorScheme.secondary
                 )
-                TextBodyMedium(
-                        text = "${route.walk.duration}",
+
+                Duration(duration = route.walk.duration,
                         modifier = Modifier.padding(5.dp, 0.dp),
                         color = MaterialTheme.colorScheme.secondary
                 )

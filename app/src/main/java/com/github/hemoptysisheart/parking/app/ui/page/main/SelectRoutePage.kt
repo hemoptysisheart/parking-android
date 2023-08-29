@@ -32,7 +32,10 @@ import kotlinx.coroutines.launch
  */
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun SelectRoutePage(interaction: SelectRouteInteraction, viewModel: SelectRouteViewModel = hiltBaseViewModel()) {
+fun SelectRoutePage(
+        interaction: SelectRouteInteraction,
+        viewModel: SelectRouteViewModel = hiltBaseViewModel()
+) {
     LOGGER.v("#SelectRoutePage args : interaction=$interaction, viewModel=$viewModel")
 
     val parking = viewModel.parking

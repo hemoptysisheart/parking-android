@@ -89,7 +89,7 @@ fun SelectRouteMap(
                 )
                 Polyline(
                         points = route.walk.overview.map { it.toLatLng() },
-                        color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.4F),
+                        color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.6F),
                         width = 10F
                 )
             }

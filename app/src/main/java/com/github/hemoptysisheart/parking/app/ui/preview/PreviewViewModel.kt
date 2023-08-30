@@ -79,5 +79,6 @@ fun previewSelectRouteViewModel(
 
 fun previewRouteNavigationViewModel(
         savedStateHandle: SavedStateHandle,
-        routeModel: RouteModel = previewRouteModel()
-) = RouteNavigationViewModel(savedStateHandle, routeModel)
+        locationModel: LocationModel = previewLocationModel(),
+        routeModel: RouteModel = previewRouteModel(),
+) = RouteNavigationViewModel(savedStateHandle, locationModel, routeModel)

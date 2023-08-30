@@ -10,8 +10,11 @@ import com.github.hemoptysisheart.parking.core.util.AndroidLogger
 import com.github.hemoptysisheart.parking.domain.app.WizardPreferences
 import com.github.hemoptysisheart.parking.domain.place.Geolocation
 import com.google.android.gms.location.FusedLocationProviderClient
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 class LocationModelImpl(
+        initLocation: Geolocation,
         private val context: Context,
         private val client: FusedLocationProviderClient,
         private val wizardPreferences: WizardPreferences
@@ -21,18 +24,18 @@ class LocationModelImpl(
     }
 
     private val locationCallback: (Location) -> Unit = {
-        val g = Geolocation(it.latitude, it.longitude)
-        this@LocationModelImpl.location = g
-        wizardPreferences.lastLocation(g)
+        val geolocation = Geolocation(it.latitude, it.longitude)
+        location = geolocation
+        _locations.value = geolocation
+        wizardPreferences.lastLocation(geolocation)
     }
 
-    override var granted: Boolean = false
+    override val granted: Boolean
         get() {
-            val g = PERMISSION_GRANTED == checkSelfPermission(context, ACCESS_FINE_LOCATION)
-            LOGGER.v("#granted return : $g")
-            return g
+            val granted = PERMISSION_GRANTED == checkSelfPermission(context, ACCESS_FINE_LOCATION)
+            LOGGER.v("#granted return : $granted")
+            return granted
         }
-        private set
 
     override var location: Geolocation? = wizardPreferences.lastLocation
         get() {
@@ -40,6 +43,10 @@ class LocationModelImpl(
             return field
         }
         private set
+
+    private val _locations = MutableStateFlow(initLocation)
+
+    override val locations: StateFlow<Geolocation> = _locations
 
     init {
         reset()

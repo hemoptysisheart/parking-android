@@ -7,6 +7,7 @@ import com.github.hemoptysisheart.parking.app.ui.page.LOGGER
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreview
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreviewContainer
 import com.github.hemoptysisheart.parking.app.ui.preview.previewRouteNavigationViewModel
+import com.github.hemoptysisheart.parking.app.ui.support.collect
 import com.github.hemoptysisheart.parking.app.ui.support.hiltBaseViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.main.RouteNavigationViewModel
 
@@ -26,7 +27,9 @@ fun RouteNavigationPage(
     val drive = viewModel.drive
     val walk = viewModel.walk
 
-    RouteNavigationPageContent(interaction, drive, walk)
+    val here = viewModel.here.collect()
+
+    RouteNavigationPageContent(interaction, drive, walk, here)
 }
 
 @Composable

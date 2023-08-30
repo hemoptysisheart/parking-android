@@ -16,6 +16,7 @@ import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreviewContain
 fun Divider() {
     androidx.compose.material3.Divider(
             modifier = Modifier
+                    .padding(0.dp, 3.dp)
                     .fillMaxWidth()
                     .padding(20.dp, 1.dp),
             color = MaterialTheme.colorScheme.outlineVariant

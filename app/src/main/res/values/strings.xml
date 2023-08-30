@@ -24,6 +24,8 @@
     <string name="molecule_input_button_search_label">검색</string>
     <string name="molecule_input_button_settings_label">설정</string>
 
+    <string name="template_route_navigation_route_step_list_finish_navigation">안내 종료</string>
+
     <string name="page_about_app_title">앱 정보</string>
     <string name="page_destination_search_query_placeholder">목적지 검색어를 입력하세요.</string>
     <string name="page_destination_search_init_label">목적지를 입력하세요.</string>
@@ -50,26 +52,6 @@
 
     <!-- ========================================================================================================== -->
 
-    <string name="domain_maneuver_turn_slight_left">약간 좌회전</string>
-    <string name="domain_maneuver_turn_sharp_left">급한 좌회전</string>
-    <string name="domain_maneuver_turn_left">좌회전</string>
-    <string name="domain_maneuver_turn_slight_right">약간 우회전</string>
-    <string name="domain_maneuver_turn_sharp_right">급한 우회전</string>
-    <string name="domain_maneuver_keep_right">오른쪽 유지</string>
-    <string name="domain_maneuver_keep_left">왼쪽 유지</string>
-    <string name="domain_maneuver_uturn_left">왼쪽으로 유턴</string>
-    <string name="domain_maneuver_uturn_right">오른쪽으로 유턴</string>
-    <string name="domain_maneuver_turn_right">우회전</string>
-    <string name="domain_maneuver_straight">직진</string>
-    <string name="domain_maneuver_ramp_left">왼쪽으로 올라가는 램프</string>
-    <string name="domain_maneuver_ramp_right">오른쪽으로 올라가는 램프</string>
-    <string name="domain_maneuver_merge">차로 합쳐짐</string>
-    <string name="domain_maneuver_fork_left">왼쪽으로 갈라지는 길</string>
-    <string name="domain_maneuver_fork_right">오른쪽으로 갈라지는 길</string>
-    <string name="domain_maneuver_ferry">배로 이동</string>
-    <string name="domain_maneuver_ferry_train">배 혹은 기차로 이동</string>
-    <string name="domain_maneuver_roundabout_left">왼쪽으로 돌아가는 다리</string>
-    <string name="domain_maneuver_roundabout_right">오른쪽으로 돌아가는 다리</string>
 
     <string name="domain_partial_route_drive">운전</string>
     <string name="domain_partial_route_walk">도보</string>

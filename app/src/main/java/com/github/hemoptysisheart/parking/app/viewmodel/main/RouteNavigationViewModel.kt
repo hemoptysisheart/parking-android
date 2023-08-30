@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.github.hemoptysisheart.parking.app.interaction.main.RouteNavigationInteraction
 import com.github.hemoptysisheart.parking.app.viewmodel.BaseViewModel
+import com.github.hemoptysisheart.parking.core.model.LocationModel
 import com.github.hemoptysisheart.parking.core.model.RouteModel
 import com.github.hemoptysisheart.parking.domain.route.SubRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,6 +22,7 @@ import javax.inject.Inject
 @OptIn(ExperimentalCoroutinesApi::class)
 class RouteNavigationViewModel @Inject constructor(
         savedStateHandle: SavedStateHandle,
+        locationModel: LocationModel,
         private val routeModel: RouteModel
 ) : BaseViewModel() {
     final lateinit var drive: SubRoute
@@ -28,6 +30,11 @@ class RouteNavigationViewModel @Inject constructor(
 
     final lateinit var walk: SubRoute
         private set
+
+    /**
+     * 내 위치
+     */
+    val here = locationModel.locations
 
     init {
         val args = RouteNavigationInteraction.args(savedStateHandle)

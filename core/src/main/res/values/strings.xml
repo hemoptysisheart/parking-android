@@ -31,9 +31,6 @@
     <string name="domain_place_type_destination">목적지</string>
     <string name="domain_place_type_parking">주차장</string>
 
-    <string name="domain_property_id">ID</string>
-    <string name="domain_property_query_query">검색어</string>
-
     <string name="domain_transport_drive">운전</string>
     <string name="domain_transport_walk">도보</string>
 

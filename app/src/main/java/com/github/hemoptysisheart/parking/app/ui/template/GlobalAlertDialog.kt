@@ -43,7 +43,7 @@ fun GlobalAlertDialog(
             Text(text = error.detail(), color = MaterialTheme.colorScheme.onSurface)
             Spacer(modifier = Modifier.height(10.dp))
             Button(onClick = onClearError, modifier = Modifier.fillMaxWidth()) {
-                Text(text = stringResource(R.string.global_header_close_alert_dialog))
+                Text(text = stringResource(R.string.global_close_label))
             }
         }
     }

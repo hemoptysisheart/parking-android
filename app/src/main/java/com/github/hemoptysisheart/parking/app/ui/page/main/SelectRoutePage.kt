@@ -63,7 +63,16 @@ fun SelectRoutePage(
         }
     }
 
-    SelectRoutePageContent(interaction, scaffoldState, showOverlay, here, parking, destination, routeList, toggleOverlay)
+    SelectRoutePageContent(
+            interaction,
+            scaffoldState,
+            showOverlay,
+            here,
+            parking,
+            destination,
+            routeList,
+            toggleOverlay
+    )
 }
 
 @Composable

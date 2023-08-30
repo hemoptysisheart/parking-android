@@ -8,6 +8,7 @@ import com.github.hemoptysisheart.parking.core.domain.common.toIdentifier
 import com.github.hemoptysisheart.parking.core.util.AndroidLogger
 import com.github.hemoptysisheart.parking.domain.common.Identifier
 import com.github.hemoptysisheart.parking.domain.place.Place
+import com.github.hemoptysisheart.parking.domain.route.Route
 
 /**
  * [경로 선택](https://www.figma.com/file/rKJxXjvDtDNprvdojVxaaN/Parking?type=whiteboard&node-id=526-681)
@@ -45,9 +46,9 @@ class SelectRouteInteraction(
         }
     }
 
-    fun gotoRouteNavigation() {
-        LOGGER.i("#gotoRouteNavigation called.")
-
-        base.navController.navigate(RouteNavigationInteraction.ROUTE_PATTERN)
+    fun gotoRouteNavigation(route: Route) {
+        val r = RouteNavigationInteraction.route(route.drive, route.walk)
+        LOGGER.d("#gotoRouteNavigation route=${route.id} => $r")
+        base.navController.navigate(r)
     }
 }

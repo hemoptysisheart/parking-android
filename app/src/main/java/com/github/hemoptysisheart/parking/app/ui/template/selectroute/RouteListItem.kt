@@ -29,7 +29,10 @@ import com.github.hemoptysisheart.parking.domain.route.Route
  * 경로 정보
  */
 @Composable
-fun RouteListItem(route: Route, onClickStartNavigation: (Route) -> Unit = { }) {
+fun RouteListItem(
+        route: Route,
+        onClickStartNavigation: (Route) -> Unit = { }
+) {
     Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.Top

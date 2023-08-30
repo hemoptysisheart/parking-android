@@ -19,7 +19,10 @@ import com.github.hemoptysisheart.parking.domain.route.Route
  * 경로 목록
  */
 @Composable
-fun RouteList(routeList: List<Route>) {
+fun RouteList(
+        routeList: List<Route>,
+        onClickStartNavigation: (Route) -> Unit = { }
+) {
     LazyColumn(
             modifier = Modifier
                     .fillMaxWidth()
@@ -33,7 +36,7 @@ fun RouteList(routeList: List<Route>) {
                 }
             }
             item {
-                RouteListItem(route)
+                RouteListItem(route, onClickStartNavigation)
             }
         }
     }

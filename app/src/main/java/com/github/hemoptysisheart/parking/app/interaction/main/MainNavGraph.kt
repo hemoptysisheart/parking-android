@@ -86,7 +86,19 @@ fun MainNavGraph(baseInteraction: BaseInteraction) {
             ) {
                 SelectRoutePage(selectRoute)
             }
-            composable(RouteNavigationInteraction.ROUTE_PATTERN) {
+            composable(
+                    route = RouteNavigationInteraction.ROUTE_PATTERN,
+                    arguments = listOf(
+                            navArgument(RouteNavigationInteraction.ARG_DRIVE) {
+                                nullable = false
+                                type = NavType.StringType
+                            },
+                            navArgument(RouteNavigationInteraction.ARG_WALK) {
+                                nullable = false
+                                type = NavType.StringType
+                            }
+                    )
+            ) {
                 RouteNavigationPage(routeNavigation)
             }
             composable(SettingsInteraction.ROUTE_PATTERN) {

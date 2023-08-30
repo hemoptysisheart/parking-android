@@ -17,6 +17,7 @@
     <string name="domain_type_recommend_item_query">추천 검색어</string>
     <string name="domain_type_recommend_item_route">추천 경로</string>
     <string name="domain_type_route">경로</string>
+    <string name="domain_type_sub_route">운전/도보경로</string>
 
     <!-- TODO ===================================================================================================== -->
 

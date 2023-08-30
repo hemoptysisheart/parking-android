@@ -42,7 +42,7 @@ fun SelectRoutePageContent(
 ) {
     BottomSheetScaffold(
             sheetContent = {
-                RouteList(routeList)
+                RouteList(routeList, interaction::gotoRouteNavigation)
             },
             scaffoldState = scaffoldState
     ) {

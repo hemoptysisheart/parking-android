@@ -1,5 +1,6 @@
 package com.github.hemoptysisheart.parking.domain.route
 
+import com.github.hemoptysisheart.parking.domain.common.Object
 import com.github.hemoptysisheart.parking.domain.place.Geolocation
 import java.time.Duration
 
@@ -11,7 +12,7 @@ import java.time.Duration
  *          1. [RouteLeg]
  *              1. [RouteStep]
  */
-interface SubRoute {
+interface SubRoute : Object {
     /**
      * 출발
      */

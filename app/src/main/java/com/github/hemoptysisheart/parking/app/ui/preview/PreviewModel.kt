@@ -26,6 +26,8 @@ import com.github.hemoptysisheart.parking.domain.route.Waypoint
 import com.github.hemoptysisheart.parking.domain.search.Query
 import com.github.hemoptysisheart.util.NonNegativeInt
 import com.github.hemoptysisheart.util.truncateToMillis
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import java.time.Instant
 import java.time.temporal.ChronoUnit
 import java.util.UUID
@@ -99,6 +101,8 @@ fun previewLocationModel(
 
     override val location: Geolocation = geolocation()
 
+    override val locations: StateFlow<Geolocation> = MutableStateFlow(location)
+
     override fun reset() {}
 }
 
@@ -127,6 +131,10 @@ fun previewPlaceModel(
 }
 
 fun previewRouteModel(): RouteModel = object : RouteModel {
+    override suspend fun read(id: Identifier): SubRoute? {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun search(start: Waypoint, end: Waypoint, transportation: Transportation): List<SubRoute> {
         TODO("Not yet implemented")
     }

@@ -1,16 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="domain_geolocation_here">현위치</string>
+
     <string name="domain_locale_null_language_label">(지정 안함)</string>
     <string name="domain_locale_null_locale_label">(지정 안함)</string>
     <string name="domain_locale_system_language_label">OS 언어</string>
     <string name="domain_locale_system_locale_label">OS</string>
+
+    <string name="domain_maneuver_turn_slight_left">약간 좌회전</string>
+    <string name="domain_maneuver_turn_sharp_left">급한 좌회전</string>
+    <string name="domain_maneuver_turn_left">좌회전</string>
+    <string name="domain_maneuver_turn_slight_right">약간 우회전</string>
+    <string name="domain_maneuver_turn_sharp_right">급한 우회전</string>
+    <string name="domain_maneuver_keep_right">오른쪽 유지</string>
+    <string name="domain_maneuver_keep_left">왼쪽 유지</string>
+    <string name="domain_maneuver_uturn_left">왼쪽으로 유턴</string>
+    <string name="domain_maneuver_uturn_right">오른쪽으로 유턴</string>
+    <string name="domain_maneuver_turn_right">우회전</string>
+    <string name="domain_maneuver_straight">직진</string>
+    <string name="domain_maneuver_ramp_left">왼쪽으로 올라가는 램프</string>
+    <string name="domain_maneuver_ramp_right">오른쪽으로 올라가는 램프</string>
+    <string name="domain_maneuver_merge">차로 합쳐짐</string>
+    <string name="domain_maneuver_fork_left">왼쪽으로 갈라지는 길</string>
+    <string name="domain_maneuver_fork_right">오른쪽으로 갈라지는 길</string>
+    <string name="domain_maneuver_ferry">배로 이동</string>
+    <string name="domain_maneuver_ferry_train">배 혹은 기차로 이동</string>
+    <string name="domain_maneuver_roundabout_left">왼쪽으로 돌아가는 다리</string>
+    <string name="domain_maneuver_roundabout_right">오른쪽으로 돌아가는 다리</string>
+
     <string name="domain_place_type_destination">목적지</string>
     <string name="domain_place_type_parking">주차장</string>
+
     <string name="domain_property_id">ID</string>
     <string name="domain_property_query_query">검색어</string>
+
     <string name="domain_transport_drive">운전</string>
     <string name="domain_transport_walk">도보</string>
+
     <string name="domain_type_query">검색어</string>
     <string name="domain_type_place_gmp">장소</string>
     <string name="domain_type_recommend_item_place">추천 장소</string>
@@ -18,8 +44,4 @@
     <string name="domain_type_recommend_item_route">추천 경로</string>
     <string name="domain_type_route">경로</string>
     <string name="domain_type_sub_route">운전/도보경로</string>
-
-    <!-- TODO ===================================================================================================== -->
-
-    <string name="label_search_language">검색 언어</string>
 </resources>

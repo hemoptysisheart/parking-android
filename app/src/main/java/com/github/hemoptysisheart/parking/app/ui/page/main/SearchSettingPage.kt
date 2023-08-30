@@ -10,7 +10,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.github.hemoptysisheart.parking.R
+import com.github.hemoptysisheart.parking.R.string.page_search_setting_search_language
+import com.github.hemoptysisheart.parking.R.string.page_search_setting_title
 import com.github.hemoptysisheart.parking.app.interaction.main.SearchSettingInteraction
 import com.github.hemoptysisheart.parking.app.ui.molecule.InputDropdown
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreview
@@ -52,7 +53,7 @@ internal fun SearchSettingPage(
     var languageExpand by remember { mutableStateOf(false) }
 
     SettingItemDetail(
-            title = R.string.page_search_setting_title,
+            title = page_search_setting_title,
             onBack = interaction::goBack
     ) {
         Distance(destination)
@@ -60,7 +61,7 @@ internal fun SearchSettingPage(
         Distance(parking)
         Divider(Modifier.padding(10.dp, 20.dp))
         InputDropdown(
-                label = stringResource(com.github.hemoptysisheart.parking.core.R.string.label_search_language),
+                label = stringResource(page_search_setting_search_language),
                 selected = language,
                 values = listOf(NullLocale, SystemLocale).map {
                     it to stringResource(LocaleRes[it].languageLabel)

@@ -1,6 +1,7 @@
 package com.github.hemoptysisheart.parking.core.model
 
 import com.github.hemoptysisheart.parking.domain.place.Geolocation
+import kotlinx.coroutines.flow.StateFlow
 
 /**
  * 위치정보 모델.
@@ -15,6 +16,8 @@ interface LocationModel {
      * 현재 위치. 위치정보 권한이 없으면 `null`.
      */
     val location: Geolocation?
+
+    val locations: StateFlow<Geolocation>
 
     /**
      * [LocationModel] 재설정.

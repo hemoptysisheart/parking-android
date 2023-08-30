@@ -8,6 +8,7 @@ import com.github.hemoptysisheart.parking.app.viewmodel.LandingMapViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.SettingsViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.launcher.LauncherViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.main.DestinationSearchViewModel
+import com.github.hemoptysisheart.parking.app.viewmodel.main.RouteNavigationViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.main.SearchSettingViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.main.SelectParkingViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.main.SelectRouteViewModel
@@ -75,3 +76,9 @@ fun previewSelectRouteViewModel(
         placeModel: PlaceModel = previewPlaceModel(),
         routeModel: RouteModel = previewRouteModel()
 ) = SelectRouteViewModel(savedStateHandle, locationModel, placeModel, routeModel)
+
+fun previewRouteNavigationViewModel(
+        savedStateHandle: SavedStateHandle,
+        locationModel: LocationModel = previewLocationModel(),
+        routeModel: RouteModel = previewRouteModel(),
+) = RouteNavigationViewModel(savedStateHandle, locationModel, routeModel)

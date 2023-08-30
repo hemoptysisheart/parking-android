@@ -23,6 +23,16 @@ class RouteRepositoryImpl @Inject constructor(
 
     private val routeCacheLock = Mutex()
     private val routeCache = mutableMapOf<Identifier, SubRoute>()
+    override suspend fun read(id: Identifier): SubRoute? {
+        LOGGER.v("#read args : id=$id")
+
+        val route = routeCache[id]
+
+        // TODO 캐시 miss 하면 API로 읽어오기.
+
+        LOGGER.v("#read return : $route")
+        return route
+    }
 
     override suspend fun search(start: Waypoint, end: Waypoint, transportation: Transportation): List<SubRoute> {
         LOGGER.v("#search args : start=$start, end=$end")

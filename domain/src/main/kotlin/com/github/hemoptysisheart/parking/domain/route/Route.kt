@@ -11,6 +11,10 @@ import com.github.hemoptysisheart.parking.domain.place.Place
  *          1. [RouteLeg]
  *              1. [RouteStep]
  */
+@Deprecated(
+        "Pair<SubRoute, SubRoute>로 충분할 듯.",
+        ReplaceWith("com.github.hemoptysisheart.parking.domain.route.SubRoute")
+)
 interface Route : Object {
     /**
      * 출발

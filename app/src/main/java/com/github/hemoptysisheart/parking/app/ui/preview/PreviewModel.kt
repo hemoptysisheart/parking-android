@@ -127,6 +127,10 @@ fun previewPlaceModel(
 }
 
 fun previewRouteModel(): RouteModel = object : RouteModel {
+    override suspend fun read(id: Identifier): SubRoute? {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun search(start: Waypoint, end: Waypoint, transportation: Transportation): List<SubRoute> {
         TODO("Not yet implemented")
     }

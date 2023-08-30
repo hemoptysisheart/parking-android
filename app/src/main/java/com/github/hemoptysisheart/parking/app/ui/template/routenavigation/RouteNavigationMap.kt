@@ -41,7 +41,12 @@ fun ColumnScope.RouteNavigationMap(drive: SubRoute, walk: SubRoute, here: Geoloc
                             top.linkTo(parent.top)
                         },
                 cameraPositionState = cameraPosition,
-                properties = MapProperties(isBuildingEnabled = true, isIndoorEnabled = false, isTrafficEnabled = true),
+                properties = MapProperties(
+                        isBuildingEnabled = true,
+                        isIndoorEnabled = false,
+                        isMyLocationEnabled = true,
+                        isTrafficEnabled = true
+                ),
                 uiSettings = MapUiSettings(
                         indoorLevelPickerEnabled = false,
                         mapToolbarEnabled = false,

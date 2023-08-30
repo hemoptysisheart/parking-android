@@ -38,6 +38,7 @@
     <string name="page_search_setting_parking_label">주차장 검색 반경</string>
     <string name="page_search_setting_parking_description">목적지 주변 %s %s 안에서 주차장을 찾습니다.
         거리는 도보 이동 거리가 아니라 직선거리 이므로 실제로 이동하는 거리는 더 멀어집니다.</string>
+    <string name="page_search_setting_search_language">검색 언어</string>
     <string name="page_search_setting_title">검색 설정</string>
     <string name="page_settings_title">설정</string>
     <string name="page_wizard_instruction_title">Parking은</string>
@@ -49,38 +50,4 @@
 
     <string name="preview_template_distance_setting_label">거리 설정</string>
     <string name="preview_template_distance_setting_description">어쩌고 저쩌고 어쩌고 저쩌고 %s %s 어쩌고 저쩌고 어쩌고 저쩌고</string>
-
-    <!-- ========================================================================================================== -->
-
-
-    <string name="domain_partial_route_drive">운전</string>
-    <string name="domain_partial_route_walk">도보</string>
-
-    <string name="domain_route_origin">출발지</string>
-    <string name="domain_route_parking">주차장</string>
-    <string name="domain_route_destination">목적지</string>
-    <string name="domain_route_driving">운전</string>
-    <string name="domain_route_walking">도보</string>
-    <string name="domain_route_distance">거리</string>
-
-    <string name="navi_back_button_description">돌아가기</string>
-    <string name="navi_close_button_description">닫기</string>
-
-    <string name="unit_meter">%s m</string>
-    <string name="unit_kilo_meter">%s Km</string>
-    <string name="unit_distance_known">\?</string>
-
-    <string name="label_welcome_message">운전 할 땐\n%s부터</string>
-    <string name="label_permission_granted">%s 권한이 이미 있습니다.</string>
-    <string name="label_permission_request">%s 권한을 요청합니다.</string>
-    <string name="label_open_app_setting">앱 설정 열기</string>
-    <string name="label_permission_maybe_not_allowed">%s 권한을 거부한 것 같습니다. 앱 설정에서 %s 권한을 허용해주시기 바랍니다.</string>
-
-    <string name="select_route_destination_marker_description">목적지</string>
-    <string name="select_route_parking_marker_focused_description">선택한 주차장</string>
-    <string name="select_route_parking_marker_description">주차장</string>
-    <string name="select_route_start_navigation_button_label">안내</string>
-
-    <string name="permission_location">위치 정보</string>
-    <string name="permission_location_description">%s은 주차 문제를 고려해서 현재 위치에서 목적지까지 경로를 안내 해줍니다. 현재 위치부터 도중에도 어떤 방향으로 가야 하는지는 알려주기 위해서 지금 어디 있는지 알아야 합니다. 위치 정보 권한을 허용해주시기 바랍니다.</string>
 </resources>

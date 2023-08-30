@@ -23,8 +23,10 @@ import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreviewContain
  */
 @Composable
 fun WizardFooter(
-        onClose: () -> Unit,
-        onNext: () -> Unit
+        closeEnable: Boolean,
+        nextEnable: Boolean = true,
+        onClose: () -> Unit = { },
+        onNext: () -> Unit = { }
 ) {
     Row(
             modifier = Modifier
@@ -33,9 +35,13 @@ fun WizardFooter(
                     .padding(20.dp, 10.dp),
             verticalAlignment = Alignment.CenterVertically
     ) {
-        TextButton(text = stringResource(R.string.global_close_label), onClick = onClose)
+        TextButton(
+                text = stringResource(R.string.global_close_label),
+                onClick = onClose,
+                enabled = closeEnable
+        )
         Spacer(modifier = Modifier.weight(1F))
-        Button(onClick = onNext) {
+        Button(onClick = onNext, enabled = nextEnable) {
             TextBodyMedium(text = stringResource(R.string.global_next_label), color = MaterialTheme.colorScheme.onBackground)
         }
     }
@@ -45,6 +51,6 @@ fun WizardFooter(
 @ComponentPreview
 fun Preview_WizardFooter() {
     ComponentPreviewContainer {
-        WizardFooter(onClose = {}, onNext = {})
+        WizardFooter(true, onClose = {}) {}
     }
 }

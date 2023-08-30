@@ -23,7 +23,8 @@ import com.github.hemoptysisheart.parking.app.ui.template.WizardFooter
 
 @Composable
 fun InstructionPageContent(
-        interaction: InstructionInteraction
+        interaction: InstructionInteraction,
+        closable: Boolean
 ) {
     Column(
             modifier = Modifier
@@ -50,6 +51,7 @@ fun InstructionPageContent(
         )
         Spacer(modifier = Modifier.weight(2F))
         WizardFooter(
+                closeEnable = closable,
                 onClose = interaction::close,
                 onNext = interaction::gotoLocation
         )
@@ -60,6 +62,6 @@ fun InstructionPageContent(
 @PagePreview
 fun Preview_InstructionPageContent() {
     PagePreviewContainer {
-        InstructionPageContent(InstructionInteraction(it))
+        InstructionPageContent(InstructionInteraction(it), true)
     }
 }

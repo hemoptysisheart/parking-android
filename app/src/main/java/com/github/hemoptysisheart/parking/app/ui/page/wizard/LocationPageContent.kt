@@ -132,7 +132,7 @@ fun LocationPageContent(
             }
         }
         Spacer(modifier = Modifier.weight(1F))
-        WizardFooter(onClose = onClose, onNext = interaction::close)
+        WizardFooter(closeEnable = granted, nextEnable = granted, onClose = onClose, onNext = interaction::close)
     }
 }
 

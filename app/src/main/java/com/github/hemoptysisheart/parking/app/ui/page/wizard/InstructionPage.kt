@@ -6,6 +6,7 @@ import com.github.hemoptysisheart.parking.app.ui.page.LOGGER
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreview
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreviewContainer
 import com.github.hemoptysisheart.parking.app.ui.preview.previewInstructionViewModel
+import com.github.hemoptysisheart.parking.app.ui.support.collect
 import com.github.hemoptysisheart.parking.app.ui.support.hiltBaseViewModel
 import com.github.hemoptysisheart.parking.app.viewmodel.wizard.InstructionViewModel
 
@@ -23,13 +24,18 @@ fun InstructionPage(
 ) {
     LOGGER.v("#InstructionPage args : interaction=$interaction")
 
-    InstructionPageContent(interaction = interaction)
+    val closable = viewModel.closeable.collect()
+
+    InstructionPageContent(interaction = interaction, closable = closable)
 }
 
 @Composable
 @PagePreview
 fun Preview_InstructionPage() {
     PagePreviewContainer {
-        InstructionPage(interaction = InstructionInteraction(it), viewModel = previewInstructionViewModel())
+        InstructionPage(
+                interaction = InstructionInteraction(it),
+                viewModel = previewInstructionViewModel()
+        )
     }
 }

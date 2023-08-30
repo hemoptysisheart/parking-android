@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="domain_geolocation_here">現在位置</string>
+
+    <string name="domain_locale_null_language_label">（未設定）</string>
+    <string name="domain_locale_null_locale_label">（未設定）</string>
+    <string name="domain_locale_system_language_label">OS言語</string>
+    <string name="domain_locale_system_locale_label">OS</string>
+
+    <string name="domain_maneuver_turn_slight_left">やや左回り</string>
+    <string name="domain_maneuver_turn_sharp_left">急な左折</string>
+    <string name="domain_maneuver_turn_left">左折</string>
+    <string name="domain_maneuver_turn_slight_right">やや右回り</string>
+    <string name="domain_maneuver_turn_sharp_right">急な右折</string>
+    <string name="domain_maneuver_keep_right">右保持</string>
+    <string name="domain_maneuver_keep_left">左保持</string>
+    <string name="domain_maneuver_uturn_left">左にUターン</string>
+    <string name="domain_maneuver_uturn_right">右にUターン</string>
+    <string name="domain_maneuver_turn_right">右折</string>
+    <string name="domain_maneuver_straight">直進</string>
+    <string name="domain_maneuver_ramp_left">左に上がるランプ</string>
+    <string name="domain_maneuver_ramp_right">右に上がるランプ</string>
+    <string name="domain_maneuver_merge">車合わせ</string>
+    <string name="domain_maneuver_fork_left">左に分かれる道</string>
+    <string name="domain_maneuver_fork_right">右に分かれる道</string>
+    <string name="domain_maneuver_ferry">船で移動</string>
+    <string name="domain_maneuver_ferry_train">船あるいは汽車で移動</string>
+    <string name="domain_maneuver_roundabout_left">左回りの橋</string>
+    <string name="domain_maneuver_roundabout_right">右に曲がる橋</string>
+
+    <string name="domain_place_type_destination">目的地</string>
+    <string name="domain_place_type_parking">駐車場</string>
+
+    <string name="domain_transport_drive">運転</string>
+    <string name="domain_transport_walk">徒歩</string>
+
+    <string name="domain_type_query">検索語</string>
+    <string name="domain_type_place_gmp">場所</string>
+    <string name="domain_type_recommend_item_place">おすすめ場所</string>
+    <string name="domain_type_recommend_item_query">おすすめ検索語</string>
+    <string name="domain_type_recommend_item_route">おすすめルート</string>
+    <string name="domain_type_route">ルート</string>
+    <string name="domain_type_sub_route">運転/徒歩ルート</string>
+</resources>

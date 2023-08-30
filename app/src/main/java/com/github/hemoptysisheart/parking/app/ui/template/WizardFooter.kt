@@ -1,10 +1,12 @@
 package com.github.hemoptysisheart.parking.app.ui.template
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,13 +29,14 @@ fun WizardFooter(
     Row(
             modifier = Modifier
                     .fillMaxWidth()
+                    .background(MaterialTheme.colorScheme.background)
                     .padding(20.dp, 10.dp),
             verticalAlignment = Alignment.CenterVertically
     ) {
         TextButton(text = stringResource(R.string.global_close_label), onClick = onClose)
         Spacer(modifier = Modifier.weight(1F))
         Button(onClick = onNext) {
-            TextBodyMedium(text = stringResource(R.string.global_next_label))
+            TextBodyMedium(text = stringResource(R.string.global_next_label), color = MaterialTheme.colorScheme.onBackground)
         }
     }
 }

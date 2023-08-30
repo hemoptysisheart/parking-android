@@ -3,7 +3,6 @@ package com.github.hemoptysisheart.parking.app.viewmodel.wizard
 import androidx.lifecycle.LifecycleOwner
 import com.github.hemoptysisheart.parking.app.viewmodel.BaseViewModel
 import com.github.hemoptysisheart.parking.core.model.LocationModel
-import com.github.hemoptysisheart.parking.core.util.AndroidLogger
 import com.github.hemoptysisheart.parking.domain.app.WizardPreferences
 import com.github.hemoptysisheart.parking.domain.place.Geolocation
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,11 +16,6 @@ class LocationViewModel @Inject constructor(
         private val locationModel: LocationModel,
         private val wizardPreferences: WizardPreferences
 ) : BaseViewModel() {
-    companion object {
-        private val LOGGER = AndroidLogger(LocationViewModel::class)
-    }
-
-
     private val _granted = MutableStateFlow(locationModel.granted)
     val granted: StateFlow<Boolean> = _granted
 
@@ -32,13 +26,12 @@ class LocationViewModel @Inject constructor(
     val location: StateFlow<Geolocation?> = _location
 
     fun onClickRequestPermission() {
-        LOGGER.d("#onClickRequestPermission called.")
+        logger.d("#onClickRequestPermission called.")
 
         wizardPreferences.locationPermissionRequested()
     }
 
     override fun onResume(owner: LifecycleOwner) {
-        LOGGER.d("#onResume args : owner=$owner")
         super.onResume(owner)
 
         locationModel.reset()

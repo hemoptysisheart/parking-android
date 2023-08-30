@@ -1,5 +1,6 @@
 package com.github.hemoptysisheart.parking.app.ui.page.wizard
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -7,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -53,6 +55,7 @@ fun LocationPageContent(
 
     Column(Modifier
             .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
             .padding(20.dp, 0.dp)) {
         if (granted) {
             location?.toLatLng()?.let { latLng ->
@@ -91,6 +94,7 @@ fun LocationPageContent(
                     modifier = Modifier
                             .fillMaxWidth()
                             .padding(0.dp, 40.dp),
+                    color = MaterialTheme.colorScheme.onBackground,
                     textAlign = TextAlign.Center
             )
         } else {
@@ -119,7 +123,8 @@ fun LocationPageContent(
                     text = stringResource(R.string.page_wizard_location_denied),
                     modifier = Modifier
                             .fillMaxWidth()
-                            .padding(0.dp, 40.dp)
+                            .padding(0.dp, 40.dp),
+                    color = MaterialTheme.colorScheme.onBackground
             )
 
             Button(onClick = interaction::openAppSetting, modifier = Modifier.fillMaxWidth()) {
@@ -127,7 +132,7 @@ fun LocationPageContent(
             }
         }
         Spacer(modifier = Modifier.weight(1F))
-        WizardFooter(onClose = onClose, onNext = interaction::close)
+        WizardFooter(closeEnable = granted, nextEnable = granted, onClose = onClose, onNext = interaction::close)
     }
 }
 

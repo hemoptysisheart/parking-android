@@ -44,8 +44,7 @@ fun ColumnScope.RouteNavigationMap(drive: SubRoute, walk: SubRoute, here: Geoloc
                 properties = MapProperties(
                         isBuildingEnabled = true,
                         isIndoorEnabled = false,
-                        isMyLocationEnabled = true,
-                        isTrafficEnabled = true
+                        isMyLocationEnabled = true
                 ),
                 uiSettings = MapUiSettings(
                         indoorLevelPickerEnabled = false,

@@ -19,7 +19,6 @@ import com.github.hemoptysisheart.parking.app.ui.molecule.TextLabelLarge
 import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreview
 import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreviewContainer
 import com.github.hemoptysisheart.parking.domain.route.SubRoute
-import com.github.hemoptysisheart.parking.domain.route.Transportation
 
 @Composable
 @OptIn(ExperimentalFoundationApi::class)
@@ -34,7 +33,7 @@ fun ColumnScope.RouteStepList(
                     .background(MaterialTheme.colorScheme.surface)
     ) {
         stickyHeader {
-            RouteStepListHeader(Transportation.DRIVING)
+            RouteStepListHeader(drive)
         }
 
         drive.legList.flatMap { it.stepList }.forEachIndexed { index, step ->
@@ -48,7 +47,7 @@ fun ColumnScope.RouteStepList(
         }
 
         stickyHeader {
-            RouteStepListHeader(Transportation.WALKING)
+            RouteStepListHeader(walk)
         }
 
         walk.legList.flatMap { it.stepList }.forEachIndexed { index, step ->

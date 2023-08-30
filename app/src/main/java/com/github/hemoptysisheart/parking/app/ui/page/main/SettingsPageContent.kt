@@ -32,10 +32,10 @@ fun SettingsPageContent(interaction: SettingsInteraction) {
         SettingItem(text = R.string.page_search_setting_title, onClick = interaction::gotoSearchSetting)
         Divider()
         SettingItem(text = R.string.page_wizard_title, onClick = interaction::gotoWizard)
-        Divider()
-        SettingItem(text = R.string.page_developer_setting_title, onClick = interaction::gotoDeveloperSetting)
-        Divider()
-        SettingItem(text = R.string.page_about_app_title, onClick = interaction::gotoAboutApp)
+        // Divider()
+        // SettingItem(text = R.string.page_developer_setting_title, onClick = interaction::gotoDeveloperSetting)
+        // Divider()
+        // SettingItem(text = R.string.page_about_app_title, onClick = interaction::gotoAboutApp)
     }
 }
 

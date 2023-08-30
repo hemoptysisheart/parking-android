@@ -1,0 +1,49 @@
+<resources>
+    <string name="launcher_label">Parking</string>
+    <string name="app_name">Parking</string>
+
+    <string name="global_distance_format_far">#,###.##</string>
+    <string name="global_distance_format_near">#,###</string>
+    <string name="global_duration_hour">%d時間</string>
+    <string name="global_duration_minute">%d分</string>
+    <string name="global_duration_second">%d秒</string>
+    <string name="global_close_label">クローズ</string>
+    <string name="global_header_error_default_title">何か問題が起こりました。</string>
+    <string name="global_header_error_default_detail">不明なエラーが発生しました。 しばらくしてからもう一度お試しください。</string>
+    <string name="global_next_label">次へ</string>
+    <string name="global_open_app_detail_settings">アプリ設定</string>
+
+    <string name="molecule_input_button_back_label">戻る</string>
+    <string name="molecule_input_button_drop_down_label">開く</string>
+    <string name="molecule_input_button_drop_up_label">閉じる</string>
+    <string name="molecule_input_button_open_in_full_label">全体を見る</string>
+    <string name="molecule_input_button_search_label">検索</string>
+    <string name="molecule_input_button_settings_label">設定</string>
+
+    <string name="template_route_navigation_route_step_list_finish_navigation">ナビゲーション終了</string>
+
+    <string name="page_about_app_title">アプリ情報</string>
+    <string name="page_destination_search_query_placeholder">目的地検索語を入力してください。</string>
+    <string name="page_destination_search_init_label">目的地を入力してください。</string>
+    <string name="page_destination_search_no_result_label">検索結果がありません。</string>
+    <string name="page_developer_setting_title">開発設定</string>
+    <string name="page_landingmap_header_label">目的地を検索してください。</string>
+    <string name="page_launcher_slogan">運転するなら\nParking\nから</string>
+    <string name="page_search_setting_distance_label">目的地検索半径</string>
+    <string name="page_search_setting_distance_description">現在地または地図の中心を基準に半径%s%s内で目的地を探します。</string>
+    <string name="page_search_setting_parking_label">駐車場検索半径</string>
+    <string name="page_search_setting_parking_description">目的地周辺の%s%s内で駐車場を探します。
+        距離は徒歩移動距離ではなく直線距離なので、実際に移動する距離はさらに遠くなります。</string>
+    <string name="page_search_setting_search_language">検索言語</string>
+    <string name="page_search_setting_title">検索設定</string>
+    <string name="page_settings_title">設定</string>
+    <string name="page_wizard_instruction_title">Parkingとは</string>
+    <string name="page_wizard_instruction_detail">Parkingは目的地周辺の駐車場を探してくれます。 初めて訪れる場所や駐車問題が重要な時に使用してください。</string>
+    <string name="page_wizard_location_denied">位置情報権限を取得できませんでした。 もし位置情報権限を要請しても承認ダイアログが見えない場合は、アプリ設定で権限を与えてください。</string>
+    <string name="page_wizard_location_granted">位置情報権限を獲得しました。</string>
+    <string name="page_wizard_location_request_permission_label">権限要請</string>
+    <string name="page_wizard_title">設定ウィザード</string>
+
+    <string name="preview_template_distance_setting_label">距離設定</string>
+    <string name="preview_template_distance_setting_description">あえいおうあえいおう%s%sあえいおうあえいおうあえいおうあえいおうあえいおうあえいおう</string>
+</resources>

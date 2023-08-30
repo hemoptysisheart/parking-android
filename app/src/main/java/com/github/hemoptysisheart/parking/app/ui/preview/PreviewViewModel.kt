@@ -42,7 +42,10 @@ fun previewDestinationSearchViewModel(
         placeModel: PlaceModel = previewPlaceModel()
 ) = DestinationSearchViewModel(searchPreferences, locationModel, placeModel)
 
-fun previewInstructionViewModel() = InstructionViewModel(previewPreferencesModel().wizard)
+fun previewInstructionViewModel(
+        wizardPreferences: WizardPreferences = previewPreferencesModel().wizard,
+        locationModel: LocationModel = previewLocationModel()
+) = InstructionViewModel(wizardPreferences, locationModel)
 
 fun previewLandingMapViewModel(locationModel: LocationModel = previewLocationModel()) =
         LandingMapViewModel(locationModel)

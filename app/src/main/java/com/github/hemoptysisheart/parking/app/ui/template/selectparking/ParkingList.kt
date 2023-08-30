@@ -1,6 +1,7 @@
 package com.github.hemoptysisheart.parking.app.ui.template.selectparking
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -26,9 +27,12 @@ fun ParkingList(
         parkingList: List<Place>,
         onClickSelectRoute: (Place) -> Unit = { }
 ) {
-    LazyColumn(modifier = Modifier
-            .fillMaxWidth()
-            .padding(10.dp, 0.dp)) {
+    LazyColumn(
+            modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(max = 200.dp)
+                    .padding(10.dp, 0.dp)
+    ) {
         itemsIndexed(parkingList) { index, parking ->
             if (0 < index) {
                 Divider()

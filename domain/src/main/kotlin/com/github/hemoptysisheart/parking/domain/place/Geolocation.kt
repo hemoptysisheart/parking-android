@@ -1,5 +1,6 @@
 package com.github.hemoptysisheart.parking.domain.place
 
+import com.github.hemoptysisheart.parking.domain.route.Waypoint
 import com.github.hemoptysisheart.util.ToSimpleString
 
 /**
@@ -15,7 +16,7 @@ data class Geolocation(
          * 경도
          */
         val longitude: Double
-) : ToSimpleString {
+) : Waypoint, ToSimpleString {
     @Suppress("MemberVisibilityCanBePrivate")
     companion object {
         const val LATITUDE_MIN = -90.0
@@ -41,5 +42,7 @@ data class Geolocation(
         }
     }
 
-    override fun toSimpleString() = "$latitude,$longitude"
+    override val geolocation: Geolocation = this
+
+    override fun toSimpleString() = "%.5f,%.5f".format(latitude, longitude)
 }

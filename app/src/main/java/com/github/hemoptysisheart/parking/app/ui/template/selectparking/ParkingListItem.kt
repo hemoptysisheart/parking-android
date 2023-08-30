@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Directions
+import androidx.compose.material.icons.filled.Route
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -48,7 +48,7 @@ fun ParkingListItem(parking: Place, onClickSelectRoute: (Place) -> Unit = { }) {
         }
         IconButton(onClick = { onClickSelectRoute(parking) }) {
             Icon(
-                    imageVector = Icons.Default.Directions,
+                    imageVector = Icons.Default.Route,
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.primary
             )

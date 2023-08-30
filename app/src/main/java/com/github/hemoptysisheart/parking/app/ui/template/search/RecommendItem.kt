@@ -62,11 +62,9 @@ private fun RecommendItemPlace(
                         .weight(1F)
                         .clickable { gotoSelectParking(item) }
         ) {
-            TextLabelMedium(text = item.name)
+            TextLabelMedium(text = item.name, color = MaterialTheme.colorScheme.onBackground)
             Spacer(modifier = Modifier.height(10.dp))
-            item.address.let {
-                TextBodyMedium(text = it, color = MaterialTheme.colorScheme.outline)
-            }
+            TextBodyMedium(text = item.address, color = MaterialTheme.colorScheme.outline)
         }
 
         OpenInFullButton(

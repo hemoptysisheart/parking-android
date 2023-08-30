@@ -17,6 +17,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import com.github.hemoptysisheart.parking.R
 import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreview
 import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreviewContainer
+import com.github.hemoptysisheart.parking.app.ui.preview.GEOLOCATION_시부야역
 import com.github.hemoptysisheart.parking.app.ui.preview.PLACE_OTEMACHIONE_BIKE_LOCKER
 import com.github.hemoptysisheart.parking.app.ui.preview.PLACE_OTEMACHI_BUILDING_PARKING
 import com.github.hemoptysisheart.parking.app.ui.preview.PLACE_OTEMACHI_FIRST_SQARE_PARKING_LOT
@@ -26,6 +27,8 @@ import com.github.hemoptysisheart.parking.app.ui.preview.PLACE_丸の内ガー�
 import com.github.hemoptysisheart.parking.app.ui.preview.PLACE_로손편의점_니시신주쿠_7_10_19
 import com.github.hemoptysisheart.parking.app.ui.resource.drawableResource
 import com.github.hemoptysisheart.parking.app.ui.resource.toBitmapDescriptor
+import com.github.hemoptysisheart.parking.core.R.string.domain_geolocation_here
+import com.github.hemoptysisheart.parking.core.R.string.domain_place_type_destination
 import com.github.hemoptysisheart.parking.core.domain.place.toLatLng
 import com.github.hemoptysisheart.parking.domain.place.Geolocation
 import com.github.hemoptysisheart.parking.domain.place.Place
@@ -45,7 +48,7 @@ import com.google.maps.android.compose.rememberMarkerState
  * 목적지와 목적지 주변의 주차장을 지도로 보여준다.
  */
 @Composable
-fun Map(
+fun SelectParkingMap(
         here: Geolocation,
         destination: Place,
         parkingRadius: NonNegativeInt,
@@ -75,7 +78,8 @@ fun Map(
                 uiSettings = MapUiSettings(
                         indoorLevelPickerEnabled = false,
                         mapToolbarEnabled = false,
-                        myLocationButtonEnabled = false
+                        myLocationButtonEnabled = false,
+                        zoomControlsEnabled = false
                 ),
                 onMapClick = { onClick() }
         ) {
@@ -109,7 +113,7 @@ fun Map(
         ) {
             Icon(
                     imageVector = Icons.Default.Flag,
-                    contentDescription = stringResource(R.string.page_select_parking_label_destination),
+                    contentDescription = stringResource(domain_place_type_destination),
                     tint = MaterialTheme.colorScheme.onSurface
             )
         }
@@ -124,20 +128,19 @@ fun Map(
         ) {
             Icon(
                     imageVector = Icons.Default.MyLocation,
-                    contentDescription = stringResource(R.string.page_select_parking_label_here),
+                    contentDescription = stringResource(domain_geolocation_here),
                     tint = MaterialTheme.colorScheme.onSurface
             )
         }
     }
 }
 
-
 @Composable
 @ComponentPreview
-fun Preview_Map() {
+fun Preview_SelectParkingMap() {
     ComponentPreviewContainer {
-        Map(
-                here = PLACE_로손편의점_니시신주쿠_7_10_19.geolocation,
+        SelectParkingMap(
+                here = GEOLOCATION_시부야역,
                 destination = PLACE_로손편의점_니시신주쿠_7_10_19,
                 parkingRadius = NonNegativeInt(200),
                 parkingList = listOf(

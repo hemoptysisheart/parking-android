@@ -7,36 +7,33 @@ import com.github.hemoptysisheart.parking.domain.place.Place
  * 경로
  *
  * 1. [Route]
- *     1. [RouteLeg]
- *         1. [RouteStep]
+ *      1. [SubRoute]
+ *          1. [RouteLeg]
+ *              1. [RouteStep]
  */
 interface Route : Object {
     /**
-     * 출발 장소
+     * 출발
      */
-    val origin: Place
+    val start: Waypoint
 
     /**
      * 주차장
      */
-    val parkingLot: Place
+    val parking: Place
 
     /**
-     * 목적지
+     * 도착
      */
     val destination: Place
 
     /**
-     * 운전 경로
-     *
-     * [origin] -> [parkingLot]
+     * 차량 이동
      */
-    val driveLegs: List<RouteLeg>
+    val drive: SubRoute
 
     /**
-     * 도보 경로
-     *
-     * [parkingLot] -> [destination]
+     * 도보 이동
      */
-    val walkLegs: List<RouteLeg>
+    val walk: SubRoute
 }

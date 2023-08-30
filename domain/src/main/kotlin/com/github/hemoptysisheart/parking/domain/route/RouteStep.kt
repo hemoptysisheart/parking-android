@@ -7,24 +7,28 @@ import java.time.Duration
  * 경로 상세 이동
  *
  * 1. [Route]
- *     1. [RouteLeg]
- *         1. [RouteStep]
+ *      1. [SubRoute]
+ *          1. [RouteLeg]
+ *              1. [RouteStep]
  */
 interface RouteStep {
+    val start: Geolocation
+    val end: Geolocation
+
     /**
      * 방향
      */
-    val maneuver: Maneuver
+    val maneuver: Maneuver?
 
     /**
      * 거리
      */
-    val distance: Double
+    val distance: Long?
 
     /**
      * 시간
      */
-    val duration: Duration
+    val duration: Duration?
 
     /**
      * 안내 문구.

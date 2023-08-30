@@ -20,9 +20,9 @@ import com.github.hemoptysisheart.parking.app.ui.preview.PLACE_丸の内ガー�
 import com.github.hemoptysisheart.parking.app.ui.preview.PLACE_로손편의점_스미요시_2_22
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreview
 import com.github.hemoptysisheart.parking.app.ui.preview.PagePreviewContainer
-import com.github.hemoptysisheart.parking.app.ui.template.selectparking.Map
 import com.github.hemoptysisheart.parking.app.ui.template.selectparking.ParkingList
 import com.github.hemoptysisheart.parking.app.ui.template.selectparking.SelectParkingHeader
+import com.github.hemoptysisheart.parking.app.ui.template.selectparking.SelectParkingMap
 import com.github.hemoptysisheart.parking.domain.place.Geolocation
 import com.github.hemoptysisheart.parking.domain.place.Place
 import com.github.hemoptysisheart.util.NonNegativeInt
@@ -58,7 +58,7 @@ fun SelectParkingPageContent(
             scaffoldState = scaffoldState
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
-            Map(here, destination, parkingRadius, parkingList, toggleOverlay, onMoveCamera)
+            SelectParkingMap(here, destination, parkingRadius, parkingList, toggleOverlay, onMoveCamera)
             if (showOverlay) {
                 SelectParkingHeader(interaction, destination)
             }

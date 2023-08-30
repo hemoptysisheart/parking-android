@@ -14,6 +14,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.time.Instant
 import java.util.UUID
 import java.util.concurrent.atomic.AtomicInteger
 import javax.inject.Inject
@@ -32,9 +33,12 @@ open class BaseViewModel : ViewModel(), DefaultLifecycleObserver {
             val key: UUID = UUID.randomUUID()!!
     ) {
         /**
-         * [BaseViewModel.launchSignal]를 대행한다.
+         * [BaseViewModel.launchCompleteAt]를 대행한다.
+         *
+         * [launch]가 완료된 시각. 더 정확한 시각을 지정하기 위해 [timeProvider]를 사용하지 않고 직접 [Instant.now]를 사용한다.
+         * 시스템 시계가 변경됐을 가능성이 없기 때문에 시각 정보를 사용해서는 안되고, 단순히 증가하는 값으로 변경되었다는 사실만을 사용해야 한다.
          */
-        protected val launchSignal = base.launchSignal
+        protected val launchCompleteAt = base.launchCompleteAt
 
         /**
          * [BaseViewModel.launch]를 대행한다.
@@ -60,14 +64,23 @@ open class BaseViewModel : ViewModel(), DefaultLifecycleObserver {
     @Inject
     lateinit var globalChannel: GlobalChannel
 
-    private val _launchSignal = MutableStateFlow(UUID.randomUUID())
-    protected val launchSignal: StateFlow<UUID> = _launchSignal
+    /**
+     * [launch]가 완료된 시각. 더 정확한 시각을 지정하기 위해 [timeProvider]를 사용하지 않고 직접 [Instant.now]를 사용한다.
+     * 시스템 시계가 변경됐을 가능성이 없기 때문에 시각 정보를 사용해서는 안되고, 단순히 증가하는 값으로 변경되었다는 사실만을 사용해야 한다.
+     */
+    private val _launchCompleteAt = MutableStateFlow(Instant.now())
+
+    /**
+     * [launch]가 완료된 시각. 더 정확한 시각을 지정하기 위해 [timeProvider]를 사용하지 않고 직접 [Instant.now]를 사용한다.
+     * 시스템 시계가 변경됐을 가능성이 없기 때문에 시각 정보를 사용해서는 안되고, 단순히 증가하는 값으로 변경되었다는 사실만을 사용해야 한다.
+     */
+    protected val launchCompleteAt: StateFlow<Instant> = _launchCompleteAt
 
     /**
      * [viewModelScope]로 코루틴을 실행한다.
      *
      * @param progress 코루틴 실행중 프로그레스 인디케이터 표시 여부.
-     * @param requestSignal 코루틴 실행이 끝나면 [launchSignal] 갱신으로 신호를 보내도록 요청한다.
+     * @param requestSignal 코루틴 실행이 끝나면 [launchCompleteAt] 갱신으로 신호를 보내도록 요청한다.
      */
     protected fun launch(
             progress: Boolean = false,
@@ -101,7 +114,7 @@ open class BaseViewModel : ViewModel(), DefaultLifecycleObserver {
                     globalChannel.reportProgress(-1)
                 }
                 if (requestSignal) {
-                    _launchSignal.emit(UUID.randomUUID())
+                    _launchCompleteAt.emit(Instant.now())
                 }
             }
         }

@@ -13,6 +13,7 @@ enum class Types(
     RECOMMEND_ITEM_ROUTE(R.string.domain_type_recommend_item_route, "recommendItemRoute"),
     PLACE_GMP(R.string.domain_type_place_gmp, "placeGmp"),
     QUERY(R.string.domain_type_query, "query"),
+    SUB_ROUTE(R.string.domain_type_sub_route, "subRoute"),
     ROUTE(R.string.domain_type_route, "route");
 
     companion object {

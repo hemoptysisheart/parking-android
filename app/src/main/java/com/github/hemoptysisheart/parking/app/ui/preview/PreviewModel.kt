@@ -8,6 +8,7 @@ import com.github.hemoptysisheart.parking.core.model.GlobalChannelConsumer
 import com.github.hemoptysisheart.parking.core.model.GlobalChannelImpl
 import com.github.hemoptysisheart.parking.core.model.LocationModel
 import com.github.hemoptysisheart.parking.core.model.PlaceModel
+import com.github.hemoptysisheart.parking.core.model.RouteModel
 import com.github.hemoptysisheart.parking.domain.app.ExecutionPreferences
 import com.github.hemoptysisheart.parking.domain.app.InstallPreferences
 import com.github.hemoptysisheart.parking.domain.app.Preferences
@@ -19,6 +20,9 @@ import com.github.hemoptysisheart.parking.domain.common.Identifier
 import com.github.hemoptysisheart.parking.domain.common.Locale
 import com.github.hemoptysisheart.parking.domain.place.Geolocation
 import com.github.hemoptysisheart.parking.domain.place.Place
+import com.github.hemoptysisheart.parking.domain.route.SubRoute
+import com.github.hemoptysisheart.parking.domain.route.Transportation
+import com.github.hemoptysisheart.parking.domain.route.Waypoint
 import com.github.hemoptysisheart.parking.domain.search.Query
 import com.github.hemoptysisheart.util.NonNegativeInt
 import com.github.hemoptysisheart.util.truncateToMillis
@@ -41,6 +45,7 @@ fun previewPreferencesModel(): Preferences = object : Preferences {
     override val install = object : InstallPreferences {
         override val installId = UUID.randomUUID()
     }
+
     override val execution = object : ExecutionPreferences {
         override val initStartAt = Instant.now().truncatedTo(ChronoUnit.MILLIS)
         override val coldStartCount: Long = 1L
@@ -48,6 +53,7 @@ fun previewPreferencesModel(): Preferences = object : Preferences {
         override val foregroundCount: Long = 1L
         override val lastForegroundAt: Instant = initStartAt
     }
+
     override val wizard = object : WizardPreferences {
         override var bootUpShow: Boolean = true
         override var showCount: Int = 0
@@ -67,6 +73,7 @@ fun previewPreferencesModel(): Preferences = object : Preferences {
             lastLocation = location
         }
     }
+
     override val search = object : SearchPreferences {
         override val destination = object : SearchPreferences.Distance {
             override var enable: Boolean = true
@@ -108,15 +115,19 @@ fun previewPlaceModel(
             PLACE_丸の内ガーデンタワー_バイク駐車場,
             PLACE_TIMES_NIHON_SEIMEI_MARUNOUCHI_GARDEN_TOWER,
             PLACE_OTEMACHI_BUILDING_PARKING,
-            PLACE_OTEMACHIONE_BIKE_LOCKER
-    ).associateBy { it.id }
-            .toMutableMap()
+            PLACE_OTEMACHIONE_BIKE_LOCKER,
+            PLACE_MODE_GAKUEN_COCOON_TOWER_PARKING_LOT
+    ).associateBy { it.id }.toMutableMap()
 
-    override suspend fun read(id: Identifier): Place? {
-        return null
-    }
+    override suspend fun read(id: Identifier) = places[id]
 
     override suspend fun searchParking(query: Query): List<Place> = emptyList()
 
     override suspend fun searchDestination(query: Query) = searchList()
+}
+
+fun previewRouteModel(): RouteModel = object : RouteModel {
+    override suspend fun search(start: Waypoint, end: Waypoint, transportation: Transportation): List<SubRoute> {
+        TODO("Not yet implemented")
+    }
 }

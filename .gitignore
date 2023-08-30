@@ -177,3 +177,4 @@ lint/tmp/
 # Android Profiling
 *.hprof
 
+/secret/

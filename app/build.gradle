@@ -11,15 +11,15 @@ android {
     namespace 'com.github.hemoptysisheart.parking'
     compileSdk 33
 
-    def GITHUB_RUN_ID = System.getenv('GITHUB_RUN_ID')?.toInteger()
+    def GITHUB_RUN_NUMBER = System.getenv('GITHUB_RUN_NUMBER')?.toInteger()
             ?: 1
-    println("GITHUB_RUN_ID : $GITHUB_RUN_ID")
+    println("GITHUB_RUN_NUMBER : $GITHUB_RUN_NUMBER")
 
     defaultConfig {
         applicationId 'com.github.hemoptysisheart.parking'
         minSdk 33
         targetSdk 33
-        versionCode GITHUB_RUN_ID
+        versionCode GITHUB_RUN_NUMBER
         versionName '0.0.1'
 
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'

@@ -11,11 +11,15 @@ android {
     namespace 'com.github.hemoptysisheart.parking'
     compileSdk 33
 
+    def GITHUB_RUN_ID = System.getenv('GITHUB_RUN_ID')?.toInteger()
+            ?: 1
+    println("GITHUB_RUN_ID : $GITHUB_RUN_ID")
+
     defaultConfig {
         applicationId 'com.github.hemoptysisheart.parking'
         minSdk 33
         targetSdk 33
-        versionCode 1
+        versionCode GITHUB_RUN_ID
         versionName '0.0.1'
 
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
@@ -31,7 +35,8 @@ android {
 
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
+                    'proguard-rules.pro'
         }
     }
 

@@ -21,7 +21,7 @@ jobs:
       - name: Prepare Unit Test Reports
         run: |
           mkdir -pv public
-          cp .github/workflows/test-reports-index.html index.html
+          cp .github/workflows/test-reports-index.html public/index.html
           cp -R util/build/reports/tests/test public/util
           # TODO cp -Rv client-google/build/reports/tests/test public/client-google
           cp -R domain/build/reports/tests/test public/domain

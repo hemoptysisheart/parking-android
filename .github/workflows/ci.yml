@@ -31,7 +31,6 @@ jobs:
         uses: w9jds/firebase-action@master
         with:
           args: |
-            hosting:channel:deploy ci-${{ vars.GITHUB_RUN_NUMBER }} \
-              --message "${{ github.event.head_commit.message }}"
+            hosting:channel:deploy ci-${{ vars.GITHUB_RUN_NUMBER }}
         env:
           GCP_SA_KEY: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PARKING_367004 }}'

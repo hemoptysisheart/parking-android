@@ -32,3 +32,5 @@ jobs:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PARKING_367004 }}'
           projectId: parking-367004
+          expires: 30d
+          channelId: '${{ vars.GITHUB_RUN_NUMBER }}'

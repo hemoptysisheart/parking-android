@@ -10,18 +10,25 @@ jobs:
         with:
           java-version: '17'
           distribution: 'adopt'
+      - name: Prepare config file(s).
+        run: echo GOOGLE_MAPS_PLATFORM_API_KEY=${{ secrets.GOOGLE_MAPS_PLATFORM_API_KEY }} >> local.properties
+      - name: Unit Test
+        run: ./gradlew clean :util:test :domain:test testDebugUnitTest --continue
+      # - name: Create `tag`
+      #   run: echo 'TODO create tag'
+      # - name: Build debug AAB
+      #   run: echo 'TODO build debug aab.' #./gradlew :app:bundleDebug
+      - name: Prepare Unit Test Reports
+        run: |
+          mkdir -pv public
+          cp -Rv util/build/reports/tests/test public/util
+          cp -Rv client-google/build/reports/tests/test public/client-google
+          cp -Rv domain/build/reports/tests/test public/domain
+          cp -Rv core/build/reports/tests/test public/core
+          cp -Rv app/build/reports/tests/test public/app
+          tree public/
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PARKING_367004 }}'
           projectId: parking-367004
-      - name: Prepare config file(s).
-        run: echo GOOGLE_MAPS_PLATFORM_API_KEY=${{ secrets.GOOGLE_MAPS_PLATFORM_API_KEY }} >> local.properties
-      - name: Unit Test
-        run: ./gradlew clean :util:test :domain:test testDebugUnitTest --continue
-      - name: Create `tag`
-        run: echo 'TODO create tag'
-      - name: Build debug AAB
-        run: echo 'TODO build debug aab.' #./gradlew :app:bundleDebug
-      - name: Upload report
-        run: ''

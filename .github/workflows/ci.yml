@@ -23,16 +23,16 @@ jobs:
           mkdir -pv public
           cp .github/workflows/test-reports-index.html index.html
           cp -Rv util/build/reports/tests/test public/util
-          # cp -Rv client-google/build/reports/tests/test public/client-google
+          # TODO cp -Rv client-google/build/reports/tests/test public/client-google
           cp -Rv domain/build/reports/tests/test public/domain
-          # cp -Rv core/build/reports/tests/test public/core
-          # cp -Rv app/build/reports/tests/test public/app
+          # TODO cp -Rv core/build/reports/tests/test public/core
+          # TODO cp -Rv app/build/reports/tests/test public/app
       - name: Deploy Unit Test Reports
         uses: w9jds/firebase-action@master
         with:
           args: |
-            hosting:channel:deploy ci_${{ vars.GITHUB_RUN_NUMBER }} --expires 7d
+            hosting:channel:deploy ci_${GITHUB_RUN_NUMBER} --expires 10d
         env:
           GCP_SA_KEY: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PARKING_367004 }}'
       - name: Unit Test Reports
-        run: firebase hosting:channel:open ci_${{ vars.GITHUB_RUN_NUMBER }}
+        run: firebase hosting:channel:open ci_${GITHUB_RUN_NUMBER}

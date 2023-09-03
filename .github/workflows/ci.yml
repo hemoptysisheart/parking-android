@@ -32,6 +32,6 @@ jobs:
         with:
           args: |
             hosting:channel:deploy ci-${{ vars.GITHUB_RUN_NUMBER }} \
-              --message \"${{ github.event.head_commit.message }}\"
+              --message "${{ github.event.head_commit.message }}"
         env:
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PARKING_367004 }}'
+          GCP_SA_KEY: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PARKING_367004 }}'

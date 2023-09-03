@@ -22,10 +22,10 @@ jobs:
         run: |
           mkdir -pv public
           cp -Rv util/build/reports/tests/test public/util
-          cp -Rv client-google/build/reports/tests/test public/client-google
+          # cp -Rv client-google/build/reports/tests/test public/client-google
           cp -Rv domain/build/reports/tests/test public/domain
-          cp -Rv core/build/reports/tests/test public/core
-          cp -Rv app/build/reports/tests/test public/app
+          # cp -Rv core/build/reports/tests/test public/core
+          # cp -Rv app/build/reports/tests/test public/app
           tree public/
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:

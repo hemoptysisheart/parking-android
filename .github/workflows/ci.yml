@@ -27,10 +27,11 @@ jobs:
           # cp -Rv core/build/reports/tests/test public/core
           # cp -Rv app/build/reports/tests/test public/app
           tree public/
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+      - name: Deploy Unit Test Reports
+        uses: w9jds/firebase-action@master
         with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          args: |
+            hosting:channel:deploy ci-${{ vars.GITHUB_RUN_NUMBER }} \
+              --message \"${{ github.event.head_commit.message }}\"
+        env:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PARKING_367004 }}'
-          projectId: parking-367004
-          expires: 30d
-          channelId: '${{ vars.GITHUB_RUN_NUMBER }}'

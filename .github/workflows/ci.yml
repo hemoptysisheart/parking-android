@@ -10,9 +10,18 @@ jobs:
         with:
           java-version: '17'
           distribution: 'adopt'
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PARKING_367004 }}'
+          projectId: parking-367004
       - name: Prepare config file(s).
-        run: |
-          echo GOOGLE_MAPS_PLATFORM_API_KEY=${{ secrets.GOOGLE_MAPS_PLATFORM_API_KEY }} >> local.properties
-          cat local.properties
+        run: echo GOOGLE_MAPS_PLATFORM_API_KEY=${{ secrets.GOOGLE_MAPS_PLATFORM_API_KEY }} >> local.properties
       - name: Unit Test
         run: ./gradlew clean :util:test :domain:test testDebugUnitTest --continue
+      - name: Create `tag`
+        run: echo 'TODO create tag'
+      - name: Build debug AAB
+        run: echo 'TODO build debug aab.' #./gradlew :app:bundleDebug
+      - name: Upload report
+        run: ''

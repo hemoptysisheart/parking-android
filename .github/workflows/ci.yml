@@ -36,6 +36,10 @@ jobs:
       - name: Unit Test Reports
         uses: w9jds/firebase-action@master
         with:
-          args: hosting:channel:open ci_${GITHUB_RUN_NUMBER}
+          args: hosting:channel:open ci_${GITHUB_RUN_NUMBER} >> test-report.txt
         env:
           GCP_SA_KEY: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PARKING_367004 }}'
+      - name: Comment to Commit
+        run: |
+          cat test-report.txt
+          which curl

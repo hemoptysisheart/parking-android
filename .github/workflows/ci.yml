@@ -44,9 +44,11 @@ jobs:
         id: report_url
         run: |
           echo "url=$(cat test-report.txt |\
-          sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g" |\
-          tr -d '\n' |\
-          jq -Rsa .)" >> $GITHUB_OUTPUT
+            sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g" |\
+            jq -Rsa . |\
+            tr -d '\n')" >> $GITHUB_OUTPUT
+          echo "--------------"
+          echo $GITHUB_OUTPUT
       - name: Comment UT Report URL to Commit
         run: |
           echo "comment : ${{ steps.report_url.outputs.url }}"

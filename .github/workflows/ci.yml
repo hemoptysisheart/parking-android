@@ -10,7 +10,7 @@ jobs:
         with:
           java-version: '17'
           distribution: 'adopt'
-      - name: Prepare Config File(s).
+      - name: Prepare CI
         run: |
           echo GOOGLE_MAPS_PLATFORM_API_KEY=${{ secrets.GOOGLE_MAPS_PLATFORM_API_KEY }} >> local.properties
       - name: Run Unit Test
@@ -31,20 +31,19 @@ jobs:
       - name: Deploy Unit Test Reports
         uses: w9jds/firebase-action@master
         with:
-          args: hosting:channel:deploy ci_${GITHUB_RUN_NUMBER} --expires 10d
+          args: hosting:channel:deploy ${GITHUB_RUN_NUMBER} --expires 7d
         env:
           GCP_SA_KEY: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PARKING_367004 }}'
       - name: Unit Test Reports
         uses: w9jds/firebase-action@master
         with:
-          args: hosting:channel:open ci_${GITHUB_RUN_NUMBER}  >> test-report.txt
+          args: hosting:channel:open ${GITHUB_RUN_NUMBER} > test-report.txt
         env:
           GCP_SA_KEY: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PARKING_367004 }}'
       - name: Load UT Report URL
         id: report_url
         run: |
-          echo "url=$(cat test-report.txt | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g" |\
-            tr -d '\n' | tr -d "\"" | jq -Rsa . )" >> $GITHUB_OUTPUT
+          echo "url=$(cat test-report.txt | tr -d '\n' | jq -Rsa)" >> $GITHUB_OUTPUT
       - name: Comment UT Report URL to Commit
         run: |
           echo "comment : ${{ steps.report_url.outputs.url }}"

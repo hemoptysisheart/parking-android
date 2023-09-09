@@ -177,5 +177,6 @@ lint/tmp/
 # Android Profiling
 *.hprof
 
+.firebase/
+firebase/hosting
 secret/
-public/

@@ -43,7 +43,7 @@ jobs:
       - name: Load UT Report URL
         id: report_url
         run: |
-          echo "url=$(cat test-report.txt | tr -d '\n' | jq -Rsa)" >> $GITHUB_OUTPUT
+          echo "url=$(cat test-report.txt | tr -d '\n' | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g")" >> $GITHUB_OUTPUT
       - name: Comment UT Report URL to Commit
         run: |
           echo "comment : ${{ steps.report_url.outputs.url }}"

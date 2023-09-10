@@ -36,8 +36,7 @@ jobs:
           git tag "nightly/${GITHUB_RUN_NUMBER}"
           git push origin "nightly/${GITHUB_RUN_NUMBER}"
       - name: Create Release
-        uses: ncipollo/release-action@v1
-        with:
-          tag: "nightly/${GITHUB_RUN_NUMBER}"
-          artifacts: "workflow/parking-debug-${GITHUB_RUN_NUMBER}.aab"
-          name: Test release
+        run: |
+          gh release create "nightly/${{GITHUB_RUN_NUMBER}}" \
+            "workflow/parking-debug-${GITHUB_RUN_NUMBER}.aab" \
+            -t "PR : ${{ github.event.pull_request.title }}"

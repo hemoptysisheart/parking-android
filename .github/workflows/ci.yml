@@ -37,6 +37,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.github_token }}
         run: |
-          gh release create "nightly/${GITHUB_RUN_NUMBER}" \
+          gh release create -d "nightly/${GITHUB_RUN_NUMBER}" \
             "workflow/parking-debug-${GITHUB_RUN_NUMBER}.aab" \
-            -t "PR : ${{ github.event.pull_request.title }}"
+            -t "PR : ${{ github.event.pull_request.title }}" \
+            -n "- PR : ${{ github.event.pull_request._links.self.href }}\n- Tag : `nightly/${GITHUB_RUN_NUMBER}`"

@@ -3,6 +3,7 @@ on:
   push:
     branches-ignore:
       - main
+      - test-main
 jobs:
   ci-working-branch:
     runs-on: ubuntu-latest

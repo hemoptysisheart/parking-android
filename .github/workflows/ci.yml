@@ -40,4 +40,4 @@ jobs:
           gh release create -d "nightly/${GITHUB_RUN_NUMBER}" \
             "workflow/parking-debug-${GITHUB_RUN_NUMBER}.aab" \
             -t "PR : ${{ github.event.pull_request.title }}" \
-            -n "- PR : ${{ github.event.pull_request._links.self.href }}\n- Tag : `nightly/${GITHUB_RUN_NUMBER}`"
+            -n "- PR : ${{ github.event.pull_request.html_url }}\\n- Tag : <code>nightly/${GITHUB_RUN_NUMBER}</code>\\n- GitHub Actions : ${{ github.event.workflow_run.html_url }}"

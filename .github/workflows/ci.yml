@@ -35,7 +35,7 @@ jobs:
       - name: Create Tag
         run: |
           git tag build/${GITHUB_RUN_NUMBER}
-          git push build/${GITHUB_RUN_NUMBER}
+          git push origin build/${GITHUB_RUN_NUMBER}
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:

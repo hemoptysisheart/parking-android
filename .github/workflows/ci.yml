@@ -1,7 +1,6 @@
 name: CI - Pull Request
 on:
   pull_request_target:
-    # Sequence of patterns matched against refs/heads
     branches:
       - test-main
     types:
@@ -37,6 +36,7 @@ jobs:
           git tag "nightly/${GITHUB_RUN_NUMBER}"
           git push origin "nightly/${GITHUB_RUN_NUMBER}"
       - name: Create Release
-        uses: softprops/action-gh-release@v1
+        uses: ncipollo/release-action@v1
         with:
-          files: workflow/parking-debug-${GITHUB_RUN_NUMBER}.aab
+          artifacts: workflow/parking-debug-${GITHUB_RUN_NUMBER}.aab
+          name: Test release

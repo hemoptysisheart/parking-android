@@ -37,6 +37,6 @@ jobs:
           git push origin "nightly/${GITHUB_RUN_NUMBER}"
       - name: Create Release
         run: |
-          gh release create "nightly/${{GITHUB_RUN_NUMBER}}" \
+          gh release create "nightly/${GITHUB_RUN_NUMBER}" \
             "workflow/parking-debug-${GITHUB_RUN_NUMBER}.aab" \
             -t "PR : ${{ github.event.pull_request.title }}"

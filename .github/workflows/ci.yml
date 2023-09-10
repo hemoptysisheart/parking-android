@@ -4,8 +4,6 @@ on:
     # Sequence of patterns matched against refs/heads
     branches:
       - test-main
-    types:
-      - closed
 jobs:
   ci:
     if: github.event.pull_request.merged == true
@@ -25,11 +23,10 @@ jobs:
       - name: Build `debug` AAB
         run: ./gradlew clean :app:bundleDebug
       - name: Create Tag
-        uses: anothrNick/github-tag-action@1.64.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          WITH_V: false
-          CUSTOM_TAG: build/${GITHUB_RUN_NUMBER}
+        uses: actions-ecosystem/action-push-tag@v1
+        with:
+          tag: build/${GITHUB_RUN_NUMBER}
+          message: 'PR #${{ github.event.pull_request.number }} ${{ github.event.pull_request.title }}'
       - name: Prepare Deploy
         run: |
           mkdir workflow

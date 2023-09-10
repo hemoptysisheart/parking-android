@@ -22,8 +22,7 @@ jobs:
       - name: Prepare Unit Test Reports
         run: |
           mkdir -pv firebase/hosting
-          cp .github/workflows/test-reports-index.html firebase/hosting/index.html
-          cp .github/workflows/test-report.js firebase/hosting/test-report.js
+          cp -v .github/workflows/ut-report/* firebase/hosting/
           cp -R util/build/reports/tests/test firebase/hosting/util
           # TODO cp -Rv client-google/build/reports/tests/test firebase/hosting/client-google
           cp -R domain/build/reports/tests/test firebase/hosting/domain

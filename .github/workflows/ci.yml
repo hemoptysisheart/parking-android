@@ -39,5 +39,5 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           tag: "nightly/${GITHUB_RUN_NUMBER}"
-          artifacts: workflow/parking-debug-${GITHUB_RUN_NUMBER}.aab
+          artifacts: "workflow/parking-debug-${GITHUB_RUN_NUMBER}.aab"
           name: Test release

@@ -21,14 +21,12 @@ jobs:
       - name: Prepare Files
         run: |
           echo GOOGLE_MAPS_PLATFORM_API_KEY=${{ secrets.GOOGLE_MAPS_PLATFORM_API_KEY }} >> local.properties
-      #- name: Build `debug` AAB
-      #  run: ./gradlew clean :app:bundleDebug
+      - name: Build `debug` AAB
+        run: ./gradlew clean :app:bundleDebug
       - name: Prepare Deploy
         run: |
           mkdir workflow
-          #cp app/build/outputs/bundle/debug/app-debug.aab workflow/parking-debug-${GITHUB_RUN_NUMBER}.aab
-          # TODO delete
-          touch workflow/parking-debug-${GITHUB_RUN_NUMBER}.aab
+          cp app/build/outputs/bundle/debug/app-debug.aab workflow/parking-debug-${GITHUB_RUN_NUMBER}.aab
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create Tag

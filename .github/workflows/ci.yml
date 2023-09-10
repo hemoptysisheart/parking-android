@@ -38,5 +38,6 @@ jobs:
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
+          commit: "nightly/${GITHUB_RUN_NUMBER}"
           artifacts: workflow/parking-debug-${GITHUB_RUN_NUMBER}.aab
           name: Test release

@@ -22,10 +22,6 @@ jobs:
           echo GOOGLE_MAPS_PLATFORM_API_KEY=${{ secrets.GOOGLE_MAPS_PLATFORM_API_KEY }} >> local.properties
       - name: Run Unit Test
         run: ./gradlew :util:test :domain:test testDebugUnitTest --continue
-      # - name: Create `tag`
-      #   run: echo 'TODO create tag'
-      # - name: Build debug AAB
-      #   run: echo 'TODO build debug aab.' #./gradlew :app:bundleDebug
       - name: Prepare Unit Test Reports
         run: |
           mkdir -pv firebase/hosting

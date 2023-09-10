@@ -4,6 +4,8 @@ on:
     # Sequence of patterns matched against refs/heads
     branches:
       - test-main
+    types:
+      - closed
 jobs:
   ci:
     if: github.event.pull_request.merged == true

@@ -1,7 +1,10 @@
-name: CI
-on: [ push ]
+name: CI - Working Branch
+on:
+  push:
+    branches-ignore:
+      - main
 jobs:
-  ci:
+  ci-working-branch:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -28,13 +31,13 @@ jobs:
           cp -R domain/build/reports/tests/test firebase/hosting/domain
           # TODO cp -Rv core/build/reports/tests/test firebase/hosting/core
           # TODO cp -Rv app/build/reports/tests/test firebase/hosting/app
-      - name: Deploy Unit Test Reports
+      - name: Deploy Unit Test Report
         uses: w9jds/firebase-action@master
         with:
           args: hosting:channel:deploy ${GITHUB_RUN_NUMBER} --expires 1d
         env:
           GCP_SA_KEY: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PARKING_367004 }}'
-      - name: Unit Test Reports
+      - name: Prepare Unit Test Report Comment
         uses: w9jds/firebase-action@master
         with:
           args: hosting:channel:open ${GITHUB_RUN_NUMBER} > firebase/hosting/test-report.txt

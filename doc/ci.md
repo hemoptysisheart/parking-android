@@ -4,7 +4,7 @@
 
 ## 파일
 
-[`ci.yml`](../.github/workflows/ci.yml)
+[`ci-working-branch.yml`](../.github/workflows/ci-working-branch.yml)
 
 ## 기능
 
@@ -25,7 +25,7 @@
 4. `Add secret` 클릭.
    ![결과](asset/ci/actions%20secret%20-%20added.png)
 5. GitHub Actions용 `local.properties` 파일 생성.
-    - [`echo GOOGLE_MAPS_PLATFORM_API_KEY=${{ secrets.GOOGLE_MAPS_PLATFORM_API_KEY }} >> local.properties`](../.github/workflows/ci.yml#L15)
+    - [`echo GOOGLE_MAPS_PLATFORM_API_KEY=${{ secrets.GOOGLE_MAPS_PLATFORM_API_KEY }} >> local.properties`](../.github/workflows/ci-working-branch.yml)
 
 ### Firebase
 

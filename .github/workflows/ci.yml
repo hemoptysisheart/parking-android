@@ -36,6 +36,8 @@ jobs:
           git tag "nightly/${GITHUB_RUN_NUMBER}"
           git push origin "nightly/${GITHUB_RUN_NUMBER}"
       - name: Create Release
+        env:
+          GH_TOKEN: ${{ secrets.github_token }}
         run: |
           gh release create "nightly/${GITHUB_RUN_NUMBER}" \
             "workflow/parking-debug-${GITHUB_RUN_NUMBER}.aab" \

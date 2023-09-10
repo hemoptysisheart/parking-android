@@ -2,6 +2,7 @@ package com.github.hemoptysisheart.parking.app
 
 import android.app.Activity
 import android.app.Application
+import com.github.hemoptysisheart.parking.BuildConfig
 import com.github.hemoptysisheart.parking.app.activity.LauncherActivity
 import com.github.hemoptysisheart.parking.app.activity.MainActivity
 import com.github.hemoptysisheart.parking.app.support.ActivityLifecycleCallbacksAdapter
@@ -12,6 +13,7 @@ import com.github.hemoptysisheart.parking.domain.app.ExecutionPreferences
 import com.github.hemoptysisheart.parking.domain.app.InstallPreferences
 import com.github.hemoptysisheart.util.TimeProvider
 import dagger.hilt.android.HiltAndroidApp
+import java.lang.reflect.Field
 import java.time.Duration
 import java.time.Instant
 import javax.inject.Inject
@@ -20,6 +22,17 @@ import javax.inject.Inject
 class ParkingApplication : Application() {
     companion object {
         private val LOGGER = AndroidLogger(ParkingApplication::class)
+
+        private val BUILD_CONFIG_PROPERTY_SENSITIVE_NAMES = setOf("token", "key", "secret")
+
+        private fun isSensitive(field: Field): Boolean {
+            for (pattern in BUILD_CONFIG_PROPERTY_SENSITIVE_NAMES) {
+                if (field.name.contains(pattern, true)) {
+                    return true
+                }
+            }
+            return false
+        }
     }
 
     private val activityLifecycleCallbacks = object : ActivityLifecycleCallbacksAdapter() {
@@ -68,6 +81,14 @@ class ParkingApplication : Application() {
     override fun onCreate() {
         LOGGER.i("#onCreate called.")
         super.onCreate()
+
+        for (field in BuildConfig::class.java.declaredFields) {
+            if (isSensitive(field)) {
+                LOGGER.d("#onCreate : BuildConfig.${field.name}=${"${field.get(null)}".take(3)}************")
+            } else {
+                LOGGER.d("#onCreate : BuildConfig.${field.name}=${field.get(null)}")
+            }
+        }
 
         registerActivityLifecycleCallbacks(activityLifecycleCallbacks)
 

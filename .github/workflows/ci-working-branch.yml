@@ -1,0 +1,65 @@
+name: CI - Working Branch
+on:
+  push:
+    branches-ignore:
+      - main
+jobs:
+  ci-working-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+      - name: Prepare CI
+        run: |
+          echo GOOGLE_MAPS_PLATFORM_API_KEY=${{ secrets.GOOGLE_MAPS_PLATFORM_API_KEY }} >> local.properties
+      - name: Run Unit Test
+        run: ./gradlew clean :util:test :domain:test testDebugUnitTest --continue
+      # - name: Create `tag`
+      #   run: echo 'TODO create tag'
+      # - name: Build debug AAB
+      #   run: echo 'TODO build debug aab.' #./gradlew :app:bundleDebug
+      - name: Prepare Unit Test Reports
+        run: |
+          mkdir -pv firebase/hosting
+          cp -v .github/workflows/ut-report/* firebase/hosting/
+          cp -R util/build/reports/tests/test firebase/hosting/util
+          # TODO cp -Rv client-google/build/reports/tests/test firebase/hosting/client-google
+          cp -R domain/build/reports/tests/test firebase/hosting/domain
+          # TODO cp -Rv core/build/reports/tests/test firebase/hosting/core
+          # TODO cp -Rv app/build/reports/tests/test firebase/hosting/app
+      - name: Deploy Unit Test Report
+        uses: w9jds/firebase-action@master
+        with:
+          args: hosting:channel:deploy ${GITHUB_RUN_NUMBER} --expires 1d
+        env:
+          GCP_SA_KEY: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PARKING_367004 }}'
+      - name: Prepare Unit Test Report Comment
+        uses: w9jds/firebase-action@master
+        with:
+          args: hosting:channel:open ${GITHUB_RUN_NUMBER} > firebase/hosting/test-report.txt
+        env:
+          GCP_SA_KEY: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PARKING_367004 }}'
+      - name: Load UT Report URL
+        id: report_url
+        run: |
+          echo "url=$(\
+            cat firebase/hosting/test-report.txt |\
+            tr -d '\n' |\
+            sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g" \
+          )" >> $GITHUB_OUTPUT
+      - name: Comment UT Report URL to Commit
+        run: |
+          echo "comment : ${{ steps.report_url.outputs.url }}"
+          curl -L \
+            -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${{ github.token }}" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/hemoptysisheart/parking-android/commits/${{ github.sha }}/comments \
+            -d "{ \"body\":\"${{ steps.report_url.outputs.url }}\" }"

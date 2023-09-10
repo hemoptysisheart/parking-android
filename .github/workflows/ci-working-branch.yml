@@ -3,8 +3,6 @@ on:
   push:
     branches-ignore:
       - main
-      - test-main
-      - 'issue/133-main_update_process'
 jobs:
   ci-working-branch:
     runs-on: ubuntu-latest

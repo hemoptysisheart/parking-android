@@ -15,11 +15,11 @@ jobs:
           distribution: 'adopt'
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
-      - name: Prepare CI
+      - name: Prepare Files
         run: |
           echo GOOGLE_MAPS_PLATFORM_API_KEY=${{ secrets.GOOGLE_MAPS_PLATFORM_API_KEY }} >> local.properties
       - name: Run Unit Test
-        run: ./gradlew clean :util:test :domain:test testDebugUnitTest --continue
+        run: ./gradlew :util:test :domain:test testDebugUnitTest --continue
       # - name: Create `tag`
       #   run: echo 'TODO create tag'
       # - name: Build debug AAB

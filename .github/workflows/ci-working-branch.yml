@@ -3,6 +3,8 @@ on:
   push:
     branches-ignore:
       - main
+env:
+  VERSION_NAME: 0.0.1
 jobs:
   ci-working-branch:
     runs-on: ubuntu-latest

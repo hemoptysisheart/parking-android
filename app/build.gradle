@@ -11,16 +11,20 @@ android {
     namespace 'com.github.hemoptysisheart.parking'
     compileSdk 33
 
+    def VERSION_NAME = System.getenv('VERSION_NAME')
+            ?: '0.0.1'
+    println("\tVERSION_NAME : $VERSION_NAME")
+
     def GITHUB_RUN_NUMBER = System.getenv('GITHUB_RUN_NUMBER')?.toInteger()
             ?: 1
-    println("GITHUB_RUN_NUMBER : $GITHUB_RUN_NUMBER")
+    println("\tGITHUB_RUN_NUMBER : $GITHUB_RUN_NUMBER")
 
     defaultConfig {
         applicationId 'com.github.hemoptysisheart.parking'
-        minSdk 33
+        minSdk 31
         targetSdk 33
         versionCode GITHUB_RUN_NUMBER
-        versionName '0.0.1'
+        versionName VERSION_NAME
 
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         vectorDrawables {

@@ -3,8 +3,6 @@ on:
   push:
     branches-ignore:
       - main
-      - test-main
-      - 'issue/155-externalize_version_def'
 env:
   VERSION_NAME: 0.0.1
 jobs:

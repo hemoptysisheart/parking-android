@@ -3,6 +3,7 @@ package com.github.hemoptysisheart.parking.client.google
 import com.github.hemoptysisheart.parking.client.google.data.AutocompleteParams
 import com.github.hemoptysisheart.parking.client.google.data.DirectionsParams
 import com.github.hemoptysisheart.parking.client.google.data.DirectionsRoute
+import com.github.hemoptysisheart.parking.client.google.data.FindPlaceParams
 import com.github.hemoptysisheart.parking.client.google.data.NearbySearchParams
 import com.github.hemoptysisheart.parking.client.google.data.Place
 import com.github.hemoptysisheart.parking.client.google.data.PlaceAutocompletePrediction
@@ -108,6 +109,19 @@ class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
 
         LOGGER.v("#nearBy return : $places")
         return places
+    }
+
+    override suspend fun findPlace(params: FindPlaceParams) {
+        LOGGER.v("#findPlace args : params=$params")
+
+        api.findPlaceFromText(
+                key = key,
+                input = params.input,
+                inputType = params.inputType.code,
+                fields = params.fields?.map { it.code }?.joinToString("|", "", ""),
+                language = params.language?.language,
+                locationBias = params.locationBias.toString()
+        )
     }
 
     override suspend fun directions(params: DirectionsParams): List<DirectionsRoute> {

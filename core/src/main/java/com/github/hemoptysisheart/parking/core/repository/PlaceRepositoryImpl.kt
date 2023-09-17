@@ -1,6 +1,10 @@
 package com.github.hemoptysisheart.parking.core.repository
 
 import com.github.hemoptysisheart.parking.client.google.MapsClient
+import com.github.hemoptysisheart.parking.client.google.data.CircularBias
+import com.github.hemoptysisheart.parking.client.google.data.FindPlaceParams
+import com.github.hemoptysisheart.parking.client.google.data.InputType
+import com.github.hemoptysisheart.parking.client.google.data.LatLng
 import com.github.hemoptysisheart.parking.client.google.data.NearbySearchParams
 import com.github.hemoptysisheart.parking.core.domain.place.toGmp
 import com.github.hemoptysisheart.parking.core.domain.place.toPlace
@@ -56,6 +60,12 @@ class PlaceRepositoryImpl @Inject constructor(
         )
         val list = client.nearBy(params)
                 .map { it.toPlace(type ?: PlaceType.UNSPECIFIED) }
+
+        client.findPlace(FindPlaceParams(
+                input = query ?: "",
+                inputType = InputType.TEXT_QUERY,
+                locationBias = CircularBias(radius.value, LatLng(center.latitude, center.longitude))
+        ))
 
         cacheLock.withLock {
             for (p in list) {

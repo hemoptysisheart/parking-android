@@ -3,6 +3,7 @@ package com.github.hemoptysisheart.parking.client.google
 import com.github.hemoptysisheart.parking.client.google.data.AutocompleteParams
 import com.github.hemoptysisheart.parking.client.google.data.DirectionsParams
 import com.github.hemoptysisheart.parking.client.google.data.DirectionsRoute
+import com.github.hemoptysisheart.parking.client.google.data.FindPlaceParams
 import com.github.hemoptysisheart.parking.client.google.data.NearbySearchParams
 import com.github.hemoptysisheart.parking.client.google.data.Place
 import com.github.hemoptysisheart.parking.client.google.data.PlaceAutocompletePrediction
@@ -26,6 +27,11 @@ interface MapsClient {
      * [주변 지역 검색](https://developers.google.com/maps/documentation/places/web-service/search-nearby)
      */
     suspend fun nearBy(params: NearbySearchParams): List<Place>
+
+    /**
+     * [Find Place](https://developers.google.com/maps/documentation/places/web-service/search-find-place)용 인자.
+     */
+    suspend fun findPlace(params: FindPlaceParams)
 
     /**
      * [Directions API를 통해 경로 찾기](https://developers.google.com/maps/documentation/directions/get-directions)

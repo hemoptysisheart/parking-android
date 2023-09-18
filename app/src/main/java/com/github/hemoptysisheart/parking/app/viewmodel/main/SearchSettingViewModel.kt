@@ -2,7 +2,6 @@ package com.github.hemoptysisheart.parking.app.viewmodel.main
 
 import com.github.hemoptysisheart.parking.R
 import com.github.hemoptysisheart.parking.app.viewmodel.BaseViewModel
-import com.github.hemoptysisheart.parking.app.viewmodel.DistanceSettingViewModelet
 import com.github.hemoptysisheart.parking.core.util.AndroidLogger
 import com.github.hemoptysisheart.parking.domain.app.SearchPreferences
 import com.github.hemoptysisheart.parking.domain.common.Locale

@@ -22,7 +22,7 @@ import com.github.hemoptysisheart.parking.app.ui.support.collect
 import com.github.hemoptysisheart.parking.app.ui.support.hiltBaseViewModel
 import com.github.hemoptysisheart.parking.app.ui.template.setting.Distance
 import com.github.hemoptysisheart.parking.app.ui.template.setting.SettingItemDetail
-import com.github.hemoptysisheart.parking.app.viewmodel.DistanceSettingViewModelet
+import com.github.hemoptysisheart.parking.app.viewmodel.main.DistanceSettingViewModelet
 import com.github.hemoptysisheart.parking.app.viewmodel.main.SearchSettingViewModel
 import com.github.hemoptysisheart.parking.core.domain.common.NullLocale
 import com.github.hemoptysisheart.parking.core.domain.common.SystemLocale

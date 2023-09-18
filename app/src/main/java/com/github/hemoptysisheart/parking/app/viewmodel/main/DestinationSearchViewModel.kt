@@ -1,5 +1,6 @@
 package com.github.hemoptysisheart.parking.app.viewmodel.main
 
+import androidx.lifecycle.LifecycleOwner
 import com.github.hemoptysisheart.parking.app.viewmodel.BaseViewModel
 import com.github.hemoptysisheart.parking.core.domain.search.RecommendItemPlaceImpl
 import com.github.hemoptysisheart.parking.core.model.LocationModel
@@ -44,28 +45,27 @@ class DestinationSearchViewModel @Inject constructor(
         logger.d("#init complete.")
     }
 
+    private suspend fun search(query: String) {
+        this@DestinationSearchViewModel.query.set(query)
+
+        if (query.isNotEmpty()) {
+            val list = placeModel.searchDestination(
+                    com.github.hemoptysisheart.parking.core.domain.search.Query(
+                            query = query,
+                            center = locationModel.location!!,
+                            distance = searchPreferences.destination.distance
+                    )
+            ).map { RecommendItemPlaceImpl(it) }
+            recommendItemList.set(list)
+        }
+    }
+
     fun onChangeQuery(query: String) {
         logger.d("#onChangeQuery args : query=$query")
 
         searchJob?.cancel()
         searchJob = launch(progress = true) {
-            this@DestinationSearchViewModel.query.set(query)
-
-            if (query.isNotEmpty()) {
-                if (query.isEmpty()) {
-                    recommendItemList.set(emptyList())
-                } else {
-                    // TODO 인자를 풀어쓰는 방식으로 변경.
-                    val list = placeModel.searchDestination(
-                            com.github.hemoptysisheart.parking.core.domain.search.Query(
-                                    query = query,
-                                    center = locationModel.location!!,
-                                    distance = searchPreferences.destination.distance
-                            )
-                    ).map { RecommendItemPlaceImpl(it) }
-                    recommendItemList.set(list)
-                }
-            }
+            search(query)
         }
     }
 
@@ -74,6 +74,15 @@ class DestinationSearchViewModel @Inject constructor(
 
         launch {
             detail.set(obj)
+        }
+    }
+
+    override fun onStart(owner: LifecycleOwner) {
+        super.onStart(owner)
+
+        searchJob?.cancel()
+        searchJob = launch(true) {
+            search(query.get())
         }
     }
 

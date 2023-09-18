@@ -63,6 +63,8 @@ open class BaseViewModel : ViewModel(), DefaultLifecycleObserver {
         protected val _value = MutableStateFlow(initValue)
         val value: StateFlow<T> = _value
 
+        fun get(): T = _value.value
+
         suspend fun set(value: T) {
             _value.emit(value)
         }

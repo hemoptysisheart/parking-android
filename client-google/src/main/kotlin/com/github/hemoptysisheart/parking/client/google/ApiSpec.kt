@@ -1,6 +1,7 @@
 package com.github.hemoptysisheart.parking.client.google
 
 import com.github.hemoptysisheart.parking.client.google.response.DirectionsResponse
+import com.github.hemoptysisheart.parking.client.google.response.PlaceFindPlaceFromTextResponse
 import com.github.hemoptysisheart.parking.client.google.response.PlacesAutocompleteResponse
 import com.github.hemoptysisheart.parking.client.google.response.PlacesDetailsResponse
 import com.github.hemoptysisheart.parking.client.google.response.PlacesNearbySearchResponse
@@ -280,7 +281,7 @@ internal interface ApiSpec {
             @Query(PARAM_FIELDS) fields: String?,
             @Query(PARAM_LANGUAGE) language: String?,
             @Query(PARAM_LOCATION_BIAS) locationBias: String?
-    )
+    ): PlaceFindPlaceFromTextResponse
 
     /**
      * - [필수 파라미터](https://developers.google.com/maps/documentation/directions/get-directions#required-parameters)

@@ -2,11 +2,12 @@ package com.github.hemoptysisheart.parking.core.repository
 
 import com.github.hemoptysisheart.parking.client.google.MapsClient
 import com.github.hemoptysisheart.parking.client.google.data.CircularBias
+import com.github.hemoptysisheart.parking.client.google.data.Field
+import com.github.hemoptysisheart.parking.client.google.data.FieldCategory
 import com.github.hemoptysisheart.parking.client.google.data.FindPlaceParams
 import com.github.hemoptysisheart.parking.client.google.data.InputType
 import com.github.hemoptysisheart.parking.client.google.data.LatLng
-import com.github.hemoptysisheart.parking.client.google.data.NearbySearchParams
-import com.github.hemoptysisheart.parking.core.domain.place.toGmp
+import com.github.hemoptysisheart.parking.client.google.data.Platform
 import com.github.hemoptysisheart.parking.core.domain.place.toPlace
 import com.github.hemoptysisheart.parking.core.util.AndroidLogger
 import com.github.hemoptysisheart.parking.domain.common.Identifier
@@ -41,40 +42,31 @@ class PlaceRepositoryImpl @Inject constructor(
         return place
     }
 
-    override suspend fun list(
+    override suspend fun search(
             query: String?,
             center: Geolocation,
             radius: NonNegativeInt,
             language: Locale?,
             type: PlaceType?
     ): List<Place> {
-        LOGGER.v("#list args : query=$query, center=$center, radius=$radius, language=$language, type=$type")
+        LOGGER.v("#search args : query=$query, center=$center, radius=$radius, language=$language, type=$type")
 
-        val params = NearbySearchParams(
-                center.longitude,
-                center.latitude,
-                radius = radius.value,
-                keyword = query,
-                locale = language?.locale,
-                type = type?.toGmp()
-        )
-        val list = client.nearBy(params)
-                .map { it.toPlace(type ?: PlaceType.UNSPECIFIED) }
-
-        client.findPlace(FindPlaceParams(
+        val params = FindPlaceParams(
                 input = query ?: "",
                 inputType = InputType.TEXT_QUERY,
+                fields = Field[Platform.ANDROID, FieldCategory.BASIC],
                 locationBias = CircularBias(radius.value, LatLng(center.latitude, center.longitude))
-        ))
+        )
+        val list = client.findPlace(params).map { it.toPlace(type ?: PlaceType.UNSPECIFIED) }
 
         cacheLock.withLock {
             for (p in list) {
                 cache[p.id] = p
             }
-            LOGGER.d("#list : cache=$cache")
+            LOGGER.v("#search : cache=$cache")
         }
 
-        LOGGER.v("#list return : $list")
+        LOGGER.v("#search return : $list")
         return list
     }
 

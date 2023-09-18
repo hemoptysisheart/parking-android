@@ -31,7 +31,7 @@ interface MapsClient {
     /**
      * [Find Place](https://developers.google.com/maps/documentation/places/web-service/search-find-place)용 인자.
      */
-    suspend fun findPlace(params: FindPlaceParams)
+    suspend fun findPlace(params: FindPlaceParams): List<Place>
 
     /**
      * [Directions API를 통해 경로 찾기](https://developers.google.com/maps/documentation/directions/get-directions)

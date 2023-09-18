@@ -111,17 +111,22 @@ class MapsClientImpl(config: PlacesClientConfig) : MapsClient {
         return places
     }
 
-    override suspend fun findPlace(params: FindPlaceParams) {
+    override suspend fun findPlace(params: FindPlaceParams): List<Place> {
         LOGGER.v("#findPlace args : params=$params")
 
-        api.findPlaceFromText(
+        val response = api.findPlaceFromText(
                 key = key,
                 input = params.input,
                 inputType = params.inputType.code,
-                fields = params.fields?.map { it.code }?.joinToString("|", "", ""),
+                fields = params.fields?.joinToString(",", "", "") { it.code },
                 language = params.language?.language,
                 locationBias = params.locationBias.toString()
         )
+        val places = response.candidates?.map { it.toData() }
+                ?: emptyList()
+
+        LOGGER.v("#findPlace return : $places")
+        return places
     }
 
     override suspend fun directions(params: DirectionsParams): List<DirectionsRoute> {

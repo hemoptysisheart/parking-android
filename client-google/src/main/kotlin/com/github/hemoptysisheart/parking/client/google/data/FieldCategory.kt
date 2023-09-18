@@ -26,5 +26,6 @@ enum class FieldCategory(
         operator fun get(code: String) = CODE_MAP[code]!!
     }
 
-    val fields: List<Field> = Field.CATEGORY_GROUP[this]!!
+    val fields
+        get() = Field[this]
 }

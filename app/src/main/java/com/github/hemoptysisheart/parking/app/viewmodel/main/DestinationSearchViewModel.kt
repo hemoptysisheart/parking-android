@@ -15,7 +15,6 @@ import javax.inject.Inject
 
 /**
  * 목적지 검색
- *
  * - https://www.figma.com/file/rKJxXjvDtDNprvdojVxaaN/Parking?type=whiteboard&node-id=526-653
  * - https://www.figma.com/file/4ddVw1GJttHudAFojZRj1s/Parking?type=design&node-id=54311-34835&mode=design
  * - https://www.figma.com/file/4ddVw1GJttHudAFojZRj1s/Parking?type=design&node-id=54416-1445&mode=design
@@ -54,18 +53,20 @@ class DestinationSearchViewModel @Inject constructor(
         searchJob = launch(progress = true) {
             _query.emit(query)
 
-            if (query.isEmpty()) {
-                _recommendItemList.emit(emptyList())
-            } else {
-                // TODO 인자를 풀어쓰는 방식으로 변경.
-                val list = placeModel.searchDestination(
-                        com.github.hemoptysisheart.parking.core.domain.search.Query(
-                                query = query,
-                                center = locationModel.location!!,
-                                distance = searchPreferences.destination.distance
-                        )
-                ).map { RecommendItemPlaceImpl(it) }
-                _recommendItemList.emit(list)
+            if (query.isNotEmpty()) {
+                if (query.isEmpty()) {
+                    _recommendItemList.emit(emptyList())
+                } else {
+                    // TODO 인자를 풀어쓰는 방식으로 변경.
+                    val list = placeModel.searchDestination(
+                            com.github.hemoptysisheart.parking.core.domain.search.Query(
+                                    query = query,
+                                    center = locationModel.location!!,
+                                    distance = searchPreferences.destination.distance
+                            )
+                    ).map { RecommendItemPlaceImpl(it) }
+                    _recommendItemList.emit(list)
+                }
             }
         }
     }

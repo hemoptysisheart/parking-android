@@ -7,11 +7,11 @@ import com.github.hemoptysisheart.parking.domain.place.Geolocation
 import com.github.hemoptysisheart.util.NonNegativeInt
 
 class Query(
-        override val query: String?,
+        override val query: String,
         override val center: Geolocation,
         override val distance: NonNegativeInt
-) : AbstractObject(Identifier(QUERY, query ?: "")), com.github.hemoptysisheart.parking.domain.search.Query {
-    override fun toSimpleString() = query ?: "null"
+) : AbstractObject(Identifier(QUERY, query)), com.github.hemoptysisheart.parking.domain.search.Query {
+    override fun toSimpleString() = query
 
     override fun toString() = "Query(query='$query', center=${center.toSimpleString()}, distance=$distance)"
 }

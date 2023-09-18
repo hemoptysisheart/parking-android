@@ -52,7 +52,7 @@ final class SelectParkingViewModel @Inject constructor(
 
         val job = launch {
             val query = Query(
-                    query = null,
+                    query = "",
                     center = destination.geolocation,
                     distance = searchPreferences.parking.distance
             )

@@ -10,11 +10,18 @@ import com.github.hemoptysisheart.util.NonNegativeInt
 interface PlaceRepository {
     suspend fun read(id: Identifier): Place?
 
-    suspend fun list(
-            query: String?,
+    suspend fun search(
+            type: PlaceType,
+            query: String,
             center: Geolocation,
             radius: NonNegativeInt,
-            language: Locale? = null,
-            type: PlaceType? = null
+            language: Locale? = null
+    ): List<Place>
+
+    suspend fun search(
+            type: PlaceType,
+            center: Geolocation,
+            radius: NonNegativeInt,
+            language: Locale? = null
     ): List<Place>
 }

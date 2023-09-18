@@ -35,8 +35,8 @@ open class BaseViewModel : ViewModel(), DefaultLifecycleObserver {
         /**
          * [BaseViewModel.launchCompleteAt]를 대행한다.
          *
-         * [launch]가 완료된 시각. 더 정확한 시각을 지정하기 위해 [timeProvider]를 사용하지 않고 직접 [Instant.now]를 사용한다.
-         * 시스템 시계가 변경됐을 가능성이 없기 때문에 시각 정보를 사용해서는 안되고, 단순히 증가하는 값으로 변경되었다는 사실만을 사용해야 한다.
+         * [launch]가 완료된 시각. 더 정확한 시각을 지정하기 위해 [timeProvider]를 사용하지 않고 직접 [Instant.now]를 사용한다. 시스템 시계가 변경됐을 가능성이 없기 때문에
+         * 시각 정보를 사용해서는 안되고, 단순히 증가하는 값으로 변경되었다는 사실만을 사용해야 한다.
          */
         protected val launchCompleteAt = base.launchCompleteAt
 
@@ -54,8 +54,27 @@ open class BaseViewModel : ViewModel(), DefaultLifecycleObserver {
         override fun toString() = "base=$base, key=$key"
     }
 
+    /**
+     * UI(Compose)에는 읽기 인터페이스만 노출하기 위한 래퍼.
+     */
+    class VmProperty<T>(
+            initValue: T
+    ) {
+        protected val _value = MutableStateFlow(initValue)
+        val value: StateFlow<T> = _value
+
+        fun get(): T = _value.value
+
+        suspend fun set(value: T) {
+            _value.emit(value)
+        }
+
+        override fun toString() = "${_value.value}"
+    }
+
     private val progressCounter = AtomicInteger()
 
+    protected val tag = this::class.simpleName
     protected val logger = AndroidLogger(this::class)
 
     @Inject
@@ -65,14 +84,14 @@ open class BaseViewModel : ViewModel(), DefaultLifecycleObserver {
     lateinit var globalChannel: GlobalChannel
 
     /**
-     * [launch]가 완료된 시각. 더 정확한 시각을 지정하기 위해 [timeProvider]를 사용하지 않고 직접 [Instant.now]를 사용한다.
-     * 시스템 시계가 변경됐을 가능성이 없기 때문에 시각 정보를 사용해서는 안되고, 단순히 증가하는 값으로 변경되었다는 사실만을 사용해야 한다.
+     * [launch]가 완료된 시각. 더 정확한 시각을 지정하기 위해 [timeProvider]를 사용하지 않고 직접 [Instant.now]를 사용한다. 시스템 시계가 변경됐을 가능성이 없기 때문에 시각
+     * 정보를 사용해서는 안되고, 단순히 증가하는 값으로 변경되었다는 사실만을 사용해야 한다.
      */
     private val _launchCompleteAt = MutableStateFlow(Instant.now())
 
     /**
-     * [launch]가 완료된 시각. 더 정확한 시각을 지정하기 위해 [timeProvider]를 사용하지 않고 직접 [Instant.now]를 사용한다.
-     * 시스템 시계가 변경됐을 가능성이 없기 때문에 시각 정보를 사용해서는 안되고, 단순히 증가하는 값으로 변경되었다는 사실만을 사용해야 한다.
+     * [launch]가 완료된 시각. 더 정확한 시각을 지정하기 위해 [timeProvider]를 사용하지 않고 직접 [Instant.now]를 사용한다. 시스템 시계가 변경됐을 가능성이 없기 때문에 시각
+     * 정보를 사용해서는 안되고, 단순히 증가하는 값으로 변경되었다는 사실만을 사용해야 한다.
      */
     protected val launchCompleteAt: StateFlow<Instant> = _launchCompleteAt
 

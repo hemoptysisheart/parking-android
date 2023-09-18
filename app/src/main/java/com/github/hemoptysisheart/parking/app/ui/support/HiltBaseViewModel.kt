@@ -44,3 +44,14 @@ inline fun <reified T> StateFlow<T>.collect(): T {
     val value by this.collectAsStateWithLifecycle()
     return value
 }
+
+/**
+ * vm의 플로우 값을 Compose로 가져오기 쉽게 만드는 유틸리티 메서드.
+ *
+ * @see StateFlow.collectAsStateWithLifecycle
+ */
+@Composable
+inline fun <reified T> BaseViewModel.VmProperty<T>.collect(): T {
+    val value by this.value.collectAsStateWithLifecycle()
+    return value
+}

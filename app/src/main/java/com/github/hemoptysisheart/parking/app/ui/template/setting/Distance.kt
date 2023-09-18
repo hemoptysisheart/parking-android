@@ -35,7 +35,7 @@ import com.github.hemoptysisheart.parking.app.ui.preview.previewBaseViewModel
 import com.github.hemoptysisheart.parking.app.ui.resource.DistanceUnitRes
 import com.github.hemoptysisheart.parking.app.ui.support.collect
 import com.github.hemoptysisheart.parking.app.ui.theme.Typography
-import com.github.hemoptysisheart.parking.app.viewmodel.DistanceSettingViewModelet
+import com.github.hemoptysisheart.parking.app.viewmodel.main.DistanceSettingViewModelet
 import com.github.hemoptysisheart.parking.domain.common.DistanceUnit
 import com.github.hemoptysisheart.util.NonNegativeInt
 import java.util.UUID

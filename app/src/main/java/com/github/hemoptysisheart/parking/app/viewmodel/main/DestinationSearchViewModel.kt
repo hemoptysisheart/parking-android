@@ -1,5 +1,6 @@
 package com.github.hemoptysisheart.parking.app.viewmodel.main
 
+import androidx.lifecycle.LifecycleOwner
 import com.github.hemoptysisheart.parking.app.viewmodel.BaseViewModel
 import com.github.hemoptysisheart.parking.core.domain.search.RecommendItemPlaceImpl
 import com.github.hemoptysisheart.parking.core.model.LocationModel
@@ -9,8 +10,6 @@ import com.github.hemoptysisheart.parking.domain.common.Object
 import com.github.hemoptysisheart.parking.domain.search.RecommendItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 /**
@@ -30,20 +29,35 @@ class DestinationSearchViewModel @Inject constructor(
     /**
      * 목적지 검색어
      */
-    private val _query = MutableStateFlow("")
-    val query: StateFlow<String> = _query
+    val query = VmProperty("")
 
     /**
      * 검색 결과를 포함한 추천 목록.
      */
-    private val _recommendItemList = MutableStateFlow<List<RecommendItem<out Object>>?>(null)
-    val recommendItemList: StateFlow<List<RecommendItem<out Object>>?> = _recommendItemList
+    val recommendItemList = VmProperty<List<RecommendItem<out Object>>?>(null)
 
-    private val _detail = MutableStateFlow<Object?>(null)
-    val detail: StateFlow<Object?> = _detail
+    /**
+     * 검색 결과에서 상세보기를 선택한 아이템.
+     */
+    val detail = VmProperty<Object?>(null)
 
     init {
         logger.d("#init complete.")
+    }
+
+    private suspend fun search(query: String) {
+        this@DestinationSearchViewModel.query.set(query)
+
+        if (query.isNotEmpty()) {
+            val list = placeModel.searchDestination(
+                    com.github.hemoptysisheart.parking.core.domain.search.Query(
+                            query = query,
+                            center = locationModel.location!!,
+                            distance = searchPreferences.destination.distance
+                    )
+            ).map { RecommendItemPlaceImpl(it) }
+            recommendItemList.set(list)
+        }
     }
 
     fun onChangeQuery(query: String) {
@@ -51,23 +65,7 @@ class DestinationSearchViewModel @Inject constructor(
 
         searchJob?.cancel()
         searchJob = launch(progress = true) {
-            _query.emit(query)
-
-            if (query.isNotEmpty()) {
-                if (query.isEmpty()) {
-                    _recommendItemList.emit(emptyList())
-                } else {
-                    // TODO 인자를 풀어쓰는 방식으로 변경.
-                    val list = placeModel.searchDestination(
-                            com.github.hemoptysisheart.parking.core.domain.search.Query(
-                                    query = query,
-                                    center = locationModel.location!!,
-                                    distance = searchPreferences.destination.distance
-                            )
-                    ).map { RecommendItemPlaceImpl(it) }
-                    _recommendItemList.emit(list)
-                }
-            }
+            search(query)
         }
     }
 
@@ -75,7 +73,16 @@ class DestinationSearchViewModel @Inject constructor(
         logger.d("#showDetail args : obj=$obj")
 
         launch {
-            _detail.emit(obj)
+            detail.set(obj)
+        }
+    }
+
+    override fun onStart(owner: LifecycleOwner) {
+        super.onStart(owner)
+
+        searchJob?.cancel()
+        searchJob = launch(true) {
+            search(query.get())
         }
     }
 
@@ -83,7 +90,9 @@ class DestinationSearchViewModel @Inject constructor(
         logger.d("#clearDetail called.")
 
         launch {
-            _detail.emit(null)
+            detail.set(null)
         }
     }
+
+    override fun toString() = "$tag(query=$query, recommendItemList=$recommendItemList, detail=$detail)"
 }

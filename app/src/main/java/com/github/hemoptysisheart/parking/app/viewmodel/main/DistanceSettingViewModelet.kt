@@ -1,6 +1,7 @@
-package com.github.hemoptysisheart.parking.app.viewmodel
+package com.github.hemoptysisheart.parking.app.viewmodel.main
 
 import androidx.annotation.StringRes
+import com.github.hemoptysisheart.parking.app.viewmodel.BaseViewModel
 import com.github.hemoptysisheart.parking.core.util.AndroidLogger
 import com.github.hemoptysisheart.parking.domain.common.DistanceUnit
 import com.github.hemoptysisheart.util.NonNegativeInt

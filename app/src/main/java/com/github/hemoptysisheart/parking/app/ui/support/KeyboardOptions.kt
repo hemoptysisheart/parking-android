@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.parking.app.support
+package com.github.hemoptysisheart.parking.app.ui.support
 
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.ui.text.input.KeyboardType

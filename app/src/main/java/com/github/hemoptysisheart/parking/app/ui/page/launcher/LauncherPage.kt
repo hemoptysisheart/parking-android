@@ -48,9 +48,14 @@ fun LauncherPage(
     val target = viewModel.target.collect()
     LOGGER.i("#LauncherPage : target=$target")
     when (target) {
-        WizardActivity::class -> interaction.gotoWizard()
-        MainActivity::class -> interaction.gotoLandingMap()
-        else -> LOGGER.e("#LauncherPage illegal target : target=$target")
+        WizardActivity::class ->
+            interaction.gotoWizard()
+
+        MainActivity::class ->
+            interaction.gotoLandingMap()
+
+        else ->
+            LOGGER.w("#LauncherPage target not initialized or illegal target : target=$target")
     }
 
     Column(

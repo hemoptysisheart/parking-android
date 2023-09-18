@@ -11,10 +11,17 @@ interface PlaceRepository {
     suspend fun read(id: Identifier): Place?
 
     suspend fun search(
-            query: String?,
+            type: PlaceType,
+            query: String,
             center: Geolocation,
             radius: NonNegativeInt,
-            language: Locale? = null,
-            type: PlaceType? = null
+            language: Locale? = null
+    ): List<Place>
+
+    suspend fun search(
+            type: PlaceType,
+            center: Geolocation,
+            radius: NonNegativeInt,
+            language: Locale? = null
     ): List<Place>
 }

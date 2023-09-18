@@ -1,6 +1,5 @@
 package com.github.hemoptysisheart.parking.app.viewmodel.main
 
-import androidx.lifecycle.SavedStateHandle
 import com.github.hemoptysisheart.parking.R
 import com.github.hemoptysisheart.parking.app.viewmodel.BaseViewModel
 import com.github.hemoptysisheart.parking.core.util.AndroidLogger
@@ -14,7 +13,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SearchSettingViewModel @Inject constructor(
-        private val savedStateHandle: SavedStateHandle,
         private val searchPreferences: SearchPreferences
 ) : BaseViewModel() {
     companion object {

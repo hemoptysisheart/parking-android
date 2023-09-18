@@ -11,7 +11,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.github.hemoptysisheart.parking.app.interaction.BaseInteraction
-import com.github.hemoptysisheart.parking.app.interaction.Interaction.Companion.ARG_RETURN_FROM
 import com.github.hemoptysisheart.parking.app.ui.page.main.AboutAppPage
 import com.github.hemoptysisheart.parking.app.ui.page.main.DestinationSearchPage
 import com.github.hemoptysisheart.parking.app.ui.page.main.DeveloperSettingPage
@@ -55,28 +54,10 @@ fun MainNavGraph(baseInteraction: BaseInteraction) {
                 startDestination = LandingMapInteraction.ROUTE_PATTERN,
                 modifier = Modifier.fillMaxSize()
         ) {
-            composable(
-                    route = LandingMapInteraction.ROUTE_PATTERN,
-                    arguments = listOf(
-                            navArgument(ARG_RETURN_FROM) {
-                                type = NavType.StringType
-                                nullable = true
-                                defaultValue = null
-                            }
-                    )
-            ) {
+            composable(LandingMapInteraction.ROUTE_PATTERN) {
                 LandingMapPage(landingMap)
             }
-            composable(
-                    route = DestinationSearchInteraction.ROUTE_PATTERN,
-                    arguments = listOf(
-                            navArgument(ARG_RETURN_FROM) {
-                                type = NavType.StringType
-                                nullable = true
-                                defaultValue = null
-                            }
-                    )
-            ) {
+            composable(DestinationSearchInteraction.ROUTE_PATTERN) {
                 DestinationSearchPage(destinationSearch)
             }
             composable(
@@ -85,11 +66,6 @@ fun MainNavGraph(baseInteraction: BaseInteraction) {
                             navArgument(SelectParkingInteraction.ARG_DESTINATION) {
                                 nullable = false
                                 type = NavType.StringType
-                            },
-                            navArgument(ARG_RETURN_FROM) {
-                                type = NavType.StringType
-                                nullable = true
-                                defaultValue = null
                             }
                     )
             ) {
@@ -105,11 +81,6 @@ fun MainNavGraph(baseInteraction: BaseInteraction) {
                             navArgument(SelectRouteInteraction.ARG_DESTINATION) {
                                 nullable = false
                                 type = NavType.StringType
-                            },
-                            navArgument(ARG_RETURN_FROM) {
-                                type = NavType.StringType
-                                nullable = true
-                                defaultValue = null
                             }
                     )
             ) {
@@ -125,62 +96,21 @@ fun MainNavGraph(baseInteraction: BaseInteraction) {
                             navArgument(RouteNavigationInteraction.ARG_WALK) {
                                 nullable = false
                                 type = NavType.StringType
-                            },
-                            navArgument(ARG_RETURN_FROM) {
-                                type = NavType.StringType
-                                nullable = true
-                                defaultValue = null
                             }
                     )
             ) {
                 RouteNavigationPage(routeNavigation)
             }
-            composable(
-                    route = SettingsInteraction.ROUTE_PATTERN,
-                    arguments = listOf(
-                            navArgument(ARG_RETURN_FROM) {
-                                type = NavType.StringType
-                                nullable = true
-                                defaultValue = null
-                            }
-                    )
-            ) {
+            composable(SettingsInteraction.ROUTE_PATTERN) {
                 SettingsPage(setting)
             }
-            composable(
-                    route = SearchSettingInteraction.ROUTE_PATTERN,
-                    arguments = listOf(
-                            navArgument(ARG_RETURN_FROM) {
-                                type = NavType.StringType
-                                nullable = true
-                                defaultValue = null
-                            }
-                    )
-            ) {
+            composable(SearchSettingInteraction.ROUTE_PATTERN) {
                 SearchSettingPage(searchDestinationFilter)
             }
-            composable(
-                    route = DeveloperSettingInteraction.ROUTE_PATTERN,
-                    arguments = listOf(
-                            navArgument(ARG_RETURN_FROM) {
-                                type = NavType.StringType
-                                nullable = true
-                                defaultValue = null
-                            }
-                    )
-            ) {
+            composable(DeveloperSettingInteraction.ROUTE_PATTERN) {
                 DeveloperSettingPage(developerSetting)
             }
-            composable(
-                    route = AboutAppInteraction.ROUTE_PATTERN,
-                    arguments = listOf(
-                            navArgument(ARG_RETURN_FROM) {
-                                type = NavType.StringType
-                                nullable = true
-                                defaultValue = null
-                            }
-                    )
-            ) {
+            composable(AboutAppInteraction.ROUTE_PATTERN) {
                 AboutAppPage(aboutAppInteraction)
             }
         }

@@ -7,7 +7,6 @@ import android.net.Uri
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.navigation.NavHostController
-import com.github.hemoptysisheart.parking.app.interaction.Interaction.Companion.ARG_RETURN_FROM
 import com.github.hemoptysisheart.parking.core.util.AndroidLogger
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -23,10 +22,6 @@ class BaseInteraction(
     override fun goBack() {
         LOGGER.i("#goBack called.")
 
-        navController.previousBackStackEntry?.savedStateHandle?.set(
-                ARG_RETURN_FROM,
-                navController.currentBackStackEntry!!.destination.route
-        )
         navController.popBackStack()
     }
 

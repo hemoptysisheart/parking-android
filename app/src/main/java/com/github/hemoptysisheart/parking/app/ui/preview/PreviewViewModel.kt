@@ -37,11 +37,10 @@ fun previewBaseViewModel(): BaseViewModel {
 }
 
 fun previewDestinationSearchViewModel(
-        savedStateHandle: SavedStateHandle = SavedStateHandle(),
         searchPreferences: SearchPreferences = previewPreferencesModel().search,
         locationModel: LocationModel = previewLocationModel(),
         placeModel: PlaceModel = previewPlaceModel()
-) = DestinationSearchViewModel(savedStateHandle, searchPreferences, locationModel, placeModel)
+) = DestinationSearchViewModel(searchPreferences, locationModel, placeModel)
 
 fun previewInstructionViewModel(
         wizardPreferences: WizardPreferences = previewPreferencesModel().wizard,
@@ -62,9 +61,8 @@ fun previewLocationViewModel(
 ) = LocationViewModel(locationModel, previewPreferencesModel().wizard)
 
 fun previewSearchSettingViewModel(
-        savedStateHandle: SavedStateHandle = SavedStateHandle(),
         searchPreferences: SearchPreferences = previewPreferencesModel().search
-) = SearchSettingViewModel(savedStateHandle, searchPreferences)
+) = SearchSettingViewModel(searchPreferences)
 
 fun previewSettingsViewModel() = SettingsViewModel()
 

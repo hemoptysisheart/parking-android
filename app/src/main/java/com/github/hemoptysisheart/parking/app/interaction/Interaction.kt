@@ -9,15 +9,6 @@ import android.net.Uri
  * - 소프트웨어 키보드 보이기/숨기기.
  */
 interface Interaction {
-    companion object {
-        /**
-         * 돌아가기 조작이 어느 화면에서 돌아온 것인지 알려준다.
-         *
-         * 값은 루트 패턴(`ROUTE_PATTERN`)
-         */
-        const val ARG_RETURN_FROM = "RETURN_FROM"
-    }
-
     /**
      * 돌아가기.
      */

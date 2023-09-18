@@ -28,17 +28,17 @@ class DestinationSearchViewModel @Inject constructor(
     /**
      * 목적지 검색어
      */
-    val query = VmProperty("query", "")
+    val query = VmProperty("")
 
     /**
      * 검색 결과를 포함한 추천 목록.
      */
-    val recommendItemList = VmProperty<List<RecommendItem<out Object>>?>("recommendItemList", null)
+    val recommendItemList = VmProperty<List<RecommendItem<out Object>>?>(null)
 
     /**
      * 검색 결과에서 상세보기를 선택한 아이템.
      */
-    val detail = VmProperty<Object?>("detail", null)
+    val detail = VmProperty<Object?>(null)
 
     init {
         logger.d("#init complete.")
@@ -84,4 +84,6 @@ class DestinationSearchViewModel @Inject constructor(
             detail.set(null)
         }
     }
+
+    override fun toString() = "$tag(query=$query, recommendItemList=$recommendItemList, detail=$detail)"
 }

@@ -8,7 +8,6 @@ import com.github.hemoptysisheart.parking.core.model.GlobalChannel
 import com.github.hemoptysisheart.parking.core.util.AndroidLogger
 import com.github.hemoptysisheart.parking.core.util.AndroidMessageException
 import com.github.hemoptysisheart.util.TimeProvider
-import com.github.hemoptysisheart.util.ToSimpleString
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Job
@@ -59,9 +58,8 @@ open class BaseViewModel : ViewModel(), DefaultLifecycleObserver {
      * UI(Compose)에는 읽기 인터페이스만 노출하기 위한 래퍼.
      */
     class VmProperty<T>(
-            val name: String,
-            val initValue: T
-    ) : ToSimpleString {
+            initValue: T
+    ) {
         protected val _value = MutableStateFlow(initValue)
         val value: StateFlow<T> = _value
 
@@ -69,13 +67,12 @@ open class BaseViewModel : ViewModel(), DefaultLifecycleObserver {
             _value.emit(value)
         }
 
-        override fun toSimpleString() = "$name=${_value.value}"
-
-        override fun toString(): String = "initValue=$initValue, _value=${_value.value}"
+        override fun toString() = "${_value.value}"
     }
 
     private val progressCounter = AtomicInteger()
 
+    protected val tag = this::class.simpleName
     protected val logger = AndroidLogger(this::class)
 
     @Inject

@@ -1,6 +1,8 @@
 package com.github.hemoptysisheart.parking.app.viewmodel.main
 
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.SavedStateHandle
+import com.github.hemoptysisheart.parking.app.interaction.Interaction
 import com.github.hemoptysisheart.parking.app.viewmodel.BaseViewModel
 import com.github.hemoptysisheart.parking.core.domain.search.RecommendItemPlaceImpl
 import com.github.hemoptysisheart.parking.core.model.LocationModel
@@ -20,6 +22,7 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class DestinationSearchViewModel @Inject constructor(
+        private val savedStateHandle: SavedStateHandle,
         private val searchPreferences: SearchPreferences,
         private val locationModel: LocationModel,
         private val placeModel: PlaceModel
@@ -79,6 +82,9 @@ class DestinationSearchViewModel @Inject constructor(
 
     override fun onStart(owner: LifecycleOwner) {
         super.onStart(owner)
+
+        val returnFrom: Any? = savedStateHandle[Interaction.ARG_RETURN_FROM]
+        logger.e("#onStart : returnFrom=$returnFrom")
 
         searchJob?.cancel()
         searchJob = launch(true) {

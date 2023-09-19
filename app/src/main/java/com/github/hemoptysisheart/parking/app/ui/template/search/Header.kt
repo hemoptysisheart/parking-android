@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -25,15 +26,23 @@ import com.github.hemoptysisheart.parking.app.ui.molecule.SettingsButton
 import com.github.hemoptysisheart.parking.app.ui.molecule.TextBodyMedium
 import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreview
 import com.github.hemoptysisheart.parking.app.ui.preview.ComponentPreviewContainer
+import com.github.hemoptysisheart.parking.app.ui.support.KEYBOARD_SEARCH
 
 /**
  * [`destinationSearch/header`](https://www.figma.com/file/4ddVw1GJttHudAFojZRj1s/Parking?type=design&node-id=54416-1232&mode=design)
+ *
+ * @param query 검색어
+ * @param onChangeQuery 검색어 변경
+ * @param onClickBack 돌아가기
+ * @param onSearch 키보드 검색 버튼 클릭.
+ * @param gotoSearchSetting 검색설정 열기
  */
 @Composable
 fun Header(
         query: String,
         onChangeQuery: (String) -> Unit = { },
         onClickBack: () -> Unit = { },
+        onSearch: () -> Unit = { },
         gotoSearchSetting: () -> Unit = { }
 ) {
     val bottomColor = MaterialTheme.colorScheme.outlineVariant
@@ -64,9 +73,9 @@ fun Header(
                             maxLines = 1
                     )
                 },
-                leadingIcon = {
-                    SearchButton()
-                },
+                leadingIcon = { SearchButton() },
+                keyboardOptions = KEYBOARD_SEARCH,
+                keyboardActions = KeyboardActions(onSearch = { onSearch() }),
                 singleLine = true,
                 shape = RoundedCornerShape(30.dp),
                 colors = OutlinedTextFieldDefaults.colors(

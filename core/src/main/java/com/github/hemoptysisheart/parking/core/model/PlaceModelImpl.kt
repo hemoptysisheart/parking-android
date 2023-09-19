@@ -34,13 +34,7 @@ class PlaceModelImpl @Inject constructor(
     override suspend fun searchDestination(query: Query): List<Place> {
         LOGGER.v("#searchDestination args : query=$query")
 
-        val list = placeRepository.search(
-                query = query.query,
-                center = query.center,
-                radius = query.distance,
-                language = searchPreferences.language,
-                type = DESTINATION
-        )
+        val list = placeRepository.search(DESTINATION, query.center, query.distance, searchPreferences.language)
 
         LOGGER.v("#searchDestination return : $list")
         return list

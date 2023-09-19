@@ -34,7 +34,12 @@ class PlaceModelImpl @Inject constructor(
     override suspend fun searchDestination(query: Query): List<Place> {
         LOGGER.v("#searchDestination args : query=$query")
 
-        val list = placeRepository.search(DESTINATION, query.center, query.distance, searchPreferences.language)
+        val list = placeRepository.search(
+                type = DESTINATION,
+                center = query.center,
+                radius = query.distance,
+                language = searchPreferences.language
+        )
 
         LOGGER.v("#searchDestination return : $list")
         return list
@@ -46,7 +51,12 @@ class PlaceModelImpl @Inject constructor(
             LOGGER.w("#searchParking query is not empty : query=$query")
         }
 
-        val list = placeRepository.search(PARKING, query.center, query.distance, searchPreferences.language)
+        val list = placeRepository.search(
+                type = PARKING,
+                center = query.center,
+                radius = query.distance,
+                language = searchPreferences.language
+        )
 
         LOGGER.v("#searchParking return : $list")
         return list

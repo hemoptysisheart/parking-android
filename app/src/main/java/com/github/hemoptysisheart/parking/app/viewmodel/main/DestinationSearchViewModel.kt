@@ -2,6 +2,7 @@ package com.github.hemoptysisheart.parking.app.viewmodel.main
 
 import androidx.lifecycle.LifecycleOwner
 import com.github.hemoptysisheart.parking.app.viewmodel.BaseViewModel
+import com.github.hemoptysisheart.parking.core.domain.search.Query
 import com.github.hemoptysisheart.parking.core.domain.search.RecommendItemPlaceImpl
 import com.github.hemoptysisheart.parking.core.model.LocationModel
 import com.github.hemoptysisheart.parking.core.model.PlaceModel
@@ -50,7 +51,7 @@ class DestinationSearchViewModel @Inject constructor(
 
         if (query.isNotEmpty()) {
             val list = placeModel.searchDestination(
-                    com.github.hemoptysisheart.parking.core.domain.search.Query(
+                    Query(
                             query = query,
                             center = locationModel.location!!,
                             distance = searchPreferences.destination.distance
